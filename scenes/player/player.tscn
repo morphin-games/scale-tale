@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cr53rsuby7qyv"]
+
+[sub_resource type="GDScript" id="GDScript_t5ym6"]
+script/source = "extends CharacterBody3D
+
+@export var max_speed : float = 5.0
+@export var max_jump_force : float = 5.0
+
+func _physics_process(delta: float) -> void:
+#	print($MovementPivot/MovementDirection.global_transform.origin - global_transform.origin)ç
+	
+	if(Input.is_action_pressed(\"ui_left\") or Input.is_action_pressed(\"ui_right\") or Input.is_action_pressed(\"ui_down\") or Input.is_action_pressed(\"ui_up\")):
+		$MovementPivot/MovementDirection.transform.origin.x = move_toward($MovementPivot/MovementDirection.transform.origin.x, 2.0, 0.2)
+	else:
+		$MovementPivot/MovementDirection.transform.origin.x = move_toward($MovementPivot/MovementDirection.transform.origin.x, 0.0, 0.2)
+
+	var direction : Vector2 = Vector2(Input.get_axis(\"ui_down\", \"ui_up\"), Input.get_axis(\"ui_left\", \"ui_right\")).normalized()
+	$MovementPivot.rotation.y = move_toward($MovementPivot.rotation.y, direction.angle(), 0.2)
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_tg7a4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0h2s8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mx2nd"]
+
+[node name="Player" type="CharacterBody3D"]
+script = SubResource("GDScript_t5ym6")
+
+[node name="MovementPivot" type="Node3D" parent="."]
+
+[node name="MovementDirection" type="Node3D" parent="MovementPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementPivot/MovementDirection"]
+transform = Transform3D(0.215, 0, 0, 0, 0.215, 0, 0, 0, 0.215, 0, 0, 0)
+mesh = SubResource("SphereMesh_tg7a4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_0h2s8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mx2nd")
