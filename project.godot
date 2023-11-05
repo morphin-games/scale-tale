@@ -70,7 +70,7 @@ ui_upscale={
 
 [physics]
 
-3d/default_gravity=3.2
+3d/default_gravity=30.0
 
 [rendering]
 

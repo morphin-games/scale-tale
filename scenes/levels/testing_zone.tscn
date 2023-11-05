@@ -11,7 +11,8 @@ size = Vector3(19.6943, 1, 18.257)
 [node name="TestingZone" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_33pus")]
-max_jump_force = 12.0
+acceleration = 0.33
+max_jump_force = 10.5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.207553, 0.978224, 0, -0.978224, -0.207553, 0.735032, 5.05304, -2.39666)
