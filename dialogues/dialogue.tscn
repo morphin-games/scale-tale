@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx3g0ihmio2ht"]
+
+[ext_resource type="Texture2D" uid="uid://c1k21mq3tajmf" path="res://dialogues/dialogue_box.png" id="1_8dj8g"]
+
+[sub_resource type="GDScript" id="GDScript_86a46"]
+script/source = "extends CanvasLayer
+
+var dialogue = []
+var current_dialogue_id = 0
+var dialog_active = false
+
+
+func start():
+	if dialog_active:
+		return
+	dialog_active = true
+	$NinePatchRect.visible = true
+	dialogue = load_dialogue(\"res://dialogues/json/dialog_test.json\")
+	current_dialogue_id = -1
+	next_script()
+
+func _ready() -> void:
+	$NinePatchRect.visible = false
+
+	
+func load_dialogue(dialog_file):
+	var file = FileAccess.open(dialog_file, FileAccess.READ)
+	var content = file.get_as_text()
+	var json = JSON.new()
+	var finish = json.parse_string(content)
+	return finish
+
+func _input(event: InputEvent) -> void:
+	if not dialog_active:
+		return
+	if event.is_action_pressed(\"ui_accept\"):
+		next_script()
+		
+func next_script():
+	current_dialogue_id += 1
+	
+	if current_dialogue_id>= len(dialogue):
+		return
+	$NinePatchRect/Name.text = dialogue[current_dialogue_id][\"name\"]
+	$NinePatchRect/Chat.text = dialogue[current_dialogue_id][\"text\"]
+"
+
+[node name="Dialogue" type="CanvasLayer"]
+script = SubResource("GDScript_86a46")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_right = 1156.0
+offset_bottom = 236.0
+texture = ExtResource("1_8dj8g")
+
+[node name="Name" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 6.0
+offset_right = 305.0
+offset_bottom = 64.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "Name
+"
+
+[node name="Chat" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 67.0
+offset_right = 1141.0
+offset_bottom = 218.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 25
+text = "Lore ipsum de manual Lore ipsum de manualLore ipsum de manualLore ipsum de manualLore ipsum de manualLore ipsum de manualLore ipsum de manualLore ipsum de manual"
