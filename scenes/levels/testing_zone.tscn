@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0v6khcktvix2"]
+[gd_scene load_steps=9 format=3 uid="uid://b0v6khcktvix2"]
 
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="1_33pus"]
 [ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="2_yxxnx"]
 [ext_resource type="PackedScene" uid="uid://cj07nkf16w76c" path="res://scenes/props/interactor_test.tscn" id="3_aykrk"]
+[ext_resource type="PackedScene" uid="uid://caeqyf0p3un6l" path="res://scenes/props/grabable_test.tscn" id="4_afu04"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b8cmg"]
 size = Vector3(50, 1, 50)
@@ -105,3 +106,6 @@ shape = SubResource("BoxShape3D_5064m")
 
 [node name="interactor_test" parent="." instance=ExtResource("3_aykrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7218, 2.10737, 6.7329)
+
+[node name="grabable_test" parent="." instance=ExtResource("4_afu04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
