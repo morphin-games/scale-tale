@@ -1,0 +1,31 @@
+[gd_scene load_steps=9 format=3 uid="uid://chd3ay5woojrr"]
+
+[ext_resource type="PackedScene" uid="uid://d2ucsiorpiwhk" path="res://art/3D/models/Wizard Tower/GLB/torre_magos.glb" id="1_d2s71"]
+[ext_resource type="Texture2D" uid="uid://bagceboxjng0h" path="res://art/3D/models/Wizard Tower/Texturas Bakeadas/stylized_tower_rocks_diff_2.png" id="2_4ynva"]
+[ext_resource type="Texture2D" uid="uid://24tqb7ttwgx3" path="res://art/3D/models/Wizard Tower/Texturas Bakeadas/stylized_tower_rocks_normal.png" id="3_oxxny"]
+[ext_resource type="Texture2D" uid="uid://0txekgtm0a83" path="res://art/3D/models/Wizard Tower/Texturas Bakeadas/rock_stylized_techos_diff.png" id="4_nvgx2"]
+[ext_resource type="Texture2D" uid="uid://dqaeiw730ny2o" path="res://art/3D/models/Wizard Tower/Texturas Bakeadas/rock_stylized_techos_normal.png" id="5_qbcm7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k02uy"]
+albedo_texture = ExtResource("2_4ynva")
+normal_enabled = true
+normal_texture = ExtResource("3_oxxny")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkfwv"]
+albedo_texture = ExtResource("4_nvgx2")
+normal_enabled = true
+normal_texture = ExtResource("5_qbcm7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4evqs"]
+albedo_texture = ExtResource("4_nvgx2")
+
+[node name="torre_magos" instance=ExtResource("1_d2s71")]
+
+[node name="Cuerpo Torre" parent="." index="13"]
+material_override = SubResource("StandardMaterial3D_k02uy")
+
+[node name="Tejado01" parent="." index="24"]
+material_override = SubResource("StandardMaterial3D_kkfwv")
+
+[node name="Tejado02" parent="." index="25"]
+material_override = SubResource("StandardMaterial3D_4evqs")
