@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dutnoet18jlv1"]
+
+[ext_resource type="Texture2D" uid="uid://dx5mc2ppllgtj" path="res://icon.svg" id="1_8pah6"]
+
+[sub_resource type="GDScript" id="GDScript_670j2"]
+script/source = "# This scene acts as a way to add interactions to scenes.
+# By default it has no collision shape as it's intended to be added for each specific case.
+# Remember that changing the collision shape shared by many scenes makes every collision shape update, unless they are unique.
+
+extends Area3D
+
+signal interacted
+
+@onready var player_near : bool = false
+
+func _on_body_entered(body: Node3D) -> void:
+	if(body.name == \"Player\"):
+		$InteractionSprite.visible = true
+		player_near = true
+		
+func _on_body_exited(body: Node3D) -> void:
+	if(body.name == \"Player\"):
+		$InteractionSprite.visible = false
+		player_near = false
+		
+func _input(event: InputEvent) -> void:
+	if(event.is_action_pressed(\"ui_interact\") and player_near):
+		emit_signal(\"interacted\")
+"
+
+[node name="Interactuable" type="Area3D"]
+script = SubResource("GDScript_670j2")
+
+[node name="InteractionSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
+billboard = 1
+texture = ExtResource("1_8pah6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
