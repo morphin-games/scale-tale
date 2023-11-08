@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://g05ecni800s6"]
+
+[sub_resource type="GDScript" id="GDScript_uwnyl"]
+script/source = "extends Node3D
+
+var dialog_active = false
+var current_dialogue_id = 0
+var dialogue = [
+	\"Atest\",
+	\"NO SE\"
+]
+
+
+func start():
+	if dialog_active:
+		return
+	dialog_active = true
+	dialogue = load_dialogue(\"res://dialogues/json/dialog_test.json\")
+	current_dialogue_id = -1
+
+
+func load_dialogue(dialog_file):
+	var file = FileAccess.open(dialog_file, FileAccess.READ)
+	var content = file.get_as_text()
+	var json = JSON.new()
+	var finish = json.parse_string(content)
+	return finish
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"ui_grab\"):
+		if $Area3D.get_overlapping_bodies().size() > 0:
+			DialogManager.start_dialog(global_position, dialogue)
+		
+"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5rjww"]
+radius = 1.54499
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7e46"]
+
+[node name="npc_test" type="Node3D"]
+script = SubResource("GDScript_uwnyl")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.00185275, -0.00481892, 0.00265574)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_5rjww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_s7e46")
