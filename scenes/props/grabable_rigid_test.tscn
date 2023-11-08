@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhetdvhrfu43g"]
+
+[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_qqxsg"]
+[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_7dxa6"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="3_8os5c"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fynsa"]
+bounce = 0.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_buxr5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eohvd"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cvuk6"]
+
+[node name="GrabableTest" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_fynsa")
+linear_damp = 0.33
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_buxr5")
+
+[node name="Interactuable" parent="." instance=ExtResource("3_7dxa6")]
+show_interaction_sprite = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
+shape = SubResource("SphereShape3D_eohvd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_cvuk6")
+
+[node name="GrabableRigid3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
+script = ExtResource("2_qqxsg")
+item = NodePath("..")
+interactuable = NodePath("../Interactuable")
+
+[node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("3_8os5c")
+root = NodePath("..")
+
+[editable path="Interactuable"]

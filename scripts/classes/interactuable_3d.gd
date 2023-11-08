@@ -7,11 +7,14 @@ extends Area3D
 
 signal interacted
 
+@export var show_interaction_sprite : bool = true
+
 var player_near : SPPlayer3D
 
 func _on_body_entered(body: Node3D) -> void:
 	if(body.name == "Player"):
-		$InteractionSprite.visible = true
+		if(show_interaction_sprite):
+			$InteractionSprite.visible = true
 		player_near = body
 		
 func _on_body_exited(body: Node3D) -> void:

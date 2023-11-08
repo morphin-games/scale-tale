@@ -23,6 +23,7 @@ slide_on_ceiling = false
 floor_constant_speed = true
 floor_snap_length = 0.5
 script = ExtResource("1_dkijp")
+acceleration = 0.05
 
 [node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -59,9 +60,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 
 [node name="Movement" type="Node3D" parent="MovementPivot"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementPivot/Movement"]
+[node name="MovementVisualizer" type="MeshInstance3D" parent="MovementPivot/Movement"]
 transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, 0, 0)
-visible = false
 mesh = SubResource("SphereMesh_6080t")
 
 [node name="WallHangers" type="Node3D" parent="."]

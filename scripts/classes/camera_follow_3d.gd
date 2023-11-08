@@ -9,6 +9,7 @@ extends Camera3D
 @export var height : float = 2.0
 
 @onready var angle : float = 0.0
+@onready var r_height : float = height
 
 var direction : Vector2
 

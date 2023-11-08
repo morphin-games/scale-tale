@@ -1,24 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://caeqyf0p3un6l"]
+[gd_scene load_steps=6 format=3 uid="uid://cbxyo440n04po"]
 
 [ext_resource type="Script" path="res://scripts/classes/grabable_3d.gd" id="1_ve2a5"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_h5n6f"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="3_6wj3l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eohvd"]
 radius = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_qpsb4"]
 
-[node name="grabable_test" type="Node3D"]
+[node name="GrabableTest" type="Node3D"]
 
-[node name="Grabable3D" type="Node3D" parent="." node_paths=PackedStringArray("item", "interactuable")]
+[node name="Grabable3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
 script = ExtResource("1_ve2a5")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
+[node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root", "unaffected_items")]
+script = ExtResource("3_6wj3l")
+root = NodePath("..")
+unaffected_items = [NodePath("../Interactuable")]
+
 [node name="Interactuable" parent="." instance=ExtResource("2_h5n6f")]
+show_interaction_sprite = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
 shape = SubResource("SphereShape3D_eohvd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_qpsb4")
+
+[editable path="Interactuable"]
