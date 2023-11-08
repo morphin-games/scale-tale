@@ -11,11 +11,15 @@ signal direction_changed(new_direction)
 @export var grass_mesh : MultiMeshInstance3D
 
 @onready var r_acceleration : float = acceleration
+@onready var speed : float = max_speed
+
+var near_bodies : Array[Node3D] = []
 
 enum PlayerStates {
 	IDLE = 0
 	,MOVING = 1
 	,JUMPING = 2
+	,OLYMPIC_JUMPING = 21
 	,GROUNDPOUNDING = 3
 	,CROUCHING = 4
 	,HANGING = 5
@@ -74,7 +78,6 @@ func _physics_process(delta: float) -> void:
 			
 #	Movement
 	time_since_direction_change += delta
-	print(time_since_direction_change)
 	if(direction.length() > 0.5):
 		last_movement_direction = direction
 	direction = Vector2(Input.get_axis("ui_down", "ui_up"), Input.get_axis("ui_left", "ui_right")).normalized()
@@ -82,12 +85,16 @@ func _physics_process(delta: float) -> void:
 	$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
 	$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, (direction.y * 2) + jump_external_force.y, acceleration)
 	
-	velocity.x = (global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x) * max_speed
-	velocity.z = (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z) * max_speed
+	if(player_state == PlayerStates.CROUCHING):
+		speed = move_toward(speed, max_speed * 0.2, 0.4)
+	
+	velocity.x = (global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x) * speed
+	velocity.z = (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z) * speed
 	jump_external_force = jump_external_force.move_toward(Vector2.ZERO, 0.075)
 	gravity = move_toward(gravity, ProjectSettings.get("physics/3d/default_gravity"), 0.25)
-	max_speed = move_toward(max_speed, 5.0, 0.075)
 	acceleration = move_toward(acceleration, r_acceleration, 0.1)
+	if(player_state != PlayerStates.CROUCHING and player_state != PlayerStates.JUMPING and player_state != PlayerStates.OLYMPIC_JUMPING):
+		speed = move_toward(speed, max_speed, 0.075)
 	if(Vector2(velocity.x, velocity.z).length() > 0):
 		%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(-last_movement_direction.x, last_movement_direction.y).angle() + $MovementPivot.rotation.y, 0.33)
 		$CollisionShape3D.rotation.y = %Mesh.rotation.y
@@ -95,33 +102,45 @@ func _physics_process(delta: float) -> void:
 		
 	$WallHangers.rotation.y = %Mesh.rotation.y
 	
+	if(velocity.y < -100.0):
+		$WallHangers.scale.x = 1.0
+		
 	if(is_on_floor()):
-		if(player_state != PlayerStates.JUMPING):
+		if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.OLYMPIC_JUMPING):
+			$WallHangers.scale.x = 1.0
 			velocity.y = 0.0
 			jump_external_force = Vector2.ZERO
-			max_speed = 5.0
 			camera_rotation_speed = 0.75
+		if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.GROUNDPOUNDING and player_state != PlayerStates.OLYMPIC_JUMPING):
+			if(Input.is_action_pressed("ui_groundpound")):
+				player_state = PlayerStates.CROUCHING
+			if(Input.is_action_just_released("ui_groundpound")):
+				player_state = PlayerStates.IDLE
 			
-		if((velocity.x == 0 or velocity.z == 0)):
+		if((velocity.x == 0 or velocity.z == 0) and player_state != PlayerStates.CROUCHING):
 			player_state = PlayerStates.IDLE
-		elif((velocity.x != 0 or velocity.z != 0)):
+		elif((velocity.x != 0 or velocity.z != 0) and player_state != PlayerStates.CROUCHING):
 			player_state = PlayerStates.MOVING
-			
-		if(Input.is_action_pressed("ui_groundpound")):
-			player_state = PlayerStates.CROUCHING
+
 		if(Input.is_action_just_pressed("ui_jump")):
-#			Backflip
 			if(player_state == PlayerStates.CROUCHING):
 				player_state = PlayerStates.JUMPING
 				if(Vector2(velocity.x, velocity.z).length() > 0.2):
-					camera_rotation_speed = 0.04
+#					Olympic jump
+					player_state = PlayerStates.OLYMPIC_JUMPING
+					speed = max_speed * 0.8
+					camera_rotation_speed = 0.035
 					jump_external_force = last_movement_direction * 5.0
 					gravity = ProjectSettings.get("physics/3d/default_gravity")
 					velocity.y = max_jump_force * 0.75
 					return
 				else:
+#					Backflip
+					camera_rotation_speed = 0.01
+					acceleration = 2.0
+					$WallHangers.scale.x = -1.0
 					jump_external_force = -last_movement_direction * 4.0
-					max_speed = 0.5
+					speed = 0.5
 					gravity = ProjectSettings.get("physics/3d/default_gravity") * 0.75
 					velocity.y = max_jump_force * 1.25
 					return
@@ -130,36 +149,38 @@ func _physics_process(delta: float) -> void:
 	#			Normal jump
 				velocity.y = max_jump_force
 	#			Lateral jump
-				if(abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
-					if(time_since_direction_change > 0.10 and time_since_direction_change < 0.33):
-						velocity.y = max_jump_force * 1.75
+				if(abs(last_direction.x) - abs(direction.x) < 0 - 0.12 or abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
+					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
+						velocity.y = max_jump_force * 1.45
 		
 	else:
 		if(player_state != PlayerStates.GROUNDPOUNDING):
 			velocity.y -= gravity * delta
-			if(Input.is_action_pressed("ui_groundpound") and player_state == PlayerStates.JUMPING):
+			if(Input.is_action_just_pressed("ui_groundpound") and player_state == PlayerStates.JUMPING):
 				velocity.y = 0
 				player_state = PlayerStates.GROUNDPOUNDING
 				await(get_tree().create_timer(0.30).timeout)
 				velocity.y = -37.5
 				
-		if($WallHangers/Checker.get_collider() != null and $WallHangers/Hanger.get_collider() != null):
+		if($WallHangers/Checker.get_collider() != null and $WallHangers/Hanger.get_collider() != null and !is_on_floor()):
 			if(velocity.y < -5.0):
 				velocity.y = -5.0
 				
 		if(is_on_wall()):
 			if($WallHangers/Checker.get_collider() == null and $WallHangers/Hanger.get_collider() != null and velocity.y < 0):
-				max_speed = 0.0
+				speed = 0.0
 				velocity.y = 0.0
 				player_state = PlayerStates.HANGING
 				
+#			Wall jump
 			if(player_state != PlayerStates.HANGING):
 				if(Input.is_action_just_pressed("ui_jump")):
+					speed = max_speed * 0.2
 					velocity = Vector3.ZERO
 					velocity.y = max_jump_force * 1.25
 					acceleration = 2.0
 					last_movement_direction *= -1
-					jump_external_force = last_movement_direction * 3.0
+					jump_external_force = (Vector2($WallHangers/Hanger.get_collision_normal().x, $WallHangers/Hanger.get_collision_normal().y) + Vector2.from_angle(deg_to_rad(90))).normalized() * 5.0
 			else:
 				if(Input.is_action_just_pressed("ui_groundpound")):
 					player_state = PlayerStates.JUMPING
@@ -184,8 +205,29 @@ func _physics_process(delta: float) -> void:
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).downscale(delta)
+		else:
+			for body in near_bodies:
+				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+				if(scalables.size() > 0):
+					(scalables[0] as Scalable3D).downscale(delta)
+			
 	elif(Input.is_action_pressed("ui_upscale")):
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).upscale(delta)
+		else:
+			for body in near_bodies:
+				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+				if(scalables.size() > 0):
+					(scalables[0] as Scalable3D).upscale(delta)
+
+
+
+func _on_near_bodies_body_entered(body: Node3D) -> void:
+	near_bodies.append(body)
+	print(near_bodies)
+
+func _on_near_bodies_body_exited(body: Node3D) -> void:
+	near_bodies.erase(body)
+	print(near_bodies)
