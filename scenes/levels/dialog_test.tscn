@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="1_bir06"]
 [ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="2_tu6q6"]
-[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://dialogues/npc_test.tscn" id="3_05hwd"]
+[ext_resource type="PackedScene" uid="uid://v3g1medevgu4" path="res://scenes/props/tps.tscn" id="4_0xw5w"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b8cmg"]
 size = Vector3(15, 1, 15)
@@ -12,15 +12,8 @@ size = Vector3(19.6943, 1, 18.257)
 
 [node name="TestingZone" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_bir06")]
-acceleration = 0.33
-max_jump_force = 10.5
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.207553, 0.978224, 0, -0.978224, -0.207553, 0.735032, 5.05304, -2.39666)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.919664, 0.392706, 0, -0.392706, 0.919664, 0, 1.58323, 4.78841)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15447, 0)
@@ -31,11 +24,27 @@ mesh = SubResource("BoxMesh_b8cmg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_b4f12")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.1408, -2.15447, 0)
+mesh = SubResource("BoxMesh_b8cmg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_b4f12")
+
 [node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 current = true
 script = ExtResource("2_tu6q6")
 target = NodePath("../Player")
 distance = 10.0
 
-[node name="npc_test" parent="." instance=ExtResource("3_05hwd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.89876, -0.684911, -3.5532)
+[node name="tps" parent="." node_paths=PackedStringArray("point_to_tp") instance=ExtResource("4_0xw5w")]
+transform = Transform3D(0.191047, 0, 0, 0, 1, 0, 0, 0, 0.166718, 5.74954, -0.848721, 3.4823)
+point_to_tp = NodePath("../tps2")
+
+[node name="tps2" parent="." node_paths=PackedStringArray("point_to_tp") instance=ExtResource("4_0xw5w")]
+transform = Transform3D(0.287902, 0, 0, 0, 1, 0, 0, 0, 0.354848, 17.2486, -1.07165, 1.8988)
+point_to_tp = NodePath("../tps")
+
+[node name="Player" parent="." instance=ExtResource("1_bir06")]
