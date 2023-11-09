@@ -184,7 +184,7 @@ func _physics_process(delta: float) -> void:
 					velocity.y = max_jump_force * 1.25
 					acceleration = 2.0
 					last_movement_direction *= -1
-					jump_external_force = (Vector2($WallHangers/Hanger.get_collision_normal().x, $WallHangers/Hanger.get_collision_normal().y) + Vector2.from_angle(deg_to_rad(90))).normalized() * 5.0
+					jump_external_force = Vector2(%Mesh.global_transform.basis.z.x, %Mesh.global_transform.basis.z.z) * 5.0
 			else:
 				if(Input.is_action_just_pressed("ui_groundpound")):
 					player_state = PlayerStates.JUMPING

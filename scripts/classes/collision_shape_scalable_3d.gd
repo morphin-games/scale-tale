@@ -11,10 +11,20 @@ var original_height : float
 func _ready() -> void:
 	if(shape is BoxShape3D):
 		original_size = (shape as BoxShape3D).size
+		shape = BoxShape3D.new()
+		shape.size = original_size
 	if(shape is SphereShape3D):
 		original_radius = (shape as SphereShape3D).radius
-	if(shape is CylinderShape3D or shape is CapsuleShape3D):
+		shape = SphereShape3D.new()
+		shape.radius = original_radius
+	if(shape is CylinderShape3D):
 		original_height = (shape as CylinderShape3D).height
+		shape = CylinderShape3D.new()
+		shape.height = original_height
+	elif(shape is CapsuleShape3D):
+		original_height = (shape as CapsuleShape3D).height
+		shape = CapsuleShape3D.new()
+		shape.height = original_height
 		
 func _process(delta: float) -> void:
 	scale = scale / scalable_3d.current_scale.x
