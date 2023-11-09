@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=3 uid="uid://cr53rsuby7qyv"]
+
+[ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
+[ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0h2s8"]
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7jnw3"]
+radius = 0.1
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2j8k8"]
+radius = 0.25
+height = 0.75
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_r7t6t"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6080t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2g1by"]
+size = Vector3(6, 1.5, 1)
+
+[node name="Player" type="CharacterBody3D"]
+slide_on_ceiling = false
+floor_constant_speed = true
+floor_snap_length = 0.5
+script = ExtResource("1_dkijp")
+acceleration = 0.12
+
+[node name="Mesh" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250414, 0)
+mesh = SubResource("CapsuleMesh_0h2s8")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.247661, -0.2)
+mesh = SubResource("CapsuleMesh_7jnw3")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.248, 0.2)
+mesh = SubResource("CapsuleMesh_7jnw3")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.276429, 0.539211, 0)
+mesh = SubResource("CapsuleMesh_2j8k8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_r7t6t")
+
+[node name="GrabPivot" type="Node3D" parent="."]
+
+[node name="Grabbed" type="Node3D" parent="GrabPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="MovementPivot" type="Node3D" parent="."]
+
+[node name="Movement" type="Node3D" parent="MovementPivot"]
+
+[node name="MovementVisualizer" type="MeshInstance3D" parent="MovementPivot/Movement"]
+transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, 0, 0)
+mesh = SubResource("SphereMesh_6080t")
+
+[node name="WallHangers" type="Node3D" parent="."]
+
+[node name="Hanger" type="RayCast3D" parent="WallHangers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.854405, 0)
+target_position = Vector3(0.6, 0, 0)
+
+[node name="Checker" type="RayCast3D" parent="WallHangers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.997629, 0)
+target_position = Vector3(0.6, 0, 0)
+
+[node name="ShadowRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -1000, 0)
+
+[node name="Shadow" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Sprite" type="Sprite3D" parent="Shadow"]
+transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, 0.002, 0)
+texture = ExtResource("1_tqaaq")
+
+[node name="CameraHeightAdjusters" type="Node3D" parent="."]
+
+[node name="Front" type="RayCast3D" parent="CameraHeightAdjusters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.574931, 0)
+target_position = Vector3(2, 0, 0)
+
+[node name="Back" type="RayCast3D" parent="CameraHeightAdjusters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.574931, 0)
+target_position = Vector3(-2, 0, 0)
+
+[node name="NearBodies" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NearBodies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 0)
+shape = SubResource("BoxShape3D_2g1by")
+
+[connection signal="body_entered" from="NearBodies" to="." method="_on_near_bodies_body_entered"]
+[connection signal="body_exited" from="NearBodies" to="." method="_on_near_bodies_body_exited"]

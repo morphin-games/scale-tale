@@ -44,6 +44,9 @@ var direction : Vector2 = Vector2.ZERO :
 			time_since_direction_change = 0.0
 			emit_signal("direction_changed", value)
 
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 func _process(delta: float) -> void:
 	if(grass_mesh != null):
 		grass_mesh.material_override.set_shader_parameter("character_position", global_transform.origin)
@@ -54,18 +57,18 @@ func _process(delta: float) -> void:
 		$Shadow.basis.x = -$Shadow.basis.z.cross($ShadowRaycast.get_collision_normal())
 		$Shadow.basis = $Shadow.basis.orthonormalized()
 		
-		var current_camera : Camera3D = get_viewport().get_camera_3d()
-		if(current_camera != null):
-			if(current_camera is CameraFollow3D):
-				$CameraHeightAdjusters.rotation.y = -current_camera.angle + deg_to_rad(180)
-				if($CameraHeightAdjusters/Front.is_colliding()):
-					var added_height : float = 2.0 - ($CameraHeightAdjusters.global_transform.origin - $CameraHeightAdjusters/Front.get_collision_point()).length()
-					current_camera.height = move_toward(current_camera.r_height, 1.5 - added_height, 0.075)
-				elif($CameraHeightAdjusters/Back.is_colliding()):
-					var added_height : float = 2.0 - ($CameraHeightAdjusters.global_transform.origin - $CameraHeightAdjusters/Front.get_collision_point()).length()
-					current_camera.height = move_toward(current_camera.r_height, 2.5 + added_height, 0.075)
-				else:
-					current_camera.height = move_toward(current_camera.r_height, 2.00, 0.075)
+#		var current_camera : Camera3D = get_viewport().get_camera_3d()
+#		if(current_camera != null):
+#			if(current_camera is CameraFollow3D):
+#				$CameraHeightAdjusters.rotation.y = -current_camera.angle + deg_to_rad(180)
+#				if($CameraHeightAdjusters/Front.is_colliding()):
+#					var added_height : float = 2.0 - ($CameraHeightAdjusters.global_transform.origin - $CameraHeightAdjusters/Front.get_collision_point()).length()
+#					current_camera.height = move_toward(current_camera.r_height, 1.5 - added_height, 0.075)
+#				elif($CameraHeightAdjusters/Back.is_colliding()):
+#					var added_height : float = 2.0 - ($CameraHeightAdjusters.global_transform.origin - $CameraHeightAdjusters/Front.get_collision_point()).length()
+#					current_camera.height = move_toward(current_camera.r_height, 2.5 + added_height, 0.075)
+#				else:
+#					current_camera.height = move_toward(current_camera.r_height, 2.00, 0.075)
 				
 func _physics_process(delta: float) -> void:
 #	Camera functionality
@@ -99,7 +102,8 @@ func _physics_process(delta: float) -> void:
 		%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(-last_movement_direction.x, last_movement_direction.y).angle() + $MovementPivot.rotation.y, 0.33)
 		$CollisionShape3D.rotation.y = %Mesh.rotation.y
 		$GrabPivot.rotation.y = %Mesh.rotation.y
-		
+	
+	$NearBodies.rotation.y = %Mesh.rotation.y
 	$WallHangers.rotation.y = %Mesh.rotation.y
 	
 	if(velocity.y < -100.0):
@@ -196,8 +200,8 @@ func _physics_process(delta: float) -> void:
 	if(grabbed_item != null):
 		grabbed_item.global_transform.origin = $GrabPivot/Grabbed.global_transform.origin
 		if(Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd").size() > 0):
-			$GrabPivot/Grabbed.transform.origin.x = 1.5 + (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x / 2
-			$GrabPivot/Grabbed.transform.origin.y = (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x / 2
+			$GrabPivot/Grabbed.transform.origin.x = 1.5 + (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
+			$GrabPivot/Grabbed.transform.origin.y = (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
 		grabbed_item.global_rotation = $GrabPivot/Grabbed.global_rotation
 		
 	if(Input.is_action_pressed("ui_downscale")):
@@ -226,8 +230,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:
 	near_bodies.append(body)
-	print(near_bodies)
 
 func _on_near_bodies_body_exited(body: Node3D) -> void:
 	near_bodies.erase(body)
-	print(near_bodies)
