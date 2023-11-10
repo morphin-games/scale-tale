@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_kyb63"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_rvpyi"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_celin"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_deln8"]
 radius = 2.53683
 
 [sub_resource type="BoxMesh" id="BoxMesh_h88xo"]
@@ -65,7 +65,7 @@ highlight_mesh = NodePath("../MeshInstance3D")
 interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
-shape = SubResource("SphereShape3D_celin")
+shape = SubResource("SphereShape3D_deln8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_h88xo")

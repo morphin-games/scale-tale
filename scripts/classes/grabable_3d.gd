@@ -36,6 +36,21 @@ func set_colliders_disabled(disabled : bool) -> void:
 		if(collider is CollisionShape3D):
 			collider.disabled = disabled
 		
+func get_y_impulse() -> float:
+	var current_camera : Camera3D = get_viewport().get_camera_3d()
+	if(current_camera != null):
+		if(current_camera is CameraFollow3D):
+			if(current_camera.height > 2.33):
+				return (-current_camera.height + 2.33) * 4.0
+			elif(current_camera.height < 0.0):
+				return -current_camera.height * 35.0
+			else:
+				return 3.0
+		else:
+			return 3.0
+	else:
+		return 3.0
+
 func grab() -> void:
 	if(player.grabbed_item == null):
 		player.grabbed_item = item

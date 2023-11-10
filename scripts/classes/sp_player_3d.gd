@@ -25,6 +25,8 @@ enum PlayerStates {
 	,HANGING = 5
 }
 
+var ray_color : Color = Color(0.04, 0.0, 0.97)
+var ray_ignited : bool = false
 var grabbed_item : Node3D = null
 var camera_rotation_speed : float = 0.75
 # jump_external_force is a Vector2 to move the players against their wills when performing a special jump (olympic or backflip)
@@ -46,8 +48,11 @@ var direction : Vector2 = Vector2.ZERO :
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 
 func _process(delta: float) -> void:
+	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
+	
 	if(grass_mesh != null):
 		grass_mesh.material_override.set_shader_parameter("character_position", global_transform.origin)
 	
@@ -204,12 +209,23 @@ func _physics_process(delta: float) -> void:
 			$GrabPivot/Grabbed.transform.origin.y = (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
 		grabbed_item.global_rotation = $GrabPivot/Grabbed.global_rotation
 		
+#	Item scaling functionality
 	if(Input.is_action_pressed("ui_downscale")):
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).downscale(delta)
 		else:
+#			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
+			if(!ray_ignited):
+				ray_ignited = true
+				var tween_s : Tween = get_tree().create_tween()
+				var tween_o : Tween = get_tree().create_tween()
+				var tween_c : Tween = get_tree().create_tween()
+				tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ONE, 0.2)
+				tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(3.6, 0.0, 0.0), 0.2)
+				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
+				
 			for body in near_bodies:
 				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 				if(scalables.size() > 0):
@@ -221,10 +237,29 @@ func _physics_process(delta: float) -> void:
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).upscale(delta)
 		else:
+			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(1.0, 0.0, 0.0))
+			if(!ray_ignited):
+				ray_ignited = true
+				var tween_s : Tween = get_tree().create_tween()
+				var tween_o : Tween = get_tree().create_tween()
+				var tween_c : Tween = get_tree().create_tween()
+				tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ONE, 0.2)
+				tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(3.6, 0.0, 0.0), 0.2)
+				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
+				
 			for body in near_bodies:
 				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 				if(scalables.size() > 0):
 					(scalables[0] as Scalable3D).upscale(delta)
+					
+	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
+		ray_ignited = false
+		var tween_s : Tween = get_tree().create_tween()
+		var tween_o : Tween = get_tree().create_tween()
+		var tween_c : Tween = get_tree().create_tween()
+		tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ZERO, 0.2)
+		tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(0.6, 0.0, 0.0), 0.2)
+		tween_c.tween_property(self, "ray_color", Color(0.04, 0.0, 0.97), 0.4)
 
 
 

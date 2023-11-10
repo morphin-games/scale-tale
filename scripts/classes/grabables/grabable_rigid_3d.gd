@@ -2,7 +2,7 @@ class_name GrabableRigid3D
 extends Grabable3D
 
 @export var throw_force : float = 20.0
-@export var y_impulse : float = 23.0
+#@export var y_impulse : float = 23.0
 
 func _process(delta: float) -> void:
 	if(player == null): return
@@ -33,6 +33,9 @@ func drop() -> void:
 
 func throw() -> void:
 	_ungrab()
+	var y_impulse : float = get_y_impulse()
+	print(y_impulse)
+	
 	var direction : Vector3 = (player.get_node("GrabPivot/Grabbed").global_transform.origin - player.global_transform.origin).normalized()
 	var player_movement_impulse : float = player.get_node("MovementPivot/Movement").transform.origin.x
 	var player_movement_impulse_vector = Vector2(player_movement_impulse * direction.x, player_movement_impulse * direction.z) * 10
