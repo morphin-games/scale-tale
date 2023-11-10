@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=3 uid="uid://dradqkovpfnai"]
+
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_7odxk"]
+[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_1w21r"]
+[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_nl0w7"]
+[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_fhknl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tcmbt"]
+bounce = 0.6
+
+[sub_resource type="GDScript" id="GDScript_30s5s"]
+script/source = "extends RigidBody3D
+
+var explodable : bool = false
+
+func _process(delta: float) -> void:
+	explodable = ($Scalable3D as Scalable3D).current_scale.x <= 0.6
+	
+func explode() -> void:
+	freeze = true
+	inertia = Vector3.ZERO
+	await(get_tree().create_timer(1.0).timeout)
+	queue_free()
+	
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if(explodable and ($GrabableRigid3D as GrabableRigid3D).player == null and body.name != \"Player\" and body != self):
+		explode()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pr0kc"]
+radius = 2.53683
+
+[sub_resource type="SphereMesh" id="SphereMesh_tmof0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ebnd"]
+albedo_color = Color(0.996078, 0, 0, 1)
+
+[sub_resource type="Shader" id="Shader_rlu5u"]
+code = "shader_type spatial;
+render_mode cull_front, unshaded;
+
+uniform vec4 outline_color : source_color;
+uniform float outline_width = 1.0;
+
+void vertex() {
+	vec4 clip_position = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	vec3 clip_normal = mat3(PROJECTION_MATRIX) * (mat3(MODELVIEW_MATRIX) * NORMAL);
+	
+	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * outline_width * 2.0;
+	
+	clip_position.xy += offset;
+	
+	POSITION = clip_position;
+}
+
+void fragment() {
+	ALBEDO = outline_color.rgb;
+	if (outline_color.a < 1.0) {
+		ALPHA = outline_color.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_doskr"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_4ebnd")
+shader = SubResource("Shader_rlu5u")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/outline_width = 0.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oad8y"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1bxou"]
+radius = 0.602524
+
+[node name="BowlingBall" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_tcmbt")
+script = SubResource("GDScript_30s5s")
+
+[node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("1_7odxk")
+root = NodePath("..")
+scale_speed = 1.75
+min_scale = 0.8
+max_scale = 7.0
+
+[node name="GrabableRigid3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
+script = ExtResource("2_1w21r")
+item = NodePath("..")
+interactuable = NodePath("../Interactuable")
+
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_nl0w7")]
+show_interaction_sprite = false
+highlight_mesh = NodePath("../MeshInstance3D")
+interaction_color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
+shape = SubResource("SphereShape3D_pr0kc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tmof0")
+surface_material_override/0 = SubResource("ShaderMaterial_doskr")
+
+[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." node_paths=PackedStringArray("scalable_3d")]
+shape = SubResource("SphereShape3D_oad8y")
+script = ExtResource("4_fhknl")
+scalable_3d = NodePath("../Scalable3D")
+optional_extra_scaling = 2.0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_1bxou")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
