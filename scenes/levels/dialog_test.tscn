@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://df43c5ryogm3x"]
+[gd_scene load_steps=7 format=3 uid="uid://df43c5ryogm3x"]
 
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="1_bir06"]
 [ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="2_tu6q6"]
 [ext_resource type="PackedScene" uid="uid://v3g1medevgu4" path="res://scenes/props/tps.tscn" id="4_0xw5w"]
+[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://dialogues/npc_test.tscn" id="4_huek1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b8cmg"]
 size = Vector3(15, 1, 15)
@@ -11,6 +12,7 @@ size = Vector3(15, 1, 15)
 size = Vector3(19.6943, 1, 18.257)
 
 [node name="TestingZone" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0402064, -0.0183687, 0.00234604)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.207553, 0.978224, 0, -0.978224, -0.207553, 0.735032, 5.05304, -2.39666)
@@ -48,3 +50,6 @@ transform = Transform3D(0.287902, 0, 0, 0, 1, 0, 0, 0, 0.354848, 17.2486, -1.071
 point_to_tp = NodePath("../tps")
 
 [node name="Player" parent="." instance=ExtResource("1_bir06")]
+
+[node name="npc_test" parent="." instance=ExtResource("4_huek1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.69855, -1.05186, -4.79509)

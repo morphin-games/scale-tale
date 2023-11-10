@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxmiov7m3fcbm"]
+
+[ext_resource type="Shader" path="res://shaders/fire/fire.gdshader" id="1_vchew"]
+[ext_resource type="Texture2D" uid="uid://bugk1adhxxl1t" path="res://shaders/fire/HoleNoise.png" id="2_ixu7e"]
+[ext_resource type="Texture2D" uid="uid://cuce7sghckj30" path="res://shaders/fire/FireMask.png" id="3_q6peg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e8t2"]
+render_priority = 0
+shader = ExtResource("1_vchew")
+shader_parameter/emission_intensity = 2.0
+shader_parameter/time_scale = 3.0
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/edge_softness = 0.1
+shader_parameter/noise_texture = ExtResource("2_ixu7e")
+shader_parameter/texture_mask = ExtResource("3_q6peg")
+
+[sub_resource type="Curve" id="Curve_neo3j"]
+_data = [Vector2(0.016129, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.978495, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_dwevg"]
+curve = SubResource("Curve_neo3j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_piffr"]
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_dwevg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_sl0hj"]
+size = Vector2(0.5, 0.5)
+
+[node name="fire" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_6e8t2")
+draw_order = 1
+process_material = SubResource("ParticleProcessMaterial_piffr")
+draw_pass_1 = SubResource("QuadMesh_sl0hj")
