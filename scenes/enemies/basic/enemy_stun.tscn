@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dusev5ppuewqo"]
+
+[ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_iovw4"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="2_ilnp8"]
+[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="3_3c462"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_nwpyt"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ojgij"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m2c8h"]
+
+[node name="EnemyStun" instance=ExtResource("1_iovw4")]
+
+[node name="Scalable3D" type="Node" parent="." index="0" node_paths=PackedStringArray("root")]
+script = ExtResource("2_ilnp8")
+root = NodePath("..")
+
+[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." index="1" node_paths=PackedStringArray("scalable_3d")]
+shape = SubResource("BoxShape3D_4rmbh")
+script = ExtResource("3_3c462")
+scalable_3d = NodePath("../Scalable3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
+mesh = SubResource("PrismMesh_nwpyt")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh" index="3"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, -0.707107, -0.707107, -3.09086e-08, -0.707107, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Mesh" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, 0.707107, 0.707107, 3.09086e-08, -0.707107, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rotator" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+mesh = SubResource("BoxMesh_m2c8h")

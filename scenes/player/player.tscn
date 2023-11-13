@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
 [ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
-[ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_5b46w"]
+[ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_r1woo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0h2s8"]
 height = 1.5
@@ -102,17 +102,11 @@ target_position = Vector3(-2, 0, 0)
 
 [node name="NearBodies" type="Area3D" parent="."]
 
-[node name="RayVisualizer" parent="NearBodies" instance=ExtResource("3_5b46w")]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NearBodies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 0)
 shape = SubResource("BoxShape3D_2g1by")
-disabled = true
 
-[node name="RayCast3D" type="RayCast3D" parent="NearBodies"]
-target_position = Vector3(6.6, 0, 0)
-collide_with_areas = true
-collide_with_bodies = false
+[node name="RayVisualizer" parent="NearBodies" instance=ExtResource("3_r1woo")]
 
 [connection signal="body_entered" from="NearBodies" to="." method="_on_near_bodies_body_entered"]
 [connection signal="body_exited" from="NearBodies" to="." method="_on_near_bodies_body_exited"]

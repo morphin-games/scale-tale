@@ -12,16 +12,17 @@ func _process(delta: float) -> void:
 	var collisions = Utils.find_children_of_class(entered_ray, \"CollisionShape3D\")
 	if(collisions.size() <= 0) : return
 	if((collisions[0] as CollisionShape3D).disabled) : return
-	var raycasts = Utils.find_children_of_class(entered_ray, \"RayCast3D\")
-	if(raycasts.size() <= 0) : return
-	if(!(raycasts[0] as RayCast3D).get_collider() != $MirrorRay) : return
+#	var raycasts = Utils.find_children_of_class(entered_ray, \"RayCast3D\")
+#	if(raycasts.size() <= 0) : return
+#	if(!(raycasts[0] as RayCast3D).get_collider() != $MirrorRay) : return
 	
-	var coll_norm : Vector3 = (raycasts[0] as RayCast3D).get_collision_normal()
+#	var coll_norm : Vector3 = (raycasts[0] as RayCast3D).get_collision_normal()
 	print(rad_to_deg(global_transform.origin.angle_to((entered_ray.global_transform.origin - global_transform.origin))))
 #	$MirrorRay.global_position = (raycasts[0] as RayCast3D).get_collision_point()
-#	$MirrorRay.global_rotation.y = global_transform.origin.angle_to((entered_ray.global_transform.origin - global_transform.origin))
+	$MirrorRay.global_rotation.y = global_transform.origin.signed_angle_to(entered_ray.global_transform.origin, Vector3.UP)
+#	$MirrorRay.global_rotation.y = rad_to_deg(180) + global_transform.origin.signed_angle_to((entered_ray.global_transform.origin - global_transform.origin), Vector3.UP)
 	
-	print(global_transform.origin.angle_to(entered_ray.global_transform.origin))
+#	print(global_transform.origin.angle_to(entered_ray.global_transform.origin))
 	
 #	$MirrorRay.look_at(entered_ray.global_transform.origin)
 #	$MirrorRay.global_rotation.x = 0.0

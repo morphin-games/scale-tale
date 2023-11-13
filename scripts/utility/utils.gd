@@ -25,3 +25,6 @@ static func find_multiple_custom_nodes(root : Node, find_classes : Array[String]
 				nodes.append(node)
 		
 	return nodes
+	
+static func now() -> int:
+	return Time.get_unix_time_from_system()
