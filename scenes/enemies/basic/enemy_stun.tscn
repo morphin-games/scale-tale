@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dusev5ppuewqo"]
+[gd_scene load_steps=11 format=3 uid="uid://dusev5ppuewqo"]
 
 [ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_iovw4"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_basic1_3d.gd" id="2_eptx4"]
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="2_ilnp8"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="3_3c462"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="5_58rpt"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="6_ouafc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
 size = Vector3(2, 2, 2)
@@ -12,15 +15,25 @@ size = Vector3(2, 2, 2)
 
 [sub_resource type="PrismMesh" id="PrismMesh_ojgij"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_m2c8h"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
+size = Vector3(2.38513, 2.37923, 2.44417)
 
-[node name="EnemyStun" instance=ExtResource("1_iovw4")]
+[node name="EnemyStun" node_paths=PackedStringArray("scalable_3d") instance=ExtResource("1_iovw4")]
+script = ExtResource("2_eptx4")
+scalable_3d = NodePath("Scalable3D")
+vulnerable_scale = Vector3(0.5, 0.5, 0.5)
 
-[node name="Scalable3D" type="Node" parent="." index="0" node_paths=PackedStringArray("root")]
+[node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
+script = ExtResource("6_ouafc")
+enemy = NodePath("..")
+player_detector = NodePath("../PlayerDetectArea3D")
+
+[node name="Scalable3D" type="Node" parent="." index="1" node_paths=PackedStringArray("root")]
 script = ExtResource("2_ilnp8")
 root = NodePath("..")
 
-[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." index="1" node_paths=PackedStringArray("scalable_3d")]
+[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." index="2" node_paths=PackedStringArray("scalable_3d")]
 shape = SubResource("BoxShape3D_4rmbh")
 script = ExtResource("3_3c462")
 scalable_3d = NodePath("../Scalable3D")
@@ -49,6 +62,8 @@ transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, 0.707107, 0.7
 mesh = SubResource("PrismMesh_ojgij")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Rotator" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
-mesh = SubResource("BoxMesh_m2c8h")
+[node name="PlayerDetectArea3D" type="Area3D" parent="." index="6"]
+script = ExtResource("5_58rpt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
+shape = SubResource("BoxShape3D_cmi2g")

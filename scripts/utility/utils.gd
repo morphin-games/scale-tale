@@ -28,3 +28,6 @@ static func find_multiple_custom_nodes(root : Node, find_classes : Array[String]
 	
 static func now() -> int:
 	return Time.get_unix_time_from_system()
+	
+static func between(checked : float, min : float, max : float) -> bool:
+	return(checked >= min and checked <= max)
