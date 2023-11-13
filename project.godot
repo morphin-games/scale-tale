@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 DialogManager="*res://dialogues/dialog_manager.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+
 [input]
 
 ui_left={
