@@ -218,6 +218,7 @@ func _physics_process(delta: float) -> void:
 		else:
 #			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
 			if(!ray_ignited):
+				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
 				var tween_s : Tween = get_tree().create_tween()
 				var tween_o : Tween = get_tree().create_tween()
@@ -239,6 +240,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(1.0, 0.0, 0.0))
 			if(!ray_ignited):
+				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
 				var tween_s : Tween = get_tree().create_tween()
 				var tween_o : Tween = get_tree().create_tween()
@@ -253,6 +255,7 @@ func _physics_process(delta: float) -> void:
 					(scalables[0] as Scalable3D).upscale(delta)
 					
 	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
+		$NearBodies/CollisionShape3D.disabled = true
 		ray_ignited = false
 		var tween_s : Tween = get_tree().create_tween()
 		var tween_o : Tween = get_tree().create_tween()
