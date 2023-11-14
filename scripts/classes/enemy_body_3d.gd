@@ -1,6 +1,8 @@
 class_name EnemyBody3D
 extends CharacterBody3D
 
+signal recovered
+
 @export var player : SPPlayer3D
 @export var detection_distance : float = 16.0
 
@@ -11,14 +13,20 @@ enum EnemyStatus {
 	IDLE = 0
 	,FOLLOWING = 1
 	,PATROLING = 2
+	,STUNNED = 3
 }
 
 var status : EnemyStatus
 var last_patrol_time : int
 var patrol_start_time : int
+var stun_start_time : int
 var player_visible : bool = false
 var target : Vector3 = Vector3.ZERO
 var gravity : float = ProjectSettings.get("physics/3d/default_gravity")
+
+func stun() -> void:
+	status = EnemyStatus.STUNNED
+	stun_start_time = Utils.now()
 
 func patrol(max_distance : float = 10.0) -> void:
 	status = EnemyStatus.PATROLING
@@ -30,10 +38,9 @@ func cancel_patrol() -> void:
 	last_patrol_time = Utils.now()
 	target = Vector3.ZERO
 	
-func _physics_process(delta: float) -> void:
+func behaviour(delta : float) -> void:
 	$WatchPlayer.target_position = player.global_transform.origin - $WatchPlayer.global_transform.origin
-	
-	if($WatchPlayer.get_collider() != null):
+	if($WatchPlayer.get_collider() != null and status != EnemyStatus.STUNNED):
 		if($WatchPlayer.get_collider().name != "Player"):
 			player_visible = false
 		else:
@@ -43,11 +50,12 @@ func _physics_process(delta: float) -> void:
 			else:
 				player_visible = false
 				
-	if(player_visible):
+				
+	if(player_visible and status != EnemyStatus.STUNNED):
 		status = EnemyStatus.FOLLOWING
 		detection_distance = 32.0
 		target = player.global_transform.origin
-	else:
+	elif(!player_visible and status != EnemyStatus.STUNNED):
 		if(status != EnemyStatus.PATROLING):
 			status = EnemyStatus.IDLE
 		detection_distance = 18.0
@@ -56,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		if(Utils.now() - last_patrol_time > 2.0 and status == EnemyStatus.IDLE):
 			patrol()
 			
-	if(target != Vector3.ZERO):
+	if(target != Vector3.ZERO and status != EnemyStatus.STUNNED):
 		$Front.look_at(target)
 		$Front.rotation_degrees.x = 0.0
 		$Front.rotation_degrees.z = 0.0
@@ -81,9 +89,19 @@ func _physics_process(delta: float) -> void:
 	if(status == EnemyStatus.PATROLING and Utils.now() - patrol_start_time >= 5.0):
 		cancel_patrol()
 		
+	if(status == EnemyStatus.STUNNED):
+		if(Utils.now() - stun_start_time >= 8.0):
+			status = EnemyStatus.IDLE
+			emit_signal("recovered")
+		
 	if(!is_on_floor()):
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
 		
 	move_and_slide()
+	
+	
+	
+func _physics_process(delta: float) -> void:
+	behaviour(delta)

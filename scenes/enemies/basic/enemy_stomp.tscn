@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://bi8ivhp6sqvr1"]
+
+[ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_l4eaf"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stompable_3d.gd" id="2_2rhaw"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="3_6751u"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="4_5nca6"]
+[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="5_2rknf"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="6_75ych"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_nwpyt"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ojgij"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
+size = Vector3(2.38513, 2.37923, 2.44417)
+
+[node name="EnemyStomp" node_paths=PackedStringArray("stompable") instance=ExtResource("1_l4eaf")]
+script = ExtResource("2_2rhaw")
+stompable = NodePath("Stompable3D")
+drops = Array[Resource("res://scripts/data/dropable.gd")]([])
+
+[node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector", "scalable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
+script = ExtResource("3_6751u")
+enemy = NodePath("..")
+player_detector = NodePath("../PlayerDetectArea3D")
+scalable = NodePath("../Scalable3D")
+
+[node name="Scalable3D" type="Node" parent="." index="1" node_paths=PackedStringArray("root")]
+script = ExtResource("4_5nca6")
+root = NodePath("..")
+
+[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." index="2" node_paths=PackedStringArray("scalable_3d")]
+shape = SubResource("BoxShape3D_4rmbh")
+script = ExtResource("5_2rknf")
+scalable_3d = NodePath("../Scalable3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
+mesh = SubResource("PrismMesh_nwpyt")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh" index="3"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, -0.707107, -0.707107, -3.09086e-08, -0.707107, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Mesh" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, 0.707107, 0.707107, 3.09086e-08, -0.707107, 0.5, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="PlayerDetectArea3D" type="Area3D" parent="." index="6"]
+script = ExtResource("6_75ych")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
+shape = SubResource("BoxShape3D_cmi2g")
