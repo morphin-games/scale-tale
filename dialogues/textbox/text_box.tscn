@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://poe7d6338u3h"]
+[gd_scene load_steps=5 format=3 uid="uid://poe7d6338u3h"]
 
 [ext_resource type="AudioStream" uid="uid://chbi8f4ihipam" path="res://art/sfx/talk_effect.wav" id="1_c48f2"]
+[ext_resource type="Texture2D" uid="uid://ccbrm5r4iqou3" path="res://dialogues/textbox/textbox_test.png" id="1_hfhmj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixcfe"]
 viewport_path = NodePath("SubViewport")
@@ -8,7 +9,7 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="GDScript" id="GDScript_xt54g"]
 script/source = "extends Sprite3D
 
-@onready var label = $SubViewport/Label
+@onready var label = $SubViewport/MarginContainer/Label
 @onready var timer = $SubViewport/LetterDisplayTimer
 @onready var audio_player = $AudioStreamPlayer
 
@@ -80,15 +81,28 @@ theme_override_constants/margin_bottom = 8
 [node name="LetterDisplayTimer" type="Timer" parent="SubViewport"]
 one_shot = true
 
-[node name="Label" type="Label" parent="SubViewport"]
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport"]
+custom_minimum_size = Vector2(2000, 1000)
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_hfhmj")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="SubViewport/MarginContainer"]
 custom_minimum_size = Vector2(2000, 500)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -500.0
-offset_right = 500.0
-offset_bottom = 500.0
-grow_horizontal = 2
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
 horizontal_alignment = 1

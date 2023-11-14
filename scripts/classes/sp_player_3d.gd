@@ -215,6 +215,9 @@ func _physics_process(delta: float) -> void:
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).downscale(delta)
+				if($SFXAudioStreamPlayer3D.playing == false):
+						$SFXAudioStreamPlayer3D.play()
+						scale_sfx_upscale()
 		else:
 #			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
 			if(!ray_ignited):
@@ -225,17 +228,24 @@ func _physics_process(delta: float) -> void:
 				tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ONE, 0.2)
 				tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(3.6, 0.0, 0.0), 0.2)
 				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
-				
+
+
 			for body in near_bodies:
 				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 				if(scalables.size() > 0):
 					(scalables[0] as Scalable3D).downscale(delta)
+					if($SFXAudioStreamPlayer3D.playing == false):
+						$SFXAudioStreamPlayer3D.play()
+						scale_sfx_upscale()
 			
 	elif(Input.is_action_pressed("ui_upscale")):
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).upscale(delta)
+				if($SFXAudioStreamPlayer3D.playing == false):
+					$SFXAudioStreamPlayer3D.play()
+					scale_sfx_downscale()
 		else:
 			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(1.0, 0.0, 0.0))
 			if(!ray_ignited):
@@ -251,6 +261,9 @@ func _physics_process(delta: float) -> void:
 				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 				if(scalables.size() > 0):
 					(scalables[0] as Scalable3D).upscale(delta)
+					if($SFXAudioStreamPlayer3D.playing == false):
+						$SFXAudioStreamPlayer3D.play()
+						scale_sfx_downscale()
 					
 	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
 		ray_ignited = false
@@ -260,6 +273,7 @@ func _physics_process(delta: float) -> void:
 		tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ZERO, 0.2)
 		tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(0.6, 0.0, 0.0), 0.2)
 		tween_c.tween_property(self, "ray_color", Color(0.04, 0.0, 0.97), 0.4)
+		reset_scale_sfx()
 
 
 
@@ -268,3 +282,29 @@ func _on_near_bodies_body_entered(body: Node3D) -> void:
 
 func _on_near_bodies_body_exited(body: Node3D) -> void:
 	near_bodies.erase(body)
+
+func scale_sfx_downscale():
+	var tween_scale_sfx : Tween = get_tree().create_tween()
+	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",1.5,4)
+	print("PitchUp ",$SFXAudioStreamPlayer3D.pitch_scale)
+	#if($SFXAudioStreamPlayer3D.pitch_scale < 1.5):
+	#	$SFXAudioStreamPlayer3D.set_pitch_scale($SFXAudioStreamPlayer3D.pitch_scale+0.05)
+
+
+func scale_sfx_upscale():
+	var tween_scale_sfx : Tween = get_tree().create_tween()
+	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",0.5,4)
+	print("PitchDown ",$SFXAudioStreamPlayer3D.pitch_scale)
+
+		
+
+func reset_scale_sfx():
+
+	$SFXAudioStreamPlayer3D.pitch_scale=1
+	$SFXAudioStreamPlayer3D.stop()
+	print("Reset ", $SFXAudioStreamPlayer3D.pitch_scale)
+
+
+
+func _on_sfx_timer_timeout() -> void:
+	pass # Replace with function body.
