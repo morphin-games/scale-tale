@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cr53rsuby7qyv"]
+[gd_scene load_steps=11 format=3 uid="uid://cr53rsuby7qyv"]
 
 [ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
 [ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
+[ext_resource type="Script" path="res://scripts/classes/health_system.gd" id="2_6dpr5"]
 [ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_r1woo"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0h2s8"]
@@ -22,12 +23,16 @@ height = 0.75
 [sub_resource type="BoxShape3D" id="BoxShape3D_2g1by"]
 size = Vector3(6, 1.5, 1)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_system")]
 slide_on_ceiling = false
 floor_constant_speed = true
 floor_snap_length = 0.5
 script = ExtResource("1_dkijp")
+health_system = NodePath("HealthSystem")
 acceleration = 0.12
+
+[node name="HealthSystem" type="Node" parent="."]
+script = ExtResource("2_6dpr5")
 
 [node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true

@@ -1,7 +1,6 @@
 class_name EnemyBodyStompable3D
 extends EnemyBody3D
 
-@export var stompable : Stompable3D
 @export var drops : Array[Dropable]
 
 func get_drop() -> PackedScene:

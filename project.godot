@@ -136,7 +136,3 @@ ui_up_camera={
 [physics]
 
 3d/default_gravity=30.0
-
-[rendering]
-
-renderer/rendering_method="gl_compatibility"

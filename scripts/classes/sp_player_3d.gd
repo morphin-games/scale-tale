@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 signal direction_changed(new_direction)
 
+@export var health_system : HealthSystem
 @export_category("Controls")
 @export var max_speed : float = 5.0
 @export var acceleration : float = 0.25

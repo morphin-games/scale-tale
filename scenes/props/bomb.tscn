@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddba3grhj7f0o"]
+[gd_scene load_steps=16 format=3 uid="uid://ddba3grhj7f0o"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_0m4mt"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_2o4h8"]
@@ -9,23 +9,47 @@
 script/source = "extends RigidBody3D
 
 var explodable : bool = false
+var explosion : PackedScene = preload(\"res://scenes/particle_effects/explosion.tscn\")
+var exploded : bool = false
 
 func _process(delta: float) -> void:
 	explodable = ($Scalable3D as Scalable3D).current_scale.x <= 0.6
 	
 func explode() -> void:
+	if(exploded) : return
+	
+	$ExplodeArea/CollisionShape3D.disabled = false
+	var r_tween : Tween = get_tree().create_tween()
+	r_tween.tween_property(($ExplodeArea/CollisionShape3D.shape as SphereShape3D), \"radius\", 8.8, 1.0)
+	exploded = true
+	var inst : GPUParticlesIPOS3D = explosion.instantiate()
 	freeze = true
 	inertia = Vector3.ZERO
+	get_parent().add_child(inst)
+	inst.global_transform.origin = global_transform.origin
+	$Mesh.visible = false
 	await(get_tree().create_timer(1.0).timeout)
 	queue_free()
 	
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if(explodable and ($GrabableRigid3D as GrabableRigid3D).player == null and body.name != \"Player\" and body != self):
+	if(explodable and Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
 		explode()
+		
+
+func _on_explode_area_body_entered(body: Node3D) -> void:
+	print(\"KASÑDKASDKSÑAD\")
+	if(Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
+		(body as EnemyBody3D).stompable.stomp()
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_celin"]
 radius = 2.53683
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xqxxk"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yxw3d"]
+radius = 1.08121
 
 [sub_resource type="SphereMesh" id="SphereMesh_tmof0"]
 radius = 1.0
@@ -76,11 +100,8 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.25
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_xqxxk"]
-radius = 1.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_yxw3d"]
-radius = 1.08121
+[sub_resource type="SphereShape3D" id="SphereShape3D_p1wkv"]
+radius = 0.001
 
 [node name="Bomb" type="RigidBody3D"]
 script = SubResource("GDScript_30s5s")
@@ -97,25 +118,11 @@ interactuable = NodePath("../Interactuable")
 
 [node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_2gkg8")]
 show_interaction_sprite = false
-highlight_mesh = NodePath("../MeshInstance3D")
+highlight_mesh = NodePath("../Mesh/MeshInstance3D")
 interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
 shape = SubResource("SphereShape3D_celin")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_tmof0")
-surface_material_override/0 = SubResource("ShaderMaterial_doskr")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894666, 0)
-mesh = SubResource("CylinderMesh_uoq4d")
-surface_material_override/0 = SubResource("ShaderMaterial_doskr")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13796, 0)
-mesh = SubResource("CylinderMesh_eyk1w")
-surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." node_paths=PackedStringArray("scalable_3d")]
 shape = SubResource("SphereShape3D_xqxxk")
@@ -128,4 +135,30 @@ optional_extra_scaling = 2.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_yxw3d")
 
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("SphereMesh_tmof0")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_doskr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894666, 0)
+mesh = SubResource("CylinderMesh_uoq4d")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_doskr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13796, 0)
+mesh = SubResource("CylinderMesh_eyk1w")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_doskr")
+
+[node name="ExplodeArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplodeArea"]
+shape = SubResource("SphereShape3D_p1wkv")
+disabled = true
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="ExplodeArea" to="." method="_on_explode_area_body_entered"]
