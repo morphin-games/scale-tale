@@ -12,8 +12,9 @@ signal stomped
 @export_category("Vulnerabilities")
 @export var vulnerable_radius : float = 1.0
 
+var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
+
 func stomp() -> void:
-	print("STOPPPPPPPPP")
 	enemy.alive = false
 	enemy.collision_shape.queue_free()
 	enemy.stun(100.0)
@@ -23,6 +24,9 @@ func stomp() -> void:
 	
 	tween_s.finished.connect(Callable(func() -> void:
 		await get_tree().create_timer(0.5).timeout
+		var inst : GPUParticlesIPOS3D = explosion.instantiate()
+		enemy.get_parent().add_child(inst)
+		inst.global_transform.origin = global_transform.origin
 		enemy.queue_free()
 	))
 
@@ -36,17 +40,7 @@ func _ready() -> void:
 				player.velocity.y = death_impulse
 				player.move_and_slide()
 				
-				enemy.alive = false
-				enemy.collision_shape.queue_free()
-				enemy.stun(100.0)
-				enemy.velocity.y = 0.0
-				var tween_s : Tween = get_tree().create_tween()
-				tween_s.tween_property(enemy.get_node("Mesh").get_child(0), "scale", Vector3(enemy.get_node("Mesh").get_child(0).scale.x, 0, enemy.get_node("Mesh").get_child(0).scale.z), 0.23)
-				
-				tween_s.finished.connect(Callable(func() -> void:
-					await get_tree().create_timer(0.5).timeout
-					enemy.queue_free()
-				))
+				stomp()
 		
 		else:
 			if(!enemy.alive) : return

@@ -33,5 +33,6 @@ func upscale(delta : float) -> void:
 		
 func _process(delta: float) -> void:
 	for child in affected_children:
-		if(child is Node3D):
-			child.scale = current_scale
+		if(child != null):
+			if(child is Node3D):
+				child.scale = current_scale

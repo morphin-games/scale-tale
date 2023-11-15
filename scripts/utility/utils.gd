@@ -31,3 +31,10 @@ static func now() -> int:
 	
 static func between(checked : float, min : float, max : float) -> bool:
 	return(checked >= min and checked <= max)
+	
+static func get_player(root : Node) -> SPPlayer3D:
+	for child in root.get_children(true):
+		if(child.get_script() == load("res://scripts/classes/sp_player_3d.gd")):
+			return child
+			
+	return null

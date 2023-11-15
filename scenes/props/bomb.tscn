@@ -20,7 +20,7 @@ func explode() -> void:
 	
 	$ExplodeArea/CollisionShape3D.disabled = false
 	var r_tween : Tween = get_tree().create_tween()
-	r_tween.tween_property(($ExplodeArea/CollisionShape3D.shape as SphereShape3D), \"radius\", 8.8, 1.0)
+	r_tween.tween_property(($ExplodeArea/CollisionShape3D.shape as SphereShape3D), \"radius\", 8.8, 0.5)
 	exploded = true
 	var inst : GPUParticlesIPOS3D = explosion.instantiate()
 	freeze = true
@@ -32,13 +32,11 @@ func explode() -> void:
 	queue_free()
 	
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if(explodable and Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
+	if(explodable and ($GrabableRigid3D as GrabableRigid3D).player == null and Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
 		explode()
-		
 
 func _on_explode_area_body_entered(body: Node3D) -> void:
-	print(\"KASÑDKASDKSÑAD\")
-	if(Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
+	if(($GrabableRigid3D as GrabableRigid3D).player == null and Utils.find_custom_nodes(body, \"res://scripts/classes/basic_enemies/stompable_3d.gd\").size() > 0):
 		(body as EnemyBody3D).stompable.stomp()
 "
 
@@ -158,7 +156,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ExplodeArea"]
 shape = SubResource("SphereShape3D_p1wkv")
-disabled = true
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="ExplodeArea" to="." method="_on_explode_area_body_entered"]

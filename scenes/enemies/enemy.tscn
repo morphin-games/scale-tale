@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/classes/enemy_body_3d.gd" id="1_q27vd"]
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("floor_checker")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("floor_checker") groups=["Enemies"]]
 script = ExtResource("1_q27vd")
 floor_checker = NodePath("FloorChecker/RayCast3D")
 

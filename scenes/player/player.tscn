@@ -110,6 +110,7 @@ target_position = Vector3(-2, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NearBodies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 0)
 shape = SubResource("BoxShape3D_2g1by")
+disabled = true
 
 [node name="RayVisualizer" parent="NearBodies" instance=ExtResource("3_r1woo")]
 

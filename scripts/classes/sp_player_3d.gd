@@ -26,6 +26,7 @@ enum PlayerStates {
 	,HANGING = 5
 }
 
+var looking_down : bool = false
 var ray_color : Color = Color(0.04, 0.0, 0.97)
 var ray_ignited : bool = false
 var grabbed_item : Node3D = null
@@ -84,6 +85,15 @@ func _physics_process(delta: float) -> void:
 		camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 		if(current_camera is CameraFollow3D):
 			$MovementPivot.rotation.y = move_toward($MovementPivot.rotation.y, -current_camera.angle, camera_rotation_speed)
+			
+			if(current_camera.height >= 5.0 and !looking_down):
+				looking_down = true
+				var n_tween : Tween = get_tree().create_tween()
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", -90.0, 1.0)
+			elif(current_camera.height < 5.0 and looking_down):
+				looking_down = false
+				var n_tween : Tween = get_tree().create_tween()
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", 0.0, 1.0)
 			
 #	Movement
 	time_since_direction_change += delta
@@ -159,9 +169,25 @@ func _physics_process(delta: float) -> void:
 	#			Normal jump
 				velocity.y = max_jump_force
 	#			Lateral jump
-				if(abs(last_direction.x) - abs(direction.x) < 0 - 0.12 or abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
+				
+				var l_vel : Vector2 = Vector2((global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x), (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z)).normalized()
+				
+				print(l_vel)
+				print(Vector2.from_angle($Mesh.global_rotation.y))
+				print(rad_to_deg(l_vel.angle_to(Vector2.from_angle($Mesh.global_rotation.y))))
+				print("------------------------------------------")
+				
+				if(abs(rad_to_deg(last_direction.angle_to(direction))) > 150.0):
 					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
 						velocity.y = max_jump_force * 1.45
+				
+#				if(abs(last_direction.x) - abs(direction.x) < 0 - 0.12 or abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
+#					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
+#						print(abs(last_direction.x) - abs(direction.x))
+#						print(abs(last_direction.y) - abs(direction.y))
+#						print(0 - 0.12)
+#						print("------------------------")
+#						velocity.y = max_jump_force * 1.45
 		
 	else:
 		if(player_state != PlayerStates.GROUNDPOUNDING):

@@ -18,10 +18,11 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
 size = Vector3(2.38513, 2.37923, 2.44417)
 
-[node name="EnemyStun" node_paths=PackedStringArray("collision_shape", "player_detect_area") instance=ExtResource("1_iovw4")]
+[node name="EnemyStun" node_paths=PackedStringArray("collision_shape", "player_detect_area", "floor_checker") instance=ExtResource("1_iovw4")]
 script = ExtResource("2_gf3cj")
-collision_shape = NodePath("CollisionShape3D")
-player_detect_area = NodePath("PlayerDetectArea3D")
+collision_shape = NodePath("")
+player_detect_area = NodePath("")
+floor_checker = NodePath("")
 
 [node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
