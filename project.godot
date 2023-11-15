@@ -134,6 +134,7 @@ ui_up_camera={
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=30.0
 
 [rendering]
