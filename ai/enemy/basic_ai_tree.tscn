@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmduh8560sctn"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_tcenr"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_ce0fd"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/blackboard_set.gd" id="3_h3jh4"]
+
+[node name="BasiAITree" type="Node"]
+script = ExtResource("1_tcenr")
+
+[node name="SequenceComposite" type="Node" parent="."]
+script = ExtResource("2_ce0fd")
+
+[node name="BlackboardSetAction" type="Node" parent="SequenceComposite"]
+script = ExtResource("3_h3jh4")
+
+[node name="BlackboardSetAction2" type="Node" parent="SequenceComposite"]
+script = ExtResource("3_h3jh4")

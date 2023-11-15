@@ -7,6 +7,7 @@ extends Node
 var player : SPPlayer3D
 var time_taken : float
 var time_ungrabbed : float
+var enabled : bool = true
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_interact") and Time.get_unix_time_from_system() - time_taken > 0.33):

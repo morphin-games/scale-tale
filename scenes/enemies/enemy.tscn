@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvqrsab0cofjc"]
+
+[ext_resource type="Script" path="res://scripts/classes/enemy_body_3d.gd" id="1_q27vd"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_q27vd")
+
+[node name="WatchPlayer" type="RayCast3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Front" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Mesh" type="Node3D" parent="."]
+metadata/_edit_lock_ = true

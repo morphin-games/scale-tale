@@ -221,12 +221,10 @@ func _physics_process(delta: float) -> void:
 		else:
 #			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
 			if(!ray_ignited):
+				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
-				var tween_s : Tween = get_tree().create_tween()
-				var tween_o : Tween = get_tree().create_tween()
+				$NearBodies/RayVisualizer.enable()
 				var tween_c : Tween = get_tree().create_tween()
-				tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ONE, 0.2)
-				tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(3.6, 0.0, 0.0), 0.2)
 				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
 
 
@@ -249,12 +247,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(1.0, 0.0, 0.0))
 			if(!ray_ignited):
+				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
-				var tween_s : Tween = get_tree().create_tween()
-				var tween_o : Tween = get_tree().create_tween()
+				$NearBodies/RayVisualizer.enable()
 				var tween_c : Tween = get_tree().create_tween()
-				tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ONE, 0.2)
-				tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(3.6, 0.0, 0.0), 0.2)
 				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
 				
 			for body in near_bodies:
@@ -266,12 +262,10 @@ func _physics_process(delta: float) -> void:
 						scale_sfx_downscale()
 					
 	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
+		$NearBodies/CollisionShape3D.disabled = true
 		ray_ignited = false
-		var tween_s : Tween = get_tree().create_tween()
-		var tween_o : Tween = get_tree().create_tween()
+		$NearBodies/RayVisualizer.disable()
 		var tween_c : Tween = get_tree().create_tween()
-		tween_s.tween_property($NearBodies/RayVisualizer, "scale", Vector3.ZERO, 0.2)
-		tween_o.tween_property($NearBodies/RayVisualizer, "transform:origin", Vector3(0.6, 0.0, 0.0), 0.2)
 		tween_c.tween_property(self, "ray_color", Color(0.04, 0.0, 0.97), 0.4)
 		reset_scale_sfx()
 
