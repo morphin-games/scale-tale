@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://krrqjpwp41eb"]
+
+[ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="1_otd66"]
+
+[sub_resource type="GDScript" id="GDScript_jav3t"]
+script/source = "extends Area3D
+
+@export var entered_ray : Area3D
+
+func _process(delta: float) -> void:
+	if(entered_ray == null) : return
+	var collisions = Utils.find_children_of_class(entered_ray, \"CollisionShape3D\")
+	if(collisions.size() <= 0) : return
+	if((collisions[0] as CollisionShape3D).disabled) : return
+#	var raycasts = Utils.find_children_of_class(entered_ray, \"RayCast3D\")
+#	if(raycasts.size() <= 0) : return
+#	if(!(raycasts[0] as RayCast3D).get_collider() != $MirrorRay) : return
+	
+#	var coll_norm : Vector3 = (raycasts[0] as RayCast3D).get_collision_normal()
+	print(rad_to_deg(global_transform.origin.angle_to((entered_ray.global_transform.origin - global_transform.origin))))
+#	$MirrorRay.global_position = (raycasts[0] as RayCast3D).get_collision_point()
+	$MirrorRay.global_rotation.y = global_transform.origin.signed_angle_to(entered_ray.global_transform.origin, Vector3.UP)
+#	$MirrorRay.global_rotation.y = rad_to_deg(180) + global_transform.origin.signed_angle_to((entered_ray.global_transform.origin - global_transform.origin), Vector3.UP)
+	
+#	print(global_transform.origin.angle_to(entered_ray.global_transform.origin))
+	
+#	$MirrorRay.look_at(entered_ray.global_transform.origin)
+#	$MirrorRay.global_rotation.x = 0.0
+#	$MirrorRay.global_rotation.z = 0.0
+#	$MirrorRay.global_rotation.y += deg_to_rad(90)
+#	$MirrorRay.global_rotation.y += global_transform.origin.angle_to(entered_ray.global_transform.origin)
+
+func _on_area_entered(area: Area3D) -> void:
+	if(area.name == \"NearBodies\"):
+		entered_ray = area
+
+func _on_area_exited(area: Area3D) -> void:
+	if(area.name == \"NearBodies\"):
+		entered_ray = null
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwaod"]
+size = Vector3(6, 1.5, 1)
+
+[node name="Mirror" type="Area3D"]
+script = SubResource("GDScript_jav3t")
+
+[node name="MirrorRay" type="Area3D" parent="."]
+
+[node name="RayVisualizer" parent="MirrorRay" instance=ExtResource("1_otd66")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MirrorRay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+shape = SubResource("BoxShape3D_jwaod")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

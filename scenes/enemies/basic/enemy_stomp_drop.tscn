@@ -1,0 +1,49 @@
+[gd_scene load_steps=12 format=3 uid="uid://btlbjw8y0rbta"]
+
+[ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_wanvk"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stompable_3d.gd" id="2_pt0it"]
+[ext_resource type="Script" path="res://scripts/data/dropable.gd" id="3_7l78g"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="3_8jjjj"]
+[ext_resource type="PackedScene" uid="uid://ddba3grhj7f0o" path="res://scenes/props/bomb.tscn" id="4_eo31f"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="6_4jrmr"]
+[ext_resource type="PackedScene" uid="uid://bsixki37vnhl" path="res://art/3D/models/chickenV2.glb" id="6_hc3a3"]
+
+[sub_resource type="Resource" id="Resource_2mlj6"]
+script = ExtResource("3_7l78g")
+chance = 1
+
+[sub_resource type="Resource" id="Resource_mr6wd"]
+script = ExtResource("3_7l78g")
+drop = ExtResource("4_eo31f")
+chance = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
+size = Vector3(2.38513, 2.37923, 2.44417)
+
+[node name="EnemyStompDrop" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area") instance=ExtResource("1_wanvk")]
+script = ExtResource("2_pt0it")
+drops = Array[ExtResource("3_7l78g")]([SubResource("Resource_2mlj6"), SubResource("Resource_mr6wd")])
+stompable = NodePath("Stompable3D")
+collision_shape = NodePath("CollisionShape3D")
+player_detect_area = NodePath("PlayerDetectArea3D")
+
+[node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
+script = ExtResource("3_8jjjj")
+enemy = NodePath("..")
+player_detector = NodePath("../PlayerDetectArea3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_4rmbh")
+
+[node name="chickenV2" parent="Mesh" index="0" instance=ExtResource("6_hc3a3")]
+transform = Transform3D(-6.77527e-09, 0, 0.155, 0, 0.155, 0, -0.155, 0, -6.77527e-09, 0, -0.988553, 0)
+
+[node name="PlayerDetectArea3D" type="Area3D" parent="." index="5"]
+script = ExtResource("6_4jrmr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
+shape = SubResource("BoxShape3D_cmi2g")

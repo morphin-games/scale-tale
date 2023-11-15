@@ -1,24 +1,70 @@
-[gd_scene load_steps=5 format=3 uid="uid://caeqyf0p3un6l"]
+[gd_scene load_steps=9 format=3 uid="uid://cbxyo440n04po"]
 
 [ext_resource type="Script" path="res://scripts/classes/grabable_3d.gd" id="1_ve2a5"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_h5n6f"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="3_6wj3l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eohvd"]
 radius = 1.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_qpsb4"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_kjy21"]
 
-[node name="grabable_test" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c2o3"]
 
-[node name="Grabable3D" type="Node3D" parent="." node_paths=PackedStringArray("item", "interactuable")]
+[sub_resource type="Shader" id="Shader_ewpx7"]
+code = "shader_type spatial;
+render_mode cull_front, unshaded;
+
+uniform vec4 outline_color : source_color;
+uniform float outline_width = 1.0;
+
+void vertex() {
+	vec4 clip_position = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	vec3 clip_normal = mat3(PROJECTION_MATRIX) * (mat3(MODELVIEW_MATRIX) * NORMAL);
+	
+	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * outline_width * 2.0;
+	
+	clip_position.xy += offset;
+	
+	POSITION = clip_position;
+}
+
+void fragment() {
+	ALBEDO = outline_color.rgb;
+	if (outline_color.a < 1.0) {
+		ALPHA = outline_color.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgpwd"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_4c2o3")
+shader = SubResource("Shader_ewpx7")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/outline_width = 0.0
+
+[node name="GrabableTest" type="Node3D"]
+
+[node name="Grabable3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
 script = ExtResource("1_ve2a5")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
-[node name="Interactuable" parent="." instance=ExtResource("2_h5n6f")]
+[node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root", "unaffected_items")]
+script = ExtResource("3_6wj3l")
+root = NodePath("..")
+unaffected_items = [NodePath("../Interactuable")]
+
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("2_h5n6f")]
+show_interaction_sprite = false
+highlight_mesh = NodePath("../MeshInstance3D")
+interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
 shape = SubResource("SphereShape3D_eohvd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_qpsb4")
+mesh = SubResource("CylinderMesh_kjy21")
+surface_material_override/0 = SubResource("ShaderMaterial_kgpwd")
+
+[editable path="Interactuable"]
