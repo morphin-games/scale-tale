@@ -20,10 +20,11 @@ config/icon="res://icon.svg"
 DialogManager="*res://dialogues/dialog_manager.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
 
 [input]
 
@@ -135,6 +136,7 @@ ui_up_camera={
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=30.0
 
 [rendering]

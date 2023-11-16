@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bcukcqvvdf7dn"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+roughness = 0.0
+rim_enabled = true
+rim = 0.6
