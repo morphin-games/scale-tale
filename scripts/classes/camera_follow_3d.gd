@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	distance = clampf(distance, 2.0, 10.0)
-	height = clampf(height, -0.5, 6.0)
+	height = clampf(height, -0.5, 9.0)
 	
 	if(Input.is_action_pressed("ui_camera_further")):
 		distance += 3.0 * delta
