@@ -38,3 +38,7 @@ static func get_player(root : Node) -> SPPlayer3D:
 			return child
 			
 	return null
+	
+static func vectors_approx_equal(v1 : Vector3, v2 : Vector3, epsilon : float) -> bool:
+	var difference : Vector3 = v1 - v2
+	return (abs(difference.x) < epsilon) and (abs(difference.y) < epsilon) and (abs(difference.z) < epsilon)

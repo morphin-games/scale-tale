@@ -7,6 +7,8 @@ extends Camera3D
 @export_category("Position")
 @export var distance : float = 5.0
 @export var height : float = 2.0
+@export_category("Effects")
+@export var underwater : MeshInstance3D
 
 @onready var angle : float = 0.0
 @onready var r_height : float = height
