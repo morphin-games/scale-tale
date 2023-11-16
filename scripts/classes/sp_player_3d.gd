@@ -55,7 +55,6 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
-		print(Vector2(velocity.x, velocity.z).length())
 		if(event.is_action_released("ui_jump") and velocity.y > 0 and Vector2(velocity.x, velocity.z).length() <= 10.1):
 			var v_tween : Tween = get_tree().create_tween()
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
@@ -302,7 +301,6 @@ func _on_near_bodies_body_exited(body: Node3D) -> void:
 func scale_sfx_downscale():
 	var tween_scale_sfx : Tween = get_tree().create_tween()
 	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",1.5,4)
-	print("PitchUp ",$SFXAudioStreamPlayer3D.pitch_scale)
 	#if($SFXAudioStreamPlayer3D.pitch_scale < 1.5):
 	#	$SFXAudioStreamPlayer3D.set_pitch_scale($SFXAudioStreamPlayer3D.pitch_scale+0.05)
 
@@ -310,15 +308,12 @@ func scale_sfx_downscale():
 func scale_sfx_upscale():
 	var tween_scale_sfx : Tween = get_tree().create_tween()
 	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",0.5,4)
-	print("PitchDown ",$SFXAudioStreamPlayer3D.pitch_scale)
 
 		
 
 func reset_scale_sfx():
-
 	$SFXAudioStreamPlayer3D.pitch_scale=1
 	$SFXAudioStreamPlayer3D.stop()
-	print("Reset ", $SFXAudioStreamPlayer3D.pitch_scale)
 
 
 

@@ -24,7 +24,6 @@ CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
 
 [input]
