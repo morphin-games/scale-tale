@@ -1,0 +1,35 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnkk4kfnofcrf"]
+
+[ext_resource type="PackedScene" uid="uid://bsv10jijdj7wf" path="res://art/3D/models/wizard_tower/GLB/torre_magos.glb" id="1_808gb"]
+[ext_resource type="Texture2D" uid="uid://bxcyrds6ax5y0" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/stylized_tower_rocks_diff_2.png" id="2_marfu"]
+[ext_resource type="Texture2D" uid="uid://cg2u3k0xbtjjs" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/stylized_tower_rocks_normal.png" id="3_4dymv"]
+[ext_resource type="Texture2D" uid="uid://dfgtc3o5o1kd7" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/rock_stylized_techo_bajo_diff.png" id="4_wxwc6"]
+[ext_resource type="Texture2D" uid="uid://byx4x3cbdcycb" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/rock_stylized_techo_bajo_normal.png" id="5_lbbnl"]
+[ext_resource type="Texture2D" uid="uid://btxf3u082h7pi" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/rock_stylized_techo_alto_diff.png" id="6_hvbgt"]
+[ext_resource type="Texture2D" uid="uid://ciw14tlnqb57w" path="res://art/3D/models/wizard_tower/Texturas Bakeadas/rock_stylized_techo_alto_nor.png" id="7_370v4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kcy4w"]
+albedo_texture = ExtResource("2_marfu")
+normal_enabled = true
+normal_texture = ExtResource("3_4dymv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63532"]
+albedo_texture = ExtResource("4_wxwc6")
+normal_enabled = true
+normal_texture = ExtResource("5_lbbnl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4cdww"]
+albedo_texture = ExtResource("6_hvbgt")
+normal_enabled = true
+normal_texture = ExtResource("7_370v4")
+
+[node name="torre_magos" instance=ExtResource("1_808gb")]
+
+[node name="Cuerpo Torre" parent="." index="13"]
+material_override = SubResource("StandardMaterial3D_kcy4w")
+
+[node name="Tejado01" parent="." index="24"]
+material_override = SubResource("StandardMaterial3D_63532")
+
+[node name="Tejado02" parent="." index="25"]
+material_override = SubResource("StandardMaterial3D_4cdww")

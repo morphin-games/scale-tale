@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv20biwx75jk6"]
+
+[ext_resource type="Shader" path="res://shaders/clouds/clouds_cartoon.gdshader" id="1_nsdeq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iq8wi"]
+shader = ExtResource("1_nsdeq")
+shader_parameter/day_bottom_color = Color(1, 1, 1, 1)
+shader_parameter/day_top_color = Color(1, 1, 1, 1)
+shader_parameter/sunset_bottom_color = Color(0, 0, 0, 1)
+shader_parameter/sunset_top_color = Color(0, 0, 0, 1)
+shader_parameter/night_bottom_color = Color(0, 0, 0, 1)
+shader_parameter/night_top_color = Color(0, 0, 0, 1)
+shader_parameter/horizon_color_day = Color(1, 1, 1, 1)
+shader_parameter/horizon_color_sunset = Color(1, 1, 1, 1)
+shader_parameter/horizon_color_night = Color(0, 0.8, 1, 1)
+shader_parameter/horizon_falloff = null
+shader_parameter/sun_col = Color(1, 1, 1, 1)
+shader_parameter/sun_size = 1.0
+shader_parameter/sun_blur = 0.01
+shader_parameter/moon_col = Color(1, 1, 1, 1)
+shader_parameter/moon_size = 1.0
+shader_parameter/moon_crescent_offset = 0.5
+shader_parameter/clouds_main_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_edge_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_speed = null
+shader_parameter/clouds_scale = null
+shader_parameter/clouds_cutoff = null
+shader_parameter/clouds_fuzziness = null
+shader_parameter/stars_cutoff = null
+shader_parameter/stars_speed = null
+
+[sub_resource type="QuadMesh" id="QuadMesh_r77cj"]
+
+[node name="clouds" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00540924, -2.38419e-07, 0.00295496)
+material_override = SubResource("ShaderMaterial_iq8wi")
+mesh = SubResource("QuadMesh_r77cj")
