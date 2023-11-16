@@ -39,7 +39,6 @@ var time_since_direction_change : float = 0.0
 var time_since_lateral : float = 0.0
 var last_direction : Vector2 = Vector2.ZERO
 var last_movement_direction : Vector2 = Vector2.ZERO
-var last_last_movement_direction : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO : 
 	get: 
 		return direction
