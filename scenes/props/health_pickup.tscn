@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://x8exey3j1ib6"]
+
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="1_3iodx"]
+[ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="2_733bc"]
+
+[sub_resource type="GDScript" id="GDScript_6liug"]
+script/source = "extends Node3D
+
+@export var healing : int = 2
+
+var ipos : PackedScene = preload(\"res://scenes/particle_effects/healing.tscn\")
+var taken : bool = false
+var ipos_inst : GPUParticlesIPOS3D
+
+func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
+	player.health_system.heal(healing)
+	$PlayerDetectArea3D.queue_free()
+	taken = true
+	var tween_s : Tween = get_tree().create_tween()
+	tween_s.set_ease(Tween.EASE_IN_OUT)
+	tween_s.set_trans(Tween.TRANS_LINEAR)
+	tween_s.tween_property(self, \"scale\", Vector3.ZERO, 0.77)
+	
+	var inst : GPUParticlesIPOS3D = ipos.instantiate()
+	inst.global_transform = global_transform
+	get_parent().add_child(inst)
+
+func _process(delta: float) -> void:
+	if(ipos_inst != null):
+		ipos_inst.global_transform = global_transform
+	if(taken):
+		global_transform.origin.y += delta * 2.56
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_18obm"]
+radius = 1.47752
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqxg3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_xiido"]
+material = SubResource("StandardMaterial3D_qqxg3")
+
+[node name="HealthPickup" type="Node3D"]
+script = SubResource("GDScript_6liug")
+
+[node name="PlayerDetectArea3D" type="Area3D" parent="."]
+script = ExtResource("1_3iodx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D"]
+shape = SubResource("SphereShape3D_18obm")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_xiido")
+
+[node name="Rotator3D" type="Node" parent="Mesh"]
+script = ExtResource("2_733bc")
+
+[connection signal="player_entered" from="PlayerDetectArea3D" to="." method="_on_player_detect_area_3d_player_entered"]

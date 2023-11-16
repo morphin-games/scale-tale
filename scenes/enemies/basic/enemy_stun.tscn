@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://dusev5ppuewqo"]
+
+[ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_iovw4"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stunnable_3d.gd" id="2_gf3cj"]
+[ext_resource type="Material" uid="uid://d3edj53bbe2vc" path="res://materials/default_interaction.tres" id="4_8fsam"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="5_58rpt"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="6_ouafc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2b7r0"]
+material = ExtResource("4_8fsam")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ojgij"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
+size = Vector3(2.38513, 2.37923, 2.44417)
+
+[node name="EnemyStun" instance=ExtResource("1_iovw4")]
+script = ExtResource("2_gf3cj")
+
+[node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
+script = ExtResource("6_ouafc")
+enemy = NodePath("..")
+player_detector = NodePath("../PlayerDetectArea3D")
+vulnerable_radius = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("BoxShape3D_4rmbh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
+mesh = SubResource("BoxMesh_2b7r0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" index="1"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.743851, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh" index="2"]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.743851, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh" index="3"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, -0.707107, -0.707107, -3.09086e-08, -0.707107, 0.743851, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Mesh" index="4"]
+transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, 0.707107, 0.707107, 3.09086e-08, -0.707107, 0.743851, 0, 0)
+mesh = SubResource("PrismMesh_ojgij")
+skeleton = NodePath("../..")
+
+[node name="PlayerDetectArea3D" type="Area3D" parent="." index="5"]
+script = ExtResource("5_58rpt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
+shape = SubResource("BoxShape3D_cmi2g")
