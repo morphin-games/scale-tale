@@ -36,8 +36,10 @@ var jump_external_force : Vector2 = Vector2.ZERO
 var player_state : PlayerStates = PlayerStates.IDLE
 var gravity : float = ProjectSettings.get("physics/3d/default_gravity")
 var time_since_direction_change : float = 0.0
+var time_since_lateral : float = 0.0
 var last_direction : Vector2 = Vector2.ZERO
 var last_movement_direction : Vector2 = Vector2.ZERO
+var last_last_movement_direction : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO : 
 	get: 
 		return direction
@@ -77,7 +79,7 @@ func _process(delta: float) -> void:
 #				else:
 #					current_camera.height = move_toward(current_camera.r_height, 2.00, 0.075)
 				
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 #	Camera functionality
 	var current_camera : Camera3D = get_viewport().get_camera_3d()
 	var camera_view_direction : Vector3 = Vector3(1, 1, 1)
@@ -96,10 +98,14 @@ func _physics_process(delta: float) -> void:
 				n_tween.tween_property($NearBodies, "rotation_degrees:z", 0.0, 1.0)
 			
 #	Movement
+	time_since_lateral += delta
 	time_since_direction_change += delta
 	if(direction.length() > 0.5):
 		last_movement_direction = direction
 	direction = Vector2(Input.get_axis("ui_down", "ui_up"), Input.get_axis("ui_left", "ui_right")).normalized()
+	
+	if(abs(rad_to_deg(last_movement_direction.angle_to(direction))) > 167.5):
+		time_since_lateral = 0.0
 	
 	$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
 	$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, (direction.y * 2) + jump_external_force.y, acceleration)
@@ -169,27 +175,10 @@ func _physics_process(delta: float) -> void:
 	#			Normal jump
 				velocity.y = max_jump_force
 	#			Lateral jump
-				
-				var l_vel : Vector2 = Vector2((global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x), (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z)).normalized()
-				
-				print(l_vel)
-				print(Vector2.from_angle($Mesh.global_rotation.y))
-				print(rad_to_deg(l_vel.angle_to(Vector2.from_angle($Mesh.global_rotation.y))))
-				print("------------------------------------------")
-				
-				if(abs(rad_to_deg(last_direction.angle_to(direction))) > 150.0):
-					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
-						velocity.y = max_jump_force * 1.45
-				
-#				if(abs(last_direction.x) - abs(direction.x) < 0 - 0.12 or abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
-#					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
-#						print(abs(last_direction.x) - abs(direction.x))
-#						print(abs(last_direction.y) - abs(direction.y))
-#						print(0 - 0.12)
-#						print("------------------------")
-#						velocity.y = max_jump_force * 1.45
-		
-	else:
+				if(time_since_lateral > 0.05 and time_since_lateral < 0.33):
+					velocity.y = max_jump_force * 1.45
+	
+	else: # Not on floor
 		if(player_state != PlayerStates.GROUNDPOUNDING):
 			velocity.y -= gravity * delta
 			if(Input.is_action_just_pressed("ui_groundpound") and player_state == PlayerStates.JUMPING):
