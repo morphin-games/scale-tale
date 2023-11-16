@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 signal direction_changed(new_direction)
 
+@export var health_system : HealthSystem
 @export_category("Controls")
 @export var max_speed : float = 5.0
 @export var acceleration : float = 0.25
@@ -25,6 +26,7 @@ enum PlayerStates {
 	,HANGING = 5
 }
 
+var looking_down : bool = false
 var ray_color : Color = Color(0.04, 0.0, 0.97)
 var ray_ignited : bool = false
 var grabbed_item : Node3D = null
@@ -34,6 +36,7 @@ var jump_external_force : Vector2 = Vector2.ZERO
 var player_state : PlayerStates = PlayerStates.IDLE
 var gravity : float = ProjectSettings.get("physics/3d/default_gravity")
 var time_since_direction_change : float = 0.0
+var time_since_lateral : float = 0.0
 var last_direction : Vector2 = Vector2.ZERO
 var last_movement_direction : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO : 
@@ -49,6 +52,12 @@ var direction : Vector2 = Vector2.ZERO :
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
+
+func _input(event: InputEvent) -> void:
+	if(event is InputEventKey):
+		if(event.is_action_released("ui_jump") and velocity.y > 0 and Vector2(velocity.x, velocity.z).length() <= 10.1):
+			var v_tween : Tween = get_tree().create_tween()
+			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
 
 func _process(delta: float) -> void:
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
@@ -75,7 +84,7 @@ func _process(delta: float) -> void:
 #				else:
 #					current_camera.height = move_toward(current_camera.r_height, 2.00, 0.075)
 				
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 #	Camera functionality
 	var current_camera : Camera3D = get_viewport().get_camera_3d()
 	var camera_view_direction : Vector3 = Vector3(1, 1, 1)
@@ -84,11 +93,24 @@ func _physics_process(delta: float) -> void:
 		if(current_camera is CameraFollow3D):
 			$MovementPivot.rotation.y = move_toward($MovementPivot.rotation.y, -current_camera.angle, camera_rotation_speed)
 			
+			if(current_camera.height >= 5.0 and !looking_down):
+				looking_down = true
+				var n_tween : Tween = get_tree().create_tween()
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", -90.0, 1.0)
+			elif(current_camera.height < 5.0 and looking_down):
+				looking_down = false
+				var n_tween : Tween = get_tree().create_tween()
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", 0.0, 1.0)
+			
 #	Movement
+	time_since_lateral += delta
 	time_since_direction_change += delta
 	if(direction.length() > 0.5):
 		last_movement_direction = direction
 	direction = Vector2(Input.get_axis("ui_down", "ui_up"), Input.get_axis("ui_left", "ui_right")).normalized()
+	
+	if(abs(rad_to_deg(last_movement_direction.angle_to(direction))) > 167.5):
+		time_since_lateral = 0.0
 	
 	$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
 	$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, (direction.y * 2) + jump_external_force.y, acceleration)
@@ -158,11 +180,10 @@ func _physics_process(delta: float) -> void:
 	#			Normal jump
 				velocity.y = max_jump_force
 	#			Lateral jump
-				if(abs(last_direction.x) - abs(direction.x) < 0 - 0.12 or abs(last_direction.y) - abs(direction.y) < 0 - 0.12):
-					if(time_since_direction_change > 0.05 and time_since_direction_change < 0.33):
-						velocity.y = max_jump_force * 1.45
-		
-	else:
+				if(time_since_lateral > 0.05 and time_since_lateral < 0.33):
+					velocity.y = max_jump_force * 1.45
+
+	else: # Not on floor
 		if(player_state != PlayerStates.GROUNDPOUNDING):
 			velocity.y -= gravity * delta
 			if(Input.is_action_just_pressed("ui_groundpound") and player_state == PlayerStates.JUMPING):
@@ -280,7 +301,6 @@ func _on_near_bodies_body_exited(body: Node3D) -> void:
 func scale_sfx_downscale():
 	var tween_scale_sfx : Tween = get_tree().create_tween()
 	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",1.5,4)
-	print("PitchUp ",$SFXAudioStreamPlayer3D.pitch_scale)
 	#if($SFXAudioStreamPlayer3D.pitch_scale < 1.5):
 	#	$SFXAudioStreamPlayer3D.set_pitch_scale($SFXAudioStreamPlayer3D.pitch_scale+0.05)
 
@@ -288,15 +308,12 @@ func scale_sfx_downscale():
 func scale_sfx_upscale():
 	var tween_scale_sfx : Tween = get_tree().create_tween()
 	tween_scale_sfx.tween_property($SFXAudioStreamPlayer3D,"pitch_scale",0.5,4)
-	print("PitchDown ",$SFXAudioStreamPlayer3D.pitch_scale)
 
 		
 
 func reset_scale_sfx():
-
 	$SFXAudioStreamPlayer3D.pitch_scale=1
 	$SFXAudioStreamPlayer3D.stop()
-	print("Reset ", $SFXAudioStreamPlayer3D.pitch_scale)
 
 
 

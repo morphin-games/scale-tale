@@ -5,7 +5,7 @@
 [sub_resource type="GDScript" id="GDScript_jav3t"]
 script/source = "extends Area3D
 
-@export var entered_ray : Area3D
+var entered_ray : Area3D
 
 func _ready() -> void:
 	$Repeater/CollisionShape3D.disabled = true

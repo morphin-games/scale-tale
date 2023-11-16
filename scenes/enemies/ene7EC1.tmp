@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvqrsab0cofjc"]
+
+[ext_resource type="Script" path="res://scripts/classes/enemy_body_3d.gd" id="1_q27vd"]
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("floor_checker")]
+script = ExtResource("1_q27vd")
+floor_checker = NodePath("FloorChecker/RayCast3D")
+
+[node name="WatchPlayer" type="RayCast3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Front" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Mesh" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="SafePositionChecker" type="RayCast3D" parent="."]
+target_position = Vector3(0, -1.5, 0)
+hit_from_inside = true
+
+[node name="FloorChecker" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="FloorChecker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35302, -0.551231, 0)

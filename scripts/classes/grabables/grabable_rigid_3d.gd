@@ -12,8 +12,9 @@ func _process(delta: float) -> void:
 	(player.grabbed_item as RigidBody3D).linear_velocity = Vector3.ZERO
 	(player.grabbed_item as RigidBody3D).angular_velocity = Vector3.ZERO
 	
-
 func _ungrab() -> void:
+	if(player.grabbed_item == null): return 
+	
 	(player.grabbed_item as RigidBody3D).inertia = Vector3.ZERO
 	(player.grabbed_item as RigidBody3D).linear_velocity = Vector3.ZERO
 	(player.grabbed_item as RigidBody3D).angular_velocity = Vector3.ZERO

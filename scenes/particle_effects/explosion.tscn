@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5xxlo8mcdms"]
+
+[ext_resource type="Texture2D" uid="uid://l5fflnk2iktj" path="res://art/2D/textures/smoke_30fps.png" id="1_afq4f"]
+[ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="2_40t5x"]
+
+[sub_resource type="Gradient" id="Gradient_a5l41"]
+offsets = PackedFloat32Array(0, 0.181495, 0.441281, 0.480427, 0.519573, 0.80427, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 1, 0.905882, 0, 1, 1, 1, 1, 1, 1, 0.538196, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y7mrs"]
+gradient = SubResource("Gradient_a5l41")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4exwn"]
+emission_shape = 1
+emission_sphere_radius = 0.66
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+linear_accel_max = 4.0
+radial_accel_max = 10.0
+angle_min = -360.0
+angle_max = 360.0
+color_ramp = SubResource("GradientTexture1D_y7mrs")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00j6x"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_afq4f")
+billboard_mode = 3
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_v7qq4"]
+material = SubResource("StandardMaterial3D_00j6x")
+size = Vector2(5, 5)
+
+[node name="Explosion" type="GPUParticles3D"]
+amount = 1000
+lifetime = 0.4
+randomness = 1.0
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_4exwn")
+draw_pass_1 = SubResource("QuadMesh_v7qq4")
+script = ExtResource("2_40t5x")

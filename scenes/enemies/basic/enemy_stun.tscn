@@ -26,6 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
 script = ExtResource("6_ouafc")
 enemy = NodePath("..")
 player_detector = NodePath("../PlayerDetectArea3D")
+vulnerable_radius = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("BoxShape3D_4rmbh")

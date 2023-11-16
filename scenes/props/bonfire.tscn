@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxxjkan3j4yxm"]
+
+[ext_resource type="PackedScene" uid="uid://cgshqok4kso7m" path="res://scenes/particle_effects/fire.tscn" id="1_jmd3f"]
+[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_v6h4y"]
+
+[sub_resource type="GDScript" id="GDScript_i0ddj"]
+script/source = "extends Node3D
+
+func _on_interactuable_interacted() -> void:
+	get_tree().call_group(\"Enemies\", \"queue_free\")
+	get_tree().call_group(\"EnemySpawners\", \"spawn\")
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqfwu"]
+
+[sub_resource type="Shader" id="Shader_f2e3g"]
+code = "shader_type spatial;
+render_mode cull_front, unshaded;
+
+uniform vec4 outline_color : source_color;
+uniform float outline_width = 1.0;
+
+void vertex() {
+	vec4 clip_position = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	vec3 clip_normal = mat3(PROJECTION_MATRIX) * (mat3(MODELVIEW_MATRIX) * NORMAL);
+	
+	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * outline_width * 2.0;
+	
+	clip_position.xy += offset;
+	
+	POSITION = clip_position;
+}
+
+void fragment() {
+	ALBEDO = outline_color.rgb;
+	if (outline_color.a < 1.0) {
+		ALPHA = outline_color.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_25wj3"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_mqfwu")
+shader = SubResource("Shader_f2e3g")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/outline_width = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_812iu"]
+material = SubResource("ShaderMaterial_25wj3")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c36wh"]
+height = 4.44821
+radius = 4.0
+
+[node name="Bonfire" type="Node3D"]
+script = SubResource("GDScript_i0ddj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_812iu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -0.0536553, 0)
+mesh = SubResource("BoxMesh_812iu")
+
+[node name="Fire" parent="." instance=ExtResource("1_jmd3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.660481, 0)
+
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("2_v6h4y")]
+highlight_mesh = NodePath("../MeshInstance3D")
+interaction_color = Color(0, 0.662745, 1, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2263, 0)
+shape = SubResource("CylinderShape3D_c36wh")
+
+[connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]

@@ -18,17 +18,13 @@ config/icon="res://icon.svg"
 [autoload]
 
 DialogManager="*res://dialogues/dialog_manager.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
-BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
-BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [input]
 
