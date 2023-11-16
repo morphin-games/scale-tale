@@ -230,7 +230,7 @@ func _physics_process(delta: float) -> void:
 		grabbed_item.global_rotation = $GrabPivot/Grabbed.global_rotation
 		
 #	Item scaling functionality
-	if(Input.is_action_pressed("ui_downscale")):
+	if(Input.is_action_pressed("ui_upscale")):
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
@@ -245,7 +245,7 @@ func _physics_process(delta: float) -> void:
 				ray_ignited = true
 				$NearBodies/RayVisualizer.enable()
 				var tween_c : Tween = get_tree().create_tween()
-				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
+				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
 
 
 			for body in near_bodies:
@@ -256,7 +256,7 @@ func _physics_process(delta: float) -> void:
 						$SFXAudioStreamPlayer3D.play()
 						scale_sfx_upscale()
 			
-	elif(Input.is_action_pressed("ui_upscale")):
+	elif(Input.is_action_pressed("ui_downscale")):
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
@@ -271,7 +271,7 @@ func _physics_process(delta: float) -> void:
 				ray_ignited = true
 				$NearBodies/RayVisualizer.enable()
 				var tween_c : Tween = get_tree().create_tween()
-				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
+				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
 				
 			for body in near_bodies:
 				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
