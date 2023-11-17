@@ -211,7 +211,10 @@ func _physics_process(delta: float) -> void:
 					jump_external_force = last_movement_direction * 2.0
 	else: # Swimming in water
 		if(Input.is_action_just_pressed("ui_jump")):
-			velocity.y += 2.0
+			if(velocity.y >= -2.0):
+				velocity.y += 2.0
+			else:
+				velocity.y *= -1.0
 		
 		velocity.y -= gravity / 8 * delta
 		velocity.y = clampf(velocity.y, -3.5, 5.0)

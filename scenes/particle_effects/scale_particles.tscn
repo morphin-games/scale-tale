@@ -1,0 +1,222 @@
+[gd_scene load_steps=12 format=3 uid="uid://kralj8xqowd7"]
+
+[ext_resource type="Script" path="res://scripts/classes/scale_particles.gd" id="1_rjrkl"]
+
+[sub_resource type="Curve" id="Curve_ldp5f"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 14.7368), 0.0, 0.0, 0, 0, Vector2(0.275261, 14.7368), 0.0, 0.0, 0, 0, Vector2(0.689895, -35.7895), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4bmr2"]
+curve = SubResource("Curve_ldp5f")
+
+[sub_resource type="Curve" id="Curve_tcra3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.501742, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lcvfv"]
+curve = SubResource("Curve_tcra3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_15nr2"]
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 5)
+particle_flag_rotate_y = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+radial_accel_min = 5.0
+radial_accel_max = 5.0
+radial_accel_curve = SubResource("CurveTexture_4bmr2")
+angle_min = -180.0
+angle_max = 180.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_lcvfv")
+
+[sub_resource type="Shader" id="Shader_ijrsi"]
+code = "shader_type spatial;
+render_mode shadows_disabled, specular_disabled, ambient_light_disabled, unshaded;
+
+
+group_uniforms Shield_Color;
+uniform vec3 _shield_color : source_color = vec3(0.0, 0.0, 1.0);
+uniform float _shield_color_brightness : hint_range(0.25, 20.0, 0.05) = 10.0;
+uniform float _shield_intensity : hint_range(0.25, 5.0, 0.05) = 2.0;
+
+group_uniforms Shield_Transform;
+uniform vec3 _rotation = vec3(0.1, 0.0, 0.0);
+uniform float _shield_size : hint_range(0.0, 0.5, 0.01) = 0.0;
+
+group_uniforms Shield_Pulse;
+uniform float _shield_pulse_frequency = 1.0;
+uniform float _shield_pulse_density = 1.0;
+uniform float _shield_pulse_amplitude = 1.0;
+uniform float _shield_pulse_blend = 1.0;
+uniform float _shield_pulse_radius = 1.0;
+
+group_uniforms Impact_Shape;
+uniform vec3 _impact_origin = vec3(1.0, 0.0, 0.0);
+uniform float _impact_frequency = 5.0;
+uniform float _impact_density = 5.0;
+uniform float _impact_amplitude = 6.0;
+uniform float _impact_blend = 0;
+uniform float _impact_radius = 1.1;
+uniform float _impact_anim = 0.0;
+
+// === IMPACT ===
+
+float _GetRippleOrigin(vec3 vert, vec3 orig) {
+	// distance of each vertex from the origin
+	return length(orig - vert);
+}
+
+float _FadeRipple(float orig, float blend, float radius) {
+	// create a radius 
+	float b = clamp(blend, 0.0, radius);
+	return smoothstep(b, -radius, orig);
+}
+
+float _ComputeRipple(vec3 vert, vec3 orig, float blend, float radius, float freq, float dens, float ampl, float anim) {
+	// calculate the intensity of the impact
+	float o = _GetRippleOrigin(vert, orig);
+	float i = sin(anim * freq - o * dens) / ampl;
+	return i * _FadeRipple(o, blend, radius);
+}
+
+// === SHIELD ===
+
+float saturate(float x) {
+  return max(0, min(1, x));
+}
+
+float ComputeFresnel(vec3 norm, vec3 view_dir, float intensity) {
+	// dot product between mesh normals and view direction
+	float fresnel = saturate(1.0 - dot(norm, view_dir));
+	// modulate fresnel intensity
+	fresnel = pow(fresnel, intensity);
+	return fresnel;
+}
+
+vec3 Rotate(vec3 vert, vec3 speed) {
+	// build the 3 rotation matrices
+	speed = speed * TIME * 5.0;
+	
+	mat4 xrot = mat4(
+		vec4(1.0, 0.0, 0.0, 0.0),
+		vec4(0.0, cos(speed.x), -sin(speed.x), 0.0),
+		vec4(0.0, sin(speed.x), cos(speed.x), 0.0),
+		vec4(0.0, 0.0, 0.0, 1.0));
+	
+	mat4 yrot = mat4(
+		vec4(cos(speed.y), 0.0, -sin(speed.y), 0.0),
+		vec4(0.0, 1.0, 0.0, 0.0),
+		vec4(sin(speed.y), 0.0, cos(speed.y), 0.0),
+		vec4(0.0, 0.0, 0.0, 1.0));
+	
+	mat4 zrot = mat4(
+		vec4(cos(speed.z), -sin(speed.z), 0.0, 0.0),
+		vec4(sin(speed.z), cos(speed.z), 0.0, 0.0),
+		vec4(0.0, 0.0, 1.0, 0.0),
+		vec4(0.0, 0.0, 0.0, 1.0));
+		
+	return (xrot * yrot * zrot * vec4(vert, 1.0)).xyz;
+}
+
+void vertex() {
+	// rotate VERTICES in local space
+	VERTEX = Rotate(VERTEX, _rotation);
+	// ...and relative NORMALS for the fresnel effect to work
+	NORMAL = Rotate(NORMAL, _rotation);
+	
+	// Local to World conversion to add impact ripple
+	vec3 w_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	
+	// normalize impact origin vector
+	vec3 imp_or = normalize(_impact_origin);
+	
+	float impact_ripple = _ComputeRipple(w_pos, 
+		_impact_origin, 
+		_impact_blend,
+		_impact_radius, 
+		_impact_frequency, 
+		_impact_density, 
+		_impact_amplitude,
+		_impact_anim);
+	
+	VERTEX += NORMAL * (impact_ripple + _shield_size);
+}
+
+void fragment() {
+        // add fresnel
+	float f = ComputeFresnel(NORMAL, VIEW, _shield_intensity);
+	// set color and alpha
+	ALBEDO = f * _shield_color_brightness * _shield_color;
+	ALPHA *= f;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v30wl"]
+render_priority = 1
+shader = SubResource("Shader_ijrsi")
+shader_parameter/_shield_color = Color(0.0392157, 0, 0.968627, 1)
+shader_parameter/_shield_color_brightness = 20.0
+shader_parameter/_shield_intensity = 0.8
+shader_parameter/_rotation = Vector3(0, 0, 0)
+shader_parameter/_shield_size = 0.0
+shader_parameter/_shield_pulse_frequency = 1.0
+shader_parameter/_shield_pulse_density = 1.0
+shader_parameter/_shield_pulse_amplitude = 1.0
+shader_parameter/_shield_pulse_blend = 1.0
+shader_parameter/_shield_pulse_radius = 1.0
+shader_parameter/_impact_origin = Vector3(1, 0, 0)
+shader_parameter/_impact_frequency = 5.0
+shader_parameter/_impact_density = 5.0
+shader_parameter/_impact_amplitude = 6.0
+shader_parameter/_impact_blend = 0.0
+shader_parameter/_impact_radius = 1.1
+shader_parameter/_impact_anim = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_mxp4c"]
+material = SubResource("ShaderMaterial_v30wl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_olmit"]
+render_priority = 1
+shader = SubResource("Shader_ijrsi")
+shader_parameter/_shield_color = Color(0.0392157, 0, 0.968627, 1)
+shader_parameter/_shield_color_brightness = 20.0
+shader_parameter/_shield_intensity = 0.8
+shader_parameter/_rotation = Vector3(0, 0, 0)
+shader_parameter/_shield_size = 0.0
+shader_parameter/_shield_pulse_frequency = 1.0
+shader_parameter/_shield_pulse_density = 1.0
+shader_parameter/_shield_pulse_amplitude = 1.0
+shader_parameter/_shield_pulse_blend = 1.0
+shader_parameter/_shield_pulse_radius = 1.0
+shader_parameter/_impact_origin = Vector3(1, 0, 0)
+shader_parameter/_impact_frequency = 5.0
+shader_parameter/_impact_density = 5.0
+shader_parameter/_impact_amplitude = 6.0
+shader_parameter/_impact_blend = 0.0
+shader_parameter/_impact_radius = 1.1
+shader_parameter/_impact_anim = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q4juj"]
+material = SubResource("ShaderMaterial_olmit")
+
+[node name="ScaleParticles" type="Node3D"]
+script = ExtResource("1_rjrkl")
+
+[node name="Pass1" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 60
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_15nr2")
+draw_pass_1 = SubResource("BoxMesh_mxp4c")
+
+[node name="Pass2" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_15nr2")
+draw_pass_1 = SubResource("CapsuleMesh_q4juj")
