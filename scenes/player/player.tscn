@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/classes/health_system.gd" id="2_6dpr5"]
 [ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_r1woo"]
 [ext_resource type="Shader" path="res://shaders/toon_ligh/toon_lightning.gdshader" id="3_v7kgk"]
-[ext_resource type="AudioStream" uid="uid://dfxce3bw6ymqr" path="res://art/sfx/scale_sfx_2.mp3" id="4_8q6kr"]
+[ext_resource type="AudioStream" uid="uid://dxgjsg31qva7j" path="res://art/sfx/scale_fx_T.mp3" id="6_4isll"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w83fs"]
 render_priority = 0
@@ -143,8 +143,12 @@ shape = SubResource("BoxShape3D_2g1by")
 [node name="SFXTimer" type="Timer" parent="."]
 
 [node name="SFXAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_8q6kr")
+stream = ExtResource("6_4isll")
 bus = &"Effects"
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06253, 0)
+current = true
 
 [connection signal="body_entered" from="NearBodies" to="." method="_on_near_bodies_body_entered"]
 [connection signal="body_exited" from="NearBodies" to="." method="_on_near_bodies_body_exited"]
