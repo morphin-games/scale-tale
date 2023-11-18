@@ -1,7 +1,11 @@
 class_name SPPlayer3D
 extends CharacterBody3D
 
-signal direction_changed(new_direction)
+signal direction_changed(new_direction : Vector2)
+signal scaling_started
+signal scaling_stopped
+signal near_body_entered(body : Node3D)
+signal near_body_exited(body : Node3D)
 
 @export var health_system : HealthSystem
 @export_category("Controls")
@@ -13,8 +17,6 @@ signal direction_changed(new_direction)
 
 @onready var r_acceleration : float = acceleration
 @onready var speed : float = max_speed
-
-var near_bodies : Array[Node3D] = []
 
 enum PlayerStates {
 	IDLE = 0
@@ -28,6 +30,8 @@ enum PlayerStates {
 	,SWIMMING = 6
 }
 
+var near_bodies : Array[Node3D] = []
+var near_bodies_with_scale_particles : Array[Node3D] = []
 var looking_down : bool = false
 var ray_color : Color = Color(0.04, 0.0, 0.97)
 var ray_ignited : bool = false
@@ -234,6 +238,7 @@ func _physics_process(delta: float) -> void:
 		
 #	Item scaling functionality
 	if(Input.is_action_pressed("ui_upscale")):
+		emit_signal("scaling_started")
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
@@ -260,6 +265,7 @@ func _physics_process(delta: float) -> void:
 						scale_sfx_upscale()
 			
 	elif(Input.is_action_pressed("ui_downscale")):
+		emit_signal("scaling_started")
 		if(grabbed_item != null):
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
@@ -290,14 +296,52 @@ func _physics_process(delta: float) -> void:
 		$NearBodies/RayVisualizer.disable()
 		var tween_c : Tween = get_tree().create_tween()
 		tween_c.tween_property(self, "ray_color", Color(0.04, 0.0, 0.97), 0.4)
+		emit_signal("scaling_stopped")
 		reset_scale_sfx()
 
 
 
+func add_scale_particles(node : Node3D) -> void:
+	var particles : ScaleParticles = load("res://scenes/particle_effects/scale_particles.tscn").instantiate()
+	node.add_child(particles)
+	particles.global_transform.origin = node.global_transform.origin
+	
+	var scalables : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/scalable_3d.gd")
+	var scalable : Scalable3D
+	if(scalables.size() > 0):
+		scalable = scalables[0]
+		
+	var scalable_colls : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/collision_shape_scalable_3d.gd")
+	if(scalable_colls.size() > 0):
+		particles.set_shape((scalable_colls[0] as CollisionShapeScalable3D).shape)
+	
+	scaling_started.connect(Callable(func() -> void:
+		if(scalable != null):
+			particles.set_size(scalable.current_scale.x)
+		particles.set_color(ray_color)
+		if(!particles.emitting):
+			particles.emit(true)
+	))
+	
+	scaling_stopped.connect(Callable(func() -> void:
+		if(particles.emitting):
+			particles.emit(false)
+	))
+	
+	near_body_exited.connect(Callable(func(body : Node3D) -> void:
+		if(body == node):
+			particles.destroy()
+			particles.system_enabled = false
+	))
+
+
 func _on_near_bodies_body_entered(body: Node3D) -> void:
+	emit_signal("near_body_entered", body)
 	near_bodies.append(body)
+	add_scale_particles(body)
 
 func _on_near_bodies_body_exited(body: Node3D) -> void:
+	emit_signal("near_body_exited", body)
 	near_bodies.erase(body)
 
 func scale_sfx_downscale():
