@@ -102,12 +102,14 @@ mesh = SubResource("SphereMesh_6080t")
 [node name="WallHangers" type="Node3D" parent="."]
 
 [node name="Hanger" type="RayCast3D" parent="WallHangers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.854405, 0)
-target_position = Vector3(0.6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.512823, 0.854405, -5.40018e-05)
+target_position = Vector3(0.35, 0, 0)
+hit_from_inside = true
 
 [node name="Checker" type="RayCast3D" parent="WallHangers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.997629, 0)
-target_position = Vector3(0.6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.512823, 0.997629, -5.40018e-05)
+target_position = Vector3(0.35, 0, 0)
+hit_from_inside = true
 
 [node name="ShadowRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -117,7 +119,7 @@ target_position = Vector3(0, -1000, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="Sprite" type="Sprite3D" parent="Shadow"]
-transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, 0.002, 0)
+transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, 0.012, 0)
 texture = ExtResource("1_tqaaq")
 
 [node name="CameraHeightAdjusters" type="Node3D" parent="."]

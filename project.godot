@@ -24,7 +24,7 @@ CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [input]
 
@@ -138,7 +138,3 @@ ui_up_camera={
 
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=30.0
-
-[rendering]
-
-renderer/rendering_method="gl_compatibility"

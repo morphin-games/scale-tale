@@ -21,7 +21,7 @@ shader_parameter/grazing_angle_modulation_factor = 50.0
 flip_faces = true
 size = Vector2(2, 2)
 
-[node name="post_process" type="MeshInstance3D"]
+[node name="PostProcessing" type="MeshInstance3D"]
 material_override = SubResource("ShaderMaterial_gj0qb")
 extra_cull_margin = 5502.71
 mesh = SubResource("QuadMesh_rn2nw")
