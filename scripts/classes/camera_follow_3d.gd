@@ -7,6 +7,8 @@ extends Camera3D
 @export_category("Position")
 @export var distance : float = 5.0
 @export var height : float = 2.0
+@export_category("Effects")
+@export var underwater : MeshInstance3D
 
 @onready var angle : float = 0.0
 @onready var r_height : float = height
@@ -26,7 +28,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	distance = clampf(distance, 2.0, 10.0)
-	height = clampf(height, -0.5, 6.0)
+	height = clampf(height, -0.5, 9.0)
 	
 	if(Input.is_action_pressed("ui_camera_further")):
 		distance += 3.0 * delta

@@ -1,9 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://cr53rsuby7qyv"]
+[gd_scene load_steps=14 format=3 uid="uid://cr53rsuby7qyv"]
 
 [ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
 [ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
 [ext_resource type="Script" path="res://scripts/classes/health_system.gd" id="2_6dpr5"]
 [ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_r1woo"]
+[ext_resource type="Shader" path="res://shaders/toon_ligh/toon_lightning.gdshader" id="3_v7kgk"]
+[ext_resource type="AudioStream" uid="uid://dxgjsg31qva7j" path="res://art/sfx/scale_fx_T.mp3" id="6_4isll"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w83fs"]
+render_priority = 0
+shader = ExtResource("3_v7kgk")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/clamp_diffuse_to_max = false
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = true
+shader_parameter/rim_width = 9.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0h2s8"]
 height = 1.5
@@ -39,21 +60,25 @@ unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250414, 0)
+material_override = SubResource("ShaderMaterial_w83fs")
 mesh = SubResource("CapsuleMesh_0h2s8")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.247661, -0.2)
+material_override = SubResource("ShaderMaterial_w83fs")
 mesh = SubResource("CapsuleMesh_7jnw3")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.248, 0.2)
+material_override = SubResource("ShaderMaterial_w83fs")
 mesh = SubResource("CapsuleMesh_7jnw3")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.276429, 0.539211, 0)
+material_override = SubResource("ShaderMaterial_w83fs")
 mesh = SubResource("CapsuleMesh_2j8k8")
 skeleton = NodePath("../..")
 
@@ -77,12 +102,14 @@ mesh = SubResource("SphereMesh_6080t")
 [node name="WallHangers" type="Node3D" parent="."]
 
 [node name="Hanger" type="RayCast3D" parent="WallHangers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.854405, 0)
-target_position = Vector3(0.6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.512823, 0.854405, -5.40018e-05)
+target_position = Vector3(0.35, 0, 0)
+hit_from_inside = true
 
 [node name="Checker" type="RayCast3D" parent="WallHangers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.997629, 0)
-target_position = Vector3(0.6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.512823, 0.997629, -5.40018e-05)
+target_position = Vector3(0.35, 0, 0)
+hit_from_inside = true
 
 [node name="ShadowRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -92,7 +119,7 @@ target_position = Vector3(0, -1000, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="Sprite" type="Sprite3D" parent="Shadow"]
-transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, 0.002, 0)
+transform = Transform3D(0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, 0.012, 0)
 texture = ExtResource("1_tqaaq")
 
 [node name="CameraHeightAdjusters" type="Node3D" parent="."]
@@ -110,9 +137,19 @@ target_position = Vector3(-2, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NearBodies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0, 0)
 shape = SubResource("BoxShape3D_2g1by")
-disabled = true
 
 [node name="RayVisualizer" parent="NearBodies" instance=ExtResource("3_r1woo")]
 
+[node name="SFXTimer" type="Timer" parent="."]
+
+[node name="SFXAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_4isll")
+bus = &"Effects"
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06253, 0)
+current = true
+
 [connection signal="body_entered" from="NearBodies" to="." method="_on_near_bodies_body_entered"]
 [connection signal="body_exited" from="NearBodies" to="." method="_on_near_bodies_body_exited"]
+[connection signal="timeout" from="SFXTimer" to="." method="_on_sfx_timer_timeout"]

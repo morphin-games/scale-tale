@@ -41,6 +41,12 @@ func _ready() -> void:
 				player.move_and_slide()
 				
 				stomp()
+			else:
+				var force : Vector3 = (enemy.global_transform.origin - player.global_transform.origin).normalized()
+				player.velocity.y = death_impulse * 2
+				player.move_and_slide()
+				player.jump_external_force = Vector2(force.x, force.z) * 2
+				enemy.stun(0.5)
 		
 		else:
 			if(!enemy.alive) : return
@@ -49,8 +55,8 @@ func _ready() -> void:
 			enemy.stun()
 			
 			var force : Vector3 = (enemy.global_transform.origin - player.global_transform.origin).normalized()
-			player.velocity.y = death_impulse / 3
+			player.velocity.y = death_impulse * 2
 			player.move_and_slide()
-			player.jump_external_force = Vector2(force.x, force.z) * 3
+			player.jump_external_force = Vector2(force.x, force.z) * 2
 			player.health_system.damage(1)
 	))

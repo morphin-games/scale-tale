@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://poe7d6338u3h"]
+[gd_scene load_steps=5 format=3 uid="uid://poe7d6338u3h"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_sfa2j"]
+[ext_resource type="AudioStream" uid="uid://chbi8f4ihipam" path="res://art/sfx/talk_effect.wav" id="1_c48f2"]
+[ext_resource type="Texture2D" uid="uid://ccbrm5r4iqou3" path="res://dialogues/textbox/textbox_test.png" id="1_hfhmj"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ixcfe"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="GDScript" id="GDScript_xt54g"]
 script/source = "extends Sprite3D
 
-@onready var label = $SubViewport/Label
+@onready var label = $SubViewport/MarginContainer/Label
 @onready var timer = $SubViewport/LetterDisplayTimer
-
+@onready var audio_player = $AudioStreamPlayer
 
 
 var text = \"\"
@@ -20,10 +23,12 @@ var punctuation_time = 0.3
 
 signal finished_displaying()
 
-func display_text(text_to_display: String):
+func display_text(text_to_display: String,sfx_speech: AudioStreamPlayer3D):
 	text = text_to_display
 	label.text = text_to_display
-
+	audio_player = sfx_speech
+	
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	label.text = \"\"
 	display_letter()
 	
@@ -42,6 +47,15 @@ func display_letter():
 			timer.start(space_time)
 		_:
 			timer.start(letter_time)
+			
+			var new_audio_player = audio_player.duplicate()
+			new_audio_player.pitch_scale += randf_range(-0.1,0.1)
+			if text[letter_index] in [\"a\",\"e\",\"i\",\"o\",\"u\"]:
+				new_audio_player.pitch_scale += 0.2
+			get_tree().root.add_child(new_audio_player)
+			new_audio_player.play()
+			await  new_audio_player.finished
+			new_audio_player.queue_free()
 
 func _on_letter_display_timer_timeout() -> void:
 	display_letter() # Replace with function body.
@@ -49,11 +63,12 @@ func _on_letter_display_timer_timeout() -> void:
 
 [node name="text_box" type="Sprite3D"]
 billboard = 1
-texture = SubResource("ViewportTexture_sfa2j")
+texture = SubResource("ViewportTexture_ixcfe")
 script = SubResource("GDScript_xt54g")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
+size = Vector2i(2000, 500)
 
 [node name="MarginContainer2" type="MarginContainer" parent="SubViewport"]
 offset_right = 40.0
@@ -66,14 +81,36 @@ theme_override_constants/margin_bottom = 8
 [node name="LetterDisplayTimer" type="Timer" parent="SubViewport"]
 one_shot = true
 
-[node name="Label" type="Label" parent="SubViewport"]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 32.0
-offset_bottom = 94.0
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewport"]
+custom_minimum_size = Vector2(2000, 1000)
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_hfhmj")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="SubViewport/MarginContainer"]
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 60
-text = "dwdwdwd
-"
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5918, 0)
+stream = ExtResource("1_c48f2")
+
+[connection signal="timeout" from="SubViewport/LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

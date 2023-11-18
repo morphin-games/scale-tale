@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ddba3grhj7f0o"]
+[gd_scene load_steps=16 format=3 uid="uid://da2kgb6gyvowc"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_0m4mt"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_2o4h8"]
