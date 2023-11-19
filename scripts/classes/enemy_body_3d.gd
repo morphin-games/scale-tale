@@ -42,19 +42,6 @@ func patrol(max_distance : float = 12.0) -> void:
 	status = EnemyStatus.PATROLING
 	patrol_start_time = Utils.now()
 	target = global_transform.origin + (Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)).normalized() * randf_range(0.0, max_distance))
-#		var r_pos : Vector3 = global_transform.origin + (Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)).normalized() * randf_range(0.0, max_distance))
-#		$SafePositionChecker.global_transform.origin = r_pos
-#		$SafePositionChecker.global_transform.origin.y += 1.0
-#
-#		print($SafePositionChecker.get_collider())
-#		if($SafePositionChecker.is_colliding()):
-#			target = r_pos
-#			print("VALID: ", target)
-#			break
-#		else:
-#			print("INVALID: ", r_pos)
-#			print("INVALID: ", global_transform.origin)
-#			print("----------------------------")
 			
 func go_to(where : Vector3) -> void:
 	status = EnemyStatus.PATROLING

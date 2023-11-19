@@ -96,7 +96,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 
 [node name="MovementVisualizer" type="MeshInstance3D" parent="MovementPivot/Movement"]
 transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, 0, 0)
-visible = false
 mesh = SubResource("SphereMesh_6080t")
 
 [node name="WallHangers" type="Node3D" parent="."]

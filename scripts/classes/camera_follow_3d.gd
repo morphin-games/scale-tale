@@ -15,6 +15,16 @@ extends Camera3D
 
 var direction : Vector2
 
+class PrevCamData:
+	var distance : float
+	var height : float
+	
+func get_prev_cam_data() -> Dictionary:
+	return {
+		"distance": distance
+		,"height": height
+	}
+
 func _input(event: InputEvent) -> void:
 	if(event is InputEventMouseMotion):
 		angle += event.relative.x * 0.01

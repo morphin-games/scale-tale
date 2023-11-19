@@ -6,6 +6,7 @@ signal scaling_started
 signal scaling_stopped
 signal near_body_entered(body : Node3D)
 signal near_body_exited(body : Node3D)
+signal grabbed_item_changed(body : Node3D)
 
 @export var health_system : HealthSystem
 @export_category("Controls")
@@ -24,18 +25,25 @@ enum PlayerStates {
 	,JUMPING = 2
 	,OLYMPIC_JUMPING = 201
 	,WALLJUMPING = 202
+	,HANGJUMPING = 203
 	,GROUNDPOUNDING = 3
 	,CROUCHING = 4
 	,HANGING = 5
 	,SWIMMING = 6
 }
 
+var prev_cam_data : Dictionary
 var near_bodies : Array[Node3D] = []
 var near_bodies_with_scale_particles : Array[Node3D] = []
 var looking_down : bool = false
 var ray_color : Color = Color(0.04, 0.0, 0.97)
 var ray_ignited : bool = false
-var grabbed_item : Node3D = null
+var grabbed_item : Node3D = null : 
+	set(new_grabbed):
+		grabbed_item = new_grabbed
+		emit_signal("grabbed_item_changed", new_grabbed)
+		add_scale_particles(new_grabbed)
+		
 var camera_rotation_speed : float = 0.75
 # jump_external_force is a Vector2 to move the players against their wills when performing a special jump (olympic or backflip)
 var jump_external_force : Vector2 = Vector2.ZERO
@@ -57,7 +65,8 @@ var direction : Vector2 = Vector2.ZERO :
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
+	respawn()
+#	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
@@ -84,7 +93,7 @@ func _physics_process(delta: float) -> void:
 		if(current_camera is CameraFollow3D):
 			$MovementPivot.rotation.y = move_toward($MovementPivot.rotation.y, -current_camera.angle, camera_rotation_speed)
 			
-			if(current_camera.height >= 5.0 and !looking_down):
+			if(current_camera.height >= 8.0 and !looking_down):
 				looking_down = true
 				var n_tween : Tween = get_tree().create_tween()
 				n_tween.tween_property($NearBodies, "rotation_degrees:z", -90.0, 1.0)
@@ -113,10 +122,11 @@ func _physics_process(delta: float) -> void:
 	
 	velocity.x = (global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x) * speed
 	velocity.z = (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z) * speed
+
 	jump_external_force = jump_external_force.move_toward(Vector2.ZERO, 0.075)
 	gravity = move_toward(gravity, ProjectSettings.get("physics/3d/default_gravity"), 0.25)
-	acceleration = move_toward(acceleration, r_acceleration, 0.1)
-	if(player_state != PlayerStates.CROUCHING and player_state != PlayerStates.JUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
+	acceleration = move_toward(acceleration, r_acceleration, 0.12)
+	if(player_state != PlayerStates.CROUCHING and player_state != PlayerStates.JUMPING  and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 		speed = move_toward(speed, max_speed, 0.075)
 	if(Vector2(velocity.x, velocity.z).length() > 0):
 		%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(-last_movement_direction.x, last_movement_direction.y).angle() + $MovementPivot.rotation.y, 0.33)
@@ -131,12 +141,12 @@ func _physics_process(delta: float) -> void:
 		
 	if(player_state != PlayerStates.SWIMMING):
 		if(is_on_floor()):
-			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
+			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 				$WallHangers.scale.x = 1.0
 				velocity.y = 0.0
 				jump_external_force = Vector2.ZERO
 				camera_rotation_speed = 0.75
-			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.GROUNDPOUNDING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
+			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.GROUNDPOUNDING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 				if(Input.is_action_pressed("ui_groundpound")):
 					player_state = PlayerStates.CROUCHING
 				if(Input.is_action_just_released("ui_groundpound")):
@@ -147,7 +157,7 @@ func _physics_process(delta: float) -> void:
 			elif((velocity.x != 0 or velocity.z != 0) and player_state != PlayerStates.CROUCHING):
 				player_state = PlayerStates.MOVING
 
-			if(Input.is_action_just_pressed("ui_jump")):
+			if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 				if(player_state == PlayerStates.CROUCHING):
 					player_state = PlayerStates.JUMPING
 					if(Vector2(velocity.x, velocity.z).length() > 0.2):
@@ -189,7 +199,7 @@ func _physics_process(delta: float) -> void:
 				if(velocity.y < -5.0):
 					velocity.y = -5.0
 					
-			if(is_on_wall()):
+			if($WallHangers/Checker.get_collider() != null or $WallHangers/Hanger.get_collider() != null):
 				if($WallHangers/Checker.get_collider() == null and $WallHangers/Hanger.get_collider() != null and velocity.y < 0):
 					speed = 0.0
 					velocity.y = 0.0
@@ -202,15 +212,17 @@ func _physics_process(delta: float) -> void:
 						speed = max_speed * 0.2
 						velocity = Vector3.ZERO
 						velocity.y = max_jump_force * 1.25
-						acceleration = 2.0
+						acceleration = 6.5
 						last_movement_direction *= -1
-						jump_external_force = Vector2(%Mesh.global_transform.basis.z.x, %Mesh.global_transform.basis.z.z) * 5.0
+						jump_external_force = Vector2(%Mesh.global_transform.basis.z.x, %Mesh.global_transform.basis.z.z) * 8.0
 				else:
 					if(Input.is_action_just_pressed("ui_groundpound")):
 						player_state = PlayerStates.JUMPING
 					
 			if(player_state == PlayerStates.HANGING):
 				if(Input.is_action_just_pressed("ui_jump")):
+					player_state = PlayerStates.HANGJUMPING
+					speed = max_speed * 0.5
 					velocity.y = max_jump_force
 					jump_external_force = last_movement_direction * 2.0
 	else: # Swimming in water
@@ -235,11 +247,27 @@ func _physics_process(delta: float) -> void:
 			$GrabPivot/Grabbed.transform.origin.x = 1.5 + (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
 			$GrabPivot/Grabbed.transform.origin.y = (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
 		grabbed_item.global_rotation = $GrabPivot/Grabbed.global_rotation
-		
+		if(current_camera != null):
+			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
+			if(current_camera is CameraFollow3D):
+				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
+				if(scalables.size() > 0):
+					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
+	else:
+		if(current_camera != null):
+			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
+			if(current_camera is CameraFollow3D):
+				prev_cam_data = current_camera.get_prev_cam_data()
+				if(prev_cam_data != null):
+					current_camera.distance = prev_cam_data.distance
+					current_camera.height = prev_cam_data.height
+			
+				
 #	Item scaling functionality
 	if(Input.is_action_pressed("ui_upscale")):
 		emit_signal("scaling_started")
 		if(grabbed_item != null):
+			ray_color = Color(1.0, 0.0, 0.0)
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).downscale(delta)
@@ -249,11 +277,11 @@ func _physics_process(delta: float) -> void:
 		else:
 #			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
 			if(!ray_ignited):
+				var tween_c : Tween = get_tree().create_tween()
+				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
 				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
 				$NearBodies/RayVisualizer.enable()
-				var tween_c : Tween = get_tree().create_tween()
-				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
 
 
 			for body in near_bodies:
@@ -267,6 +295,7 @@ func _physics_process(delta: float) -> void:
 	elif(Input.is_action_pressed("ui_downscale")):
 		emit_signal("scaling_started")
 		if(grabbed_item != null):
+			ray_color = Color(0.0, 0.03, 1.0)
 			var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).upscale(delta)
@@ -302,14 +331,16 @@ func _physics_process(delta: float) -> void:
 
 
 func add_scale_particles(node : Node3D) -> void:
-	var particles : ScaleParticles = load("res://scenes/particle_effects/scale_particles.tscn").instantiate()
-	node.add_child(particles)
-	particles.global_transform.origin = node.global_transform.origin
-	
 	var scalables : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/scalable_3d.gd")
 	var scalable : Scalable3D
 	if(scalables.size() > 0):
 		scalable = scalables[0]
+	else:
+		return
+	
+	var particles : ScaleParticles = load("res://scenes/particle_effects/scale_particles.tscn").instantiate()
+	node.add_child(particles)
+	particles.global_transform.origin = node.global_transform.origin
 		
 	var scalable_colls : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/collision_shape_scalable_3d.gd")
 	if(scalable_colls.size() > 0):
@@ -318,6 +349,7 @@ func add_scale_particles(node : Node3D) -> void:
 	scaling_started.connect(Callable(func() -> void:
 		if(scalable != null):
 			particles.set_size(scalable.current_scale.x)
+		print(ray_color)
 		particles.set_color(ray_color)
 		if(!particles.emitting):
 			particles.emit(true)
@@ -333,6 +365,12 @@ func add_scale_particles(node : Node3D) -> void:
 			particles.destroy()
 			particles.system_enabled = false
 	))
+	
+	grabbed_item_changed.connect(Callable(func(body: Node3D) -> void:
+		if(body == null):
+			particles.destroy()
+			particles.system_enabled = false
+	))
 
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:
@@ -343,6 +381,10 @@ func _on_near_bodies_body_entered(body: Node3D) -> void:
 func _on_near_bodies_body_exited(body: Node3D) -> void:
 	emit_signal("near_body_exited", body)
 	near_bodies.erase(body)
+
+func respawn(transition : bool = false) -> void:
+	if((Persistance.persistance_data as PersistanceData).respawn_position != null):
+		global_transform.origin = (Persistance.persistance_data as PersistanceData).respawn_position
 
 func scale_sfx_downscale():
 	var tween_scale_sfx : Tween = get_tree().create_tween()

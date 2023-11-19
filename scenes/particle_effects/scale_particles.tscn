@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://kralj8xqowd7"]
+[gd_scene load_steps=11 format=3 uid="uid://d2ggi8g57ddss"]
 
 [ext_resource type="Script" path="res://scripts/classes/scale_particles.gd" id="1_rjrkl"]
 [ext_resource type="ArrayMesh" uid="uid://b32ey4lx36rve" path="res://art/3D/runes/meshes/smol_Plane_006.res" id="2_pt7aa"]
@@ -44,24 +44,28 @@ scale_curve = SubResource("CurveTexture_lcvfv")
 script = ExtResource("1_rjrkl")
 
 [node name="Pass1" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 60
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_15nr2")
 draw_pass_1 = ExtResource("2_pt7aa")
 
 [node name="Pass2" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 30
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_15nr2")
 draw_pass_1 = ExtResource("3_7h0o5")
 
 [node name="Pass3" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 30
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_15nr2")
 draw_pass_1 = ExtResource("4_6yjk5")
 
 [node name="Pass4" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 30
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_15nr2")

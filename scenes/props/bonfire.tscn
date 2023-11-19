@@ -7,6 +7,8 @@
 script/source = "extends Node3D
 
 func _on_interactuable_interacted() -> void:
+	(Persistance.persistance_data as PersistanceData).respawn_position = $RespawnPosition.global_transform.origin
+	Persistance.save()
 	get_tree().call_group(\"Enemies\", \"queue_free\")
 	get_tree().call_group(\"EnemySpawners\", \"spawn\")
 "
@@ -55,6 +57,9 @@ radius = 4.0
 
 [node name="Bonfire" type="Node3D"]
 script = SubResource("GDScript_i0ddj")
+
+[node name="RespawnPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84926, 2.08184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_812iu")

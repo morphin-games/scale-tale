@@ -21,7 +21,6 @@ func set_shape(new_shape : Shape3D) -> void:
 			((child as GPUParticles3D).process_material as ParticleProcessMaterial).emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
 		
 func set_size(size : float) -> void:
-	print(size)
 	for child in get_children():
 		if(shape is BoxShape3D):
 			((child as GPUParticles3D).process_material as ParticleProcessMaterial).emission_box_extents = Vector3(size, size, size)
@@ -37,4 +36,5 @@ func destroy() -> void:
 		(child as GPUParticles3D).emitting = false
 		
 	await(get_tree().create_timer(5.0).timeout)
-	queue_free()
+	if(self != null):
+		queue_free()
