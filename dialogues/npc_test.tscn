@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://g05ecni800s6"]
 
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="1_4veml"]
-[ext_resource type="AudioStream" uid="uid://qhneiqp4k2ic" path="res://art/sfx/talk_effect.mp3" id="2_je4kh"]
+[ext_resource type="AudioStream" uid="uid://qhneiqp4k2ic" path="res://art/sfx/talk_sfx/talk_effect.mp3" id="2_je4kh"]
 
 [sub_resource type="GDScript" id="GDScript_uwnyl"]
 script/source = "extends Node3D
@@ -10,27 +10,22 @@ script/source = "extends Node3D
 @onready var speech_sound = $AudioStreamPlayer3D
 var dialog_active = false
 var current_dialogue_id = 0
-const dialogue: Array[String] = [
-	\"¿Follar? Ah, te refieres a Froslass, Pokémon tipo Hielo/Fantasma introducido en la cuarta generación. Evoluciona de un Snorunt hembra al otorgarle una Piedra Alba: Destaca por su buena velocidad y ataque especial, además de aprender movimientos de utilidad como Púas o Mismodestino\",
-	\"¿Cómo que no sabes quién es Frosslass? Fuera de mi vista.\"
-]
+@export var npc_name = \"\"
+
+var dialogue: Array[String] = []
+var dialog_file = \"res://dialogues/json/dialog_test.json\"
 
 
-func start():
-	#if dialog_active:
-	#	return
-	#dialog_active = true
-	#dialogue = load_dialogue(\"res://dialogues/json/dialog_test.json\")
-	#current_dialogue_id = -1
-	pass
-
-func load_dialogue(dialog_file):
+func _ready() -> void:
 	var file = FileAccess.open(dialog_file, FileAccess.READ)
 	var content = file.get_as_text()
 	var json = JSON.new()
-	var finish = json.parse_string(content)
-	return finish
-
+	var finish = JSON.parse_string(content)	
+	
+	for i in finish:
+		if i[\"name\"] == npc_name:
+			dialogue.append(i[\"text\"])
+	print(dialogue)
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	if event.is_action_pressed(\"ui_grab\"):
@@ -38,10 +33,10 @@ func load_dialogue(dialog_file):
 #			DialogManager.start_dialog(global_position, dialogue)
 		
 
-
 func _on_interactuable_interacted() -> void:
-	DialogManager.start_dialog(global_position, dialogue, speech_sound)
 
+
+	DialogManager.start_dialog(global_position, dialogue, speech_sound)
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_s7e46"]

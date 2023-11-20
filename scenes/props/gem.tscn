@@ -43,6 +43,7 @@ radius = 1.24129
 [node name="Gem" type="Node3D" node_paths=PackedStringArray("player_detector")]
 script = ExtResource("1_6le4d")
 player_detector = NodePath("PlayerDetectArea3D")
+gem_id = null
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_mqqdm")
@@ -58,3 +59,5 @@ script = ExtResource("3_f6eke")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D"]
 shape = SubResource("SphereShape3D_kc6lw")
+
+[connection signal="player_exited" from="PlayerDetectArea3D" to="." method="_on_player_detect_area_3d_player_exited"]

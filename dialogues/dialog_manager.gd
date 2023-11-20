@@ -3,7 +3,7 @@ extends Node
 
 @onready var textbox_scene = preload("res://dialogues/textbox/text_box.tscn")
 
-var dialog_lines: Array[String] = []
+var dialog_lines: Array = []
 var current_line_index = 0
 
 var text_box

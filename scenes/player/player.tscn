@@ -1,11 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://cr53rsuby7qyv"]
+[gd_scene load_steps=15 format=3 uid="uid://cr53rsuby7qyv"]
 
 [ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
 [ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
 [ext_resource type="Script" path="res://scripts/classes/health_system.gd" id="2_6dpr5"]
 [ext_resource type="PackedScene" uid="uid://bd4kehg6aokya" path="res://scenes/class_scenes/ray_visualizer.tscn" id="3_r1woo"]
 [ext_resource type="Shader" path="res://shaders/toon_ligh/toon_lightning.gdshader" id="3_v7kgk"]
-[ext_resource type="AudioStream" uid="uid://dxgjsg31qva7j" path="res://art/sfx/scale_fx_T.mp3" id="6_4isll"]
+[ext_resource type="AudioStream" uid="uid://dxgjsg31qva7j" path="res://art/sfx/scale_sfx/scale_fx_T.mp3" id="6_d80vc"]
+[ext_resource type="AudioStream" uid="uid://4p8mlcxguvwh" path="res://art/sfx/jump/jump_fx.mp3" id="7_6vy58"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w83fs"]
 render_priority = 0
@@ -142,7 +143,14 @@ shape = SubResource("BoxShape3D_2g1by")
 [node name="SFXTimer" type="Timer" parent="."]
 
 [node name="SFXAudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("6_4isll")
+stream = ExtResource("6_d80vc")
+attenuation_model = 3
+volume_db = 4.0
+bus = &"Effects"
+
+[node name="JumpSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6vy58")
+volume_db = -5.0
 bus = &"Effects"
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
