@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://8n1e5061pbrm"]
+[gd_scene load_steps=9 format=3 uid="uid://cwbjycotfg2hv"]
 
 [ext_resource type="Script" path="res://scripts/classes/collectible_gem.gd" id="1_6le4d"]
 [ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="2_1s62c"]
-[ext_resource type="Material" uid="uid://dkt8e2dvph22q" path="res://materials/m_gem_available.tres" id="2_u1ior"]
-[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="3_f6eke"]
+[ext_resource type="Material" uid="uid://u7uqr73oahun" path="res://materials/m_gem_available.tres" id="2_u1ior"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="4_y1h21"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eilc5"]
 
@@ -40,9 +40,8 @@ shadow_mesh = SubResource("ArrayMesh_w4wp2")
 [sub_resource type="SphereShape3D" id="SphereShape3D_kc6lw"]
 radius = 1.24129
 
-[node name="Gem" type="Node3D" node_paths=PackedStringArray("player_detector")]
+[node name="Gem" type="Node3D"]
 script = ExtResource("1_6le4d")
-player_detector = NodePath("PlayerDetectArea3D")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_mqqdm")
@@ -54,7 +53,9 @@ script = ExtResource("2_1s62c")
 rotation_speed = 0.75
 
 [node name="PlayerDetectArea3D" type="Area3D" parent="."]
-script = ExtResource("3_f6eke")
+script = ExtResource("4_y1h21")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D"]
 shape = SubResource("SphereShape3D_kc6lw")
+
+[connection signal="player_entered" from="PlayerDetectArea3D" to="." method="_on_player_detect_area_3d_player_entered"]

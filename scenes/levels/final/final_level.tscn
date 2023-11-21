@@ -1,0 +1,208 @@
+[gd_scene load_steps=34 format=3 uid="uid://d2n0rgc2x8ten"]
+
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/grass_v2/grass_01_color_1k.dds" id="1_0efer"]
+[ext_resource type="Terrain3DStorage" uid="uid://cp7uqjxg3d5qs" path="res://terrain_data/final.tres" id="1_518ur"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/grass_v2/grass_01_normal_gl_1k.dds" id="2_rfpwl"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_color_1k.dds" id="3_yaypb"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_normal_gl_1k.dds" id="4_6kaxo"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/cliff/cliff_rocks_01_color_1k.dds" id="6_5i7gr"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/cliff/cliff_rocks_01_normal_gl_1k.dds" id="7_vj2iv"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_color_1k.dds" id="8_m3kqj"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_normal_gl_1k.dds" id="9_yhk8w"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/stone_wall/stone_wall_02_color_1k.dds" id="10_ak323"]
+[ext_resource type="Texture2D" path="res://art/2D/textures/freestylized_dot_com/stone_wall/stone_wall_02_normal_gl_1k.dds" id="11_4d63d"]
+[ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="12_jmwvl"]
+[ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="13_4llkt"]
+[ext_resource type="PackedScene" uid="uid://d1cjwpxspno5e" path="res://shaders/post_process_outline/post_processing_underwater.tscn" id="14_tjwie"]
+[ext_resource type="Shader" path="res://shaders/clouds/clouds_cartoon.gdshader" id="15_oe2w3"]
+[ext_resource type="PackedScene" uid="uid://beog76ojg0a2b" path="res://shaders/post_process_outline/post_process_outline.tscn" id="16_3m7tn"]
+[ext_resource type="Material" uid="uid://h3yv1gxy0gc6" path="res://materials/m_ruins.tres" id="17_6msr7"]
+[ext_resource type="Script" path="res://scripts/classes/water_area_3d.gd" id="18_ue31t"]
+[ext_resource type="Material" uid="uid://dhma2f41npqom" path="res://shaders/water/water_cool.tres" id="19_r0lhb"]
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_cxpke"]
+albedo_texture = ExtResource("1_0efer")
+normal_texture = ExtResource("2_rfpwl")
+uv_scale = 0.35
+uv_rotation = 1.0
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_j1cg1"]
+texture_id = 1
+albedo_texture = ExtResource("3_yaypb")
+normal_texture = ExtResource("4_6kaxo")
+uv_scale = 0.35
+uv_rotation = 1.0
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_rcoy4"]
+albedo_texture = ExtResource("6_5i7gr")
+normal_texture = ExtResource("7_vj2iv")
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_rjxpu"]
+albedo_texture = ExtResource("8_m3kqj")
+normal_texture = ExtResource("9_yhk8w")
+uv_scale = 0.35
+
+[sub_resource type="Terrain3DTexture" id="Terrain3DTexture_kkeye"]
+albedo_texture = ExtResource("10_ak323")
+normal_texture = ExtResource("11_4d63d")
+
+[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_748sq"]
+textures = Array[Terrain3DTexture]([SubResource("Terrain3DTexture_cxpke"), SubResource("Terrain3DTexture_j1cg1"), SubResource("Terrain3DTexture_rcoy4"), SubResource("Terrain3DTexture_rjxpu"), SubResource("Terrain3DTexture_kkeye")])
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vhtbm"]
+radius = 0.193826
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6acsd"]
+shader = ExtResource("15_oe2w3")
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/day_bottom_color = Color(0.396383, 0.800597, 1, 1)
+shader_parameter/sunset_top_color = Color(0.7, 0.75, 1, 1)
+shader_parameter/sunset_bottom_color = Color(1, 0.5, 0.7, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/night_bottom_color = Color(0.1, 0, 0.2, 1)
+shader_parameter/horizon_color = Color(0.439216, 0.788235, 1, 1)
+shader_parameter/horizon_blur = 0.05
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_sunset_color = Color(10, 0, 0, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 10.0
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_size = 0.06
+shader_parameter/moon_blur = 0.1
+shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
+shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_middle_color = Color(0.92, 0.92, 0.98, 1)
+shader_parameter/clouds_bottom_color = Color(0.83, 0.83, 0.94, 1)
+shader_parameter/clouds_speed = 2.0
+shader_parameter/clouds_direction = 0.2
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_cutoff = 0.3
+shader_parameter/clouds_fuzziness = 0.5
+shader_parameter/clouds_weight = 0.0
+shader_parameter/clouds_blur = 0.25
+shader_parameter/stars_speed = 1.0
+shader_parameter/overwritten_time = 0.0
+
+[sub_resource type="Sky" id="Sky_nj42h"]
+sky_material = SubResource("ShaderMaterial_6acsd")
+
+[sub_resource type="Environment" id="Environment_q4pul"]
+background_mode = 2
+sky = SubResource("Sky_nj42h")
+
+[sub_resource type="BoxMesh" id="BoxMesh_o1u8d"]
+size = Vector3(15, 20, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhiah"]
+size = Vector3(15, 20, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hqfgk"]
+size = Vector3(70, 20, 55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_libgl"]
+material = ExtResource("19_r0lhb")
+size = Vector3(70, 20, 55)
+
+[node name="FinalLevel" type="Node3D"]
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+storage = ExtResource("1_518ur")
+texture_list = SubResource("Terrain3DTextureList_748sq")
+
+[node name="Player" parent="." instance=ExtResource("12_jmwvl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -892.976, 402.875, 94.6065)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.207553, 0.978224, 0, -0.978224, -0.207553, 0.735032, 5.05304, -2.39666)
+
+[node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("13_4llkt")
+target = NodePath("../Player")
+height = 3.0
+
+[node name="Area3D" type="Area3D" parent="CameraFollow3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraFollow3D/Area3D"]
+shape = SubResource("SphereShape3D_vhtbm")
+
+[node name="UnderWater" parent="CameraFollow3D" instance=ExtResource("14_tjwie")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q4pul")
+
+[node name="PostProccessing" parent="." instance=ExtResource("16_3m7tn")]
+extra_cull_margin = 248.24
+
+[node name="TutoZone" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -788.896, 392.103, 108.39)
+
+[node name="Jump" type="StaticBody3D" parent="TutoZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.8436, -2.28738, 4.37029)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/Jump"]
+mesh = SubResource("BoxMesh_o1u8d")
+surface_material_override/0 = ExtResource("17_6msr7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/Jump"]
+shape = SubResource("BoxShape3D_fhiah")
+metadata/_edit_lock_ = true
+
+[node name="Jump4" type="StaticBody3D" parent="TutoZone"]
+transform = Transform3D(-0.474522, 0.878197, 0.0599859, -0.879781, -0.475378, 0, 0.028516, -0.0527744, 0.998199, -35.4883, -3.56235, -12.7712)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/Jump4"]
+mesh = SubResource("BoxMesh_o1u8d")
+surface_material_override/0 = ExtResource("17_6msr7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/Jump4"]
+shape = SubResource("BoxShape3D_fhiah")
+metadata/_edit_lock_ = true
+
+[node name="Jump5" type="StaticBody3D" parent="TutoZone"]
+transform = Transform3D(-0.474522, 0.878197, 0.0599859, -0.879781, -0.475378, 0, 0.028516, -0.0527744, 0.998199, -17.9243, -13.0699, -13.8267)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/Jump5"]
+mesh = SubResource("BoxMesh_o1u8d")
+surface_material_override/0 = ExtResource("17_6msr7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/Jump5"]
+shape = SubResource("BoxShape3D_fhiah")
+metadata/_edit_lock_ = true
+
+[node name="Jump2" type="StaticBody3D" parent="TutoZone"]
+transform = Transform3D(0.999794, -0.0202968, 0, 0.0202968, 0.999794, 0, 0, 0, 1, 4.7525, -2.58508, -0.377914)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/Jump2"]
+mesh = SubResource("BoxMesh_o1u8d")
+surface_material_override/0 = ExtResource("17_6msr7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/Jump2"]
+shape = SubResource("BoxShape3D_fhiah")
+metadata/_edit_lock_ = true
+
+[node name="Jump3" type="StaticBody3D" parent="TutoZone"]
+transform = Transform3D(0.972807, -0.117516, 0.19959, 0.119929, 0.992782, 0, -0.19815, 0.0239366, 0.979879, -15.1401, -4.46185, 0.663391)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/Jump3"]
+mesh = SubResource("BoxMesh_o1u8d")
+surface_material_override/0 = ExtResource("17_6msr7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/Jump3"]
+shape = SubResource("BoxShape3D_fhiah")
+metadata/_edit_lock_ = true
+
+[node name="WaterArea3D" type="Area3D" parent="TutoZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8901, -7.99615, 0)
+script = ExtResource("18_ue31t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TutoZone/WaterArea3D"]
+shape = SubResource("BoxShape3D_hqfgk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TutoZone/WaterArea3D"]
+mesh = SubResource("BoxMesh_libgl")

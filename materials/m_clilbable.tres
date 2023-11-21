@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://bu3ka76b18u5y"]
+
+[ext_resource type="Texture2D" uid="uid://bskteo6osws8h" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_color_1k.png" id="1_2x8h8"]
+[ext_resource type="Texture2D" uid="uid://cad6qr8pqtkqh" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_ambient_occlusion_1k.png" id="2_iemlx"]
+[ext_resource type="Texture2D" uid="uid://dqmg42xo3qwx4" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_height_1k.png" id="3_dc2wg"]
+[ext_resource type="Texture2D" uid="uid://bsfpbuobktf2k" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_normal_gl_1k.png" id="4_l380j"]
+[ext_resource type="Texture2D" uid="uid://dr8r885fgih5s" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_roughness_1k.png" id="5_x1s8j"]
+
+[resource]
+albedo_texture = ExtResource("1_2x8h8")
+roughness_texture = ExtResource("5_x1s8j")
+normal_enabled = true
+normal_texture = ExtResource("4_l380j")
+ao_enabled = true
+ao_texture = ExtResource("2_iemlx")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_dc2wg")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv2_scale = Vector3(0.5, 0.5, 0.5)

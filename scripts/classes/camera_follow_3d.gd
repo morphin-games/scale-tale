@@ -13,6 +13,10 @@ extends Camera3D
 @onready var angle : float = 0.0
 @onready var r_height : float = height
 
+@onready var min_height : float = -0.5
+@onready var max_height : float = 9.0
+@onready var max_distance : float = 10.0
+
 var direction : Vector2
 
 class PrevCamData:
@@ -37,8 +41,8 @@ func _input(event: InputEvent) -> void:
 				distance += 0.5
 
 func _process(delta: float) -> void:
-	distance = clampf(distance, 2.0, 10.0)
-	height = clampf(height, -0.5, 9.0)
+	distance = clampf(distance, 2.0, max_distance)
+	height = clampf(height, min_height, max_height)
 	
 	if(Input.is_action_pressed("ui_camera_further")):
 		distance += 3.0 * delta

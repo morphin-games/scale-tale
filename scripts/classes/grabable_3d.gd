@@ -53,14 +53,34 @@ func get_y_impulse() -> float:
 		return 3.0
 
 func grab() -> void:
-	if(player.grabbed_item == null):
-		player.grabbed_item = item
-		set_colliders_disabled(true)
+#	if(player.grabbed_item == null):
+#		var current_camera : Camera3D = get_viewport().get_camera_3d()
+#		if(current_camera != null):
+#			if(current_camera is CameraFollow3D):
+#				player.prev_cam_data = current_camera.get_prev_cam_data()
+				
+	player.grabbed_item = item
+	set_colliders_disabled(true)
+		
 		
 func drop() -> void:
+#	var current_camera : Camera3D = get_viewport().get_camera_3d()
+#	if(current_camera != null):
+#		if(current_camera is CameraFollow3D):
+#			current_camera.distance = player.prev_cam_data.distance
+#			current_camera.height = player.prev_cam_data.height
+#			player.prev_cam_data = {}
+			
 	player.grabbed_item = null
 	set_colliders_disabled(false)
 	
 func throw() -> void:
+	var current_camera : Camera3D = get_viewport().get_camera_3d()
+	if(current_camera != null):
+		if(current_camera is CameraFollow3D):
+			current_camera.distance = player.prev_cam_data.distance
+			current_camera.height = player.prev_cam_data.height
+			player.prev_cam_data = {}
+			
 	player.grabbed_item = null
 	set_colliders_disabled(false)
