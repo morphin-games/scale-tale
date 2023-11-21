@@ -121,5 +121,6 @@ autowrap_mode = 2
 [node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5918, 0)
 stream = ExtResource("1_c48f2")
+volume_db = 5.0
 
 [connection signal="timeout" from="SubViewport/LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
