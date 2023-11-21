@@ -150,7 +150,7 @@ bus = &"Effects"
 
 [node name="JumpSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_6vy58")
-volume_db = -5.0
+volume_db = -20.0
 bus = &"Effects"
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
