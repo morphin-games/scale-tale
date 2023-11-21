@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://poe7d6338u3h"]
 
-[ext_resource type="AudioStream" uid="uid://chbi8f4ihipam" path="res://art/sfx/talk_effect.wav" id="1_c48f2"]
+[ext_resource type="AudioStream" uid="uid://chbi8f4ihipam" path="res://art/sfx/talk_sfx/talk_effect.wav" id="1_c48f2"]
 [ext_resource type="Texture2D" uid="uid://ccbrm5r4iqou3" path="res://dialogues/textbox/textbox_test.png" id="1_hfhmj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixcfe"]
@@ -109,8 +109,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="NameLabel" type="Label" parent="SubViewport/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "fewfwefwefewf"
+autowrap_mode = 2
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5918, 0)
 stream = ExtResource("1_c48f2")
+volume_db = 5.0
 
 [connection signal="timeout" from="SubViewport/LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

@@ -75,6 +75,7 @@ func _input(event: InputEvent) -> void:
 		if(event.is_action_released("ui_jump") and velocity.y > 0 and player_state == PlayerStates.JUMPING):
 			var v_tween : Tween = get_tree().create_tween()
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
+			$JumpSFX.play()
 
 func _process(delta: float) -> void:
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
@@ -167,6 +168,7 @@ func _physics_process(delta: float) -> void:
 			if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 				if(player_state == PlayerStates.CROUCHING):
 					player_state = PlayerStates.JUMPING
+					$JumpSFX.play()
 					if(Vector2(velocity.x, velocity.z).length() > 0.2):
 	#					Olympic jump
 						player_state = PlayerStates.OLYMPIC_JUMPING
