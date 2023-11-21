@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://b28bfuuqgli7y"]
+
+[ext_resource type="ArrayMesh" uid="uid://l5owlbl8f17e" path="res://art/3D/models/floors/mesh/floor_1_Cube_001.res" id="1_yjk8i"]
+[ext_resource type="Material" uid="uid://ce2qb8qxeajn4" path="res://materials/m_grass.tres" id="2_6m08u"]
+[ext_resource type="Material" uid="uid://byd6jy4altcm5" path="res://materials/m_dirt.tres" id="3_qilbv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tkyaa"]
+size = Vector3(19, 8, 19)
+
+[node name="MeshLibraryFloor" type="Node3D"]
+
+[node name="Full" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_yjk8i")
+surface_material_override/0 = ExtResource("2_6m08u")
+surface_material_override/1 = ExtResource("3_qilbv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Full"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Full/StaticBody3D"]
+shape = SubResource("BoxShape3D_tkyaa")

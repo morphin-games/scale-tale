@@ -9,7 +9,10 @@ signal damaged
 
 @onready var health : int = max_health
 
+var damage_frozen : bool = false
+
 func damage(ammount : int) -> void:
+	if(damage_frozen) : return
 	health -= ammount
 	emit_signal("damaged")
 	if(health <= 0):
