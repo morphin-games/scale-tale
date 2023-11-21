@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dr8r885fgih5s" path="res://art/2D/textures/freestylized_dot_com/vine_wall/ground_with_roots_01_roughness_1k.png" id="5_x1s8j"]
 
 [resource]
+albedo_color = Color(0.815686, 0.815686, 0, 1)
 albedo_texture = ExtResource("1_2x8h8")
 roughness_texture = ExtResource("5_x1s8j")
 normal_enabled = true

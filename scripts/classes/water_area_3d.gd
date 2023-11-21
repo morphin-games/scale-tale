@@ -33,11 +33,13 @@ func _ready() -> void:
 	area_entered.connect(Callable(func(area : Area3D) -> void:
 		if(area.get_parent() is CameraFollow3D):
 			camera = area.get_parent()
+			(camera as CameraFollow3D).underwater.visible = true
 #			(camera as CameraFollow3D).underwater.get_active_material(0).set_shader_parameter("tint", Color(0.0, 0.22, 1.0, 0.85))
 	))
 	
 	area_exited.connect(Callable(func(area : Area3D) -> void:
 		if(area.get_parent() is CameraFollow3D):
+			(camera as CameraFollow3D).underwater.visible = false
 #			(camera as CameraFollow3D).underwater.get_active_material(0).set_shader_parameter("tint", Color(0.0, 0.22, 1.0, 0.0))
 			camera = null
 	))

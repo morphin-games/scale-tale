@@ -1,6 +1,7 @@
 class_name CameraFollow3D
 extends Camera3D
 
+@export var spring : RayCast3D
 @export_category("Target")
 @export var target : Node3D
 @export var follow_speed : float = 0.33
@@ -10,12 +11,13 @@ extends Camera3D
 @export_category("Effects")
 @export var underwater : MeshInstance3D
 
+@onready var real_distance : float = distance
 @onready var angle : float = 0.0
 @onready var r_height : float = height
-
 @onready var min_height : float = -0.5
 @onready var max_height : float = 9.0
 @onready var max_distance : float = 10.0
+@onready var last_real_distance : float = 666.666
 
 var direction : Vector2
 
@@ -36,18 +38,19 @@ func _input(event: InputEvent) -> void:
 	elif(event is InputEventMouseButton):
 		if(event.is_pressed()):
 			if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
-				distance -= 0.5
+				real_distance -= 0.5
 			elif(event.button_index == MOUSE_BUTTON_WHEEL_DOWN):
-				distance += 0.5
+				real_distance += 0.5
 
 func _process(delta: float) -> void:
-	distance = clampf(distance, 2.0, max_distance)
 	height = clampf(height, min_height, max_height)
 	
-	if(Input.is_action_pressed("ui_camera_further")):
-		distance += 3.0 * delta
-	elif(Input.is_action_pressed("ui_camera_nearer")):
-		distance -= 3.0 * delta
+	if(spring.is_colliding() and real_distance >= (global_transform.origin - spring.get_collision_point()).length()):
+		distance = (global_transform.origin - spring.get_collision_point()).length()
+		distance = clampf(distance, 0.5, max_distance)
+	else:
+		real_distance = clampf(real_distance, 2.0, max_distance)
+		distance = real_distance
 		
 	var camera_direction_x : float = Input.get_axis("ui_left_camera", "ui_right_camera")
 	angle -= camera_direction_x * delta * 4.0
