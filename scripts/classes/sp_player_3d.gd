@@ -30,6 +30,7 @@ enum PlayerStates {
 	,CROUCHING = 4
 	,HANGING = 5
 	,SWIMMING = 6
+	,CLIMBING = 7
 }
 
 var prev_cam_data : Dictionary
@@ -44,6 +45,7 @@ var grabbed_item : Node3D = null :
 		emit_signal("grabbed_item_changed", new_grabbed)
 		add_scale_particles(new_grabbed)
 		
+var climb_area : ClimbArea3D
 var camera_rotation_speed : float = 0.75
 # jump_external_force is a Vector2 to move the players against their wills when performing a special jump (olympic or backflip)
 var jump_external_force : Vector2 = Vector2.ZERO
@@ -65,8 +67,8 @@ var direction : Vector2 = Vector2.ZERO :
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	respawn()
-#	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
+#	respawn()
+	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
@@ -113,23 +115,28 @@ func _physics_process(delta: float) -> void:
 	if(abs(rad_to_deg(last_movement_direction.angle_to(direction))) > 167.5):
 		time_since_lateral = 0.0
 	
-	$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
-	$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, (direction.y * 2) + jump_external_force.y, acceleration)
-	
+	if(player_state != PlayerStates.CLIMBING):
+		$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
+		$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, (direction.y * 2) + jump_external_force.y, acceleration)
+	else:
+		$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, 0, acceleration * 2)
+		$MovementPivot/Movement.transform.origin.z = move_toward($MovementPivot/Movement.transform.origin.z, 0, acceleration * 2)
+		
 	if(player_state == PlayerStates.CROUCHING):
 		speed = move_toward(speed, max_speed * 0.2, 0.4)
 	elif(player_state == PlayerStates.SWIMMING):
 		speed = move_toward(speed, max_speed * 0.4, 0.4)
 	
-	velocity.x = (global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x) * speed
-	velocity.z = (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z) * speed
+	if(player_state != PlayerStates.CLIMBING):
+		velocity.x = (global_transform.origin.x - $MovementPivot/Movement.global_transform.origin.x) * speed
+		velocity.z = (global_transform.origin.z - $MovementPivot/Movement.global_transform.origin.z) * speed
 
 	jump_external_force = jump_external_force.move_toward(Vector2.ZERO, 0.075)
 	gravity = move_toward(gravity, ProjectSettings.get("physics/3d/default_gravity"), 0.25)
 	acceleration = move_toward(acceleration, r_acceleration, 0.12)
 	if(player_state != PlayerStates.CROUCHING and player_state != PlayerStates.JUMPING  and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 		speed = move_toward(speed, max_speed, 0.075)
-	if(Vector2(velocity.x, velocity.z).length() > 0):
+	if(Vector2(velocity.x, velocity.z).length() > 0 and player_state != PlayerStates.CLIMBING):
 		%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(-last_movement_direction.x, last_movement_direction.y).angle() + $MovementPivot.rotation.y, 0.33)
 		$CollisionShape3D.rotation.y = %Mesh.rotation.y
 		$GrabPivot.rotation.y = %Mesh.rotation.y
@@ -140,7 +147,7 @@ func _physics_process(delta: float) -> void:
 	if(velocity.y < -100.0):
 		$WallHangers.scale.x = 1.0
 		
-	if(player_state != PlayerStates.SWIMMING):
+	if(player_state != PlayerStates.SWIMMING and player_state != PlayerStates.CLIMBING):
 		if(is_on_floor()):
 			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 				$WallHangers.scale.x = 1.0
@@ -201,7 +208,10 @@ func _physics_process(delta: float) -> void:
 				if(velocity.y < -5.0):
 					velocity.y = -5.0
 					
-			if($WallHangers/Checker.get_collider() != null or $WallHangers/Hanger.get_collider() != null):
+			if(($WallHangers/Checker.get_collider() != null or $WallHangers/Hanger.get_collider() != null) and $WallHangers/Hanger.get_collider() != self and $WallHangers/Checker.get_collider() != self):
+				print("$WallHangers/Checker.get_collider(): ", $WallHangers/Checker.get_collider())
+				print("$WallHangers/Hanger.get_collider(): ", $WallHangers/Hanger.get_collider())
+				print("---------------------------------------")
 				if($WallHangers/Checker.get_collider() == null and $WallHangers/Hanger.get_collider() != null and velocity.y < 0):
 					speed = 0.0
 					velocity.y = 0.0
@@ -216,7 +226,8 @@ func _physics_process(delta: float) -> void:
 						velocity.y = max_jump_force * 1.25
 						acceleration = 6.5
 						last_movement_direction *= -1
-						jump_external_force = Vector2(%Mesh.global_transform.basis.z.x, %Mesh.global_transform.basis.z.z) * 8.0
+						last_direction *= -1
+						jump_external_force = last_movement_direction * 8.0
 				else:
 					if(Input.is_action_just_pressed("ui_groundpound")):
 						player_state = PlayerStates.JUMPING
@@ -227,7 +238,7 @@ func _physics_process(delta: float) -> void:
 					speed = max_speed * 0.5
 					velocity.y = max_jump_force
 					jump_external_force = last_movement_direction * 2.0
-	else: # Swimming in water
+	elif(player_state == PlayerStates.SWIMMING): # Swimming in water
 		if(Input.is_action_just_pressed("ui_jump")):
 			if(velocity.y >= -2.0):
 				velocity.y += 2.0
@@ -236,6 +247,22 @@ func _physics_process(delta: float) -> void:
 		
 		velocity.y -= gravity / 8 * delta
 		velocity.y = clampf(velocity.y, -3.5, 5.0)
+	elif(player_state == PlayerStates.CLIMBING): # Climbing a wall
+		var climb_basis_x : Vector3 = climb_area.global_transform.basis.x
+		var climb_basis_z : Vector3 = climb_area.global_transform.basis.z
+		
+		if(climb_area != null):
+			velocity.x = climb_basis_x.x * direction.y * max_speed
+			velocity.z = climb_basis_x.z * direction.y * max_speed
+			velocity.y = direction.x * max_speed
+			%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(climb_basis_x.x, climb_basis_x.z).angle() - deg_to_rad(90), 0.33)
+			
+		else:
+			player_state = PlayerStates.IDLE
+			
+		if(Input.is_action_just_pressed("ui_jump")):
+			player_state = PlayerStates.WALLJUMPING
+			velocity.y = max_jump_force
 		
 	if(player_state == PlayerStates.GROUNDPOUNDING):
 		speed = 0.0
@@ -259,8 +286,7 @@ func _physics_process(delta: float) -> void:
 		if(current_camera != null):
 			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 			if(current_camera is CameraFollow3D):
-				prev_cam_data = current_camera.get_prev_cam_data()
-				if(prev_cam_data != null):
+				if(prev_cam_data.keys().size() > 0):
 					current_camera.distance = prev_cam_data.distance
 					current_camera.height = prev_cam_data.height
 			
@@ -274,8 +300,8 @@ func _physics_process(delta: float) -> void:
 			if(scalables.size() > 0):
 				(scalables[0] as Scalable3D).downscale(delta)
 				if($SFXAudioStreamPlayer3D.playing == false):
-						$SFXAudioStreamPlayer3D.play()
-						scale_sfx_upscale()
+					$SFXAudioStreamPlayer3D.play()
+					scale_sfx_upscale()
 		else:
 #			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(0.0, 0.008, 1.0))
 			if(!ray_ignited):
@@ -348,28 +374,41 @@ func add_scale_particles(node : Node3D) -> void:
 	if(scalable_colls.size() > 0):
 		particles.set_shape((scalable_colls[0] as CollisionShapeScalable3D).shape)
 	
-	scaling_started.connect(Callable(func() -> void:
+	var callable_started : Callable = Callable(func() -> void:
 		if(scalable != null):
 			particles.set_size(scalable.current_scale.x)
-		print(ray_color)
 		particles.set_color(ray_color)
 		if(!particles.emitting):
 			particles.emit(true)
-	))
+	)
 	
-	scaling_stopped.connect(Callable(func() -> void:
+	var callable_stopped : Callable = Callable(func() -> void:
 		if(particles.emitting):
 			particles.emit(false)
-	))
+	)
 	
-	near_body_exited.connect(Callable(func(body : Node3D) -> void:
+	var callable_body_exited : Callable = Callable(func(body : Node3D) -> void:
 		if(body == node):
+			if(scaling_started.is_connected(callable_started)):
+				scaling_started.disconnect(callable_started)
+			if(scaling_stopped.is_connected(callable_stopped)):
+				scaling_stopped.disconnect(callable_stopped)
 			particles.destroy()
 			particles.system_enabled = false
-	))
+	)
+	
+	scaling_started.connect(callable_started)
+	scaling_stopped.connect(callable_stopped)
+	near_body_exited.connect(callable_body_exited)
 	
 	grabbed_item_changed.connect(Callable(func(body: Node3D) -> void:
 		if(body == null):
+			if(scaling_started.is_connected(callable_started)):
+				scaling_started.disconnect(callable_started)
+			if(scaling_stopped.is_connected(callable_stopped)):
+				scaling_stopped.disconnect(callable_stopped)
+			if(near_body_exited.is_connected(callable_body_exited)):
+				near_body_exited.disconnect(callable_body_exited)
 			particles.destroy()
 			particles.system_enabled = false
 	))
@@ -404,3 +443,18 @@ func reset_scale_sfx():
 
 func _on_sfx_timer_timeout() -> void:
 	pass # Replace with function body.
+
+
+func _on_health_system_damaged() -> void:
+	if(player_state == PlayerStates.CLIMBING):
+		climb_area = null
+		player_state = PlayerStates.IDLE
+	
+	($HealthSystem as HealthSystem).damage_frozen = true
+	for i in range(0, 8):
+		%Mesh.visible = false
+		await get_tree().create_timer(0.09).timeout
+		%Mesh.visible = true
+		await get_tree().create_timer(0.09).timeout
+		
+	($HealthSystem as HealthSystem).damage_frozen = false

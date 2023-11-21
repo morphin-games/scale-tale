@@ -43,7 +43,7 @@ height = 0.75
 [sub_resource type="SphereMesh" id="SphereMesh_6080t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2g1by"]
-size = Vector3(6, 1.5, 1)
+size = Vector3(6, 1.5, 2)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_system")]
 slide_on_ceiling = false
@@ -157,6 +157,7 @@ bus = &"Effects"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06253, 0)
 current = true
 
+[connection signal="damaged" from="HealthSystem" to="." method="_on_health_system_damaged"]
 [connection signal="body_entered" from="NearBodies" to="." method="_on_near_bodies_body_entered"]
 [connection signal="body_exited" from="NearBodies" to="." method="_on_near_bodies_body_exited"]
 [connection signal="timeout" from="SFXTimer" to="." method="_on_sfx_timer_timeout"]

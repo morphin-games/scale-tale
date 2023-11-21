@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://h3yv1gxy0gc6"]
+
+[ext_resource type="Texture2D" uid="uid://c2s3qe6c082ox" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_normal_gl_1k.png" id="1_7dwx7"]
+[ext_resource type="Texture2D" uid="uid://bplkgblji8gsh" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_color_1k.png" id="1_vn6i5"]
+[ext_resource type="Texture2D" uid="uid://cchla53ehfs3p" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_ambient_occlusion_1k.png" id="2_kaq82"]
+[ext_resource type="Texture2D" uid="uid://4rs7u2c1ig3y" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_roughness_1k.png" id="2_r5ae1"]
+[ext_resource type="Texture2D" uid="uid://cd6o2jobbw3w7" path="res://art/2D/textures/freestylized_dot_com/medieval_tiles/medieval-tiles-01_height_1k.png" id="3_s7ioj"]
+
+[resource]
+albedo_texture = ExtResource("1_vn6i5")
+roughness_texture = ExtResource("2_r5ae1")
+normal_enabled = true
+normal_texture = ExtResource("1_7dwx7")
+ao_enabled = true
+ao_texture = ExtResource("2_kaq82")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_s7ioj")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true

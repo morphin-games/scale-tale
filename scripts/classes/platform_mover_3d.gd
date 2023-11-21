@@ -9,6 +9,9 @@ extends Node3D
 var target_point_idx = 0
 var direction : Vector3 = Vector3.ZERO
 
+func _ready() -> void:
+	direction = (points[target_point_idx].global_transform.origin - platform.global_transform.origin).normalized()
+
 func _physics_process(delta: float) -> void:
 	if(Utils.vectors_approx_equal(platform.global_transform.origin, points[target_point_idx].global_transform.origin, 0.5)):
 		target_point_idx += 1

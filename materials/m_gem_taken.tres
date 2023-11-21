@@ -1,9 +1,8 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://dk31ct826wtwy"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://6hatp7cm7qej"]
 
 [resource]
-transparency = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.666667, 0.666667, 0.666667, 0.65098)
+albedo_color = Color(0.701961, 0.701961, 0.701961, 1)
 emission_energy_multiplier = 2.0
 clearcoat = 0.31
 refraction_scale = -0.03

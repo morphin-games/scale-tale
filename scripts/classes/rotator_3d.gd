@@ -15,3 +15,5 @@ func _process(delta: float) -> void:
 			(get_parent() as Node3D).global_rotation.y += delta * rotation_speed
 		if(z):
 			(get_parent() as Node3D).global_rotation.z += delta * rotation_speed
+	else:
+		queue_free()

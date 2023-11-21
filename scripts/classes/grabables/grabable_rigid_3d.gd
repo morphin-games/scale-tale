@@ -15,6 +15,13 @@ func _process(delta: float) -> void:
 func _ungrab() -> void:
 	if(player.grabbed_item == null): return 
 	
+#	var current_camera : Camera3D = get_viewport().get_camera_3d()
+#	if(current_camera != null):
+#		if(current_camera is CameraFollow3D):
+#			current_camera.distance = player.prev_cam_data.distance
+#			current_camera.height = player.prev_cam_data.height
+#			player.prev_cam_data = {}
+			
 	(player.grabbed_item as RigidBody3D).inertia = Vector3.ZERO
 	(player.grabbed_item as RigidBody3D).linear_velocity = Vector3.ZERO
 	(player.grabbed_item as RigidBody3D).angular_velocity = Vector3.ZERO
@@ -24,6 +31,11 @@ func _ungrab() -> void:
 
 func grab() -> void:
 	if(player.grabbed_item == null):
+#		var current_camera : Camera3D = get_viewport().get_camera_3d()
+#		if(current_camera != null):
+#			if(current_camera is CameraFollow3D):
+#				player.prev_cam_data = current_camera.get_prev_cam_data()
+				
 		player.grabbed_item = item
 		set_colliders_disabled(true)
 		(player.grabbed_item as RigidBody3D).freeze = true

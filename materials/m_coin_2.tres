@@ -1,0 +1,24 @@
+[gd_resource type="StandardMaterial3D" load_steps=7 format=3 uid="uid://0mcy05ir3mb5"]
+
+[ext_resource type="Texture2D" uid="uid://d041t3m51eh6f" path="res://art/2D/textures/freestylized_dot_com/silver/metal_01_color_1k.png" id="1_p3mqg"]
+[ext_resource type="Texture2D" uid="uid://b6d8v2v26818q" path="res://art/2D/textures/freestylized_dot_com/gold/metal_02_ambient_occlusion_1k.png" id="2_k7giu"]
+[ext_resource type="Texture2D" uid="uid://b4apy3sqvblis" path="res://art/2D/textures/freestylized_dot_com/gold/metal_02_height_1k.png" id="3_yyen8"]
+[ext_resource type="Texture2D" uid="uid://bux1fnf4l276a" path="res://art/2D/textures/freestylized_dot_com/gold/metal_02_metallic_1k.png" id="4_h4kwm"]
+[ext_resource type="Texture2D" uid="uid://dotv1nl1fk8s2" path="res://art/2D/textures/freestylized_dot_com/gold/metal_02_normal_1k.png" id="5_kyvvh"]
+[ext_resource type="Texture2D" uid="uid://dr30yyvka34ws" path="res://art/2D/textures/freestylized_dot_com/gold/metal_02_roughness_1k.png" id="6_fax20"]
+
+[resource]
+albedo_texture = ExtResource("1_p3mqg")
+metallic = 1.0
+metallic_texture = ExtResource("4_h4kwm")
+roughness_texture = ExtResource("6_fax20")
+normal_enabled = true
+normal_texture = ExtResource("5_kyvvh")
+ao_enabled = true
+ao_texture = ExtResource("2_k7giu")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_yyen8")
+uv1_scale = Vector3(0.75, 0.75, 0.75)
+uv1_triplanar = true
+uv2_scale = Vector3(0.75, 0.75, 0.75)
+uv2_triplanar = true

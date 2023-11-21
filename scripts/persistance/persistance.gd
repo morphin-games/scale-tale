@@ -16,5 +16,4 @@ func _init() -> void:
 		
 		
 func save() -> void:
-	print("pers data: ", persistance_data.respawn_position)
 	ResourceSaver.save(persistance_data, PATH)

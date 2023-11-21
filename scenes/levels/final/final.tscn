@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8u1i40y1ld6t"]
+
+[ext_resource type="Texture2D" uid="uid://we1hllaedj1f" path="res://art/2D/mapa_scales.png" id="1_xpdj6"]
+[ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="2_i7hpt"]
+[ext_resource type="MeshLibrary" uid="uid://bb1ejo4qdjqpc" path="res://art/3D/models/floors/mesh/floor.meshlib" id="3_gbk8s"]
+[ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="4_ja4sy"]
+[ext_resource type="PackedScene" uid="uid://d1cjwpxspno5e" path="res://shaders/post_process_outline/post_processing_underwater.tscn" id="5_bqef0"]
+[ext_resource type="Shader" path="res://shaders/clouds/clouds_cartoon.gdshader" id="6_txkit"]
+[ext_resource type="PackedScene" uid="uid://beog76ojg0a2b" path="res://shaders/post_process_outline/post_process_outline.tscn" id="7_owbnc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nn8cg"]
+radius = 0.193826
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gjfe5"]
+shader = ExtResource("6_txkit")
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/day_bottom_color = Color(0.396383, 0.800597, 1, 1)
+shader_parameter/sunset_top_color = Color(0.7, 0.75, 1, 1)
+shader_parameter/sunset_bottom_color = Color(1, 0.5, 0.7, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/night_bottom_color = Color(0.1, 0, 0.2, 1)
+shader_parameter/horizon_color = Color(0.439216, 0.788235, 1, 1)
+shader_parameter/horizon_blur = 0.05
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_sunset_color = Color(10, 0, 0, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 10.0
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_size = 0.06
+shader_parameter/moon_blur = 0.1
+shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
+shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_middle_color = Color(0.92, 0.92, 0.98, 1)
+shader_parameter/clouds_bottom_color = Color(0.83, 0.83, 0.94, 1)
+shader_parameter/clouds_speed = 2.0
+shader_parameter/clouds_direction = 0.2
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_cutoff = 0.3
+shader_parameter/clouds_fuzziness = 0.5
+shader_parameter/clouds_weight = 0.0
+shader_parameter/clouds_blur = 0.25
+shader_parameter/stars_speed = 1.0
+shader_parameter/overwritten_time = 0.0
+
+[sub_resource type="Sky" id="Sky_bh58k"]
+sky_material = SubResource("ShaderMaterial_gjfe5")
+
+[sub_resource type="Environment" id="Environment_0xbmt"]
+background_mode = 2
+sky = SubResource("Sky_bh58k")
+
+[node name="FinalLevel" type="Node3D"]
+
+[node name="MAP" type="Sprite3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, -1.09278e-06, 25, 0, -25, -1.09278e-06, 182.845, -29.41, -228.304)
+texture = ExtResource("1_xpdj6")
+
+[node name="Player" parent="." instance=ExtResource("2_i7hpt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3215, 17.3599, 5.13734)
+
+[node name="GridMap2" type="GridMap" parent="."]
+mesh_library = ExtResource("3_gbk8s")
+cell_size = Vector3(16.85, 1.625, 16.85)
+data = {
+"cells": PackedInt32Array(65522, 65534, 0, 65526, 65534, 0, 65535, 0, 0, 0, 0, 0, 0, 65535, 0, 65535, 65535, 0, 65535, 65534, 0, 0, 65534, 0, 0, 65533, 0, 1, 65533, 0, 65535, 65533, 0, 65535, 65532, 0, 0, 65532, 0, 1, 65532, 0, 0, 65531, 0, 65535, 65531, 0, 1, 65531, 0, 0, 65530, 0, 1, 65530, 0, 2, 65530, 0, 2, 65529, 0, 1, 65529, 0, 0, 65529, 0, 1, 65528, 0, 2, 65528, 0, 3, 65529, 0, -65536, 65528, 0, -65535, 65527, 0, -65534, 65527, 0, -65533, 65527, 0, -65533, 65528, 0, -65532, 65529, 0, -65532, 65528, 0, -65533, 65529, 0, -65533, 65530, 0, 65535, 1, 0, 0, 1, 0, 65534, 65532, 0, 65534, 65533, 0, 65534, 65534, 0, 65534, 65535, 0, 65534, 0, 0, 65534, 1, 0, 65534, 2, 0, 65534, 3, 0, 65535, 3, 0, 0, 3, 0, 0, 2, 0, 65535, 2, 0, 65533, 2, 0, 65533, 3, 0, 65533, 4, 0, 65534, 4, 0, 65535, 4, 0, 0, 4, 0, 65535, 5, 0, 65534, 5, 0, 65533, 5, 0, 65532, 4, 0, 65532, 3, 0, 65532, 2, 0, 65532, 5, 0, 65533, 1, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("4_ja4sy")
+target = NodePath("../Player")
+height = 3.0
+
+[node name="Area3D" type="Area3D" parent="CameraFollow3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraFollow3D/Area3D"]
+shape = SubResource("SphereShape3D_nn8cg")
+
+[node name="UnderWater" parent="CameraFollow3D" instance=ExtResource("5_bqef0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.207553, 0.978224, 0, -0.978224, -0.207553, 0.735032, 5.05304, -2.39666)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0xbmt")
+
+[node name="PostProccessing" parent="." instance=ExtResource("7_owbnc")]
+extra_cull_margin = 248.24
