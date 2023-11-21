@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvvnwdpybh5wm"]
+
+[ext_resource type="PackedScene" uid="uid://dhj1korxlpebd" path="res://art/3D/mapping/caja03.glb" id="1_v4eyl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xp5ex"]
+size = Vector3(0.811303, 0.678913, 0.80192)
+
+[node name="Box2" type="Node3D"]
+
+[node name="caja03" parent="." instance=ExtResource("1_v4eyl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.329967, -0.0794311, 1.18785)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.394968, 0, 0.918695, 0, 1, 0, -0.918695, 0, 0.394968, -0.0219892, 0.34471, 0.108521)
+shape = SubResource("BoxShape3D_xp5ex")

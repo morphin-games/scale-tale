@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ssfpnwftw840"]
+
+[ext_resource type="PackedScene" uid="uid://c8r8rgv0smx6v" path="res://art/3D/mapping/caja02.glb" id="1_syrum"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hly8v"]
+size = Vector3(0.811303, 0.678913, 0.80192)
+
+[node name="Box1" type="Node3D"]
+
+[node name="caja02" parent="." instance=ExtResource("1_syrum")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.804448, 0, 0.594023, 0, 1, 0, -0.594023, 0, 0.804448, 0.0413218, 0.34471, -0.178752)
+shape = SubResource("BoxShape3D_hly8v")

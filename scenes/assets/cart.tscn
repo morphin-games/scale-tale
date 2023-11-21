@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://chd62bise8rer"]
+
+[ext_resource type="PackedScene" uid="uid://d4cv1j8jldsw2" path="res://art/3D/mapping/carretilla02.glb" id="1_3e3i6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tnvvn"]
+size = Vector3(2.70219, 1.75188, 4.21442)
+
+[node name="Cart" type="Node3D"]
+
+[node name="carretilla02" parent="." instance=ExtResource("1_3e3i6")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03295, -0.80983)
+shape = SubResource("BoxShape3D_tnvvn")
