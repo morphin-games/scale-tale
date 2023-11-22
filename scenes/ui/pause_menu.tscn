@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://j6ri7bkkvs4r"]
+[gd_scene load_steps=3 format=3 uid="uid://j6ri7bkkvs4r"]
+
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_xiroe"]
 
 [sub_resource type="GDScript" id="GDScript_lnrph"]
 script/source = "extends Control
@@ -80,6 +82,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_xiroe")
 script = SubResource("GDScript_lnrph")
 
 [node name="ColorRect" type="ColorRect" parent="."]

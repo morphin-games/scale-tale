@@ -142,6 +142,7 @@ texture = ExtResource("1_xpdj6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 421.131, -27.2499, -333.562)
 
 [node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("spring", "target", "underwater")]
+far = 1000.0
 script = ExtResource("4_ja4sy")
 spring = NodePath("RayCast3D")
 target = NodePath("../Player")

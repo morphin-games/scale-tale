@@ -152,3 +152,7 @@ ui_toggle={
 
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=30.0
+
+[rendering]
+
+occlusion_culling/use_occlusion_culling=true

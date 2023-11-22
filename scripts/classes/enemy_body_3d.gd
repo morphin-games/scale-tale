@@ -55,10 +55,12 @@ func cancel_patrol() -> void:
 	
 func set_node_rotation(node : Node3D) -> void:
 	if(node == null) : return
-	node.look_at(target)
-	node.rotation_degrees.x = 0.0
-	node.rotation_degrees.z = 0.0
-	node.rotation_degrees.y += 90
+	if global_transform.origin.is_equal_approx(target):return
+	else:
+		node.look_at(target)
+		node.rotation_degrees.x = 0.0
+		node.rotation_degrees.z = 0.0
+		node.rotation_degrees.y += 90
 	
 func behaviour(delta : float) -> void:
 	$WatchPlayer.target_position = player.global_transform.origin - $WatchPlayer.global_transform.origin
