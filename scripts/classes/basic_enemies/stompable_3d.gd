@@ -12,9 +12,13 @@ signal stomped
 @export_category("Vulnerabilities")
 @export var vulnerable_radius : float = 1.0
 
+var player : SPPlayer3D
 var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
 
 func stomp() -> void:
+	if(player.near_bodies.has(enemy)):
+		player.near_bodies.erase(enemy)
+	
 	enemy.alive = false
 	enemy.collision_shape.queue_free()
 	enemy.stun(100.0)
@@ -32,6 +36,7 @@ func stomp() -> void:
 
 func _ready() -> void:
 	player_detector.player_entered.connect(Callable(func(player : SPPlayer3D) -> void:
+		self.player = player
 		if(player.global_transform.origin.y > global_transform.origin.y):
 #		and Utils.between(player.global_transform.origin.x, global_transform.origin.x - (vulnerable_radius / 2), global_transform.origin.x + (vulnerable_radius / 2))
 #		and Utils.between(player.global_transform.origin.z, global_transform.origin.z - (vulnerable_radius / 2), global_transform.origin.z + (vulnerable_radius / 2))

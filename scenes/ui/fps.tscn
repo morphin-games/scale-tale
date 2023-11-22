@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi6j3hiwdafur"]
+
+[sub_resource type="GDScript" id="GDScript_iaa0f"]
+script/source = "extends Control
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	$Label.text = (str(Engine.get_frames_per_second()))
+"
+
+[node name="FPS" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_iaa0f")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(3, 3)

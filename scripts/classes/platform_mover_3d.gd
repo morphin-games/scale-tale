@@ -19,6 +19,6 @@ func _physics_process(delta: float) -> void:
 			target_point_idx = 0
 			
 		direction = (points[target_point_idx].global_transform.origin - platform.global_transform.origin).normalized()
-		
+	
 	platform.velocity = direction * speed
 	platform.move_and_slide()

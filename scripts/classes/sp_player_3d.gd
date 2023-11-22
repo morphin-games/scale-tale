@@ -43,7 +43,7 @@ var grabbed_item : Node3D = null :
 	set(new_grabbed):
 		grabbed_item = new_grabbed
 		emit_signal("grabbed_item_changed", new_grabbed)
-		add_scale_particles(new_grabbed)
+#		add_scale_particles(new_grabbed)
 		
 var climb_area : ClimbArea3D
 var camera_rotation_speed : float = 0.75
@@ -209,9 +209,6 @@ func _physics_process(delta: float) -> void:
 					velocity.y = -5.0
 					
 			if(($WallHangers/Checker.get_collider() != null or $WallHangers/Hanger.get_collider() != null) and $WallHangers/Hanger.get_collider() != self and $WallHangers/Checker.get_collider() != self):
-				print("$WallHangers/Checker.get_collider(): ", $WallHangers/Checker.get_collider())
-				print("$WallHangers/Hanger.get_collider(): ", $WallHangers/Hanger.get_collider())
-				print("---------------------------------------")
 				if($WallHangers/Checker.get_collider() == null and $WallHangers/Hanger.get_collider() != null and velocity.y < 0):
 					speed = 0.0
 					velocity.y = 0.0
@@ -313,12 +310,15 @@ func _physics_process(delta: float) -> void:
 
 
 			for body in near_bodies:
-				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-				if(scalables.size() > 0):
-					(scalables[0] as Scalable3D).downscale(delta)
-					if($SFXAudioStreamPlayer3D.playing == false):
-						$SFXAudioStreamPlayer3D.play()
-						scale_sfx_upscale()
+				if(is_instance_valid(body)):
+					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+					if(scalables.size() > 0):
+						(scalables[0] as Scalable3D).downscale(delta)
+						if($SFXAudioStreamPlayer3D.playing == false):
+							$SFXAudioStreamPlayer3D.play()
+							scale_sfx_upscale()
+				else:
+					near_bodies.erase(body)
 			
 	elif(Input.is_action_pressed("ui_downscale")):
 		emit_signal("scaling_started")
@@ -340,14 +340,21 @@ func _physics_process(delta: float) -> void:
 				tween_c.tween_property(self, "ray_color", Color(0.0, 0.03, 1.0), 0.4)
 				
 			for body in near_bodies:
-				var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-				if(scalables.size() > 0):
-					(scalables[0] as Scalable3D).upscale(delta)
-					if($SFXAudioStreamPlayer3D.playing == false):
-						$SFXAudioStreamPlayer3D.play()
-						scale_sfx_downscale()
+				if(is_instance_valid(body)):
+					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+					if(scalables.size() > 0):
+						(scalables[0] as Scalable3D).upscale(delta)
+						if($SFXAudioStreamPlayer3D.playing == false):
+							$SFXAudioStreamPlayer3D.play()
+							scale_sfx_downscale()
+				else:
+					near_bodies.erase(body)
 					
 	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
+		for body in near_bodies:
+			if(!is_instance_valid(body)):
+				near_bodies.erase(body)
+				
 		$NearBodies/CollisionShape3D.disabled = true
 		ray_ignited = false
 		$NearBodies/RayVisualizer.disable()
@@ -388,13 +395,15 @@ func add_scale_particles(node : Node3D) -> void:
 	)
 	
 	var callable_body_exited : Callable = Callable(func(body : Node3D) -> void:
-		if(body == node):
-			if(scaling_started.is_connected(callable_started)):
-				scaling_started.disconnect(callable_started)
-			if(scaling_stopped.is_connected(callable_stopped)):
-				scaling_stopped.disconnect(callable_stopped)
-			particles.destroy()
-			particles.system_enabled = false
+		print(body)
+		if(is_instance_valid(body)):
+			if(body == node):
+				if(scaling_started.is_connected(callable_started)):
+					scaling_started.disconnect(callable_started)
+				if(scaling_stopped.is_connected(callable_stopped)):
+					scaling_stopped.disconnect(callable_stopped)
+				particles.destroy()
+				particles.system_enabled = false
 	)
 	
 	scaling_started.connect(callable_started)
@@ -415,11 +424,13 @@ func add_scale_particles(node : Node3D) -> void:
 
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:
+	if(!is_instance_valid(body)) : return
 	emit_signal("near_body_entered", body)
 	near_bodies.append(body)
-	add_scale_particles(body)
+#	add_scale_particles(body)
 
 func _on_near_bodies_body_exited(body: Node3D) -> void:
+	if(!is_instance_valid(body)) : return
 	emit_signal("near_body_exited", body)
 	near_bodies.erase(body)
 

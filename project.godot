@@ -13,6 +13,7 @@ config_version=5
 config/name="gameoff_2023"
 run/main_scene="res://scenes/levels/testing_zone.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
