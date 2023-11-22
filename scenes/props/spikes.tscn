@@ -4,18 +4,17 @@
 [ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://materials/m_coin_2.tres" id="2_hmvwt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s8dyn"]
-height = 0.862274
-radius = 1.97245
+height = 0.330805
+radius = 1.01648
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7vs85"]
-height = 3.44909
-radius = 0.601435
+height = 1.30664
+radius = 0.292886
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yk36k"]
 material = ExtResource("2_hmvwt")
 top_radius = 0.0
-bottom_radius = 2.0
-height = 4.0
+bottom_radius = 1.0
 
 [node name="Spikes" type="Node3D"]
 
@@ -23,13 +22,13 @@ height = 4.0
 script = ExtResource("1_mfjkr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03257, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.104512, 0)
 shape = SubResource("CylinderShape3D_s8dyn")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="DamageArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661792, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14419, 0)
 shape = SubResource("CylinderShape3D_7vs85")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.983144, 0)
 mesh = SubResource("CylinderMesh_yk36k")

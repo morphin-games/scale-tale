@@ -16,8 +16,8 @@ var player : SPPlayer3D
 var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
 
 func stomp() -> void:
-	if(player.near_bodies.has(enemy)):
-		player.near_bodies.erase(enemy)
+#	if(player.near_bodies.has(enemy)):
+#		player.near_bodies.erase(enemy)
 	
 	enemy.alive = false
 	enemy.collision_shape.queue_free()

@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://blaieaqp413k7"]
+[gd_scene load_steps=4 format=3 uid="uid://blaieaqp413k7"]
 
 [ext_resource type="Script" path="res://addons/terrain_3d/tools/importer.gd" id="1_60b8f"]
+[ext_resource type="Terrain3DStorage" path="res://terrain_data/new_terrain_3d_storage.tres" id="1_qyqjj"]
+
+[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_0u4h5"]
 
 [node name="Importer" type="Terrain3D"]
+storage = ExtResource("1_qyqjj")
+texture_list = SubResource("Terrain3DTextureList_0u4h5")
 script = ExtResource("1_60b8f")
+height_file_name = "C:/Users/Pablo/Documents/Godot/gameoff_2023/art/2D/mapa_scales.png"
+file_name_out = "exported"

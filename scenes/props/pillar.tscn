@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://t05omij0v5b7"]
+
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="1_tt8bk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vyxa8"]
+size = Vector3(4, 16, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xx4ms"]
+size = Vector3(4, 16, 4)
+
+[node name="Pillar" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5184, 0, 157.974)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_tt8bk")
+mesh = SubResource("BoxMesh_vyxa8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xx4ms")
