@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b8u1i40y1ld6t"]
+[gd_scene load_steps=39 format=3 uid="uid://b8u1i40y1ld6t"]
 
 [ext_resource type="Texture2D" uid="uid://we1hllaedj1f" path="res://art/2D/mapa_scales.png" id="1_xpdj6"]
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="2_i7hpt"]
@@ -19,6 +19,9 @@
 [ext_resource type="Script" path="res://scripts/classes/spawners/enemy_spawner_3d.gd" id="14_5gx04"]
 [ext_resource type="PackedScene" uid="uid://btlbjw8y0rbta" path="res://scenes/enemies/basic/enemy_stomp_drop.tscn" id="14_lv04a"]
 [ext_resource type="PackedScene" uid="uid://bi8ivhp6sqvr1" path="res://scenes/enemies/basic/enemy_stomp.tscn" id="15_45ho4"]
+[ext_resource type="PackedScene" uid="uid://biv3qw6vlymn" path="res://scenes/ui/debug_ui.tscn" id="20_4nhtf"]
+[ext_resource type="PackedScene" uid="uid://c16ab3uplphij" path="res://scenes/game_manager.tscn" id="21_bneje"]
+[ext_resource type="PackedScene" uid="uid://j6ri7bkkvs4r" path="res://scenes/ui/pause_menu.tscn" id="22_u3aqs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nn8cg"]
 radius = 0.193826
@@ -510,3 +513,12 @@ metadata/_edit_lock_ = true
 material_override = ExtResource("10_bw5ot")
 mesh = SubResource("BoxMesh_4h60o")
 metadata/_edit_lock_ = true
+
+[node name="GameManager" parent="." instance=ExtResource("21_bneje")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("22_u3aqs")]
+visible = false
+
+[node name="debug_ui" parent="." instance=ExtResource("20_4nhtf")]

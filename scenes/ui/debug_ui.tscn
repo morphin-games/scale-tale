@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://biv3qw6vlymn"]
+
+[sub_resource type="GDScript" id="GDScript_1lgox"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	$Label.text = str(Engine.get_frames_per_second())
+"
+
+[node name="debug_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_1lgox")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.952941, 0, 0.54902, 1)
+theme_override_font_sizes/font_size = 30

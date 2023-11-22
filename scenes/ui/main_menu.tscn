@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://d37v1kow3mp4n"]
+[gd_scene load_steps=3 format=3 uid="uid://d37v1kow3mp4n"]
+
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_qjquv"]
 
 [sub_resource type="GDScript" id="GDScript_qq5uv"]
 script/source = "extends Control
@@ -77,6 +79,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_qjquv")
 script = SubResource("GDScript_qq5uv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
