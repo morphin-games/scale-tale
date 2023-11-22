@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3rfmem8olkep"]
+
+[ext_resource type="PackedScene" uid="uid://b110vb63rbghg" path="res://art/3D/models/sign.glb" id="1_pc3p4"]
+[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://materials/m_wood_2.tres" id="2_hkr24"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="3_0wg4u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_amflp"]
+size = Vector3(0.483057, 1.46535, 1.07444)
+
+[node name="Sign" type="Node3D"]
+
+[node name="sign" parent="." instance=ExtResource("1_pc3p4")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Cube" parent="sign" index="0"]
+surface_material_override/0 = ExtResource("2_hkr24")
+surface_material_override/1 = ExtResource("3_0wg4u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62368, 0)
+shape = SubResource("BoxShape3D_amflp")
+
+[editable path="sign"]

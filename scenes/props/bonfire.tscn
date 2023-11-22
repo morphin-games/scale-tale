@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxxjkan3j4yxm"]
+[gd_scene load_steps=10 format=3 uid="uid://bxxjkan3j4yxm"]
 
 [ext_resource type="PackedScene" uid="uid://cgshqok4kso7m" path="res://scenes/particle_effects/fire.tscn" id="1_jmd3f"]
+[ext_resource type="PackedScene" uid="uid://dxr6mo5cbrils" path="res://art/3D/mapping/hoguera01.glb" id="1_yrlaq"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_v6h4y"]
 
 [sub_resource type="GDScript" id="GDScript_i0ddj"]
@@ -58,14 +59,30 @@ radius = 4.0
 [node name="Bonfire" type="Node3D"]
 script = SubResource("GDScript_i0ddj")
 
+[node name="hoguera01" parent="." instance=ExtResource("1_yrlaq")]
+
+[node name="hoguera" parent="hoguera01" index="0"]
+visible = false
+
+[node name="hoguera2" parent="hoguera01" index="1"]
+visible = false
+
+[node name="Postes_Valla" parent="hoguera01" index="3"]
+visible = false
+
+[node name="Puerta Valla" parent="hoguera01" index="4"]
+visible = false
+
 [node name="RespawnPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84926, 2.08184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_812iu")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -0.0536553, 0)
+visible = false
 mesh = SubResource("BoxMesh_812iu")
 
 [node name="Fire" parent="." instance=ExtResource("1_jmd3f")]
@@ -79,4 +96,11 @@ interaction_color = Color(0, 0.662745, 1, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2263, 0)
 shape = SubResource("CylinderShape3D_c36wh")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17668, 0)
+light_color = Color(1, 0.494118, 0, 1)
+omni_range = 8.20327
+
 [connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]
+
+[editable path="hoguera01"]

@@ -19,7 +19,5 @@ func _ready() -> void:
 			instance.global_transform.origin = global_transform.origin
 			get_parent().add_child(instance)
 			
-		print(name)
-			
 		queue_free()
 	))

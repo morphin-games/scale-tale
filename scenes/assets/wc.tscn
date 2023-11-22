@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://pm80lwriyear"]
+
+[ext_resource type="PackedScene" uid="uid://uvwhkqf4awo4" path="res://art/3D/mapping/retrete.glb" id="1_mdwpx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5cxi6"]
+size = Vector3(2.21288, 3.1037, 1.9451)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xhrfe"]
+size = Vector3(2.76242, 0.850226, 2.82941)
+
+[node name="WC" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56625, 0)
+shape = SubResource("BoxShape3D_5cxi6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.951793, 0.306742, 0, -0.306742, 0.951793, 0, 3.24117, -0.00954849)
+shape = SubResource("BoxShape3D_xhrfe")
+
+[node name="retrete" parent="." instance=ExtResource("1_mdwpx")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

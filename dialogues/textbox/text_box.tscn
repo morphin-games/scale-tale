@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://poe7d6338u3h"]
+[gd_scene load_steps=6 format=3 uid="uid://poe7d6338u3h"]
 
 [ext_resource type="AudioStream" uid="uid://chbi8f4ihipam" path="res://art/sfx/talk_sfx/talk_effect.wav" id="1_c48f2"]
 [ext_resource type="Texture2D" uid="uid://ccbrm5r4iqou3" path="res://dialogues/textbox/textbox_test.png" id="1_hfhmj"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="2_d734x"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ixcfe"]
 viewport_path = NodePath("SubViewport")
@@ -67,6 +68,7 @@ texture = SubResource("ViewportTexture_ixcfe")
 script = SubResource("GDScript_xt54g")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
 transparent_bg = true
 size = Vector2i(2000, 500)
 
@@ -82,29 +84,35 @@ theme_override_constants/margin_bottom = 8
 one_shot = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="SubViewport"]
+visible = false
 custom_minimum_size = Vector2(2000, 1000)
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("1_hfhmj")
 region_rect = Rect2(0, 0, 48, 48)
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 7
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 242.0
+offset_top = -150.0
+offset_right = 1758.0
+offset_bottom = 566.0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="SubViewport/MarginContainer"]
-custom_minimum_size = Vector2(2000, 500)
+custom_minimum_size = Vector2(1500, 700)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 60
+theme = ExtResource("2_d734x")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 42
+text = "Textito de bienvenida"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

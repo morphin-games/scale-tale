@@ -18,9 +18,7 @@ func start_dialog(position: Vector3, lines: Array[String], sfx_speech: AudioStre
 	if is_dialog_active:
 		return
 	dialog_lines = lines
-	print(position)
 	text_box_position = Vector3(position.x,position.y + 5 , position.z)
-	print(text_box_position)
 	sfx = sfx_speech
 	show_text_box()
 	

@@ -395,7 +395,6 @@ func add_scale_particles(node : Node3D) -> void:
 	)
 	
 	var callable_body_exited : Callable = Callable(func(body : Node3D) -> void:
-		print(body)
 		if(is_instance_valid(body)):
 			if(body == node):
 				if(scaling_started.is_connected(callable_started)):

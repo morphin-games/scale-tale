@@ -49,11 +49,12 @@ radius = 0.179214
 height = 2.28214
 
 [node name="Torch" type="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="antorcha_grande" parent="." instance=ExtResource("1_fhff6")]
 
 [node name="Fire" parent="." instance=ExtResource("2_f7axk")]
-transform = Transform3D(0.635, 0, 0, 0, 0.635, 0, 0, 0, 0.635, 0, 2.46365, 0)
+transform = Transform3D(0.635, 0, 0, 0, 0.635, 0, 0, 0, 0.635, 0, 2.27868, 0)
 process_material = SubResource("ParticleProcessMaterial_5i4u1")
 draw_pass_1 = SubResource("QuadMesh_5tr3o")
 
@@ -62,3 +63,8 @@ draw_pass_1 = SubResource("QuadMesh_5tr3o")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14124, 0)
 shape = SubResource("CapsuleShape3D_dggp8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62444, 0)
+light_color = Color(1, 0.494118, 0, 1)
+omni_range = 8.20327

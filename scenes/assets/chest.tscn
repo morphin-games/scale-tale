@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj8hhqsd44v8u"]
+
+[ext_resource type="PackedScene" uid="uid://qct2c3wdun47" path="res://art/3D/mapping/cofre.glb" id="1_l44ra"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2emqg"]
+size = Vector3(1.75638, 1.84552, 1.19458)
+
+[node name="Chest" type="Node3D"]
+
+[node name="cofre" parent="." instance=ExtResource("1_l44ra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.775297, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.855066, 0, -0.51852, 0, 1, 0, 0.51852, 0, 0.855066, -0.154699, 0.877798, 0.255107)
+shape = SubResource("BoxShape3D_2emqg")

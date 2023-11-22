@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gameoff_2023"
-run/main_scene="res://scenes/levels/testing_zone.tscn"
+run/main_scene="res://scenes/levels/final/final_v2.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -23,6 +23,12 @@ BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 Persistance="*res://scripts/persistance/persistance.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/mode=3
 
 [editor_plugins]
 

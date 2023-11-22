@@ -15,4 +15,3 @@ func spawn() -> void:
 	var inst : Node3D = scene.instantiate()
 	get_parent().add_child(inst)
 	inst.global_transform.origin = global_transform.origin
-	print(inst.global_transform.origin)

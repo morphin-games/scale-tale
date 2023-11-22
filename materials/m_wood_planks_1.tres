@@ -1,0 +1,22 @@
+[gd_resource type="StandardMaterial3D" load_steps=7 format=3 uid="uid://bvbmwjdb58nmv"]
+
+[ext_resource type="Texture2D" uid="uid://btax6cx4aer6d" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_baseColor_1k.png" id="1_hstog"]
+[ext_resource type="Texture2D" uid="uid://b1fh2v27nqqnp" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_ambientOcclusion_1k.png" id="2_qw2bh"]
+[ext_resource type="Texture2D" uid="uid://b78d7pfomp5j8" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_height_1k.png" id="3_no8u6"]
+[ext_resource type="Texture2D" uid="uid://ccfdwhjlfevr0" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_metallic_1k.png" id="4_joxe4"]
+[ext_resource type="Texture2D" uid="uid://de81m8ej0iu1o" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_normal_dx_1k.png" id="5_i7wtq"]
+[ext_resource type="Texture2D" uid="uid://bik71cvoyl47n" path="res://art/2D/textures/freestylized_dot_com/planks_v1/wood_planks_10_roughness_1k.png" id="6_u48po"]
+
+[resource]
+albedo_texture = ExtResource("1_hstog")
+metallic = 1.0
+metallic_texture = ExtResource("4_joxe4")
+roughness_texture = ExtResource("6_u48po")
+normal_enabled = true
+normal_texture = ExtResource("5_i7wtq")
+ao_enabled = true
+ao_texture = ExtResource("2_qw2bh")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_no8u6")
+uv1_scale = Vector3(0.15, 0.15, 0.15)
+uv1_triplanar = true
