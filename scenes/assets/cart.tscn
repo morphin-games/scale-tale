@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://chd62bise8rer"]
+[gd_scene load_steps=4 format=3 uid="uid://chd62bise8rer"]
 
 [ext_resource type="PackedScene" uid="uid://d4cv1j8jldsw2" path="res://art/3D/mapping/carretilla02.glb" id="1_3e3i6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tnvvn"]
-size = Vector3(2.70219, 1.75188, 4.21442)
+size = Vector3(2.70219, 1.75188, 2.4619)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xhfpg"]
+size = Vector3(0.452126, 0.522247, 2.4619)
 
 [node name="Cart" type="Node3D"]
 
@@ -12,5 +15,13 @@ size = Vector3(2.70219, 1.75188, 4.21442)
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03295, -0.80983)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03295, -0.0923993)
 shape = SubResource("BoxShape3D_tnvvn")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.98583, -0.0372617, -0.163559, 0, 0.975018, -0.222127, 0.16775, 0.21898, 0.961201, 0.568124, 1.06388, -1.88751)
+shape = SubResource("BoxShape3D_xhfpg")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.982948, 0.0327934, 0.180935, 3.72529e-09, 0.983969, -0.178339, -0.183883, 0.175298, 0.967191, -0.763316, 1.06427, -1.91931)
+shape = SubResource("BoxShape3D_xhfpg")

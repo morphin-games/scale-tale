@@ -48,6 +48,7 @@ radius = 3.97996
 script = SubResource("GDScript_uwnyl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_s7e46")
 
 [node name="Interactuable" parent="." instance=ExtResource("1_4veml")]

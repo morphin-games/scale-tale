@@ -52,6 +52,11 @@ func _process(delta: float) -> void:
 		real_distance = clampf(real_distance, 2.0, max_distance)
 		distance = real_distance
 		
+	if(Input.is_action_pressed("ui_camera_further")):
+		real_distance += 5.0 * delta
+	elif(Input.is_action_pressed("ui_camera_nearer")):
+		real_distance -= 5.0 * delta
+		
 	var camera_direction_x : float = Input.get_axis("ui_left_camera", "ui_right_camera")
 	angle -= camera_direction_x * delta * 4.0
 	

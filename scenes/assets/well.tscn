@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://vhhjpo44n253"]
+
+[ext_resource type="PackedScene" uid="uid://b51w0jxsyxuw3" path="res://art/3D/mapping/pozo.glb" id="1_78rpg"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pb7eu"]
+height = 4.37867
+radius = 2.51248
+
+[node name="Well" type="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="pozo" parent="." instance=ExtResource("1_78rpg")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="pozo"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pozo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14433, 0)
+shape = SubResource("CylinderShape3D_pb7eu")

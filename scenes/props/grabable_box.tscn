@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6s07jbaevk4v"]
+[gd_scene load_steps=12 format=3 uid="uid://b6s07jbaevk4v"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_vdgyy"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_mwspw"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_kyb63"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_rvpyi"]
+[ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_68h2k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_deln8"]
 radius = 2.53683
@@ -61,13 +62,14 @@ interactuable = NodePath("../Interactuable")
 
 [node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_kyb63")]
 show_interaction_sprite = false
-highlight_mesh = NodePath("../MeshInstance3D")
+highlight_mesh = NodePath("../MeshInstance3DBo")
 interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
 shape = SubResource("SphereShape3D_deln8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3DBo" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_h88xo")
 surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
@@ -75,3 +77,8 @@ surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 shape = SubResource("BoxShape3D_6idrw")
 script = ExtResource("4_rvpyi")
 scalable_3d = NodePath("../Scalable3D")
+
+[node name="MeshInstance3D" type="Node3D" parent="."]
+
+[node name="caja01" parent="MeshInstance3D" instance=ExtResource("5_68h2k")]
+transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, -2.95192, -0.949494, -0.93832)
