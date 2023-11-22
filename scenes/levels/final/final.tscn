@@ -1,8 +1,10 @@
-[gd_scene load_steps=51 format=3 uid="uid://b8u1i40y1ld6t"]
+[gd_scene load_steps=54 format=3 uid="uid://b8u1i40y1ld6t"]
 
 [ext_resource type="Texture2D" uid="uid://we1hllaedj1f" path="res://art/2D/mapa_scales.png" id="1_xpdj6"]
-[ext_resource type="PackedScene" uid="uid://bi6j3hiwdafur" path="res://scenes/ui/fps.tscn" id="1_ypdmp"]
+[ext_resource type="PackedScene" uid="uid://j6ri7bkkvs4r" path="res://scenes/ui/pause_menu.tscn" id="2_g17ei"]
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="2_i7hpt"]
+[ext_resource type="PackedScene" uid="uid://biv3qw6vlymn" path="res://scenes/ui/debug_ui.tscn" id="2_ktsag"]
+[ext_resource type="PackedScene" uid="uid://bqgrsnf0dp4mj" path="res://scenes/ui/player_ui.tscn" id="3_p5jwx"]
 [ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="4_ja4sy"]
 [ext_resource type="PackedScene" uid="uid://d1cjwpxspno5e" path="res://shaders/post_process_outline/post_processing_underwater.tscn" id="5_bqef0"]
 [ext_resource type="Shader" path="res://shaders/clouds/clouds_cartoon.gdshader" id="6_txkit"]
@@ -30,6 +32,7 @@
 [ext_resource type="Material" uid="uid://p651exhasw5q" path="res://materials/m_tiles.tres" id="28_f7k3k"]
 [ext_resource type="PackedScene" uid="uid://cwbjycotfg2hv" path="res://scenes/props/gem.tscn" id="29_ge14t"]
 [ext_resource type="PackedScene" uid="uid://bxxjkan3j4yxm" path="res://scenes/props/bonfire.tscn" id="30_cslmj"]
+[ext_resource type="PackedScene" uid="uid://c16ab3uplphij" path="res://scenes/game_manager.tscn" id="32_3et3r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nn8cg"]
 radius = 0.193826
@@ -132,7 +135,12 @@ size = Vector3(4, 0.5, 4)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FPS" parent="CanvasLayer" instance=ExtResource("1_ypdmp")]
+[node name="debug_ui" parent="CanvasLayer" instance=ExtResource("2_ktsag")]
+
+[node name="player_ui" parent="CanvasLayer" instance=ExtResource("3_p5jwx")]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("2_g17ei")]
+visible = false
 
 [node name="MAP" type="Sprite3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, -1.31134e-06, 30, 0, -30, -1.31134e-06, 245.853, -497.366, -384.146)
@@ -655,3 +663,5 @@ subgroup = "EnemySpawners"
 
 [node name="Bonfire" parent="." instance=ExtResource("30_cslmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 422.982, -32.9, -413.451)
+
+[node name="GameManager" parent="." instance=ExtResource("32_3et3r")]

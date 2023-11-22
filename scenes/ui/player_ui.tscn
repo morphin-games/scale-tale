@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqgrsnf0dp4mj"]
+
+[ext_resource type="Texture2D" uid="uid://cy8t4dfcy87yy" path="res://art/2D/ui/scale_life.png" id="1_so1al"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_wdft6"]
+[ext_resource type="Texture2D" uid="uid://lep82848lrru" path="res://art/2D/ui/life_filled.png" id="2_jkvb3"]
+
+[sub_resource type="GDScript" id="GDScript_sdhlm"]
+script/source = "extends Control
+
+var life_filled = preload(\"res://art/2D/ui/life_filled.png\")
+var life_empty = preload(\"res://art/2D/ui/life_empty.png\")
+@onready var player = get_node(\"/root/FinalLevel/Player\")
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	print(player.health_system.health)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	match player.health_system.health:
+		0:
+			print(\"dead\")
+			$\"HBoxContainer/1\".texture = life_empty
+			$\"HBoxContainer/2\".texture = life_empty
+			$\"HBoxContainer/3\".texture = life_empty
+			$\"HBoxContainer/4\".texture = life_empty
+			$\"HBoxContainer/5\".texture = life_empty
+			$\"HBoxContainer/6\".texture = life_empty
+		1:
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_empty
+			$\"HBoxContainer/3\".texture = life_empty
+			$\"HBoxContainer/4\".texture = life_empty
+			$\"HBoxContainer/5\".texture = life_empty
+			$\"HBoxContainer/6\".texture = life_empty
+		2:
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_filled
+			$\"HBoxContainer/3\".texture = life_empty
+			$\"HBoxContainer/4\".texture = life_empty
+			$\"HBoxContainer/5\".texture = life_empty
+			$\"HBoxContainer/6\".texture = life_empty
+		3:
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_filled
+			$\"HBoxContainer/3\".texture = life_filled
+			$\"HBoxContainer/4\".texture = life_empty
+			$\"HBoxContainer/5\".texture = life_empty
+			$\"HBoxContainer/6\".texture = life_empty
+		4:
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_filled
+			$\"HBoxContainer/3\".texture = life_filled
+			$\"HBoxContainer/4\".texture = life_filled
+			$\"HBoxContainer/5\".texture = life_empty
+			$\"HBoxContainer/6\".texture = life_empty
+		5:
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_filled
+			$\"HBoxContainer/3\".texture = life_filled
+			$\"HBoxContainer/4\".texture = life_filled
+			$\"HBoxContainer/5\".texture = life_filled
+			$\"HBoxContainer/6\".texture = life_empty
+		6: 
+			$\"HBoxContainer/1\".texture = life_filled
+			$\"HBoxContainer/2\".texture = life_filled
+			$\"HBoxContainer/3\".texture = life_filled
+			$\"HBoxContainer/4\".texture = life_filled
+			$\"HBoxContainer/5\".texture = life_filled
+			$\"HBoxContainer/6\".texture = life_filled
+"
+
+[node name="player_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_sdhlm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_top = 35.0
+offset_right = 404.0
+offset_bottom = 177.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("1_so1al")
+
+[node name="1" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")
+
+[node name="2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")
+
+[node name="3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")
+
+[node name="4" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")
+
+[node name="5" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")
+
+[node name="6" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_wdft6")
+texture = ExtResource("2_jkvb3")

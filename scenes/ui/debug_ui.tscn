@@ -25,8 +25,12 @@ mouse_filter = 2
 script = SubResource("GDScript_1lgox")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 42.0
+grow_horizontal = 0
 theme_override_colors/font_color = Color(0.952941, 0, 0.54902, 1)
 theme_override_font_sizes/font_size = 30
