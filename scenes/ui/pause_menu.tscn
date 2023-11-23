@@ -1,11 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://j6ri7bkkvs4r"]
+[gd_scene load_steps=4 format=3 uid="uid://j6ri7bkkvs4r"]
 
 [ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_xiroe"]
+[ext_resource type="PackedScene" uid="uid://25r75xgdpwqg" path="res://scenes/ui/settings.tscn" id="2_f65l3"]
 
 [sub_resource type="GDScript" id="GDScript_lnrph"]
 script/source = "extends Control
-@onready var window_mode_menu = $Settings/VBoxContainer/HBoxContainer2/WindowsModeButton
-@onready var res_drop_menu = $Settings/VBoxContainer/HBoxContainer/ResolutionButton
 
 func show_hide(first,second):
 	first.show()
@@ -15,17 +14,7 @@ func toggle():
 	visible = !visible
 	get_tree().paused = visible
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	res_drop_menu.add_item(\"1024x546\")
-	res_drop_menu.add_item(\"1280x720\")
-	res_drop_menu.add_item(\"1600x900\")
-	res_drop_menu.add_item(\"1920x1080\")
-	res_drop_menu.add_item(\"2560x1440\")
-	
-	window_mode_menu.add_item(\"Window Mode\")
-	window_mode_menu.add_item(\"Full-Screen\")
-	window_mode_menu.add_item(\"Borderless Full-Screen\")	
-	
+
 
 func _on_button_pressed() -> void:
 	toggle()
@@ -47,7 +36,6 @@ func _on_back_button_pressed() -> void:
 func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
 		0:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -95,6 +83,15 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.0941176, 0.0941176, 0.0941176, 0.4)
 
+[node name="Settings" parent="." instance=ExtResource("2_f65l3")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -121,79 +118,9 @@ text = "SETTINGS"
 layout_mode = 2
 text = "EXIT"
 
-[node name="Settings" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchor_left = 0.282986
-anchor_top = 0.307099
-anchor_right = 0.717014
-anchor_bottom = 0.692901
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Back_Button" type="Button" parent="Settings"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -31.0
-offset_right = 25.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "BACK"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -69.0
-offset_top = -28.0
-offset_right = 69.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Settings/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Window Mode"
-
-[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="WindowsModeButton" type="OptionButton" parent="Settings/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Resolution"
-
-[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="ResolutionButton" type="OptionButton" parent="Settings/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
+[connection signal="pressed" from="Settings/Back_Button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Settings/Back_Button" to="." method="_on_back_button_pressed"]
-[connection signal="item_selected" from="Settings/VBoxContainer/HBoxContainer2/WindowsModeButton" to="." method="_on_windows_mode_button_item_selected"]
-[connection signal="item_selected" from="Settings/VBoxContainer/HBoxContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
+
+[editable path="Settings"]

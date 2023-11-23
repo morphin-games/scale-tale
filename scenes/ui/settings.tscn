@@ -1,17 +1,270 @@
-[gd_scene format=3 uid="uid://25r75xgdpwqg"]
+[gd_scene load_steps=3 format=3 uid="uid://25r75xgdpwqg"]
+
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
+
+[sub_resource type="GDScript" id="GDScript_lf7rh"]
+script/source = "extends Control
+
+#vIDEO
+@onready var window_button = $TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton
+@onready var res_button = $TabContainer/Video/MarginContainer/VideoSettings/ResolutionButton
+@onready var vsync_button = $TabContainer/Video/MarginContainer/VideoSettings/CheckButton
+#AUDIO
+@onready var slider_master = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster
+@onready var slider_sfx = $TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX
+@onready var slider_music = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic
+#GAMEPLAY
+@onready var sens_label = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/senslabel
+@onready var sens_slider = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens
+
+func _ready() -> void:
+	#display_options.select(1 if Save.game_data.full_screen_on else 0)
+	#GlobalSettings.change_displayMode(Save.game_data.full_screen_on)
+	#vsync_button.button_pressed = SettingsFile.game_data.vsync_on
+	slider_master.value = SettingsFile.game_data.master_vol
+	slider_music.value = SettingsFile.game_data.music_vol
+	slider_sfx.value = SettingsFile.game_data.sfx_vol
+	sens_slider = SettingsFile.game_data.mouse_sens
+
+func _on_windows_mode_button_item_selected(index: int) -> void:
+	match index:
+		0:
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+		1:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+		2:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
+
+
+func _on_resolution_button_item_selected(index: int) -> void:
+	match index:
+		0:
+			DisplayServer.window_set_size(Vector2i(1280, 720))
+		1:
+			DisplayServer.window_set_size(Vector2i(1600, 900))
+		2:
+			DisplayServer.window_set_size(Vector2i(1920, 1080))
+		3:
+			DisplayServer.window_set_size(Vector2i(2560, 1440))
+
+
+func _on_check_button_toggled(button_pressed: bool) -> void:
+	GlobalSettings.change_vsync(button_pressed) 
+
+
+func _on_slider_master_value_changed(value: float) -> void:
+	GlobalSettings.update_master_vol(0,value)
+
+
+func _on_slider_sfx_value_changed(value: float) -> void:
+	GlobalSettings.update_master_vol(1,value)
+
+
+func _on_slider_music_value_changed(value: float) -> void:
+	GlobalSettings.update_master_vol(2,value)
+
+
+func _on_slider_sens_value_changed(value: float) -> void:
+	GlobalSettings.update_mouse_sens(value)
+	sens_label.text = str(value) 
+
+"
 
 [node name="Settings" type="Control"]
 layout_mode = 3
-anchor_left = 0.282986
-anchor_top = 0.307099
-anchor_right = 0.717014
-anchor_bottom = 0.692901
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 362.222
+offset_top = 221.111
+offset_right = -362.222
+offset_bottom = -221.111
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource("GDScript_lf7rh")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Video" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Back_Button" type="Button" parent="."]
+[node name="VideoSettings" type="GridContainer" parent="TabContainer/Video/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="LabelWMode" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+text = "Display Mode"
+vertical_alignment = 1
+
+[node name="WindowsModeButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme = ExtResource("1_rr7h5")
+item_count = 3
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "FullScreen"
+popup/item_1/id = 1
+popup/item_2/text = "Borderless"
+popup/item_2/id = 2
+
+[node name="LabelRes" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+text = "Resolution"
+vertical_alignment = 1
+
+[node name="ResolutionButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 4
+popup/item_0/text = "1280x720"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 2
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 3
+
+[node name="LabelVsync" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+text = "Vsync"
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+
+[node name="Audio" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Audio"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 16.0
+offset_right = -11.5559
+offset_bottom = -12.7774
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoSettings" type="GridContainer" parent="TabContainer/Audio/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Master"
+vertical_alignment = 1
+
+[node name="SliderMaster" type="HSlider" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -50.0
+max_value = 0.0
+value = -15.0
+rounded = true
+
+[node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "SFX"
+vertical_alignment = 1
+
+[node name="SliderSFX" type="HSlider" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -50.0
+max_value = 0.0
+value = -15.0
+
+[node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Music"
+vertical_alignment = 1
+
+[node name="SliderMusic" type="HSlider" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -50.0
+max_value = 0.0
+value = -15.0
+
+[node name="Gameplay" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 16.0
+offset_right = -11.5559
+offset_bottom = -12.7774
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoSettings" type="GridContainer" parent="TabContainer/Gameplay/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Mouse Sensitivity"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="senslabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer"]
+layout_mode = 2
+text = "1
+"
+
+[node name="SliderSens" type="HSlider" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Back_Button" type="Button" parent="."]
+layout_mode = 2
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -23,48 +276,10 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "BACK"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -69.0
-offset_top = -28.0
-offset_right = 69.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Window Mode"
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="WindowsModeButton" type="OptionButton" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Resolution"
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="ResolutionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
+[connection signal="item_selected" from="TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton" to="." method="_on_windows_mode_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Video/MarginContainer/VideoSettings/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
+[connection signal="toggled" from="TabContainer/Video/MarginContainer/VideoSettings/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster" to="." method="_on_slider_master_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX" to="." method="_on_slider_sfx_value_changed"]
+[connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic" to="." method="_on_slider_music_value_changed"]
+[connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens" to="." method="_on_slider_sens_value_changed"]
