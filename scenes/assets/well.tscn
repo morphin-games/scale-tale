@@ -7,7 +7,7 @@ height = 4.37867
 radius = 2.51248
 
 [node name="Well" type="Node3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="pozo" parent="." instance=ExtResource("1_78rpg")]
 

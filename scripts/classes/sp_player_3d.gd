@@ -100,11 +100,11 @@ func _physics_process(delta: float) -> void:
 			if(current_camera.height >= 8.0 and !looking_down):
 				looking_down = true
 				var n_tween : Tween = get_tree().create_tween()
-				n_tween.tween_property($NearBodies, "rotation_degrees:z", -90.0, 1.0)
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", -90.0, 0.33)
 			elif(current_camera.height < 5.0 and looking_down):
 				looking_down = false
 				var n_tween : Tween = get_tree().create_tween()
-				n_tween.tween_property($NearBodies, "rotation_degrees:z", 0.0, 1.0)
+				n_tween.tween_property($NearBodies, "rotation_degrees:z", 0.0, 0.33)
 			
 #	Movement
 	time_since_lateral += delta
@@ -373,6 +373,11 @@ func _physics_process(delta: float) -> void:
 		tween_c.tween_property(self, "ray_color", Color(0.04, 0.0, 0.97), 0.4)
 		emit_signal("scaling_stopped")
 		reset_scale_sfx()
+	
+	if(rescaling_item):
+		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, 0.0, 0.065)
+	else:
+		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, -80.0, 0.065)
 
 func play_water_drop_sfx() -> void:
 	$WaterDropSFX.play(0.91)

@@ -17,6 +17,8 @@ var sfx: AudioStreamPlayer3D
 
 func start_dialog(position: Vector3, lines: Array[String], sfx_speech: AudioStreamPlayer3D, npc : NpcDialog3D):
 	if is_dialog_active:
+		if(text_box != null):
+			text_box.speed = 3.0
 		return
 	dialog_lines = lines
 	text_box_position = Vector3(position.x,position.y + 2 , position.z)

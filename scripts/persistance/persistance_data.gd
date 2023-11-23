@@ -14,8 +14,13 @@ enum GraphicalLevels {
 @export var coin_recount : int = 0
 
 # Config
-@export var fullscreen : bool = true
-@export var resolution : Vector2 = Vector2(1280, 720)
-@export var graphical_level : int = GraphicalLevels.HIGH_END
+@export var fullscreen : Array = [DisplayServer.WINDOW_MODE_FULLSCREEN, true]
+@export var resolution_scale : float = 1.0
 @export var volume_db : float = 0.0
+
+# Controls
+@export var invert_cam_x : bool = false
+@export var invert_cam_y : bool = false
+@export var cam_speed_x : float = 1.0
+@export var cam_speed_y : float = 1.0
 

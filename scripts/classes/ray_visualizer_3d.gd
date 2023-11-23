@@ -1,7 +1,8 @@
 class_name RayVisualizer3D
 extends Node3D
 
-#@export 
+@onready var audio : AudioStreamPlayer3D = $AudioStreamPlayer3D
+
 var extra_scale : float = 1.0
 
 func enable() -> void:

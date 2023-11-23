@@ -21,7 +21,7 @@ size = Vector3(0.525967, 3.05898, 0.567747)
 size = Vector3(0.525967, 3.9775, 4.34913)
 
 [node name="House1" type="Node3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="casa_generica01" parent="." instance=ExtResource("1_4ptne")]
 

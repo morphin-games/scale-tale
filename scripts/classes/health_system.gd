@@ -4,6 +4,7 @@ extends Node
 signal died
 signal healed
 signal damaged
+signal health_changed
 
 @export var max_health : int = 6
 
@@ -15,6 +16,7 @@ func damage(ammount : int) -> void:
 	if(damage_frozen) : return
 	health -= ammount
 	emit_signal("damaged")
+	emit_signal("health_changed")
 	if(health <= 0):
 		health = 0
 		emit_signal("died")
@@ -22,5 +24,6 @@ func damage(ammount : int) -> void:
 func heal(ammount : int) -> void:
 	health += ammount
 	emit_signal("healed")
+	emit_signal("health_changed")
 	if(health >= max_health):
 		health = max_health

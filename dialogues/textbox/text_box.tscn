@@ -21,6 +21,7 @@ var letter_index = 0
 var letter_time = 0.05
 var space_time = 0.05
 var punctuation_time = 0.3
+var speed : float = 1.0
 
 signal finished_displaying()
 
@@ -39,15 +40,16 @@ func display_letter():
 	
 	if letter_index >= text.length():
 		finished_displaying.emit()
+		speed = 1.0
 		return
 		
 	match text[letter_index]:
 		\"!\",\".\",\",\",\"?\":
-			timer.start(punctuation_time)
+			timer.start(punctuation_time/speed)
 		\" \":
-			timer.start(space_time)
+			timer.start(space_time/speed)
 		_:
-			timer.start(letter_time)
+			timer.start(letter_time/speed)
 			
 			var new_audio_player = audio_player.duplicate()
 			new_audio_player.pitch_scale += randf_range(-0.1,0.1)
