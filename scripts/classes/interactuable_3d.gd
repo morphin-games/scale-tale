@@ -53,6 +53,13 @@ func _on_body_exited(body: Node3D) -> void:
 		player_near = null
 		if(grabable != null):
 			GrabableDistanceSystem.remove_grabable(grabable)
+	if DialogManager.is_dialog_active:
+		if DialogManager.text_box != null:			
+			DialogManager.is_dialog_active = false
+			DialogManager.current_line_index = 0
+			DialogManager.text_box.queue_free()
+
+
 		
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_interact") and player_near != null):

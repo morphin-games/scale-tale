@@ -53,3 +53,8 @@ point_to_tp = NodePath("../tps")
 
 [node name="npc_test" parent="." instance=ExtResource("4_huek1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.69855, -1.05186, -4.79509)
+npc_name = "NPC_Test"
+
+[node name="npc_test2" parent="." instance=ExtResource("4_huek1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.69855, -1.05186, 4.94123)
+npc_name = "Topo"

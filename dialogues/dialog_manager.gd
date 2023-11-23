@@ -18,7 +18,7 @@ func start_dialog(position: Vector3, lines: Array[String], sfx_speech: AudioStre
 	if is_dialog_active:
 		return
 	dialog_lines = lines
-	text_box_position = Vector3(position.x,position.y + 5 , position.z)
+	text_box_position = Vector3(position.x,position.y + 2 , position.z)
 	sfx = sfx_speech
 	show_text_box()
 	
@@ -37,7 +37,8 @@ func _on_text_box_finished_displaying():
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_interact") && is_dialog_active && can_advance_line):
-		text_box.queue_free()
+		if text_box != null:
+			text_box.queue_free()
 
 		current_line_index += 1
 		if current_line_index >= dialog_lines.size():

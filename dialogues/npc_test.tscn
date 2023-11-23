@@ -34,15 +34,13 @@ func _ready() -> void:
 		
 
 func _on_interactuable_interacted() -> void:
-
-
 	DialogManager.start_dialog(global_position, dialogue, speech_sound)
 "
 
 [sub_resource type="BoxMesh" id="BoxMesh_s7e46"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mq8fi"]
-radius = 3.97996
+radius = 6.90817
 
 [node name="npc_test" type="Node3D"]
 script = SubResource("GDScript_uwnyl")
