@@ -23,12 +23,12 @@ BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 Persistance="*res://scripts/persistance/persistance.gd"
+GrabableDistanceSystem="*res://scripts/singletons/grabable_distance_system.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=3
 
 [editor_plugins]
 

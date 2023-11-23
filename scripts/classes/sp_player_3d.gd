@@ -66,6 +66,7 @@ var direction : Vector2 = Vector2.ZERO :
 			emit_signal("direction_changed", value)
 
 func _ready() -> void:
+	GrabableDistanceSystem.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 #	respawn()
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
@@ -205,8 +206,9 @@ func _physics_process(delta: float) -> void:
 					velocity.y = -40.0
 					
 			if($WallHangers/Checker.get_collider() != null and $WallHangers/Hanger.get_collider() != null and !is_on_floor()):
-				if(velocity.y < -5.0):
-					velocity.y = -5.0
+				if($WallHangers/Checker.get_collider().name != "Player" and $WallHangers/Hanger.get_collider().name != "Player"):
+					if(velocity.y < -5.0):
+						velocity.y = -5.0
 					
 			if(($WallHangers/Checker.get_collider() != null or $WallHangers/Hanger.get_collider() != null) and $WallHangers/Hanger.get_collider() != self and $WallHangers/Checker.get_collider() != self):
 				if($WallHangers/Checker.get_collider() == null and $WallHangers/Hanger.get_collider() != null and velocity.y < 0):

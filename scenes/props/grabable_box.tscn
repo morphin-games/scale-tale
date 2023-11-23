@@ -60,10 +60,10 @@ script = ExtResource("2_mwspw")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
-[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_kyb63")]
-show_interaction_sprite = false
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh", "grabable") instance=ExtResource("3_kyb63")]
 highlight_mesh = NodePath("../MeshInstance3DBo")
 interaction_color = Color(0, 1, 0, 1)
+grabable = NodePath("../GrabableRigid3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
 shape = SubResource("SphereShape3D_deln8")
@@ -82,3 +82,5 @@ scalable_3d = NodePath("../Scalable3D")
 
 [node name="caja01" parent="MeshInstance3D" instance=ExtResource("5_68h2k")]
 transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, -2.95192, -0.949494, -0.93832)
+
+[editable path="MeshInstance3D/caja01"]

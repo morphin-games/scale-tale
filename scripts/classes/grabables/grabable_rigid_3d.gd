@@ -13,8 +13,9 @@ func _process(delta: float) -> void:
 	(player.grabbed_item as RigidBody3D).angular_velocity = Vector3.ZERO
 	
 func _ungrab() -> void:
+	print("PRIORITY UNGRAbB")
 	if(player.grabbed_item == null): return 
-	
+	emit_signal("ungrabbed")
 #	var current_camera : Camera3D = get_viewport().get_camera_3d()
 #	if(current_camera != null):
 #		if(current_camera is CameraFollow3D):
@@ -30,7 +31,9 @@ func _ungrab() -> void:
 	player.grabbed_item = null
 
 func grab() -> void:
+	print("PRIORITY GRAB")
 	if(player.grabbed_item == null):
+		emit_signal("grabbed")
 #		var current_camera : Camera3D = get_viewport().get_camera_3d()
 #		if(current_camera != null):
 #			if(current_camera is CameraFollow3D):
