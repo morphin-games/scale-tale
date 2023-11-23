@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cr53rsuby7qyv"]
+[gd_scene load_steps=16 format=3 uid="uid://cr53rsuby7qyv"]
 
 [ext_resource type="Script" path="res://scripts/classes/sp_player_3d.gd" id="1_dkijp"]
 [ext_resource type="Texture2D" uid="uid://cglby80rpb1xb" path="res://art/2D/textures/player_below_shadow.png" id="1_tqaaq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://shaders/toon_ligh/toon_lightning.gdshader" id="3_v7kgk"]
 [ext_resource type="AudioStream" uid="uid://dxgjsg31qva7j" path="res://art/sfx/scale_sfx/scale_fx_T.mp3" id="6_d80vc"]
 [ext_resource type="AudioStream" uid="uid://4p8mlcxguvwh" path="res://art/sfx/jump/jump_fx.mp3" id="7_6vy58"]
+[ext_resource type="AudioStream" uid="uid://dqk2kdyi2qbo4" path="res://art/sfx/water/swim.mp3" id="8_1id0l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w83fs"]
 render_priority = 0
@@ -150,7 +151,17 @@ bus = &"Effects"
 
 [node name="JumpSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_6vy58")
-volume_db = -20.0
+volume_db = -15.0
+bus = &"Effects"
+
+[node name="WaterDropSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_1id0l")
+bus = &"Effects"
+
+[node name="SwimSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_1id0l")
+volume_db = -10.0
+pitch_scale = 1.65
 bus = &"Effects"
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]

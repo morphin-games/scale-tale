@@ -3,8 +3,18 @@ extends Node3D
 
 @onready var system_enabled : bool = true
 
+var node : Node3D : 
+	set(new_node):
+		node = new_node
+		if(new_node == null):
+			destroy()
+			
 var emitting : bool = false
 var shape : Shape3D
+
+func _process(delta: float) -> void:
+	if(node != null):
+		global_position = node.global_position
 
 func emit(enabled : bool) -> void:
 	if(!system_enabled) : return

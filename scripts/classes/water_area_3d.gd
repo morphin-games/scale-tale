@@ -5,14 +5,20 @@ var player : SPPlayer3D
 var kinematics : Array[CharacterBody3D]
 var rigids : Array[RigidBody3D]
 var camera : CameraFollow3D
+var drop_effect : PackedScene = load("res://scenes/particle_effects/water_drop_effect.tscn")
 
 func _ready() -> void:
 	body_entered.connect(Callable(func(body : PhysicsBody3D) -> void:
 		if(body.name == "Player"):
+			(body as SPPlayer3D).play_water_drop_sfx()
 			player = body
 			var v_tween : Tween = get_tree().create_tween()
 			v_tween.tween_property(body, "velocity:y", -1.0, 0.5)
 			(body as SPPlayer3D).player_state = (body as SPPlayer3D).PlayerStates.SWIMMING
+			var inst_drop : MeshInstance3D = drop_effect.instantiate()
+			add_child(inst_drop)
+			inst_drop.global_transform.origin = player.global_transform.origin
+			
 		elif(body is CharacterBody3D):
 			kinematics.append(body)
 		elif(body is RigidBody3D):

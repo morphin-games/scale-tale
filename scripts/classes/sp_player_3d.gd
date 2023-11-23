@@ -33,9 +33,10 @@ enum PlayerStates {
 	,CLIMBING = 7
 }
 
+var rescaling_item : bool = false
 var prev_cam_data : Dictionary
 var near_bodies : Array[Node3D] = []
-var near_bodies_with_scale_particles : Array[Node3D] = []
+#var near_bodies_with_scale_particles : Array[Node3D] = []
 var looking_down : bool = false
 var ray_color : Color = Color(0.04, 0.0, 0.97)
 var ray_ignited : bool = false
@@ -76,8 +77,7 @@ func _input(event: InputEvent) -> void:
 		if(event.is_action_released("ui_jump") and velocity.y > 0 and player_state == PlayerStates.JUMPING):
 			var v_tween : Tween = get_tree().create_tween()
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
-			$JumpSFX.play()
-
+			
 func _process(delta: float) -> void:
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
 	if(grass_mesh != null):
@@ -169,7 +169,7 @@ func _physics_process(delta: float) -> void:
 			if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 				if(player_state == PlayerStates.CROUCHING):
 					player_state = PlayerStates.JUMPING
-					$JumpSFX.play()
+					$JumpSFX.play(0.5)
 					if(Vector2(velocity.x, velocity.z).length() > 0.2):
 	#					Olympic jump
 						player_state = PlayerStates.OLYMPIC_JUMPING
@@ -183,18 +183,19 @@ func _physics_process(delta: float) -> void:
 	#					Backflip
 						camera_rotation_speed = 0.01
 						acceleration = 2.0
-						$WallHangers.scale.x = -1.0
+#						$WallHangers.scale.x = -1.0
 						jump_external_force = -last_movement_direction * 4.0
 						speed = 0.5
 						gravity = ProjectSettings.get("physics/3d/default_gravity") * 0.75
 						velocity.y = max_jump_force * 1.25
 						return
 				else:
+					$JumpSFX.play(0.5)
 					player_state = PlayerStates.JUMPING
 		#			Normal jump
 					velocity.y = max_jump_force
 		#			Lateral jump
-					if(time_since_lateral > 0.05 and time_since_lateral < 0.33):
+					if(time_since_lateral > 0.1 and time_since_lateral < 0.4):
 						velocity.y = max_jump_force * 1.45
 		else: # Not on floor
 			if(player_state != PlayerStates.GROUNDPOUNDING):
@@ -219,6 +220,7 @@ func _physics_process(delta: float) -> void:
 	#			Wall jump
 				if(player_state != PlayerStates.HANGING):
 					if(Input.is_action_just_pressed("ui_jump")):
+						$JumpSFX.play(0.5)
 						player_state = PlayerStates.WALLJUMPING
 						speed = max_speed * 0.2
 						velocity = Vector3.ZERO
@@ -229,16 +231,19 @@ func _physics_process(delta: float) -> void:
 						jump_external_force = last_movement_direction * 8.0
 				else:
 					if(Input.is_action_just_pressed("ui_groundpound")):
+						$JumpSFX.play(0.5)
 						player_state = PlayerStates.JUMPING
 					
 			if(player_state == PlayerStates.HANGING):
 				if(Input.is_action_just_pressed("ui_jump")):
+					$JumpSFX.play(0.5)
 					player_state = PlayerStates.HANGJUMPING
 					speed = max_speed * 0.5
 					velocity.y = max_jump_force
 					jump_external_force = last_movement_direction * 2.0
 	elif(player_state == PlayerStates.SWIMMING): # Swimming in water
 		if(Input.is_action_just_pressed("ui_jump")):
+			$SwimSFX.play()
 			if(velocity.y >= -2.0):
 				velocity.y += 2.0
 			else:
@@ -260,6 +265,7 @@ func _physics_process(delta: float) -> void:
 			player_state = PlayerStates.IDLE
 			
 		if(Input.is_action_just_pressed("ui_jump")):
+			$JumpSFX.play(0.5)
 			player_state = PlayerStates.WALLJUMPING
 			velocity.y = max_jump_force
 		
@@ -292,6 +298,7 @@ func _physics_process(delta: float) -> void:
 				
 #	Item scaling functionality
 	if(Input.is_action_pressed("ui_upscale")):
+		rescaling_item = true
 		emit_signal("scaling_started")
 		if(grabbed_item != null):
 			ray_color = Color(1.0, 0.0, 0.0)
@@ -320,9 +327,10 @@ func _physics_process(delta: float) -> void:
 							$SFXAudioStreamPlayer3D.play()
 							scale_sfx_upscale()
 				else:
-					near_bodies.erase(body)
+					erase_near_body(body)
 			
 	elif(Input.is_action_pressed("ui_downscale")):
+		rescaling_item = true
 		emit_signal("scaling_started")
 		if(grabbed_item != null):
 			ray_color = Color(0.0, 0.03, 1.0)
@@ -350,13 +358,14 @@ func _physics_process(delta: float) -> void:
 							$SFXAudioStreamPlayer3D.play()
 							scale_sfx_downscale()
 				else:
-					near_bodies.erase(body)
+					erase_near_body(body)
 					
 	elif(Input.is_action_just_released("ui_upscale") or Input.is_action_just_released("ui_downscale")):
 		for body in near_bodies:
 			if(!is_instance_valid(body)):
-				near_bodies.erase(body)
+				erase_near_body(body)
 				
+		rescaling_item = false
 		$NearBodies/CollisionShape3D.disabled = true
 		ray_ignited = false
 		$NearBodies/RayVisualizer.disable()
@@ -365,75 +374,32 @@ func _physics_process(delta: float) -> void:
 		emit_signal("scaling_stopped")
 		reset_scale_sfx()
 
+func play_water_drop_sfx() -> void:
+	$WaterDropSFX.play(0.91)
 
+func add_near_body(body : Node3D) -> void:
+	if(rescaling_item):
+		var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+		if(scalables.size() > 0):
+			(scalables[0] as Scalable3D).particles.emit(true)
+	near_bodies.append(body)
 
-func add_scale_particles(node : Node3D) -> void:
-	var scalables : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/scalable_3d.gd")
-	var scalable : Scalable3D
+func erase_near_body(body : Node3D) -> void:
+	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 	if(scalables.size() > 0):
-		scalable = scalables[0]
-	else:
-		return
-	
-	var particles : ScaleParticles = load("res://scenes/particle_effects/scale_particles.tscn").instantiate()
-	node.add_child(particles)
-	particles.global_transform.origin = node.global_transform.origin
-		
-	var scalable_colls : Array[Node] = Utils.find_custom_nodes(node, "res://scripts/classes/collision_shape_scalable_3d.gd")
-	if(scalable_colls.size() > 0):
-		particles.set_shape((scalable_colls[0] as CollisionShapeScalable3D).shape)
-	
-	var callable_started : Callable = Callable(func() -> void:
-		if(scalable != null):
-			particles.set_size(scalable.current_scale.x)
-		particles.set_color(ray_color)
-		if(!particles.emitting):
-			particles.emit(true)
-	)
-	
-	var callable_stopped : Callable = Callable(func() -> void:
-		if(particles.emitting):
-			particles.emit(false)
-	)
-	
-	var callable_body_exited : Callable = Callable(func(body : Node3D) -> void:
-		if(is_instance_valid(body)):
-			if(body == node):
-				if(scaling_started.is_connected(callable_started)):
-					scaling_started.disconnect(callable_started)
-				if(scaling_stopped.is_connected(callable_stopped)):
-					scaling_stopped.disconnect(callable_stopped)
-				particles.destroy()
-				particles.system_enabled = false
-	)
-	
-	scaling_started.connect(callable_started)
-	scaling_stopped.connect(callable_stopped)
-	near_body_exited.connect(callable_body_exited)
-	
-	grabbed_item_changed.connect(Callable(func(body: Node3D) -> void:
-		if(body == null):
-			if(scaling_started.is_connected(callable_started)):
-				scaling_started.disconnect(callable_started)
-			if(scaling_stopped.is_connected(callable_stopped)):
-				scaling_stopped.disconnect(callable_stopped)
-			if(near_body_exited.is_connected(callable_body_exited)):
-				near_body_exited.disconnect(callable_body_exited)
-			particles.destroy()
-			particles.system_enabled = false
-	))
-
+		(scalables[0] as Scalable3D).particles.emit(false)
+	near_bodies.erase(body)
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:
 	if(!is_instance_valid(body)) : return
 	emit_signal("near_body_entered", body)
-	near_bodies.append(body)
+	add_near_body(body)
 #	add_scale_particles(body)
 
 func _on_near_bodies_body_exited(body: Node3D) -> void:
 	if(!is_instance_valid(body)) : return
 	emit_signal("near_body_exited", body)
-	near_bodies.erase(body)
+	erase_near_body(body)
 
 func respawn(transition : bool = false) -> void:
 	if((Persistance.persistance_data as PersistanceData).respawn_position != null):
