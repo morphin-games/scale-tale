@@ -37,28 +37,70 @@ func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
 		0:
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+			Persistance.persistance_data.fullscreen = [DisplayServer.WINDOW_MODE_WINDOWED, false]
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+			Persistance.persistance_data.fullscreen = [DisplayServer.WINDOW_MODE_FULLSCREEN, false]
 		2:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
+			Persistance.persistance_data.fullscreen = [DisplayServer.WINDOW_MODE_FULLSCREEN, true]
+			
+	Persistance.save()
 			
 
 
 func _on_resolution_button_item_selected(index: int) -> void:
 	match index:
 		0: 
-			DisplayServer.window_set_size(Vector2i(1024, 546))
+			get_viewport().size = Vector2i(1024, 546)
 		1:
-			DisplayServer.window_set_size(Vector2i(1280, 720))
+			get_viewport().size = Vector2i(1280, 720)
 		2:
-			DisplayServer.window_set_size(Vector2i(1600, 900))
+			get_viewport().size = Vector2i(1600, 900)
 		3:
-			DisplayServer.window_set_size(Vector2i(1920, 1080))
+			get_viewport().size = Vector2i(1920, 1080)
 		4:
-			DisplayServer.window_set_size(Vector2i(2560, 1440))
+			get_viewport().size = Vector2i(2560, 1440)
+			
+	Persistance.persistance_data.resolution = get_viewport().size
+	Persistance.save()
 
+func _on_resolution_scale_value_changed(value: float) -> void:
+	get_viewport().scaling_3d_scale = value
+	Persistance.persistance_data.resolution_scale = value
+	Persistance.save()
+
+func _on_check_box_toggled(button_pressed: bool) -> void:
+	(Persistance.persistance_data as PersistanceData).invert_cam_x = button_pressed
+	Persistance.save()
+
+func _on_check_box_2_toggled(button_pressed: bool) -> void:
+	(Persistance.persistance_data as PersistanceData).invert_cam_y = button_pressed
+	Persistance.save()
+
+func _on_cam_speed_x_value_changed(value: float) -> void:
+	(Persistance.persistance_data as PersistanceData).cam_speed_x = value 
+	Persistance.save()
+
+func _on_cam_speed_y_value_changed(value: float) -> void:
+	(Persistance.persistance_data as PersistanceData).cam_speed_y = value 
+	Persistance.save()
+
+func _on_vol_slider_value_changed(value: float) -> void:
+	(Persistance.persistance_data as PersistanceData).volume_db = value
+	AudioServer.set_bus_volume_db(0, value)
+	Persistance.save()
+
+func _on_settings_visibility_changed() -> void:
+	$Settings/VBoxContainer/CheckBox.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_x
+	$Settings/VBoxContainer/CheckBox2.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_y
+	$Settings/VBoxContainer/HBoxContainer5/CamSpeedX.value = (Persistance.persistance_data as PersistanceData).cam_speed_x
+	$Settings/VBoxContainer/HBoxContainer6/CamSpeedY.value = (Persistance.persistance_data as PersistanceData).cam_speed_y
+	$Settings/VBoxContainer/HBoxContainer2/WindowsModeButton.selected = (Persistance.persistance_data as PersistanceData).fullscreen[0]
+	$Settings/VBoxContainer/HBoxContainer/ResolutionScale.value = (Persistance.persistance_data as PersistanceData).resolution_scale
+	$Settings/VBoxContainer/HBoxContainer4/VolSlider.value = (Persistance.persistance_data as PersistanceData).volume_db
 "
 
 [node name="pause_menu" type="Control"]
@@ -105,18 +147,22 @@ offset_right = 200.0
 offset_bottom = 62.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 12
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "PLAY"
+text = "Play"
+alignment = 0
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "SETTINGS"
+text = "Settings"
+alignment = 0
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "EXIT"
+text = "Main menu"
+alignment = 0
 
 [connection signal="pressed" from="Settings/Back_Button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
@@ -124,3 +170,189 @@ text = "EXIT"
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
 
 [editable path="Settings"]
+[node name="Settings" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.282986
+anchor_top = 0.307099
+anchor_right = 0.717014
+anchor_bottom = 0.692901
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back_Button" type="Button" parent="Settings"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 365.0
+offset_top = 163.111
+offset_right = 599.0
+offset_bottom = 204.111
+grow_horizontal = 2
+grow_vertical = 0
+text = "Go back"
+alignment = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.778
+offset_top = -85.8887
+offset_right = 322.222
+offset_bottom = 86.1113
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Controls" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Controls:"
+
+[node name="CheckBox" type="CheckBox" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Invert camera (X)"
+alignment = 1
+
+[node name="CheckBox2" type="CheckBox" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Invert camera (Y)"
+alignment = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Cam speed (X)"
+
+[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+
+[node name="CamSpeedX" type="SpinBox" parent="Settings/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.05
+value = 2.0
+alignment = 1
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Cam speed (Y)"
+
+[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+
+[node name="CamSpeedY" type="SpinBox" parent="Settings/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.05
+value = 1.0
+alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Graphics" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Graphical configuration:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Window Mode"
+
+[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="WindowsModeButton" type="OptionButton" parent="Settings/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resolution scale"
+
+[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ResolutionButton" type="OptionButton" parent="Settings/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ResolutionScale" type="SpinBox" parent="Settings/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_value = 0.5
+max_value = 1.0
+step = 0.05
+value = 1.0
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Audio" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Audio:"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Volume"
+
+[node name="VSeparator" type="VSeparator" parent="Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="VolSlider" type="HSlider" parent="Settings/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -80.0
+max_value = 0.0
+step = 0.5
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="visibility_changed" from="Settings" to="." method="_on_settings_visibility_changed"]
+[connection signal="pressed" from="Settings/Back_Button" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="Settings/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="toggled" from="Settings/VBoxContainer/CheckBox2" to="." method="_on_check_box_2_toggled"]
+[connection signal="value_changed" from="Settings/VBoxContainer/HBoxContainer5/CamSpeedX" to="." method="_on_cam_speed_x_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/HBoxContainer6/CamSpeedY" to="." method="_on_cam_speed_y_value_changed"]
+[connection signal="item_selected" from="Settings/VBoxContainer/HBoxContainer2/WindowsModeButton" to="." method="_on_windows_mode_button_item_selected"]
+[connection signal="item_selected" from="Settings/VBoxContainer/HBoxContainer/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
+[connection signal="value_changed" from="Settings/VBoxContainer/HBoxContainer/ResolutionScale" to="." method="_on_resolution_scale_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/HBoxContainer4/VolSlider" to="." method="_on_vol_slider_value_changed"]

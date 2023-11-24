@@ -11,10 +11,13 @@ signal interacted
 @export var highlight_mesh : MeshInstance3D
 @export var material_surface : int = 0
 @export var interaction_color : Color
-@export var interaction_sprite : Texture2D
+@export var interaction_sprite_pc : Texture2D
+@export var interaction_sprite_console : Texture2D
 @export var fixed_rotation : bool = true
-
+@export var npc_dialog : NpcDialog3D
 @export var grabable : Grabable3D
+
+@onready var interaction_sprite : Texture2D = interaction_sprite_console
 
 var player_near : SPPlayer3D
 
@@ -30,6 +33,21 @@ func _ready() -> void:
 			if(player_near == null): return
 			$InteractionSprite.visible = true
 		))
+	
+func _input(event: InputEvent) -> void:
+	if(event.is_action_pressed("ui_interact") and player_near != null):
+		emit_signal("interacted")
+		
+	if(event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion):
+		$InteractionSprite.texture = interaction_sprite_pc
+	elif(event is InputEventJoypadButton or event is InputEventJoypadMotion):
+		$InteractionSprite.texture = interaction_sprite_console
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if(event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion):
+		$InteractionSprite.texture = interaction_sprite_pc
+	elif(event is InputEventJoypadButton or event is InputEventJoypadMotion):
+		$InteractionSprite.texture = interaction_sprite_console
 	
 func _process(delta: float) -> void:
 	global_rotation_degrees = Vector3.ZERO
@@ -53,14 +71,10 @@ func _on_body_exited(body: Node3D) -> void:
 		player_near = null
 		if(grabable != null):
 			GrabableDistanceSystem.remove_grabable(grabable)
+		if(npc_dialog != null):
+			npc_dialog.dialog_active = false
 	if DialogManager.is_dialog_active:
 		if DialogManager.text_box != null:			
 			DialogManager.is_dialog_active = false
 			DialogManager.current_line_index = 0
 			DialogManager.text_box.queue_free()
-
-
-		
-func _input(event: InputEvent) -> void:
-	if(event.is_action_pressed("ui_interact") and player_near != null):
-		emit_signal("interacted")

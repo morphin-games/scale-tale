@@ -30,12 +30,14 @@ func _input(event: InputEvent) -> void:
 			drop()
 			time_ungrabbed = Time.get_unix_time_from_system()
 			player = null
+			GrabableDistanceSystem.all_disabled = false
 			
 	if(event.is_action_pressed("ui_throw") and Time.get_unix_time_from_system() - time_taken > 0.33):
 		if(player != null):
 			throw()
 			time_ungrabbed = Time.get_unix_time_from_system()
 			player = null
+			GrabableDistanceSystem.all_disabled = false
 	
 func set_colliders_disabled(disabled : bool) -> void:
 	for collider in item.get_children(true):

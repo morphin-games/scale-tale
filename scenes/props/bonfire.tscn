@@ -60,6 +60,7 @@ radius = 4.0
 script = SubResource("GDScript_i0ddj")
 
 [node name="hoguera01" parent="." instance=ExtResource("1_yrlaq")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="hoguera" parent="hoguera01" index="0"]
 visible = false

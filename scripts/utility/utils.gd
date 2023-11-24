@@ -45,3 +45,18 @@ static func get_player(root : Node) -> SPPlayer3D:
 static func vectors_approx_equal(v1 : Vector3, v2 : Vector3, epsilon : float) -> bool:
 	var difference : Vector3 = v1 - v2
 	return (abs(difference.x) < epsilon) and (abs(difference.y) < epsilon) and (abs(difference.z) < epsilon)
+	
+static func play_3d_sound_at(sound : AudioStreamMP3, location : Vector3, parent : Node, config : AudioStream3DData) -> void:
+	var audio_stream : AudioStreamPlayer3D = AudioStreamPlayer3D.new()
+	parent.add_child(audio_stream)
+	audio_stream.stream = sound
+	audio_stream.global_position = location
+	audio_stream.max_db = config.max_db
+	audio_stream.max_distance = config.max_distance
+	audio_stream.volume_db = config.volume_db
+	audio_stream.pitch_scale = config.pitch_scale
+	audio_stream.unit_size = config.unit_size
+	audio_stream.finished.connect(Callable(func() -> void:
+		audio_stream.queue_free()
+	))
+	audio_stream.play(config.sound_start)

@@ -22,7 +22,7 @@ radius = 3.1491
 size = Vector3(4.99127, 3.23408, 2.21188)
 
 [node name="House3" type="Node3D"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="casa_rueda_molino" parent="." instance=ExtResource("1_tkx03")]
 

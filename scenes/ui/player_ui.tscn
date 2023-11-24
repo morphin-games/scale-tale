@@ -9,65 +9,75 @@ script/source = "extends Control
 
 var life_filled = preload(\"res://art/2D/ui/life_filled.png\")
 var life_empty = preload(\"res://art/2D/ui/life_empty.png\")
-@onready var player = get_node(\"/root/FinalLevel/Player\")
+@export var player : SPPlayer3D
+
+var time_since_change : float = 6.0
+var pos_y : float = -47.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(player.health_system.health)
+	player.health_system.health_changed.connect(Callable(func() -> void:
+		time_since_change = 0.0
+		match player.health_system.health:
+			0:
+				$\"HBoxContainer/1\".texture = life_empty
+				$\"HBoxContainer/2\".texture = life_empty
+				$\"HBoxContainer/3\".texture = life_empty
+				$\"HBoxContainer/4\".texture = life_empty
+				$\"HBoxContainer/5\".texture = life_empty
+				$\"HBoxContainer/6\".texture = life_empty
+			1:
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_empty
+				$\"HBoxContainer/3\".texture = life_empty
+				$\"HBoxContainer/4\".texture = life_empty
+				$\"HBoxContainer/5\".texture = life_empty
+				$\"HBoxContainer/6\".texture = life_empty
+			2:
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_filled
+				$\"HBoxContainer/3\".texture = life_empty
+				$\"HBoxContainer/4\".texture = life_empty
+				$\"HBoxContainer/5\".texture = life_empty
+				$\"HBoxContainer/6\".texture = life_empty
+			3:
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_filled
+				$\"HBoxContainer/3\".texture = life_filled
+				$\"HBoxContainer/4\".texture = life_empty
+				$\"HBoxContainer/5\".texture = life_empty
+				$\"HBoxContainer/6\".texture = life_empty
+			4:
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_filled
+				$\"HBoxContainer/3\".texture = life_filled
+				$\"HBoxContainer/4\".texture = life_filled
+				$\"HBoxContainer/5\".texture = life_empty
+				$\"HBoxContainer/6\".texture = life_empty
+			5:
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_filled
+				$\"HBoxContainer/3\".texture = life_filled
+				$\"HBoxContainer/4\".texture = life_filled
+				$\"HBoxContainer/5\".texture = life_filled
+				$\"HBoxContainer/6\".texture = life_empty
+			6: 
+				$\"HBoxContainer/1\".texture = life_filled
+				$\"HBoxContainer/2\".texture = life_filled
+				$\"HBoxContainer/3\".texture = life_filled
+				$\"HBoxContainer/4\".texture = life_filled
+				$\"HBoxContainer/5\".texture = life_filled
+				$\"HBoxContainer/6\".texture = life_filled
+	))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	match player.health_system.health:
-		0:
-			print(\"dead\")
-			$\"HBoxContainer/1\".texture = life_empty
-			$\"HBoxContainer/2\".texture = life_empty
-			$\"HBoxContainer/3\".texture = life_empty
-			$\"HBoxContainer/4\".texture = life_empty
-			$\"HBoxContainer/5\".texture = life_empty
-			$\"HBoxContainer/6\".texture = life_empty
-		1:
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_empty
-			$\"HBoxContainer/3\".texture = life_empty
-			$\"HBoxContainer/4\".texture = life_empty
-			$\"HBoxContainer/5\".texture = life_empty
-			$\"HBoxContainer/6\".texture = life_empty
-		2:
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_filled
-			$\"HBoxContainer/3\".texture = life_empty
-			$\"HBoxContainer/4\".texture = life_empty
-			$\"HBoxContainer/5\".texture = life_empty
-			$\"HBoxContainer/6\".texture = life_empty
-		3:
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_filled
-			$\"HBoxContainer/3\".texture = life_filled
-			$\"HBoxContainer/4\".texture = life_empty
-			$\"HBoxContainer/5\".texture = life_empty
-			$\"HBoxContainer/6\".texture = life_empty
-		4:
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_filled
-			$\"HBoxContainer/3\".texture = life_filled
-			$\"HBoxContainer/4\".texture = life_filled
-			$\"HBoxContainer/5\".texture = life_empty
-			$\"HBoxContainer/6\".texture = life_empty
-		5:
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_filled
-			$\"HBoxContainer/3\".texture = life_filled
-			$\"HBoxContainer/4\".texture = life_filled
-			$\"HBoxContainer/5\".texture = life_filled
-			$\"HBoxContainer/6\".texture = life_empty
-		6: 
-			$\"HBoxContainer/1\".texture = life_filled
-			$\"HBoxContainer/2\".texture = life_filled
-			$\"HBoxContainer/3\".texture = life_filled
-			$\"HBoxContainer/4\".texture = life_filled
-			$\"HBoxContainer/5\".texture = life_filled
-			$\"HBoxContainer/6\".texture = life_filled
+	time_since_change += delta
+	if(time_since_change >= 6.0):
+		pos_y = -46.34
+	else:
+		pos_y = 25.0
+		
+	$HBoxContainer.position.y = lerp($HBoxContainer.position.y, pos_y, 0.065)
 "
 
 [node name="player_ui" type="Control"]
@@ -84,10 +94,15 @@ script = SubResource("GDScript_sdhlm")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-offset_top = 35.0
-offset_right = 404.0
-offset_bottom = 177.0
-scale = Vector2(0.5, 0.5)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -145.2
+offset_top = -46.34
+offset_right = 822.8
+offset_bottom = 95.66
+grow_horizontal = 2
+scale = Vector2(0.3, 0.3)
 mouse_filter = 2
 theme = ExtResource("1_wdft6")
 

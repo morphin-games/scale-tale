@@ -12,16 +12,19 @@ var text_box_position: Vector3
 var is_dialog_active = false
 var can_advance_line = false
 
+var npc : NpcDialog3D
 var sfx: AudioStreamPlayer3D
 
-func start_dialog(position: Vector3, lines: Array[String], sfx_speech: AudioStreamPlayer3D):
+func start_dialog(position: Vector3, lines: Array[String], sfx_speech: AudioStreamPlayer3D, npc : NpcDialog3D):
 	if is_dialog_active:
+		if(text_box != null):
+			text_box.speed = 3.0
 		return
 	dialog_lines = lines
 	text_box_position = Vector3(position.x,position.y + 2 , position.z)
 	sfx = sfx_speech
 	show_text_box()
-	
+	self.npc = npc
 	is_dialog_active = true
 
 func show_text_box():
@@ -44,5 +47,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if current_line_index >= dialog_lines.size():
 			is_dialog_active = false
 			current_line_index = 0
+			npc.dialog_active = false
 			return
 		show_text_box()

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gameoff_2023"
-run/main_scene="res://scenes/levels/final/final_v2.tscn"
+run/main_scene="res://scenes/config_loader.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -31,6 +31,8 @@ SettingsFile="*res://scripts/game_settings/settings_file.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/resizable=false
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
