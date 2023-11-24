@@ -24,6 +24,8 @@ BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 Persistance="*res://scripts/persistance/persistance.gd"
 GrabableDistanceSystem="*res://scripts/singletons/grabable_distance_system.gd"
+GlobalSettings="*res://scripts/game_settings/global_settings.gd"
+SettingsFile="*res://scripts/game_settings/settings_file.gd"
 
 [display]
 
