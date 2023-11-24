@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b8u1i40y1ld6t"]
+[gd_scene load_steps=53 format=3 uid="uid://b8u1i40y1ld6t"]
 
 [ext_resource type="Texture2D" uid="uid://we1hllaedj1f" path="res://art/2D/mapa_scales.png" id="1_xpdj6"]
 [ext_resource type="PackedScene" uid="uid://j6ri7bkkvs4r" path="res://scenes/ui/pause_menu.tscn" id="2_g17ei"]
@@ -147,6 +147,8 @@ texture = ExtResource("1_xpdj6")
 
 [node name="Player" parent="." instance=ExtResource("2_i7hpt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 421.131, -27.2499, -333.562)
+max_speed = null
+max_jump_force = null
 
 [node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("spring", "target", "underwater")]
 script = ExtResource("4_ja4sy")
