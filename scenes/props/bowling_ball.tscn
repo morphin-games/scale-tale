@@ -63,7 +63,7 @@ shader_parameter/outline_width = 0.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_1bxou"]
 radius = 0.546767
 
-[node name="BowlingBall" type="RigidBody3D"]
+[node name="BowlingBall" type="RigidBody3D" groups=["Items"]]
 physics_material_override = SubResource("PhysicsMaterial_tcmbt")
 script = SubResource("GDScript_30s5s")
 

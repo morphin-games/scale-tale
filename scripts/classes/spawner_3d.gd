@@ -3,7 +3,7 @@ extends Marker3D
 
 @export var spawn_on_ready : bool = false
 @export var scene : PackedScene
-@export var subgroup : String
+@export_enum("None", "EnemySpawners", "ItemSpawners") var subgroup : String = "None"
 
 func _ready() -> void:
 	add_to_group(subgroup)

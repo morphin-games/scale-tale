@@ -11,19 +11,21 @@ signal health_changed
 @onready var health : int = max_health
 
 var damage_frozen : bool = false
+var respawning : bool = false
 
 func damage(ammount : int) -> void:
-	if(damage_frozen) : return
+	if(damage_frozen or respawning) : return
 	health -= ammount
 	emit_signal("damaged")
 	emit_signal("health_changed")
 	if(health <= 0):
 		health = 0
 		emit_signal("died")
+		emit_signal("health_changed")
 		
 func heal(ammount : int) -> void:
 	health += ammount
 	emit_signal("healed")
-	emit_signal("health_changed")
 	if(health >= max_health):
 		health = max_health
+		emit_signal("health_changed")

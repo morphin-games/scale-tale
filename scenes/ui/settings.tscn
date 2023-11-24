@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://25r75xgdpwqg"]
+[gd_scene load_steps=4 format=3 uid="uid://25r75xgdpwqg"]
 
 [ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
+[ext_resource type="Script" path="res://scripts/classes/syncro_label.gd" id="2_a8se4"]
 
 [sub_resource type="GDScript" id="GDScript_lf7rh"]
 script/source = "extends Control
+
+@onready var back_button : Button = $Back_Button
 
 #vIDEO
 @onready var window_button = $TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton
@@ -18,24 +21,39 @@ script/source = "extends Control
 @onready var sens_slider = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens
 
 func _ready() -> void:
-	#display_options.select(1 if Save.game_data.full_screen_on else 0)
-	#GlobalSettings.change_displayMode(Save.game_data.full_screen_on)
-	#vsync_button.button_pressed = SettingsFile.game_data.vsync_on
-	slider_master.value = SettingsFile.game_data.master_vol
-	slider_music.value = SettingsFile.game_data.music_vol
-	slider_sfx.value = SettingsFile.game_data.sfx_vol
-	sens_slider = SettingsFile.game_data.mouse_sens
+	visibility_changed.connect(Callable(func() -> void:
+		$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.value = (Persistance.persistance_data as PersistanceData).cam_speed_x
+		$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2/CamSensY.value = (Persistance.persistance_data as PersistanceData).cam_speed_y
+		$TabContainer/Gameplay/MarginContainer/VideoSettings/InvertX.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_x
+		$TabContainer/Gameplay/MarginContainer/VideoSettings/InvertY.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_y
+		$TabContainer/Video/MarginContainer/VideoSettings/ResScale/ResScaleBar.value = (Persistance.persistance_data as PersistanceData).resolution_scale
+		$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.value = (Persistance.persistance_data as PersistanceData).volume_db
+		$TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX.value = (Persistance.persistance_data as PersistanceData).effects_db
+		$TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic.value = (Persistance.persistance_data as PersistanceData).music_db
+		
+		if((Persistance.persistance_data as PersistanceData).fullscreen[0] == 3):
+			$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.select(1)
+		else:
+			$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.select(0)
+	))
 
 func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
 		0:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+			(Persistance.persistance_data as PersistanceData).fullscreen = [DisplayServer.WINDOW_MODE_WINDOWED, false]
+			Persistance.save()
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,false)
+			(Persistance.persistance_data as PersistanceData).fullscreen = [DisplayServer.WINDOW_MODE_FULLSCREEN, false]
+			Persistance.save()
 		2:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS,true)
+			(Persistance.persistance_data as PersistanceData).fullscreen = [DisplayServer.WINDOW_MODE_FULLSCREEN, true]
+			Persistance.save()
 
 
 func _on_resolution_button_item_selected(index: int) -> void:
@@ -53,23 +71,41 @@ func _on_resolution_button_item_selected(index: int) -> void:
 func _on_check_button_toggled(button_pressed: bool) -> void:
 	GlobalSettings.change_vsync(button_pressed) 
 
-
 func _on_slider_master_value_changed(value: float) -> void:
 	GlobalSettings.update_master_vol(0,value)
-
+	(Persistance.persistance_data as PersistanceData).volume_db = value
+	Persistance.save()
 
 func _on_slider_sfx_value_changed(value: float) -> void:
 	GlobalSettings.update_master_vol(1,value)
-
+	(Persistance.persistance_data as PersistanceData).effects_db = value
+	Persistance.save()
 
 func _on_slider_music_value_changed(value: float) -> void:
 	GlobalSettings.update_master_vol(2,value)
+	(Persistance.persistance_data as PersistanceData).music_db = value
+	Persistance.save()
 
+func _on_cam_sens_x_value_changed(value: float) -> void:
+	(Persistance.persistance_data as PersistanceData).cam_speed_x = value
+	Persistance.save()
 
-func _on_slider_sens_value_changed(value: float) -> void:
-	GlobalSettings.update_mouse_sens(value)
-	sens_label.text = str(value) 
+func _on_cam_sens_y_value_changed(value: float) -> void:
+	(Persistance.persistance_data as PersistanceData).cam_speed_y = value
+	Persistance.save()
 
+func _on_invert_x_toggled(button_pressed: bool) -> void:
+	(Persistance.persistance_data as PersistanceData).invert_cam_x = button_pressed
+	Persistance.save()
+
+func _on_invert_y_toggled(button_pressed: bool) -> void:
+	(Persistance.persistance_data as PersistanceData).invert_cam_y = button_pressed
+	Persistance.save()
+
+func _on_res_scale_bar_value_changed(value: float) -> void:
+	get_viewport().scaling_3d_scale = value
+	(Persistance.persistance_data as PersistanceData).resolution_scale = value
+	Persistance.save()
 "
 
 [node name="Settings" type="Control"]
@@ -85,18 +121,121 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_rr7h5")
 script = SubResource("GDScript_lf7rh")
 
 [node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.4
+anchor_top = -0.4
+anchor_right = 1.4
+anchor_bottom = 1.4
+offset_left = 222.222
+offset_top = 111.111
+offset_right = -222.222
+offset_bottom = -111.111
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameplay" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Gameplay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 16.0
+offset_right = -11.5559
+offset_bottom = -12.7774
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+
+[node name="VideoSettings" type="GridContainer" parent="TabContainer/Gameplay/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label1" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Camera sensitivity (X)"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CamSensX" type="HSlider" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.05
+max_value = 3.0
+step = 0.05
+value = 1.0
+
+[node name="sensXLabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer" node_paths=PackedStringArray("slider")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "1
+"
+horizontal_alignment = 1
+script = ExtResource("2_a8se4")
+slider = NodePath("../CamSensX")
+
+[node name="Label2" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Camera sensitivity (Y)
+"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CamSensY" type="HSlider" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.05
+max_value = 3.0
+step = 0.05
+value = 1.0
+
+[node name="sensYLabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2" node_paths=PackedStringArray("slider")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "1
+"
+horizontal_alignment = 1
+script = ExtResource("2_a8se4")
+slider = NodePath("../CamSensY")
+
+[node name="Label3" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Invert camera axis (X)
+"
+vertical_alignment = 1
+
+[node name="InvertX" type="CheckBox" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Invert camera axis (Y)"
+vertical_alignment = 1
+
+[node name="InvertY" type="CheckBox" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
+layout_mode = 2
 
 [node name="Video" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
@@ -109,6 +248,8 @@ grow_vertical = 2
 
 [node name="VideoSettings" type="GridContainer" parent="TabContainer/Video/MarginContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 405
+theme_override_constants/v_separation = 10
 columns = 2
 
 [node name="LabelWMode" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
@@ -121,21 +262,20 @@ layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 8
 theme = ExtResource("1_rr7h5")
-item_count = 3
+item_count = 2
 selected = 0
 popup/item_0/text = "Windowed"
 popup/item_0/id = 0
 popup/item_1/text = "FullScreen"
 popup/item_1/id = 1
-popup/item_2/text = "Borderless"
-popup/item_2/id = 2
 
 [node name="LabelRes" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
 layout_mode = 2
-text = "Resolution"
+text = "Resolution scale"
 vertical_alignment = 1
 
 [node name="ResolutionButton" type="OptionButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 item_count = 4
@@ -149,12 +289,36 @@ popup/item_3/text = "2560x1440"
 popup/item_3/id = 3
 
 [node name="LabelVsync" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+visible = false
 layout_mode = 2
 text = "Vsync"
 vertical_alignment = 1
 
 [node name="CheckButton" type="CheckButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+visible = false
 layout_mode = 2
+
+[node name="ResScale" type="HBoxContainer" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResScaleBar" type="HSlider" parent="TabContainer/Video/MarginContainer/VideoSettings/ResScale"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.1
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="sensYLabel" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings/ResScale" node_paths=PackedStringArray("slider")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "1
+"
+horizontal_alignment = 1
+script = ExtResource("2_a8se4")
+slider = NodePath("../ResScaleBar")
 
 [node name="Audio" type="TabBar" parent="TabContainer"]
 visible = false
@@ -186,9 +350,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -50.0
+min_value = -80.0
 max_value = 0.0
-value = -15.0
 rounded = true
 
 [node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -201,9 +364,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -50.0
+min_value = -80.0
 max_value = 0.0
-value = -15.0
 
 [node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
 layout_mode = 2
@@ -215,53 +377,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -50.0
+min_value = -80.0
 max_value = 0.0
-value = -15.0
-
-[node name="Gameplay" type="TabBar" parent="TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Gameplay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = 16.0
-offset_right = -11.5559
-offset_bottom = -12.7774
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VideoSettings" type="GridContainer" parent="TabContainer/Gameplay/MarginContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="Label" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Mouse Sensitivity"
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="senslabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer"]
-layout_mode = 2
-text = "1
-"
-
-[node name="SliderSens" type="HSlider" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-min_value = 0.01
-max_value = 1.0
-step = 0.01
-value = 1.0
 
 [node name="Back_Button" type="Button" parent="."]
 layout_mode = 2
@@ -269,17 +386,22 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -31.0
-offset_right = 25.0
+offset_left = 294.0
+offset_top = 51.111
+offset_right = 493.0
+offset_bottom = 92.111
 grow_horizontal = 2
 grow_vertical = 0
-text = "BACK"
+text = "Go back"
 
+[connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX" to="." method="_on_cam_sens_x_value_changed"]
+[connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2/CamSensY" to="." method="_on_cam_sens_y_value_changed"]
+[connection signal="toggled" from="TabContainer/Gameplay/MarginContainer/VideoSettings/InvertX" to="." method="_on_invert_x_toggled"]
+[connection signal="toggled" from="TabContainer/Gameplay/MarginContainer/VideoSettings/InvertY" to="." method="_on_invert_y_toggled"]
 [connection signal="item_selected" from="TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton" to="." method="_on_windows_mode_button_item_selected"]
 [connection signal="item_selected" from="TabContainer/Video/MarginContainer/VideoSettings/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VideoSettings/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="value_changed" from="TabContainer/Video/MarginContainer/VideoSettings/ResScale/ResScaleBar" to="." method="_on_res_scale_bar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster" to="." method="_on_slider_master_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX" to="." method="_on_slider_sfx_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic" to="." method="_on_slider_music_value_changed"]
-[connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens" to="." method="_on_slider_sens_value_changed"]

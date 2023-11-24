@@ -30,6 +30,10 @@ func set_shape(new_shape : Shape3D) -> void:
 		elif(shape is SphereShape3D or shape is CapsuleShape3D or shape is CylinderShape3D):
 			((child as GPUParticles3D).process_material as ParticleProcessMaterial).emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
 		
+func set_number(amount : int) -> void:
+	for child in get_children():
+		(child as GPUParticles3D).amount = amount
+		
 func set_size(size : float) -> void:
 	for child in get_children():
 		if(shape is BoxShape3D):

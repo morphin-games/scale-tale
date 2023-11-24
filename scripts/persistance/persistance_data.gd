@@ -10,7 +10,7 @@ enum GraphicalLevels {
 # Gameplay
 # Each gem has an ID to recognize it
 @export var taken_gems : Array[String] = []
-@export var respawn_position : Vector3
+@export var respawn_position : Vector3 = Vector3(-177.196, 122.621, 610.55)
 @export var coin_recount : int = 0
 
 # Config

@@ -8,6 +8,7 @@ signal near_body_entered(body : Node3D)
 signal near_body_exited(body : Node3D)
 signal grabbed_item_changed(body : Node3D)
 
+@export var ui_courtain : ColorRect
 @export var health_system : HealthSystem
 @export_category("Controls")
 @export var max_speed : float = 5.0
@@ -69,7 +70,7 @@ var direction : Vector2 = Vector2.ZERO :
 func _ready() -> void:
 	GrabableDistanceSystem.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-#	respawn()
+	respawn()
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 
 func _input(event: InputEvent) -> void:
@@ -235,6 +236,13 @@ func _physics_process(delta: float) -> void:
 						player_state = PlayerStates.JUMPING
 					
 			if(player_state == PlayerStates.HANGING):
+				$Mesh/NewMesh/LHand.scale.x = move_toward($Mesh/NewMesh/LHand.scale.x, 1.0, 0.2)
+				$Mesh/NewMesh/LHand.scale.y = move_toward($Mesh/NewMesh/LHand.scale.y, 1.0, 0.2)
+				$Mesh/NewMesh/LHand.scale.z = move_toward($Mesh/NewMesh/LHand.scale.z, 1.0, 0.2)
+				
+				$Mesh/NewMesh/RHand.scale.x = move_toward($Mesh/NewMesh/RHand.scale.x, 1.0, 0.2)
+				$Mesh/NewMesh/RHand.scale.y = move_toward($Mesh/NewMesh/RHand.scale.y, 1.0, 0.2)
+				$Mesh/NewMesh/RHand.scale.z = move_toward($Mesh/NewMesh/RHand.scale.z, 1.0, 0.2)
 				if(Input.is_action_just_pressed("ui_jump")):
 					$JumpSFX.play(0.5)
 					player_state = PlayerStates.HANGJUMPING
@@ -271,9 +279,40 @@ func _physics_process(delta: float) -> void:
 		
 	if(player_state == PlayerStates.GROUNDPOUNDING):
 		speed = 0.0
+		
+	if(player_state != PlayerStates.HANGING):
+		$Mesh/NewMesh/LHand.scale.x = move_toward($Mesh/NewMesh/LHand.scale.x, 0.0, 0.2)
+		$Mesh/NewMesh/LHand.scale.y = move_toward($Mesh/NewMesh/LHand.scale.y, 0.0, 0.2)
+		$Mesh/NewMesh/LHand.scale.z = move_toward($Mesh/NewMesh/LHand.scale.z, 0.0, 0.2)
+		
+		$Mesh/NewMesh/RHand.scale.x = move_toward($Mesh/NewMesh/RHand.scale.x, 0.0, 0.2)
+		$Mesh/NewMesh/RHand.scale.y = move_toward($Mesh/NewMesh/RHand.scale.y, 0.0, 0.2)
+		$Mesh/NewMesh/RHand.scale.z = move_toward($Mesh/NewMesh/RHand.scale.z, 0.0, 0.2)
 			
 	move_and_slide()
 	
+#	Animations
+	if(Vector2(velocity.x, velocity.z).length() > 0.0):
+		$AnimationTree.set("parameters/idle_or_run/blend_amount", move_toward($AnimationTree.get("parameters/idle_or_run/blend_amount"), 1.0, 0.1))
+	else:
+		$AnimationTree.set("parameters/idle_or_run/blend_amount", move_toward($AnimationTree.get("parameters/idle_or_run/blend_amount"), 0.0, 0.1))
+		
+	if(velocity.y < 0.0):
+		$AnimationTree.set("parameters/move_or_fall/blend_amount", move_toward($AnimationTree.get("parameters/move_or_fall/blend_amount"), 1.0, 0.1))
+	else:
+		$AnimationTree.set("parameters/move_or_fall/blend_amount", move_toward($AnimationTree.get("parameters/move_or_fall/blend_amount"), 0.0, 0.1))
+		
+	if(rescaling_item):
+		$Mesh/NewMesh/AllBody/Baton.scale.x = move_toward($Mesh/NewMesh/AllBody/Baton.scale.x, 0.025, 0.1)
+		$Mesh/NewMesh/AllBody/Baton.scale.y = move_toward($Mesh/NewMesh/AllBody/Baton.scale.y, 0.025, 0.1)
+		$Mesh/NewMesh/AllBody/Baton.scale.z = move_toward($Mesh/NewMesh/AllBody/Baton.scale.z, 0.025, 0.1)
+		$AnimationTree.set("parameters/move_scale/add_amount", move_toward($AnimationTree.get("parameters/move_scale/add_amount"), 1.0, 0.1))
+	else:
+		$Mesh/NewMesh/AllBody/Baton.scale.x = move_toward($Mesh/NewMesh/AllBody/Baton.scale.x, 0.0, 0.1)
+		$Mesh/NewMesh/AllBody/Baton.scale.y = move_toward($Mesh/NewMesh/AllBody/Baton.scale.y, 0.0, 0.1)
+		$Mesh/NewMesh/AllBody/Baton.scale.z = move_toward($Mesh/NewMesh/AllBody/Baton.scale.z, 0.0, 0.1)
+		$AnimationTree.set("parameters/move_scale/add_amount", move_toward($AnimationTree.get("parameters/move_scale/add_amount"), 0.0, 0.1))
+		
 #	Item grab functionality
 	if(grabbed_item != null):
 		grabbed_item.global_transform.origin = $GrabPivot/Grabbed.global_transform.origin
@@ -313,7 +352,7 @@ func _physics_process(delta: float) -> void:
 			if(!ray_ignited):
 				var tween_c : Tween = get_tree().create_tween()
 				tween_c.tween_property(self, "ray_color", Color(1.0, 0.0, 0.0), 0.4)
-				$NearBodies/CollisionShape3D.disabled = false
+#				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
 				$NearBodies/RayVisualizer.enable()
 
@@ -343,7 +382,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", Color(1.0, 0.0, 0.0))
 			if(!ray_ignited):
-				$NearBodies/CollisionShape3D.disabled = false
+#				$NearBodies/CollisionShape3D.disabled = false
 				ray_ignited = true
 				$NearBodies/RayVisualizer.enable()
 				var tween_c : Tween = get_tree().create_tween()
@@ -366,7 +405,7 @@ func _physics_process(delta: float) -> void:
 				erase_near_body(body)
 				
 		rescaling_item = false
-		$NearBodies/CollisionShape3D.disabled = true
+#		$NearBodies/CollisionShape3D.disabled = true
 		ray_ignited = false
 		$NearBodies/RayVisualizer.disable()
 		var tween_c : Tween = get_tree().create_tween()
@@ -376,17 +415,33 @@ func _physics_process(delta: float) -> void:
 	
 	if(rescaling_item):
 		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, 0.0, 0.065)
+		for body in near_bodies:
+			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+			if(scalables.size() > 0):
+				(scalables[0] as Scalable3D).particles.set_number(60)
 	else:
 		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, -80.0, 0.065)
-
+		for body in near_bodies:
+			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+			if(scalables.size() > 0):
+				(scalables[0] as Scalable3D).particles.set_number(5)
+				
 func play_water_drop_sfx() -> void:
 	$WaterDropSFX.play(0.91)
 
 func add_near_body(body : Node3D) -> void:
+	if(body.name == "Player"): return
+	print(body)
+	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+	print(scalables)
+	if(scalables.size() > 0):
+		(scalables[0] as Scalable3D).particles.emit(true)
+			
 	if(rescaling_item):
-		var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-		if(scalables.size() > 0):
-			(scalables[0] as Scalable3D).particles.emit(true)
+		(scalables[0] as Scalable3D).particles.set_number(60)
+	else:
+		(scalables[0] as Scalable3D).particles.set_number(5)
+		
 	near_bodies.append(body)
 
 func erase_near_body(body : Node3D) -> void:
@@ -433,11 +488,33 @@ func _on_health_system_damaged() -> void:
 		climb_area = null
 		player_state = PlayerStates.IDLE
 	
-	($HealthSystem as HealthSystem).damage_frozen = true
-	for i in range(0, 8):
-		%Mesh.visible = false
-		await get_tree().create_timer(0.09).timeout
-		%Mesh.visible = true
-		await get_tree().create_timer(0.09).timeout
+	if(health_system.health <= 0):
+		health_system.respawning = true
+		ui_courtain.visible = true
 		
-	($HealthSystem as HealthSystem).damage_frozen = false
+		var c_tween : Tween = get_tree().create_tween()
+		c_tween.tween_property(ui_courtain, "modulate:a", 1.0, 0.5)
+		await c_tween.finished
+		respawn()
+		
+		await get_tree().create_timer(0.5).timeout
+		var c_tween_2 : Tween = get_tree().create_tween()
+		c_tween_2.tween_property(ui_courtain, "modulate:a", 0.0, 0.5)
+		
+		await c_tween_2.finished
+		ui_courtain.visible = false
+		health_system.respawning = false
+		for i in range(0, 6):
+			health_system.heal(1)
+			await get_tree().create_timer(0.14).timeout
+	else:
+		($HealthSystem as HealthSystem).damage_frozen = true
+		for i in range(0, 8):
+			%Mesh.visible = false
+			await get_tree().create_timer(0.09).timeout
+			%Mesh.visible = true
+			await get_tree().create_timer(0.09).timeout
+			
+		($HealthSystem as HealthSystem).damage_frozen = false
+	
+	

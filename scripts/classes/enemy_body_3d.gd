@@ -29,7 +29,11 @@ var last_patrol_time : int
 var patrol_start_time : int
 var stun_start_time : int
 var player_visible : bool = false
-var target : Vector3 = Vector3.ZERO
+var rot_changed : bool = false
+var target : Vector3 = Vector3.ZERO : 
+	set(new_target):
+		target = new_target
+		rot_changed = false
 var gravity : float = ProjectSettings.get("physics/3d/default_gravity")
 
 func stun(time : float = 1.5) -> void:
@@ -54,6 +58,9 @@ func cancel_patrol() -> void:
 	target = Vector3.ZERO
 	
 func set_node_rotation(node : Node3D) -> void:
+	if(rotation.y == global_position.angle_to(target)): 
+		print("NOT ROTATION")
+		return 
 	if(node == null) : return
 	if global_transform.origin.is_equal_approx(target):return
 	else:
@@ -100,11 +107,13 @@ func behaviour(delta : float) -> void:
 			patrol()
 			
 	if(target != Vector3.ZERO and status != EnemyStatus.STUNNED):
-		set_node_rotation($Front)
-		set_node_rotation($Mesh)
-		set_node_rotation($FloorChecker)
-		set_node_rotation(collision_shape)
-		set_node_rotation(player_detect_area)
+		if(!rot_changed):
+			rot_changed = true
+			set_node_rotation($Front)
+			set_node_rotation($Mesh)
+			set_node_rotation($FloorChecker)
+			set_node_rotation(collision_shape)
+			set_node_rotation(player_detect_area)
 		
 		if(Utils.now() - patrol_start_time >= 0.66):
 			$Front.target_position.x = 2.5

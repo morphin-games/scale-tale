@@ -37,8 +37,6 @@ func downscale(delta : float) -> void:
 	current_scale += Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
 	emit_signal("scale_changed", current_scale)
-	await(get_tree().create_timer(0.1))
-	particles.set_size(current_scale.x)
 #	particles.emit(false)
 	
 func upscale(delta : float) -> void:
@@ -46,11 +44,12 @@ func upscale(delta : float) -> void:
 	current_scale -= Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
 	emit_signal("scale_changed", current_scale)
-	await(get_tree().create_timer(0.1))
-	particles.set_size(current_scale.x)
+	
 #	particles.emit(false)
 		
 func _process(delta: float) -> void:
+	if(particles != null):
+		particles.set_size(current_scale.x)
 	for child in affected_children:
 		if(child != null):
 			if(child is Node3D):

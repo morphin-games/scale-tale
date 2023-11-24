@@ -19,6 +19,11 @@ extends Camera3D
 @onready var max_distance : float = 10.0
 @onready var last_real_distance : float = 666.666
 
+@onready var cam_speed_x : float = (Persistance.persistance_data as PersistanceData).cam_speed_x
+@onready var cam_speed_y : float = (Persistance.persistance_data as PersistanceData).cam_speed_y
+@onready var invert_cam_x : int = (Persistance.persistance_data as PersistanceData).invert_cam_x
+@onready var invert_cam_y : int = (Persistance.persistance_data as PersistanceData).invert_cam_y
+
 var direction : Vector2
 
 class PrevCamData:
@@ -30,11 +35,36 @@ func get_prev_cam_data() -> Dictionary:
 		"distance": distance
 		,"height": height
 	}
+	
+func _ready() -> void:
+	if((Persistance.persistance_data as PersistanceData).invert_cam_x):
+		invert_cam_x = -1
+	else:
+		invert_cam_x = 1
+		
+	if((Persistance.persistance_data as PersistanceData).invert_cam_y):
+		invert_cam_y = -1
+	else:
+		invert_cam_y = 1
+			
+	Persistance.persistance_data_changed.connect(Callable(func() -> void:
+		cam_speed_x = (Persistance.persistance_data as PersistanceData).cam_speed_x
+		cam_speed_y = (Persistance.persistance_data as PersistanceData).cam_speed_y
+		if((Persistance.persistance_data as PersistanceData).invert_cam_x):
+			invert_cam_x = -1
+		else:
+			invert_cam_x = 1
+			
+		if((Persistance.persistance_data as PersistanceData).invert_cam_y):
+			invert_cam_y = -1
+		else:
+			invert_cam_y = 1
+	))
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventMouseMotion):
-		angle += event.relative.x * 0.01
-		height -= event.relative.y * 0.012
+		angle += event.relative.x * 0.01 * cam_speed_x * invert_cam_x
+		height -= event.relative.y * 0.012 * cam_speed_y * invert_cam_y
 	elif(event is InputEventMouseButton):
 		if(event.is_pressed()):
 			if(event.button_index == MOUSE_BUTTON_WHEEL_UP):
@@ -58,10 +88,10 @@ func _process(delta: float) -> void:
 		real_distance -= 5.0 * delta
 		
 	var camera_direction_x : float = Input.get_axis("ui_left_camera", "ui_right_camera")
-	angle -= camera_direction_x * delta * 4.0
+	angle -= camera_direction_x * delta * 4.0 * cam_speed_x * invert_cam_x
 	
 	var camera_direction_y : float = Input.get_axis("ui_down_camera", "ui_up_camera")
-	height += camera_direction_y * delta * 8.0
+	height += camera_direction_y * delta * 8.0 * cam_speed_y * invert_cam_x
 
 func _physics_process(delta: float) -> void:
 	direction = Vector2.RIGHT.from_angle(angle).normalized() * distance

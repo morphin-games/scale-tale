@@ -59,9 +59,11 @@ func _ready() -> void:
 			enemy.move_and_slide()
 			enemy.stun()
 			
-			var force : Vector3 = (enemy.global_transform.origin - player.global_transform.origin).normalized()
-			player.velocity.y = death_impulse * 2
+#			var force : Vector3 = (enemy.global_transform.origin - player.global_transform.origin).normalized()
+#			var force : Vector3 = enemy.get_node("WatchPlayer").target_position.normalized()
+			var force : Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+			player.velocity.y = death_impulse * 1.8
 			player.move_and_slide()
-			player.jump_external_force = Vector2(force.x, force.z) * 2
+			player.jump_external_force = force * 4.0
 			player.health_system.damage(1)
 	))

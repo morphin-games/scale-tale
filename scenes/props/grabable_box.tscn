@@ -49,7 +49,7 @@ shader_parameter/outline_width = 0.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_6idrw"]
 size = Vector3(2, 2, 2)
 
-[node name="GrabableBox" type="RigidBody3D"]
+[node name="GrabableBox" type="RigidBody3D" groups=["Items"]]
 
 [node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("1_vdgyy")

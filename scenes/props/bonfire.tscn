@@ -11,7 +11,11 @@ func _on_interactuable_interacted() -> void:
 	(Persistance.persistance_data as PersistanceData).respawn_position = $RespawnPosition.global_transform.origin
 	Persistance.save()
 	get_tree().call_group(\"Enemies\", \"queue_free\")
+	get_tree().call_group(\"Items\", \"queue_free\")
 	get_tree().call_group(\"EnemySpawners\", \"spawn\")
+	get_tree().call_group(\"ItemSpawners\", \"spawn\")
+	
+	($Interactuable as Interactuable3D).player_near.health_system.heal(6)
 "
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqfwu"]

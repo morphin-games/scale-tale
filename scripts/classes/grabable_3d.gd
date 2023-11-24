@@ -21,6 +21,7 @@ func _ready() -> void:
 		player = interactuable.player_near
 		GrabableDistanceSystem.all_disabled = true
 		grab()
+#		player.add_near_body(item)
 		time_taken = Time.get_unix_time_from_system()
 	))
 
@@ -28,6 +29,7 @@ func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_interact") and Time.get_unix_time_from_system() - time_taken > 0.33):
 		if(player != null):
 			drop()
+#			player.erase_near_body(item)
 			time_ungrabbed = Time.get_unix_time_from_system()
 			player = null
 			GrabableDistanceSystem.all_disabled = false
@@ -35,6 +37,7 @@ func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_throw") and Time.get_unix_time_from_system() - time_taken > 0.33):
 		if(player != null):
 			throw()
+#			player.erase_near_body(item)
 			time_ungrabbed = Time.get_unix_time_from_system()
 			player = null
 			GrabableDistanceSystem.all_disabled = false
