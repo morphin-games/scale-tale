@@ -436,11 +436,10 @@ func add_near_body(body : Node3D) -> void:
 	print(scalables)
 	if(scalables.size() > 0):
 		(scalables[0] as Scalable3D).particles.emit(true)
-			
-	if(rescaling_item):
-		(scalables[0] as Scalable3D).particles.set_number(60)
-	else:
-		(scalables[0] as Scalable3D).particles.set_number(5)
+		if(rescaling_item):
+			(scalables[0] as Scalable3D).particles.set_number(60)
+		else:
+			(scalables[0] as Scalable3D).particles.set_number(5)
 		
 	near_bodies.append(body)
 
