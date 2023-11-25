@@ -5,16 +5,14 @@
 
 [sub_resource type="GDScript" id="GDScript_x1lg6"]
 script/source = "extends Node3D
-@onready var player = $\"../Player\"
 @onready var transition = $transition_fade
 @export var point_to_tp : Marker3D
 
 
 func _on_interactuable_interacted() -> void:
-	print(\"pepe\")
 	transition.tp_transition() 
 	await transition.tp_transition()
-	player.position = point_to_tp.position
+	($Interactuable as Interactuable3D).player_near.global_position = point_to_tp.global_position
 	transition.play_backboards()
 "
 
@@ -25,6 +23,7 @@ radius = 1.64117
 script = SubResource("GDScript_x1lg6")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false
 light_color = Color(0.560784, 0, 0.180392, 1)
 light_energy = 16.23
 

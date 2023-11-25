@@ -16,6 +16,9 @@ signal grabbed_item_changed(body : Node3D)
 @export var max_jump_force : float = 12
 @export_category("Shaders")
 @export var grass_mesh : MultiMeshInstance3D
+@export_category("Debug")
+@export var debug : bool = false
+@export var debug_start_positon : Vector3
 
 @onready var r_acceleration : float = acceleration
 @onready var speed : float = max_speed
@@ -70,7 +73,10 @@ var direction : Vector2 = Vector2.ZERO :
 func _ready() -> void:
 	GrabableDistanceSystem.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	respawn()
+	if(!debug):
+		respawn()
+	else:
+		global_transform.origin = debug_start_positon
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 
 func _input(event: InputEvent) -> void:

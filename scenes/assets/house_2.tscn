@@ -37,3 +37,7 @@ shape = SubResource("BoxShape3D_4p3uf")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.0567, -4.94993)
 shape = SubResource("CylinderShape3D_sv2y7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[editable path="casa_molino"]
