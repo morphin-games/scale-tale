@@ -11,7 +11,8 @@ func _ready() -> void:
 		await get_tree().create_timer(2.0).timeout
 		spawn()
 
-func spawn() -> void:
+func spawn() -> Node3D:
 	var inst : Node3D = scene.instantiate()
 	get_parent().add_child(inst)
 	inst.global_transform.origin = global_transform.origin
+	return inst

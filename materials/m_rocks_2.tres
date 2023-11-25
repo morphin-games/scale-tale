@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://dnv0548j5abv5"]
+
+[ext_resource type="Texture2D" uid="uid://bth15fo51xi2w" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_color_1k.png" id="1_t3ggf"]
+[ext_resource type="Texture2D" uid="uid://cn0b0t1r44g4h" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_ambient_occlusion_1k.png" id="2_trs8k"]
+[ext_resource type="Texture2D" uid="uid://ctfs8b1sa6kme" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_height_1k.png" id="3_tmh7a"]
+[ext_resource type="Texture2D" uid="uid://bfsksq0gkxq5i" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_normal_gl_1k.png" id="4_ve8od"]
+[ext_resource type="Texture2D" uid="uid://bdevw6wfxta55" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_roughness_1k.png" id="5_qlauv"]
+
+[resource]
+albedo_texture = ExtResource("1_t3ggf")
+roughness_texture = ExtResource("5_qlauv")
+normal_enabled = true
+normal_texture = ExtResource("4_ve8od")
+ao_enabled = true
+ao_texture = ExtResource("2_trs8k")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_tmh7a")
