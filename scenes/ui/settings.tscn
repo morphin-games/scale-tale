@@ -36,6 +36,7 @@ func _ready() -> void:
 		else:
 			$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.select(0)
 	))
+	$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
 
 func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
@@ -67,7 +68,36 @@ func _on_resolution_button_item_selected(index: int) -> void:
 		3:
 			DisplayServer.window_set_size(Vector2i(2560, 1440))
 
-
+func _unhandled_input(event: InputEvent) -> void:
+	
+	if Input.is_action_just_pressed(\"ui_tab_next\"):
+		if($TabContainer.current_tab == 2):
+			$TabContainer.current_tab = 0
+		else:
+			$TabContainer.current_tab = $TabContainer.current_tab +1
+		match $TabContainer.current_tab:
+			0:
+				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
+			1:
+				$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.grab_focus()
+			2:
+				$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.grab_focus()
+		print($TabContainer.current_tab)
+		
+	if Input.is_action_just_pressed(\"ui_tab_prev\"):
+		if ($TabContainer.current_tab == 0):
+			$TabContainer.current_tab = 2
+		else:
+			$TabContainer.current_tab = $TabContainer.current_tab -1
+		match $TabContainer.current_tab:
+			0:
+				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
+			1:
+				$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.grab_focus()
+			2:
+				$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.grab_focus()
+		print($TabContainer.current_tab)
+		
 func _on_check_button_toggled(button_pressed: bool) -> void:
 	GlobalSettings.change_vsync(button_pressed) 
 
@@ -141,6 +171,7 @@ grow_vertical = 2
 
 [node name="Gameplay" type="TabBar" parent="TabContainer"]
 layout_mode = 2
+focus_neighbor_right = NodePath("../Video")
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Gameplay"]
 layout_mode = 1
@@ -172,6 +203,8 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../../../../../Back_Button")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/CamSensY")
 min_value = 0.05
 max_value = 3.0
 step = 0.05
@@ -201,6 +234,8 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../HBoxContainer/CamSensX")
+focus_neighbor_bottom = NodePath("../../InvertX")
 min_value = 0.05
 max_value = 3.0
 step = 0.05
@@ -233,10 +268,13 @@ vertical_alignment = 1
 
 [node name="InvertY" type="CheckBox" parent="TabContainer/Gameplay/MarginContainer/VideoSettings"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../InvertX")
+focus_neighbor_bottom = NodePath("../../../../../Back_Button")
 
 [node name="Video" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+focus_neighbor_right = NodePath("../Audio")
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Video"]
 layout_mode = 1

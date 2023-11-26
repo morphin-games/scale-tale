@@ -147,8 +147,6 @@ texture = ExtResource("1_xpdj6")
 
 [node name="Player" parent="." instance=ExtResource("2_i7hpt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 421.131, -27.2499, -333.562)
-max_speed = null
-max_jump_force = null
 
 [node name="CameraFollow3D" type="Camera3D" parent="." node_paths=PackedStringArray("spring", "target", "underwater")]
 script = ExtResource("4_ja4sy")
