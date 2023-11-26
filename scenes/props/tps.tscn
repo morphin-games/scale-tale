@@ -10,9 +10,12 @@ script/source = "extends Node3D
 
 
 func _on_interactuable_interacted() -> void:
+	if(($Interactuable as Interactuable3D).player_near == null): return
+	if(point_to_tp == null): return
+	var player_near : SPPlayer3D = ($Interactuable as Interactuable3D).player_near
 	transition.tp_transition() 
 	await transition.tp_transition()
-	($Interactuable as Interactuable3D).player_near.global_position = point_to_tp.global_position
+	player_near.global_position = point_to_tp.global_position
 	transition.play_backboards()
 "
 
