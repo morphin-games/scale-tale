@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/levels/testing_zone.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/levels/final/final_v2.tscn\")
 
 
 func _on_button_3_pressed() -> void:
@@ -31,12 +31,12 @@ func _on_button_3_pressed() -> void:
 
 func _on_button_2_pressed() -> void:
 	show_hide($Settings,$VBoxContainer) # Replace with function body.
-	
+	$TitleLabel.hide()
 
 func _on_back_button_pressed() -> void:
 	show_hide($VBoxContainer,$Settings)
 	$VBoxContainer/Button.grab_focus() # Replace with function body.
-
+	$TitleLabel.show()
 
 func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
@@ -78,6 +78,7 @@ theme = ExtResource("1_qjquv")
 script = SubResource("GDScript_qq5uv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,39 +90,50 @@ color = Color(0.0941176, 0.0941176, 0.0941176, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -62.5
-offset_right = 200.0
-offset_bottom = 62.5
-grow_horizontal = 2
+offset_left = 46.0
+offset_top = -84.0
+offset_right = 446.0
+offset_bottom = 99.0
 grow_vertical = 2
+theme_override_constants/separation = 30
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Button3")
 focus_neighbor_bottom = NodePath("../Button2")
-text = "PLAY"
+text = "Play"
+alignment = 0
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Button")
 focus_neighbor_bottom = NodePath("../Button3")
-text = "SETTINGS"
+text = "Settings"
+alignment = 0
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../Button2")
 focus_neighbor_bottom = NodePath("../Button")
-text = "EXIT"
+text = "Exit"
+alignment = 0
 
 [node name="Settings" parent="." instance=ExtResource("2_81sfc")]
 visible = false
 layout_mode = 1
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 39.0
+offset_right = 1043.0
+offset_bottom = 153.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 120
+text = "INSERTE Título"
+vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

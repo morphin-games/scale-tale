@@ -4,7 +4,7 @@
 script/source = "extends Node
 
 
-var game_paused: bool = false:
+@export var game_paused: bool = false:
 	get: 
 		return game_paused
 	set(value):
@@ -14,9 +14,11 @@ var game_paused: bool = false:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if(event.is_action_pressed(\"ui_toggle\")):
+		print(game_paused)
 		game_paused = !game_paused
 		if game_paused == true:
 			$\"../CanvasLayer/pause_menu\".show()
+			$\"../CanvasLayer/pause_menu/VBoxContainer/Button\".grab_focus()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else: 
 			$\"../CanvasLayer/pause_menu\".hide()
