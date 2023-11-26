@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://dfyshgaic3oxo"]
+
+[ext_resource type="Texture2D" uid="uid://bqreec60ld53k" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_color_1k.png" id="1_r8el8"]
+[ext_resource type="Texture2D" uid="uid://cht1wgydn6eyn" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_ambient_occlusion_1k.png" id="2_qtxen"]
+[ext_resource type="Texture2D" uid="uid://d26fpghwlrfi3" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_height_1k.png" id="3_r56li"]
+[ext_resource type="Texture2D" uid="uid://cgl4xr8nfplbs" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_normal_gl_1k.png" id="4_ksorw"]
+[ext_resource type="Texture2D" uid="uid://duhoo3irvo6wh" path="res://art/2D/textures/freestylized_dot_com/dirt/ground_with_rocks_01_roughness_1k.png" id="5_3vgn7"]
+
+[resource]
+albedo_texture = ExtResource("1_r8el8")
+roughness_texture = ExtResource("5_3vgn7")
+normal_enabled = true
+normal_texture = ExtResource("4_ksorw")
+ao_enabled = true
+ao_texture = ExtResource("2_qtxen")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_r56li")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true

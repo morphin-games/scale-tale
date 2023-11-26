@@ -8,12 +8,13 @@ signal health_changed
 
 @export var max_health : int = 6
 
-@onready var health : int = max_health
+@onready var health : float = max_health
 
 var damage_frozen : bool = false
 var respawning : bool = false
 
 func damage(ammount : int) -> void:
+	print(health)
 	if(damage_frozen or respawning) : return
 	health -= ammount
 	emit_signal("damaged")

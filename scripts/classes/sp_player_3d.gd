@@ -8,7 +8,6 @@ signal near_body_entered(body : Node3D)
 signal near_body_exited(body : Node3D)
 signal grabbed_item_changed(body : Node3D)
 
-@export var ui_courtain : ColorRect
 @export var health_system : HealthSystem
 @export_category("Controls")
 @export var max_speed : float = 5.0
@@ -16,6 +15,9 @@ signal grabbed_item_changed(body : Node3D)
 @export var max_jump_force : float = 12
 @export_category("Shaders")
 @export var grass_mesh : MultiMeshInstance3D
+@export_category("UI")
+@export var ui_oxygen : TextureProgressBar
+@export var ui_courtain : ColorRect
 @export_category("Debug")
 @export var debug : bool = false
 @export var debug_start_positon : Vector3
@@ -37,6 +39,8 @@ enum PlayerStates {
 	,CLIMBING = 7
 }
 
+var time_since_oxygen_damage : float = 2.0
+var underwater : bool = false
 var rescaling_item : bool = false
 var prev_cam_data : Dictionary
 var near_bodies : Array[Node3D] = []
@@ -87,6 +91,16 @@ func _input(event: InputEvent) -> void:
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
 			
 func _process(delta: float) -> void:
+	time_since_oxygen_damage += delta
+	if(underwater):
+		ui_oxygen.value = ($OxygenSystem as OxygenSystem).health
+		($OxygenSystem as OxygenSystem).damage(delta)
+		if(($OxygenSystem as OxygenSystem).health <= 0.0 and time_since_oxygen_damage >= 2.5):
+			health_system.damage(1)
+			time_since_oxygen_damage = 0.0
+	else:
+		($OxygenSystem as OxygenSystem).heal(delta * 3.0)
+	
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
 	if(grass_mesh != null):
 		grass_mesh.material_override.set_shader_parameter("character_position", global_transform.origin)
@@ -562,3 +576,17 @@ func _on_health_system_damaged() -> void:
 		($HealthSystem as HealthSystem).damage_frozen = false
 	
 	
+
+func _on_oxygen_zone_area_entered(area: Area3D) -> void:
+	print(area)
+	if(area is WaterArea3D):
+		underwater = true
+		var o_tween : Tween = get_tree().create_tween()
+		o_tween.tween_property(ui_oxygen, "modulate:a", 1.0, 0.3)
+
+func _on_oxygen_zone_area_exited(area: Area3D) -> void:
+	print(area)
+	if(area is WaterArea3D):
+		underwater = false
+		var o_tween : Tween = get_tree().create_tween()
+		o_tween.tween_property(ui_oxygen, "modulate:a", 0.0, 0.5)
