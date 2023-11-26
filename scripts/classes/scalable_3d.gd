@@ -29,25 +29,17 @@ func _ready() -> void:
 	particles.global_transform.origin = root.global_transform.origin
 	var scalable_colls : Array[Node] = Utils.find_custom_nodes(root, "res://scripts/classes/collision_shape_scalable_3d.gd")
 	if(scalable_colls.size() > 0):
-		print("LLOOOOLL")
 		particles.set_shape((scalable_colls[0] as CollisionShapeScalable3D).shape)
 		
 func downscale(delta : float) -> void:
-	print("DOWNS")
-#	particles.emit(true)
 	current_scale += Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
 	emit_signal("scale_changed", current_scale)
-#	particles.emit(false)
 	
 func upscale(delta : float) -> void:
-	print("UPS")
-#	particles.emit(true)
 	current_scale -= Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
 	emit_signal("scale_changed", current_scale)
-	
-#	particles.emit(false)
 		
 func _process(delta: float) -> void:
 	if(particles != null):
@@ -56,3 +48,5 @@ func _process(delta: float) -> void:
 		if(child != null):
 			if(child is Node3D):
 				child.scale = current_scale
+				if(child is Interactuable3D):
+					(child as Interactuable3D).current_scale = current_scale
