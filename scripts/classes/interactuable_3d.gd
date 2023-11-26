@@ -19,6 +19,7 @@ signal interacted
 
 @onready var interaction_sprite : Texture2D = interaction_sprite_console
 
+var current_scale : Vector3 = Vector3.ONE
 var player_near : SPPlayer3D
 
 func _ready() -> void:
@@ -51,6 +52,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _process(delta: float) -> void:
 	global_rotation_degrees = Vector3.ZERO
+	scale = current_scale
 
 func _on_body_entered(body: Node3D) -> void:
 	if(body.name == "Player"):

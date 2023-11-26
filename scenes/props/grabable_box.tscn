@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://b6s07jbaevk4v"]
 
-[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_vdgyy"]
-[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_mwspw"]
-[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_kyb63"]
-[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_rvpyi"]
-[ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_68h2k"]
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_nj541"]
+[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_r8801"]
+[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_bp5my"]
+[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_1lc6i"]
+[ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_kchgv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_deln8"]
 radius = 2.53683
@@ -52,15 +52,15 @@ size = Vector3(2, 2, 2)
 [node name="GrabableBox" type="RigidBody3D" groups=["Items"]]
 
 [node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
-script = ExtResource("1_vdgyy")
+script = ExtResource("1_nj541")
 root = NodePath("..")
 
 [node name="GrabableRigid3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
-script = ExtResource("2_mwspw")
+script = ExtResource("2_r8801")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
-[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh", "grabable") instance=ExtResource("3_kyb63")]
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh", "grabable") instance=ExtResource("3_bp5my")]
 highlight_mesh = NodePath("../MeshInstance3DBo")
 interaction_color = Color(0, 1, 0, 1)
 grabable = NodePath("../GrabableRigid3D")
@@ -75,12 +75,12 @@ surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="CollisionShapeGrab3D" type="CollisionShape3D" parent="." node_paths=PackedStringArray("scalable_3d")]
 shape = SubResource("BoxShape3D_6idrw")
-script = ExtResource("4_rvpyi")
+script = ExtResource("4_1lc6i")
 scalable_3d = NodePath("../Scalable3D")
 
 [node name="MeshInstance3D" type="Node3D" parent="."]
 
-[node name="caja01" parent="MeshInstance3D" instance=ExtResource("5_68h2k")]
+[node name="caja01" parent="MeshInstance3D" instance=ExtResource("5_kchgv")]
 transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, -2.95192, -0.949494, -0.93832)
 
 [editable path="MeshInstance3D/caja01"]

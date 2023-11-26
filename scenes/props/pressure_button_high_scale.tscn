@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://cbpp5b0yiadn"]
+
+[ext_resource type="Script" path="res://scripts/classes/pressure_button_high_scale_3d.gd" id="1_i6gav"]
+[ext_resource type="Texture2D" uid="uid://bkvcq6ppws6jp" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_color_1k.png" id="2_sq4xo"]
+[ext_resource type="Texture2D" uid="uid://cah3mre7wgw5r" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_height_1k.png" id="3_iivn1"]
+[ext_resource type="Texture2D" uid="uid://7hlyu5kcp24v" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_metallic_1k.png" id="4_5afh3"]
+[ext_resource type="Texture2D" uid="uid://djeo82dg5hnd6" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_normal_dx_1k.png" id="5_gbori"]
+[ext_resource type="Texture2D" uid="uid://dwre88n4nkjqv" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_roughness_1k.png" id="6_0s6pf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nxfrx"]
+albedo_texture = ExtResource("2_sq4xo")
+metallic = 1.0
+metallic_texture = ExtResource("4_5afh3")
+roughness_texture = ExtResource("6_0s6pf")
+normal_enabled = true
+normal_texture = ExtResource("5_gbori")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_iivn1")
+uv1_scale = Vector3(2.37, 2.37, 2.37)
+uv1_offset = Vector3(0.475, 0, 0)
+uv1_triplanar = true
+uv2_scale = Vector3(2.37, 2.37, 2.37)
+uv2_offset = Vector3(0.475, 0, 0)
+uv2_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sjkhq"]
+material = SubResource("StandardMaterial3D_nxfrx")
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.2
+radial_segments = 6
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uexrx"]
+data = PackedVector3Array(0, 0.1, 0.8, 0.6928, 0.1, 0.4, 0, 0.06, 0.8, 0.6928, 0.1, 0.4, 0.6928, 0.06, 0.4, 0, 0.06, 0.8, 0.6928, 0.1, 0.4, 0.6928, 0.1, -0.4, 0.6928, 0.06, 0.4, 0.6928, 0.1, -0.4, 0.6928, 0.06, -0.4, 0.6928, 0.06, 0.4, 0.6928, 0.1, -0.4, 0, 0.1, -0.8, 0.6928, 0.06, -0.4, 0, 0.1, -0.8, 0, 0.06, -0.8, 0.6928, 0.06, -0.4, 0, 0.1, -0.8, -0.6928, 0.1, -0.4, 0, 0.06, -0.8, -0.6928, 0.1, -0.4, -0.6928, 0.06, -0.4, 0, 0.06, -0.8, -0.6928, 0.1, -0.4, -0.6928, 0.1, 0.4, -0.6928, 0.06, -0.4, -0.6928, 0.1, 0.4, -0.6928, 0.06, 0.4, -0.6928, 0.06, -0.4, -0.6928, 0.1, 0.4, 0, 0.1, 0.8, -0.6928, 0.06, 0.4, 0, 0.1, 0.8, 0, 0.06, 0.8, -0.6928, 0.06, 0.4, 0, 0.06, 0.8, 0.6928, 0.06, 0.4, 0, 0.02, 0.8, 0.6928, 0.06, 0.4, 0.6928, 0.02, 0.4, 0, 0.02, 0.8, 0.6928, 0.06, 0.4, 0.6928, 0.06, -0.4, 0.6928, 0.02, 0.4, 0.6928, 0.06, -0.4, 0.6928, 0.02, -0.4, 0.6928, 0.02, 0.4, 0.6928, 0.06, -0.4, 0, 0.06, -0.8, 0.6928, 0.02, -0.4, 0, 0.06, -0.8, 0, 0.02, -0.8, 0.6928, 0.02, -0.4, 0, 0.06, -0.8, -0.6928, 0.06, -0.4, 0, 0.02, -0.8, -0.6928, 0.06, -0.4, -0.6928, 0.02, -0.4, 0, 0.02, -0.8, -0.6928, 0.06, -0.4, -0.6928, 0.06, 0.4, -0.6928, 0.02, -0.4, -0.6928, 0.06, 0.4, -0.6928, 0.02, 0.4, -0.6928, 0.02, -0.4, -0.6928, 0.06, 0.4, 0, 0.06, 0.8, -0.6928, 0.02, 0.4, 0, 0.06, 0.8, 0, 0.02, 0.8, -0.6928, 0.02, 0.4, 0, 0.02, 0.8, 0.6928, 0.02, 0.4, 0, -0.02, 0.8, 0.6928, 0.02, 0.4, 0.6928, -0.02, 0.4, 0, -0.02, 0.8, 0.6928, 0.02, 0.4, 0.6928, 0.02, -0.4, 0.6928, -0.02, 0.4, 0.6928, 0.02, -0.4, 0.6928, -0.02, -0.4, 0.6928, -0.02, 0.4, 0.6928, 0.02, -0.4, 0, 0.02, -0.8, 0.6928, -0.02, -0.4, 0, 0.02, -0.8, 0, -0.02, -0.8, 0.6928, -0.02, -0.4, 0, 0.02, -0.8, -0.6928, 0.02, -0.4, 0, -0.02, -0.8, -0.6928, 0.02, -0.4, -0.6928, -0.02, -0.4, 0, -0.02, -0.8, -0.6928, 0.02, -0.4, -0.6928, 0.02, 0.4, -0.6928, -0.02, -0.4, -0.6928, 0.02, 0.4, -0.6928, -0.02, 0.4, -0.6928, -0.02, -0.4, -0.6928, 0.02, 0.4, 0, 0.02, 0.8, -0.6928, -0.02, 0.4, 0, 0.02, 0.8, 0, -0.02, 0.8, -0.6928, -0.02, 0.4, 0, -0.02, 0.8, 0.6928, -0.02, 0.4, 0, -0.06, 0.8, 0.6928, -0.02, 0.4, 0.6928, -0.06, 0.4, 0, -0.06, 0.8, 0.6928, -0.02, 0.4, 0.6928, -0.02, -0.4, 0.6928, -0.06, 0.4, 0.6928, -0.02, -0.4, 0.6928, -0.06, -0.4, 0.6928, -0.06, 0.4, 0.6928, -0.02, -0.4, 0, -0.02, -0.8, 0.6928, -0.06, -0.4, 0, -0.02, -0.8, 0, -0.06, -0.8, 0.6928, -0.06, -0.4, 0, -0.02, -0.8, -0.6928, -0.02, -0.4, 0, -0.06, -0.8, -0.6928, -0.02, -0.4, -0.6928, -0.06, -0.4, 0, -0.06, -0.8, -0.6928, -0.02, -0.4, -0.6928, -0.02, 0.4, -0.6928, -0.06, -0.4, -0.6928, -0.02, 0.4, -0.6928, -0.06, 0.4, -0.6928, -0.06, -0.4, -0.6928, -0.02, 0.4, 0, -0.02, 0.8, -0.6928, -0.06, 0.4, 0, -0.02, 0.8, 0, -0.06, 0.8, -0.6928, -0.06, 0.4, 0, -0.06, 0.8, 0.6928, -0.06, 0.4, 0, -0.1, 0.8, 0.6928, -0.06, 0.4, 0.6928, -0.1, 0.4, 0, -0.1, 0.8, 0.6928, -0.06, 0.4, 0.6928, -0.06, -0.4, 0.6928, -0.1, 0.4, 0.6928, -0.06, -0.4, 0.6928, -0.1, -0.4, 0.6928, -0.1, 0.4, 0.6928, -0.06, -0.4, 0, -0.06, -0.8, 0.6928, -0.1, -0.4, 0, -0.06, -0.8, 0, -0.1, -0.8, 0.6928, -0.1, -0.4, 0, -0.06, -0.8, -0.6928, -0.06, -0.4, 0, -0.1, -0.8, -0.6928, -0.06, -0.4, -0.6928, -0.1, -0.4, 0, -0.1, -0.8, -0.6928, -0.06, -0.4, -0.6928, -0.06, 0.4, -0.6928, -0.1, -0.4, -0.6928, -0.06, 0.4, -0.6928, -0.1, 0.4, -0.6928, -0.1, -0.4, -0.6928, -0.06, 0.4, 0, -0.06, 0.8, -0.6928, -0.1, 0.4, 0, -0.06, 0.8, 0, -0.1, 0.8, -0.6928, -0.1, 0.4, 0, 0.1, 0, 0.6928, 0.1, 0.4, 0, 0.1, 0.8, 0, 0.1, 0, 0.6928, 0.1, -0.4, 0.6928, 0.1, 0.4, 0, 0.1, 0, 0, 0.1, -0.8, 0.6928, 0.1, -0.4, 0, 0.1, 0, -0.6928, 0.1, -0.4, 0, 0.1, -0.8, 0, 0.1, 0, -0.6928, 0.1, 0.4, -0.6928, 0.1, -0.4, 0, 0.1, 0, 0, 0.1, 0.8, -0.6928, 0.1, 0.4, 0, -0.1, 0, 0, -0.1, 0.8, 0.6928, -0.1, 0.4, 0, -0.1, 0, 0.6928, -0.1, 0.4, 0.6928, -0.1, -0.4, 0, -0.1, 0, 0.6928, -0.1, -0.4, 0, -0.1, -0.8, 0, -0.1, 0, 0, -0.1, -0.8, -0.6928, -0.1, -0.4, 0, -0.1, 0, -0.6928, -0.1, -0.4, -0.6928, -0.1, 0.4, 0, -0.1, 0, -0.6928, -0.1, 0.4, 0, -0.1, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfryq"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wcrdd"]
+material = SubResource("StandardMaterial3D_jfryq")
+top_radius = 0.65
+bottom_radius = 0.79
+height = 0.2
+radial_segments = 6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dg3fy"]
+height = 0.514836
+radius = 0.612008
+
+[node name="PressureButtonHighScale" type="Node3D"]
+script = ExtResource("1_i6gav")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_sjkhq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Base"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_uexrx")
+
+[node name="Button" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("CylinderMesh_wcrdd")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.444986, 0)
+shape = SubResource("CylinderShape3D_dg3fy")
