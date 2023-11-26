@@ -16,8 +16,8 @@ func _on_interactuable_interacted() -> void:
 	transition.play_backboards()
 "
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_p4yns"]
-radius = 1.64117
+[sub_resource type="SphereShape3D" id="SphereShape3D_7e1ti"]
+radius = 2.47491
 
 [node name="tps" type="Node3D"]
 script = SubResource("GDScript_x1lg6")
@@ -30,8 +30,11 @@ light_energy = 16.23
 [node name="Interactuable" parent="." instance=ExtResource("1_wys75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="InteractionSprite" parent="Interactuable" index="0"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
-shape = SubResource("SphereShape3D_p4yns")
+shape = SubResource("SphereShape3D_7e1ti")
 
 [node name="transition_fade" parent="." instance=ExtResource("2_1u4uj")]
 

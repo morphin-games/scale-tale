@@ -55,7 +55,7 @@ script = ExtResource("2_1s62c")
 rotation_speed = 0.75
 
 [node name="Mesh" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 2.5)
 mesh = SubResource("ArrayMesh_q7yis")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("2_u1ior")

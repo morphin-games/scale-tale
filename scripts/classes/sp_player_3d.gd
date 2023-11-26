@@ -71,6 +71,7 @@ var direction : Vector2 = Vector2.ZERO :
 			emit_signal("direction_changed", value)
 
 func _ready() -> void:
+	$AnimationPlayerAid.play("swim")
 	GrabableDistanceSystem.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if(!debug):
@@ -300,13 +301,39 @@ func _physics_process(delta: float) -> void:
 #	Animations
 	if(Vector2(velocity.x, velocity.z).length() > 0.0):
 		$AnimationTree.set("parameters/idle_or_run/blend_amount", move_toward($AnimationTree.get("parameters/idle_or_run/blend_amount"), 1.0, 0.1))
+		if(player_state == PlayerStates.SWIMMING):
+			$Mesh/NewMesh/LHand2.scale.x = move_toward($Mesh/NewMesh/LHand2.scale.x, 1.0, 0.1)
+			$Mesh/NewMesh/LHand2.scale.y = move_toward($Mesh/NewMesh/LHand2.scale.y, 1.0, 0.1)
+			$Mesh/NewMesh/LHand2.scale.z = move_toward($Mesh/NewMesh/LHand2.scale.z, 1.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.x = move_toward($Mesh/NewMesh/RHand2.scale.x, 1.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.y = move_toward($Mesh/NewMesh/RHand2.scale.y, 1.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.z = move_toward($Mesh/NewMesh/RHand2.scale.z, 1.0, 0.1)
+		else:
+			$Mesh/NewMesh/LHand2.scale.x = move_toward($Mesh/NewMesh/LHand2.scale.x, 0.0, 0.1)
+			$Mesh/NewMesh/LHand2.scale.y = move_toward($Mesh/NewMesh/LHand2.scale.y, 0.0, 0.1)
+			$Mesh/NewMesh/LHand2.scale.z = move_toward($Mesh/NewMesh/LHand2.scale.z, 0.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.x = move_toward($Mesh/NewMesh/RHand2.scale.x, 0.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.y = move_toward($Mesh/NewMesh/RHand2.scale.y, 0.0, 0.1)
+			$Mesh/NewMesh/RHand2.scale.z = move_toward($Mesh/NewMesh/RHand2.scale.z, 0.0, 0.1)
 	else:
 		$AnimationTree.set("parameters/idle_or_run/blend_amount", move_toward($AnimationTree.get("parameters/idle_or_run/blend_amount"), 0.0, 0.1))
+		$Mesh/NewMesh/LHand2.scale.x = move_toward($Mesh/NewMesh/AllBody/Baton.scale.x, 0.0, 0.1)
+		$Mesh/NewMesh/LHand2.scale.y = move_toward($Mesh/NewMesh/AllBody/Baton.scale.y, 0.0, 0.1)
+		$Mesh/NewMesh/LHand2.scale.z = move_toward($Mesh/NewMesh/AllBody/Baton.scale.z, 0.0, 0.1)
+		$Mesh/NewMesh/RHand2.scale.x = move_toward($Mesh/NewMesh/AllBody/Baton.scale.x, 0.0, 0.1)
+		$Mesh/NewMesh/RHand2.scale.y = move_toward($Mesh/NewMesh/AllBody/Baton.scale.y, 0.0, 0.1)
+		$Mesh/NewMesh/RHand2.scale.z = move_toward($Mesh/NewMesh/AllBody/Baton.scale.z, 0.0, 0.1)
 		
-	if(velocity.y < 0.0):
+	if(velocity.y < 0.0 and player_state != PlayerStates.SWIMMING):
 		$AnimationTree.set("parameters/move_or_fall/blend_amount", move_toward($AnimationTree.get("parameters/move_or_fall/blend_amount"), 1.0, 0.1))
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.x = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.x, 1.0, 0.1)
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.y = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.y, 1.0, 0.1)
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.z = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.z, 1.0, 0.1)
 	else:
 		$AnimationTree.set("parameters/move_or_fall/blend_amount", move_toward($AnimationTree.get("parameters/move_or_fall/blend_amount"), 0.0, 0.1))
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.x = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.x, 0.0, 0.1)
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.y = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.y, 0.0, 0.1)
+		$Mesh/NewMesh/AllBody/Head/LHand.scale.z = move_toward($Mesh/NewMesh/AllBody/Head/LHand.scale.z, 0.0, 0.1)
 		
 	if(rescaling_item):
 		$Mesh/NewMesh/AllBody/Baton.scale.x = move_toward($Mesh/NewMesh/AllBody/Baton.scale.x, 0.025, 0.1)
@@ -424,35 +451,47 @@ func _physics_process(delta: float) -> void:
 		for body in near_bodies:
 			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
-				(scalables[0] as Scalable3D).particles.set_number(60)
+				if((scalables[0] as Scalable3D).particles != null):
+					(scalables[0] as Scalable3D).particles.set_number(60)
 	else:
 		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, -80.0, 0.065)
 		for body in near_bodies:
 			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 			if(scalables.size() > 0):
-				(scalables[0] as Scalable3D).particles.set_number(5)
-				
+				if((scalables[0] as Scalable3D).particles != null):
+					(scalables[0] as Scalable3D).particles.set_number(5)
+					
+	if(player_state == PlayerStates.SWIMMING):
+		$SwimFootsteps.volume_db = -20.0
+		$NormalFootsteps.volume_db = -80.0
+	else:
+		$SwimFootsteps.volume_db = -80.0
+		if(is_on_floor()):
+			$NormalFootsteps.volume_db = -10.0
+		else:
+			$NormalFootsteps.volume_db = -80.0
+			
 func play_water_drop_sfx() -> void:
 	$WaterDropSFX.play(0.91)
 
 func add_near_body(body : Node3D) -> void:
 	if(body.name == "Player"): return
-	print(body)
 	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-	print(scalables)
 	if(scalables.size() > 0):
-		(scalables[0] as Scalable3D).particles.emit(true)
-		if(rescaling_item):
-			(scalables[0] as Scalable3D).particles.set_number(60)
-		else:
-			(scalables[0] as Scalable3D).particles.set_number(5)
+		if((scalables[0] as Scalable3D).particles != null):
+			(scalables[0] as Scalable3D).particles.emit(true)
+			if(rescaling_item):
+				(scalables[0] as Scalable3D).particles.set_number(60)
+			else:
+				(scalables[0] as Scalable3D).particles.set_number(5)
 		
 	near_bodies.append(body)
 
 func erase_near_body(body : Node3D) -> void:
 	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
 	if(scalables.size() > 0):
-		(scalables[0] as Scalable3D).particles.emit(false)
+		if((scalables[0] as Scalable3D).particles != null):
+			(scalables[0] as Scalable3D).particles.emit(false)
 	near_bodies.erase(body)
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:

@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://vhhjpo44n253"]
+[gd_scene load_steps=5 format=3 uid="uid://vhhjpo44n253"]
 
 [ext_resource type="PackedScene" uid="uid://b51w0jxsyxuw3" path="res://art/3D/mapping/pozo.glb" id="1_78rpg"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_pb7eu"]
-height = 4.37867
-radius = 2.51248
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwl5o"]
+size = Vector3(2.79606, 1.52278, 2.5988)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ubqch"]
+height = 2.5092
+radius = 1.22414
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tjds"]
+size = Vector3(0.57282, 0.781739, 4.23816)
 
 [node name="Well" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -14,5 +20,13 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 [node name="StaticBody3D" type="StaticBody3D" parent="pozo"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pozo/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14433, 0)
-shape = SubResource("CylinderShape3D_pb7eu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.39625, 0)
+shape = SubResource("BoxShape3D_wwl5o")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="pozo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36616, 0)
+shape = SubResource("CylinderShape3D_ubqch")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="pozo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12682, 0.104582)
+shape = SubResource("BoxShape3D_5tjds")

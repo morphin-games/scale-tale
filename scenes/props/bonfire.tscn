@@ -78,7 +78,7 @@ visible = false
 [node name="Puerta Valla" parent="hoguera01" index="4"]
 visible = false
 
-[node name="RespawnPosition" type="Node3D" parent="."]
+[node name="RespawnPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84926, 2.08184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

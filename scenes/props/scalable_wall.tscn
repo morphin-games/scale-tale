@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://byju654b2l2en"]
+
+[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_efe0h"]
+[ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="2_csuhr"]
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="3_en082"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqfri"]
+size = Vector3(12, 12, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cephy"]
+size = Vector3(12, 12, 4)
+
+[node name="ScalableWall" type="StaticBody3D"]
+
+[node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("1_efe0h")
+root = NodePath("..")
+min_scale = 0.25
+max_scale = 1.0
+
+[node name="CollisionShapeScalable3D" type="CollisionShape3D" parent="." node_paths=PackedStringArray("scalable_3d")]
+shape = SubResource("BoxShape3D_tqfri")
+script = ExtResource("2_csuhr")
+scalable_3d = NodePath("../Scalable3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("3_en082")
+mesh = SubResource("BoxMesh_cephy")

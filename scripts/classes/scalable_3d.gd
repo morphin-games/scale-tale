@@ -33,6 +33,7 @@ func _ready() -> void:
 		particles.set_shape((scalable_colls[0] as CollisionShapeScalable3D).shape)
 		
 func downscale(delta : float) -> void:
+	print("DOWNS")
 #	particles.emit(true)
 	current_scale += Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
@@ -40,6 +41,7 @@ func downscale(delta : float) -> void:
 #	particles.emit(false)
 	
 func upscale(delta : float) -> void:
+	print("UPS")
 #	particles.emit(true)
 	current_scale -= Vector3(scale_speed, scale_speed, scale_speed) * delta
 	current_scale = current_scale.clamp(Vector3(min_scale, min_scale, min_scale), Vector3(max_scale, max_scale, max_scale))
