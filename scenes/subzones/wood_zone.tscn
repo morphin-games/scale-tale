@@ -223,11 +223,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 
 [node name="ClimbArea3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.4278, 6.42913, -119.226)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.4278, 6.42913, -119.382)
 script = ExtResource("5_co8jx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7282, 4.22619, -0.928986)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7282, 4.22619, -0.986122)
 shape = SubResource("BoxShape3D_o1h4t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbArea3D/CollisionShape3D"]
@@ -278,7 +278,7 @@ material_override = ExtResource("7_lrbbe")
 mesh = SubResource("BoxMesh_4ifgh")
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="ClimbArea3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 10.7282, 15.2262, -0.928986)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 10.7282, 15.2262, -0.953682)
 shape = SubResource("BoxShape3D_o1h4t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbArea3D/CollisionShape3D7"]
@@ -367,7 +367,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.4278, -2.2497, -118.993)
 script = ExtResource("5_co8jx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbArea3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7282, 4.22619, -0.928986)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 30.7282, 4.22619, -0.692497)
 shape = SubResource("BoxShape3D_o1h4t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbArea3D2/CollisionShape3D"]
@@ -375,11 +375,11 @@ material_override = ExtResource("7_lrbbe")
 mesh = SubResource("BoxMesh_4ifgh")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="ClimbArea3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7282, -2.77381, -0.928986)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 30.7282, -2.77381, -0.692497)
 shape = SubResource("BoxShape3D_o1h4t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbArea3D2/CollisionShape3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0443192)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.259607, 0.0443192)
 material_override = ExtResource("7_lrbbe")
 mesh = SubResource("BoxMesh_4ifgh")
 
@@ -393,6 +393,9 @@ scene = ExtResource("10_iupx3")
 
 [node name="Bonfire" parent="." instance=ExtResource("11_yu3ij")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91568, 6, -6.78036)
+
+[node name="Bonfire2" parent="." instance=ExtResource("11_yu3ij")]
+transform = Transform3D(0.571931, 0, 0.820302, 0, 1, 0, -0.820302, 0, 0.571931, -0.206936, 6, -151.006)
 
 [node name="DamageArea3D" type="Area3D" parent="."]
 script = ExtResource("12_44lch")

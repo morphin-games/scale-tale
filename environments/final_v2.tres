@@ -1,0 +1,52 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://cu6ysjl0vn373"]
+
+[ext_resource type="Shader" path="res://shaders/clouds/clouds_cartoon.gdshader" id="1_em1x6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gjfe5"]
+shader = ExtResource("1_em1x6")
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/day_bottom_color = Color(0.396383, 0.800597, 1, 1)
+shader_parameter/sunset_top_color = Color(0.7, 0.75, 1, 1)
+shader_parameter/sunset_bottom_color = Color(1, 0.5, 0.7, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/night_bottom_color = Color(0.1, 0, 0.2, 1)
+shader_parameter/horizon_color = Color(0.439216, 0.788235, 1, 1)
+shader_parameter/horizon_blur = 0.05
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_sunset_color = Color(10, 0, 0, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 10.0
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_size = 0.06
+shader_parameter/moon_blur = 0.1
+shader_parameter/clouds_edge_color = Color(0.8, 0.8, 0.98, 1)
+shader_parameter/clouds_top_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_middle_color = Color(0.92, 0.92, 0.98, 1)
+shader_parameter/clouds_bottom_color = Color(0.83, 0.83, 0.94, 1)
+shader_parameter/clouds_speed = 2.0
+shader_parameter/clouds_direction = 0.2
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_cutoff = 0.3
+shader_parameter/clouds_fuzziness = 0.5
+shader_parameter/clouds_weight = 0.0
+shader_parameter/clouds_blur = 0.25
+shader_parameter/stars_speed = 1.0
+shader_parameter/overwritten_time = 0.0
+
+[sub_resource type="Sky" id="Sky_v1rh3"]
+sky_material = SubResource("ShaderMaterial_gjfe5")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_v1rh3")
+fog_light_color = Color(0.92549, 0.733333, 0.686275, 1)
+fog_density = 0.0008
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0025
+volumetric_fog_albedo = Color(1, 0.823529, 0.792157, 1)
+volumetric_fog_emission = Color(1, 0.823529, 0.792157, 1)
+volumetric_fog_anisotropy = -0.19
+volumetric_fog_length = 1024.0
+volumetric_fog_ambient_inject = 1.63
+volumetric_fog_sky_affect = 0.0

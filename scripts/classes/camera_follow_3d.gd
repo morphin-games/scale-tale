@@ -76,7 +76,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	height = clampf(height, min_height, max_height)
 	
-	if(spring.is_colliding() and real_distance >= (global_transform.origin - spring.get_collision_point()).length()):
+	if(spring.is_colliding() and real_distance + (target as SPPlayer3D).added_cam_scale >= (global_transform.origin - spring.get_collision_point()).length()):
 		springed = true
 		distance = (global_transform.origin - spring.get_collision_point()).length()
 		distance = clampf(distance, 1.0, max_distance)
