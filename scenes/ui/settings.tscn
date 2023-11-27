@@ -71,10 +71,10 @@ func _on_resolution_button_item_selected(index: int) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed(\"ui_tab_next\"):
-		if($TabContainer.current_tab == 2):
-			$TabContainer.current_tab = 0
-		else:
-			$TabContainer.current_tab = $TabContainer.current_tab +1
+		#if($TabContainer.current_tab == 2):
+		#	$TabContainer.current_tab = 0
+
+		$TabContainer.current_tab = $TabContainer.current_tab +1
 		match $TabContainer.current_tab:
 			0:
 				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
@@ -85,10 +85,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		print($TabContainer.current_tab)
 		
 	if Input.is_action_just_pressed(\"ui_tab_prev\"):
-		if ($TabContainer.current_tab == 0):
-			$TabContainer.current_tab = 2
-		else:
-			$TabContainer.current_tab = $TabContainer.current_tab -1
+		#if ($TabContainer.current_tab == 0):
+		#	$TabContainer.current_tab = 2
+		#else:
+		$TabContainer.current_tab = $TabContainer.current_tab -1
 		match $TabContainer.current_tab:
 			0:
 				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
