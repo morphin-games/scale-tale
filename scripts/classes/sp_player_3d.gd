@@ -542,6 +542,7 @@ func _on_sfx_timer_timeout() -> void:
 
 
 func _on_health_system_damaged() -> void:
+	$DamagedSFX.play()
 	if(player_state == PlayerStates.CLIMBING):
 		climb_area = null
 		player_state = PlayerStates.IDLE
