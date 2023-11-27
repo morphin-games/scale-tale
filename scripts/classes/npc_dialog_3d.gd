@@ -8,7 +8,18 @@ var dialog_active = false :
 		dialog_active = active
 		$Interactuable.visible = !active
 var current_dialogue_id = 0
-@export var npc_name = ""
+@export var npc_name = "" : 
+	set(new_name):
+		npc_name = new_name
+		var file = FileAccess.open(dialog_file, FileAccess.READ)
+		var content = file.get_as_text()
+		var json = JSON.new()
+		var finish = JSON.parse_string(content)	
+		
+		dialogue = []
+		for i in finish:
+			if i["name"] == npc_name:
+				dialogue.append(i["text"])
 
 var dialogue: Array[String] = []
 var dialog_file = "res://dialogues/json/dialog_test.json"
@@ -20,10 +31,10 @@ func _ready() -> void:
 	var json = JSON.new()
 	var finish = JSON.parse_string(content)	
 	
+	dialogue = []
 	for i in finish:
 		if i["name"] == npc_name:
 			dialogue.append(i["text"])
-	print(dialogue)
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	if event.is_action_pressed("ui_grab"):

@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://dpenn51xxe66g"]
+
+[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_yalyx"]
+[ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_ecm0a"]
+[ext_resource type="PackedScene" uid="uid://qckcdektxl5t" path="res://art/3D/rick_objs/silla02.glb" id="3_gdusj"]
+[ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_5mqqa"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_deln8"]
+radius = 2.53683
+
+[sub_resource type="BoxMesh" id="BoxMesh_h88xo"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ou7pw"]
+
+[sub_resource type="Shader" id="Shader_rlu5u"]
+code = "shader_type spatial;
+render_mode cull_front, unshaded;
+
+uniform vec4 outline_color : source_color;
+uniform float outline_width = 1.0;
+
+void vertex() {
+	vec4 clip_position = PROJECTION_MATRIX * (MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	vec3 clip_normal = mat3(PROJECTION_MATRIX) * (mat3(MODELVIEW_MATRIX) * NORMAL);
+	
+	vec2 offset = normalize(clip_normal.xy) / VIEWPORT_SIZE * clip_position.w * outline_width * 2.0;
+	
+	clip_position.xy += offset;
+	
+	POSITION = clip_position;
+}
+
+void fragment() {
+	ALBEDO = outline_color.rgb;
+	if (outline_color.a < 1.0) {
+		ALPHA = outline_color.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_doskr"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_ou7pw")
+shader = SubResource("Shader_rlu5u")
+shader_parameter/outline_color = Color(0, 1, 0, 1)
+shader_parameter/outline_width = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dtsl"]
+size = Vector3(1.22535, 0.946524, 1.36649)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dxkoc"]
+size = Vector3(1.31931, 1.61967, 0.284895)
+
+[node name="GrabableChair" type="RigidBody3D"]
+
+[node name="GrabableRigid3D" type="Node" parent="." node_paths=PackedStringArray("item", "interactuable")]
+script = ExtResource("2_yalyx")
+item = NodePath("..")
+interactuable = NodePath("../Interactuable")
+
+[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh", "grabable") instance=ExtResource("3_ecm0a")]
+highlight_mesh = NodePath("../MeshInstance3DBo")
+interaction_color = Color(0, 1, 0, 1)
+grabable = NodePath("../GrabableRigid3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
+shape = SubResource("SphereShape3D_deln8")
+
+[node name="MeshInstance3DBo" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_h88xo")
+surface_material_override/0 = SubResource("ShaderMaterial_doskr")
+
+[node name="MeshInstance3D" type="Node3D" parent="."]
+
+[node name="silla02" parent="MeshInstance3D" instance=ExtResource("3_gdusj")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -0.908295, 0)
+
+[node name="caja01" parent="MeshInstance3D" instance=ExtResource("5_5mqqa")]
+transform = Transform3D(2.505, 0, 0, 0, 2.505, 0, 0, 0, 2.505, -2.95192, -0.949494, -0.93832)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.453067, 0.0691027)
+shape = SubResource("BoxShape3D_8dtsl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -4.73066e-09, -2.56741e-10, 4.71097e-09, 0.987173, 0.159657, -5.01836e-10, -0.159657, 0.987173, 0, 0.727341, -0.530601)
+shape = SubResource("BoxShape3D_dxkoc")
+
+[editable path="MeshInstance3D/caja01"]

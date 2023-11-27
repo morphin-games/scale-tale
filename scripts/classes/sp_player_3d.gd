@@ -99,7 +99,7 @@ func _process(delta: float) -> void:
 			health_system.damage(1)
 			time_since_oxygen_damage = 0.0
 	else:
-		($OxygenSystem as OxygenSystem).heal(delta * 3.0)
+		($OxygenSystem as OxygenSystem).heal(delta * 20.0)
 	
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
 	if(grass_mesh != null):
@@ -371,7 +371,7 @@ func _physics_process(delta: float) -> void:
 			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 			if(current_camera is CameraFollow3D):
 				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
-				if(scalables.size() > 0):
+				if(scalables.size() > 0 and !current_camera.springed):
 					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 	else:
 		if(current_camera != null):

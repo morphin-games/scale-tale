@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://puyqw1a1m5my"]
+
+[ext_resource type="PackedScene" uid="uid://bprcyugucl0qn" path="res://art/3D/rick_objs/comedero03.glb" id="1_86qyk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvltv"]
+size = Vector3(0.647345, 0.549428, 0.919339)
+
+[node name="NestWatermelon" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="comedero03" parent="." instance=ExtResource("1_86qyk")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00815988, 0.250234, 0.0217595)
+shape = SubResource("BoxShape3D_gvltv")

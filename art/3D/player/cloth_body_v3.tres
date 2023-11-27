@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://d2cekgdbd51y0"]
+
+[ext_resource type="Texture2D" uid="uid://dfte6gkdo7jyd" path="res://art/2D/textures/freestylized_dot_com/silver/metal_01_normal_gl_1k.png" id="1_fc43y"]
+
+[resource]
+albedo_color = Color(0.854902, 0.380392, 1, 1)
+normal_enabled = true
+normal_texture = ExtResource("1_fc43y")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+uv1_world_triplanar = true

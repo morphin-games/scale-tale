@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://daeegxdkyqp8q"]
+
+[ext_resource type="PackedScene" uid="uid://b5fk6dquswd0d" path="res://art/3D/mapping/guillotina.glb" id="1_54gyr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7g2o2"]
+size = Vector3(1, 4.31782, 2.60252)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vdskt"]
+size = Vector3(1.50751, 1.4425, 0.402753)
+
+[node name="Guillotine" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="guillotina" parent="." instance=ExtResource("1_54gyr")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0443602, 2.09976, 0)
+shape = SubResource("BoxShape3D_7g2o2")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.711609, -0.702575, 0, 0.702575, 0.711609, 0, 0, 0, 1, 0.0739336, 0.177445, 0.870954)
+shape = SubResource("BoxShape3D_vdskt")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.711609, -0.702575, 0, 0.702575, 0.711609, 0, 0, 0, 1, 0.0739336, 0.177445, -0.865919)
+shape = SubResource("BoxShape3D_vdskt")

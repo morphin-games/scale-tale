@@ -65,6 +65,10 @@ func _on_resolution_button_item_selected(index: int) -> void:
 			DisplayServer.window_set_size(Vector2i(1920, 1080))
 		4:
 			DisplayServer.window_set_size(Vector2i(2560, 1440))
+
+
+func _on_button4_pressed() -> void:
+	pass # Replace with function body.
 "
 
 [node name="main_menu" type="Control"]
@@ -98,7 +102,7 @@ offset_top = -84.0
 offset_right = 446.0
 offset_bottom = 99.0
 grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 15
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -127,9 +131,10 @@ layout_mode = 1
 
 [node name="TitleLabel" type="Label" parent="."]
 layout_mode = 2
-offset_left = 39.0
-offset_right = 1043.0
-offset_bottom = 153.0
+offset_left = 40.0
+offset_top = 35.0
+offset_right = 1044.0
+offset_bottom = 188.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 120
 text = "INSERTE Título"
