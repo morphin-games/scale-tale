@@ -39,6 +39,7 @@ enum PlayerStates {
 	,CLIMBING = 7
 }
 
+var added_cam_scale : float = 0.0
 var time_since_oxygen_damage : float = 2.0
 var underwater : bool = false
 var rescaling_item : bool = false
@@ -99,7 +100,7 @@ func _process(delta: float) -> void:
 			health_system.damage(1)
 			time_since_oxygen_damage = 0.0
 	else:
-		($OxygenSystem as OxygenSystem).heal(delta * 3.0)
+		($OxygenSystem as OxygenSystem).heal(delta * 20.0)
 	
 	$NearBodies/RayVisualizer/RayMesh.mesh.material.set_shader_parameter("_shield_color", ray_color)
 	if(grass_mesh != null):
@@ -288,7 +289,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = climb_basis_x.x * direction.y * max_speed
 			velocity.z = climb_basis_x.z * direction.y * max_speed
 			velocity.y = direction.x * max_speed
-			%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(climb_basis_x.x, climb_basis_x.z).angle() - deg_to_rad(90), 0.33)
+			%Mesh.rotation.y = lerp_angle(%Mesh.rotation.y, Vector2(climb_basis_x.x, climb_basis_x.z).angle() + deg_to_rad(90), 0.33)
 			
 		else:
 			player_state = PlayerStates.IDLE
@@ -371,9 +372,11 @@ func _physics_process(delta: float) -> void:
 			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 			if(current_camera is CameraFollow3D):
 				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
-				if(scalables.size() > 0):
+				if(scalables.size() > 0 and !current_camera.springed):
+					added_cam_scale = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 	else:
+		added_cam_scale = 0.0
 		if(current_camera != null):
 			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 			if(current_camera is CameraFollow3D):
@@ -579,14 +582,12 @@ func _on_health_system_damaged() -> void:
 	
 
 func _on_oxygen_zone_area_entered(area: Area3D) -> void:
-	print(area)
 	if(area is WaterArea3D):
 		underwater = true
 		var o_tween : Tween = get_tree().create_tween()
 		o_tween.tween_property(ui_oxygen, "modulate:a", 1.0, 0.3)
 
 func _on_oxygen_zone_area_exited(area: Area3D) -> void:
-	print(area)
 	if(area is WaterArea3D):
 		underwater = false
 		var o_tween : Tween = get_tree().create_tween()

@@ -13,7 +13,7 @@ func _ready() -> void:
 	AudioServer.set_bus_volume_db(1, (Persistance.persistance_data as PersistanceData).effects_db)
 	AudioServer.set_bus_volume_db(2, (Persistance.persistance_data as PersistanceData).music_db)
 	
-	get_tree().change_scene_to_file(\"res://scenes/levels/final/final_v2.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/levels/level_main_menu/level_main_menu.tscn\")
 "
 
 [node name="ConfigLoader" type="Node3D"]

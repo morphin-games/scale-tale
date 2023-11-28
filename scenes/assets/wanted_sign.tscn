@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bucmlv4ggovxm"]
+
+[ext_resource type="PackedScene" uid="uid://dll2ssostli54" path="res://art/3D/rick_objs/tablon_anuncios01.glb" id="1_45edr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o4qdk"]
+size = Vector3(2.21916, 1.52054, 0.376709)
+
+[node name="WantedSign" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="tablon_anuncios01" parent="." instance=ExtResource("1_45edr")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0410957)
+shape = SubResource("BoxShape3D_o4qdk")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3munnh1nhquh"]
+
+[ext_resource type="PackedScene" uid="uid://b8opx0jmmh3b7" path="res://art/3D/rick_objs/senal02.glb" id="1_s8unj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pub3b"]
+size = Vector3(0.679032, 3.50367, 0.69014)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7w36n"]
+size = Vector3(0.679032, 1.29421, 1.54986)
+
+[node name="Signal2" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48456, 0)
+shape = SubResource("BoxShape3D_pub3b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54984, 0.792919)
+shape = SubResource("BoxShape3D_7w36n")
+
+[node name="senal02" parent="." instance=ExtResource("1_s8unj")]

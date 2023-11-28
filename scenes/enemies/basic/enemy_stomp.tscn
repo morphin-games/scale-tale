@@ -1,11 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bi8ivhp6sqvr1"]
+[gd_scene load_steps=16 format=3 uid="uid://bi8ivhp6sqvr1"]
 
 [ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_l4eaf"]
 [ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stompable_3d.gd" id="2_2rhaw"]
 [ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="3_6751u"]
+[ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="3_c7ecu"]
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="4_5nca6"]
+[ext_resource type="Script" path="res://scripts/data/dropable.gd" id="4_vb1jx"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="5_2rknf"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="6_75ych"]
+[ext_resource type="Script" path="res://scripts/classes/distance_enabler_3d.gd" id="9_8xxw8"]
+
+[sub_resource type="Resource" id="Resource_oj01y"]
+script = ExtResource("4_vb1jx")
+drop = ExtResource("3_c7ecu")
+chance = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
 size = Vector3(2, 2, 2)
@@ -18,9 +26,12 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cmi2g"]
 size = Vector3(2.38513, 2.37923, 2.44417)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ssvfo"]
+radius = 30.0
+
 [node name="EnemyStomp" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area") instance=ExtResource("1_l4eaf")]
 script = ExtResource("2_2rhaw")
-drops = Array[Resource("res://scripts/data/dropable.gd")]([])
+drops = Array[ExtResource("4_vb1jx")]([SubResource("Resource_oj01y")])
 stompable = NodePath("Stompable3D")
 collision_shape = NodePath("CollisionShapeScalable3D")
 player_detect_area = NodePath("PlayerDetectArea3D")
@@ -70,3 +81,9 @@ script = ExtResource("6_75ych")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
 shape = SubResource("BoxShape3D_cmi2g")
+
+[node name="DistanceEnabler3D" type="Area3D" parent="." index="9"]
+script = ExtResource("9_8xxw8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DistanceEnabler3D" index="0"]
+shape = SubResource("SphereShape3D_ssvfo")

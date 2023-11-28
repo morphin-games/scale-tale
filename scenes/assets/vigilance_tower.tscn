@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://brnninekvkr36"]
+
+[ext_resource type="PackedScene" uid="uid://8ue1qv56a01l" path="res://art/3D/rick_objs/torre_vigilancia01.glb" id="1_cksdo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5n6mf"]
+size = Vector3(3.86613, 11.583, 3.87423)
+
+[node name="VigilanceTower" type="Node3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="torre_vigilancia01" parent="." instance=ExtResource("1_cksdo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.343765)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07811, 5.61332, -0.106221)
+shape = SubResource("BoxShape3D_5n6mf")

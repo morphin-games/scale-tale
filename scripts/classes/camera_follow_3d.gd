@@ -25,6 +25,7 @@ extends Camera3D
 @onready var invert_cam_y : int = (Persistance.persistance_data as PersistanceData).invert_cam_y
 
 var direction : Vector2
+var springed : bool = false
 
 class PrevCamData:
 	var distance : float
@@ -75,10 +76,12 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	height = clampf(height, min_height, max_height)
 	
-	if(spring.is_colliding() and real_distance >= (global_transform.origin - spring.get_collision_point()).length()):
+	if(spring.is_colliding() and real_distance + (target as SPPlayer3D).added_cam_scale >= (global_transform.origin - spring.get_collision_point()).length()):
+		springed = true
 		distance = (global_transform.origin - spring.get_collision_point()).length()
-		distance = clampf(distance, 0.5, max_distance)
+		distance = clampf(distance, 1.0, max_distance)
 	else:
+		springed = false
 		real_distance = clampf(real_distance, 2.0, max_distance)
 		distance = real_distance
 		
