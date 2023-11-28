@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddmtetwqfbt7b"]
+
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="1_ss27l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_77nyl"]
+material = ExtResource("1_ss27l")
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eo37i"]
+size = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rg233"]
+material = ExtResource("1_ss27l")
+size = Vector3(4, 2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t51b5"]
+size = Vector3(4, 2, 4)
+
+[node name="RuinsMeshlibFinal" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_77nyl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_eo37i")
+
+[node name="HalfFloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_rg233")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="HalfFloor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HalfFloor/StaticBody3D"]
+shape = SubResource("BoxShape3D_t51b5")

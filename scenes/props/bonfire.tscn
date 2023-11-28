@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxxjkan3j4yxm"]
+[gd_scene load_steps=11 format=3 uid="uid://bxxjkan3j4yxm"]
 
 [ext_resource type="PackedScene" uid="uid://cgshqok4kso7m" path="res://scenes/particle_effects/fire.tscn" id="1_jmd3f"]
 [ext_resource type="PackedScene" uid="uid://dxr6mo5cbrils" path="res://art/3D/mapping/hoguera01.glb" id="1_yrlaq"]
@@ -60,6 +60,10 @@ size = Vector3(1, 0.2, 1)
 height = 4.44821
 radius = 4.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rougu"]
+height = 0.493107
+radius = 1.04778
+
 [node name="Bonfire" type="Node3D"]
 script = SubResource("GDScript_i0ddj")
 
@@ -105,6 +109,12 @@ shape = SubResource("CylinderShape3D_c36wh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17668, 0)
 light_color = Color(1, 0.494118, 0, 1)
 omni_range = 8.20327
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159433, 0)
+shape = SubResource("CylinderShape3D_rougu")
 
 [connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]
 

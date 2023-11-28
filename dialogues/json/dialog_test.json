@@ -11,7 +11,7 @@
 	{"name": "TutorialLateralJump", "text": "Lateral jump: Move in any direction, then move to the oposite direction and jump\nYou'll see dust particles coming from the floor when you can jump laterally\n[1/2]"},
 	{"name": "TutorialLateralJump", "text": "Backflip: Crouch and then jump while standing still\n[2/2]"},
 	{"name": "TutorialGrabScale", "text": "Grabbing & dropping items:\n > PC: E\n > Xbox: X\n > Nintendo: Y\n > PlayStation: Square\n[1/5]"},
-	{"name": "TutorialGrabScale", "text": "You can throw items forward:\n > PC: Q\n > Xbox: Y\n > Nintendo: X\n > PlayStation: Triangle\n[2/5]"},
+	{"name": "TutorialGrabScale", "text": "You can throw items forward with force:\n > PC: Q\n > Xbox: Y\n > Nintendo: X\n > PlayStation: Triangle\n[2/5]"},
 	{"name": "TutorialGrabScale", "text": "Rescaling items:\n > PC: Left/Right click\n > Xbox: LB/RB\n > Nintendo: L/R\n > PlayStation: L1/R1\n[3/5]"},
 	{"name": "TutorialGrabScale", "text": "You can rescale an item while holding it\n[4/5]"},
 	{"name": "TutorialGrabScale", "text": "Look down to rescale items below you\n[5/5]"},

@@ -1,0 +1,173 @@
+[gd_scene load_steps=26 format=3 uid="uid://c2p8aeyp6nfr1"]
+
+[ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_pxp1a"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stompable_3d.gd" id="2_rl1ty"]
+[ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="3_1v32q"]
+[ext_resource type="Script" path="res://scripts/data/dropable.gd" id="4_jeahv"]
+[ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="5_iwj82"]
+[ext_resource type="PackedScene" uid="uid://q1gjti8wpcpq" path="res://art/3D/models/caracol_volcan.glb" id="6_1opuc"]
+[ext_resource type="PackedScene" uid="uid://cxemhct44g4wc" path="res://art/3D/models/caracol.glb" id="6_xnc6s"]
+[ext_resource type="PackedScene" uid="uid://bsixki37vnhl" path="res://art/3D/models/chickenV2.glb" id="7_fgcph"]
+[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="8_1qcp7"]
+[ext_resource type="Script" path="res://scripts/classes/distance_enabler_3d.gd" id="9_d7lvl"]
+[ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="10_vsqnx"]
+[ext_resource type="AudioStream" uid="uid://c0lt66rqvk0hs" path="res://art/sfx/damage/bounce.mp3" id="11_hhxr7"]
+[ext_resource type="AudioStream" uid="uid://hpm4duler1pi" path="res://art/sfx/damage/damage_taken.mp3" id="12_yjpxp"]
+
+[sub_resource type="Resource" id="Resource_2mlj6"]
+script = ExtResource("4_jeahv")
+drop = ExtResource("3_1v32q")
+chance = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pqxmu"]
+size = Vector3(2.69659, 1.9038, 1.01832)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdqhv"]
+size = Vector3(2.97895, 2.37923, 1.33785)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8igkn"]
+radius = 30.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ip1xh"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_2g16i"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xibh4"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8pv23"]
+graph_offset = Vector2(-462.302, -7.23076)
+nodes/idle/node = SubResource("AnimationNodeAnimation_ip1xh")
+nodes/idle/position = Vector2(-200, 40)
+nodes/idle_or_run/node = SubResource("AnimationNodeBlend2_2g16i")
+nodes/idle_or_run/position = Vector2(0, 100)
+nodes/run/node = SubResource("AnimationNodeAnimation_xibh4")
+nodes/run/position = Vector2(-203.91, 195.245)
+node_connections = [&"output", 0, &"idle_or_run", &"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run"]
+
+[sub_resource type="Animation" id="Animation_isnsq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/caracol:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.36, 1.36, 1.36)]
+}
+
+[sub_resource type="Animation" id="Animation_aqdh1"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/caracol:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.36, 1.36, 1.36)]
+}
+
+[sub_resource type="Animation" id="Animation_xrrfu"]
+resource_name = "run"
+length = 0.4
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/caracol:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.36, 1.36, 1.36), Vector3(1, 1.36, 1.36)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xd1ya"]
+_data = {
+"RESET": SubResource("Animation_isnsq"),
+"idle": SubResource("Animation_aqdh1"),
+"run": SubResource("Animation_xrrfu")
+}
+
+[node name="EnemyStompDrop" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area") instance=ExtResource("1_pxp1a")]
+script = ExtResource("2_rl1ty")
+drops = Array[ExtResource("4_jeahv")]([SubResource("Resource_2mlj6")])
+stompable = NodePath("Stompable3D")
+collision_shape = NodePath("CollisionShape3D")
+player_detect_area = NodePath("PlayerDetectArea3D")
+
+[node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector", "killed_sfx", "bounce_sfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
+script = ExtResource("5_iwj82")
+enemy = NodePath("..")
+player_detector = NodePath("../PlayerDetectArea3D")
+killed_sfx = NodePath("../KillSFX")
+bounce_sfx = NodePath("../BounceSFX")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0961509, 0.0126601, 0)
+shape = SubResource("BoxShape3D_pqxmu")
+
+[node name="caracol_volcan" parent="Mesh" index="0" instance=ExtResource("6_1opuc")]
+transform = Transform3D(1.36, 0, 0, 0, 1.36, 0, 0, 0, 1.36, -0.388, -0.785, 0)
+
+[node name="caracol" parent="Mesh" index="1" instance=ExtResource("6_xnc6s")]
+transform = Transform3D(1.36, 0, 0, 0, 1.36, 0, 0, 0, 1.36, -0.388294, -0.784678, 0)
+visible = false
+
+[node name="chickenV2" parent="Mesh" index="2" instance=ExtResource("7_fgcph")]
+transform = Transform3D(-6.77527e-09, 0, 0.155, 0, 0.155, 0, -0.155, 0, -6.77527e-09, 0, -0.988553, 0)
+visible = false
+
+[node name="PlayerDetectArea3D" type="Area3D" parent="." index="5"]
+script = ExtResource("8_1qcp7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0951362, 0, 0)
+shape = SubResource("BoxShape3D_cdqhv")
+
+[node name="DistanceEnabler3D" type="Area3D" parent="." index="8"]
+script = ExtResource("9_d7lvl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DistanceEnabler3D" index="0"]
+shape = SubResource("SphereShape3D_8igkn")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="9"]
+tree_root = SubResource("AnimationNodeBlendTree_8pv23")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/idle_or_run/blend_amount = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_xd1ya")
+}
+
+[node name="EnemyAnimationController" type="Node" parent="." index="11" node_paths=PackedStringArray("enemy", "animation", "animation_tree")]
+script = ExtResource("10_vsqnx")
+enemy = NodePath("..")
+animation = NodePath("../AnimationPlayer")
+animation_tree = NodePath("../AnimationTree")
+
+[node name="BounceSFX" type="AudioStreamPlayer3D" parent="." index="12"]
+stream = ExtResource("11_hhxr7")
+bus = &"Effects"
+
+[node name="KillSFX" type="AudioStreamPlayer3D" parent="." index="13"]
+stream = ExtResource("12_yjpxp")
+volume_db = 5.0
+bus = &"Effects"
+
+[editable path="Mesh/caracol"]

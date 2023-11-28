@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bn6io0yusosy2"]
+[gd_scene load_steps=27 format=3 uid="uid://bn6io0yusosy2"]
 
 [ext_resource type="MeshLibrary" uid="uid://7ei7y2bwyjt1" path="res://art/3D/meshlibs/rocks_v5.tres" id="1_etdor"]
 [ext_resource type="Script" path="res://scripts/classes/platform_mover_3d.gd" id="2_3ua3i"]
@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://cl5abm7qiagoo" path="res://scenes/props/pressure_button_low_scale.tscn" id="14_k56wn"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="15_4np6n"]
 [ext_resource type="PackedScene" uid="uid://pmhn4jmwk8r8" path="res://scenes/props/chest.tscn" id="16_sfb1y"]
+[ext_resource type="PackedScene" uid="uid://bnohm5mj6nbcc" path="res://scenes/assets/crystal.tscn" id="17_32nre"]
+[ext_resource type="PackedScene" uid="uid://bwbkg8g2n7d0w" path="res://scenes/assets/crystal_2.tscn" id="18_s1yqd"]
+[ext_resource type="PackedScene" uid="uid://dy0di1hdfngd1" path="res://scenes/assets/crystal_3.tscn" id="19_ywg75"]
 
 [sub_resource type="GDScript" id="GDScript_vf0am"]
 script/source = "extends Node3D
@@ -296,6 +299,105 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 30, -59)
 
 [node name="Chest" parent="." instance=ExtResource("16_sfb1y")]
 transform = Transform3D(0.958616, 0, 0.284702, 0, 1, 0, -0.284702, 0, 0.958616, -13.9323, 44, -65.2986)
+
+[node name="Crystal" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.889759, -0.43478, 0.138906, 0.420973, 0.664107, -0.617854, 0.176382, 0.608217, 0.773926, 15.6188, 4, -3.77862)
+
+[node name="Crystal2" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.348294, 0, 0.937385, 0.933523, -0.0906848, 0.346859, 0.0850066, 0.99588, 0.031585, 11.1748, 11.1002, -5.63995)
+
+[node name="Crystal3" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(-0.084607, -0.964433, -0.250421, -0.3087, 0.264328, -0.913693, 0.947389, -1.49012e-08, -0.320084, 8.955, 6.99149, -7.80908)
+
+[node name="Crystal4" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.0313933, -0.999507, 0, 0.999507, 0.0313933, 0, 0, 0, 1, 9.54372, 11.8262, -15.3223)
+
+[node name="Crystal5" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.0313576, -0.996692, 0.0749849, 0.384533, -0.0812775, -0.919526, 0.922579, 0, 0.385809, 21.0363, 8.76283, 2.2358)
+
+[node name="Crystal6" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(0.0291962, -0.990428, 0.134906, -0.686859, 0.0781745, 0.722574, -0.726204, -0.113758, -0.678002, 21.7005, 12.9604, 13.7807)
+
+[node name="Crystal7" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.423899, 0, -0.905709, 0.766161, 0.533305, -0.358586, 0.483019, -0.845923, -0.226067, 9.1897, 7.25884, 21.1865)
+
+[node name="Crystal8" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.187621, -0.982241, 0, 0.982241, 0.187621, 0, 0, 0, 1, 17.3449, 7.58915, 17.4709)
+
+[node name="Crystal9" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(1, 0, 0, 0, 0.0632957, 0.997995, 0, -0.997995, 0.0632957, -1.69809, 12.6691, 25.1552)
+
+[node name="Crystal10" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(0.0113033, 0.830256, 0.557268, -0.016837, 0.557383, -0.830085, -0.999794, 2.98023e-08, 0.0202793, -5.16433, 5.76218, 18.6599)
+
+[node name="Crystal11" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.205542, 0.947924, -0.243295, -0.611744, 0.318496, 0.724106, 0.763886, -1.49012e-08, 0.645351, -5.1439, 11.0789, 13.7852)
+
+[node name="Crystal12" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.801963, 0.592953, -0.0725324, -0.597373, 0.79603, -0.0973735, 0, 0.121419, 0.992601, -4.5773, 2.98589, 4.5154)
+
+[node name="Crystal13" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.271715, 0.952534, 0.137295, 0.850166, 0.304432, -0.42958, -0.450987, 0, -0.892531, -5.1074, 11.3686, 0.299844)
+
+[node name="Crystal14" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(-0.396812, 0.9179, 0, -0.9179, -0.396812, 0, 0, 0, 1, -5.29848, 9.17352, -8.64208)
+
+[node name="Crystal15" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(-0.124488, 0.928064, 0.350999, 0.310222, 0.372421, -0.87468, -0.942478, -2.98023e-08, -0.334267, -5.31484, 11.2466, -14.758)
+
+[node name="Crystal16" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, -13.3284, -55.0079)
+
+[node name="Crystal17" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, -7.69038, -48.0343)
+
+[node name="Crystal18" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5186, -11.0985, -56)
+
+[node name="Crystal19" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(1, 0, 0, 0, 0.826167, -0.563425, 0, 0.563425, 0.826167, 34.6368, -7.14818, -77.2832)
+
+[node name="Crystal20" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(1, 0, 0, 0, 0.108555, -0.99409, 0, 0.99409, 0.108555, 41.41, -10.5408, -77.1322)
+
+[node name="Crystal21" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(1, 0, 0, 0, 0.0774847, 0.996994, 0, -0.996994, 0.0774847, 35.5151, -10.6801, -43.3542)
+
+[node name="Crystal22" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(-0.265708, -0.157737, 0.951062, 0.964054, -0.0434747, 0.262127, 0, 0.986524, 0.163619, 17.2828, 10.3781, -57.5132)
+
+[node name="Crystal23" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(1, 0, 0, 0, 0.752909, -0.658125, 0, 0.658125, 0.752909, 10.9511, 5.84967, -57.0966)
+
+[node name="Crystal24" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(1, 0, 0, 0, -0.446229, -0.894919, 0, 0.894919, -0.446229, 0.983462, 10.3504, -57.2689)
+
+[node name="Crystal25" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(1, 0, 0, 0, 0.190192, 0.981747, 0, -0.981747, 0.190192, 17.9726, 10.538, -43.0573)
+
+[node name="Crystal26" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.103452, 2.98023e-08, -0.994634, 0.915993, 0.389719, -0.0952726, 0.387628, -0.920934, -0.0403173, 9.77437, 5.45381, -43.0041)
+
+[node name="Crystal27" parent="." instance=ExtResource("17_32nre")]
+transform = Transform3D(0.512133, -0.858906, 0, 0.858906, 0.512133, 0, 0, 0, 1, 9.06582, 6.42897, -39.4501)
+
+[node name="Crystal28" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.0190918, -0.999767, -0.0101142, -0.883453, 0.0216054, -0.468021, 0.46813, 9.31323e-10, -0.883659, 9.17101, 11.5628, -30.2991)
+
+[node name="Crystal29" parent="." instance=ExtResource("18_s1yqd")]
+transform = Transform3D(-0.00165046, 0.99836, -0.0572266, 0.0287816, 0.0572504, 0.997945, 0.999584, 3.72529e-09, -0.0288288, -6.00261, 6.55396, -41.2213)
+
+[node name="Crystal30" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(0.202616, 0.979258, 0, -0.979258, 0.202616, 0, 0, 0, 1, -5.21506, 11.677, -29.2954)
+
+[node name="Crystal31" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(-0.0951508, 0, -0.995463, -0.991596, 0.0880599, 0.0947812, 0.0876603, 0.996115, -0.00837897, -18.3033, 28.6283, -73.2129)
+
+[node name="Crystal32" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(0.332787, 0, -0.943002, -0.911696, 0.25553, -0.321738, 0.240965, 0.966801, 0.085037, -17.9848, 32.7315, -73.2008)
+
+[node name="Crystal33" parent="." instance=ExtResource("19_ywg75")]
+transform = Transform3D(-0.656178, 1.16415e-10, -0.754607, -0.754606, 0.00139625, 0.656177, 0.00105362, 0.999999, -0.000916191, -17.8323, 37.2755, -73.5302)
 
 [connection signal="pressed" from="PressureButtonHighScale" to="." method="_on_pressure_button_high_scale_pressed"]
 [connection signal="unpressed" from="PressureButtonHighScale" to="." method="_on_pressure_button_high_scale_unpressed"]

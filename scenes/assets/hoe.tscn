@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmrtkovp7h8k4"]
+
+[ext_resource type="PackedScene" uid="uid://djh3lnskqo07y" path="res://art/3D/rick_objs/rastrillo.glb" id="1_fr0vx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s30qj"]
+size = Vector3(0.235281, 0.2452, 3.02799)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wx8k5"]
+size = Vector3(0.855706, 0.266483, 0.987987)
+
+[node name="Hoe" type="Node3D"]
+
+[node name="rastrillo" parent="." instance=ExtResource("1_fr0vx")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.049232, -0.059782, 0.453639)
+shape = SubResource("BoxShape3D_s30qj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.928337, -0.371741, 0, 0.371741, 0.928337, 0, -0.0574881, -1.11524)
+shape = SubResource("BoxShape3D_wx8k5")

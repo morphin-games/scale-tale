@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bd4kehg6aokya"]
+[gd_scene load_steps=9 format=3 uid="uid://bd4kehg6aokya"]
 
 [ext_resource type="Script" path="res://scripts/classes/ray_visualizer_3d.gd" id="1_waunh"]
 [ext_resource type="Material" uid="uid://kcqa2bvm4wvb" path="res://materials/m_ray_visualizer.tres" id="2_23lji"]
 [ext_resource type="AudioStream" uid="uid://d3o5okts87ive" path="res://art/sfx/scale_sfx/scale_sfx.mp3" id="3_3q6c7"]
+[ext_resource type="PackedScene" uid="uid://cwidhqmak2xtb" path="res://scenes/particle_effects/ray_visualizer_particles.tscn" id="4_5qxkp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xn5cj"]
 material = ExtResource("2_23lji")
@@ -83,11 +84,12 @@ _data = {
 }
 
 [node name="RayVisualizer" type="Node3D"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
 script = ExtResource("1_waunh")
 
 [node name="RayMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_xn5cj")
 skeleton = NodePath("../../CollisionShape3D")
 
@@ -101,3 +103,9 @@ libraries = {
 stream = ExtResource("3_3q6c7")
 volume_db = -80.0
 pitch_scale = 0.20772
+
+[node name="RayVisualizerParticles" parent="." instance=ExtResource("4_5qxkp")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -3.02459, 0, 0)
+emitting = false
+amount = 200
+local_coords = true

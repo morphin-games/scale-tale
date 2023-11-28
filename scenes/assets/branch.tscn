@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi83286qxncdc"]
+
+[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://materials/m_wood_2.tres" id="1_074yr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lwkii"]
+size = Vector3(10, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sjm7t"]
+size = Vector3(10, 2, 2)
+
+[node name="Branch" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_074yr")
+mesh = SubResource("BoxMesh_lwkii")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_sjm7t")

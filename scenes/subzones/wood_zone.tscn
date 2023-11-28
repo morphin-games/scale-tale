@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://vnb6iycymg8r"]
+[gd_scene load_steps=26 format=3 uid="uid://vnb6iycymg8r"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwn66jvm5n8nr" path="res://art/3D/meshlibs/wood_v2.tres" id="2_ufndb"]
 [ext_resource type="Script" path="res://scripts/classes/platform_mover_3d.gd" id="3_djbly"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="5_e3ntq"]
 [ext_resource type="PackedScene" uid="uid://ht5upw5kcrgt" path="res://scenes/enemies/enemy_platform.tscn" id="5_kpvu1"]
 [ext_resource type="Material" uid="uid://bu3ka76b18u5y" path="res://materials/m_clilbable.tres" id="7_lrbbe"]
+[ext_resource type="Script" path="res://scripts/classes/vis_mesh_3d.gd" id="8_0ptpp"]
 [ext_resource type="PackedScene" uid="uid://ddew86sdeock" path="res://scenes/props/pressure_button.tscn" id="8_731vn"]
 [ext_resource type="Script" path="res://scripts/classes/spawner_3d.gd" id="9_av8cx"]
 [ext_resource type="PackedScene" uid="uid://b6s07jbaevk4v" path="res://scenes/props/grabable_box.tscn" id="10_iupx3"]
@@ -40,6 +41,8 @@ size = Vector3(3.52878, 7.30394, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4ifgh"]
 size = Vector3(3.529, 7.304, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rr8pu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uaypl"]
 size = Vector3(166.153, 19.3063, 156.552)
@@ -384,6 +387,11 @@ shape = SubResource("BoxShape3D_o1h4t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.259607, 0.0443192)
 material_override = ExtResource("7_lrbbe")
 mesh = SubResource("BoxMesh_4ifgh")
+
+[node name="VisMesh3D" type="MeshInstance3D" parent="ClimbArea3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7957, 4.16857, 0.579124)
+mesh = SubResource("CapsuleMesh_rr8pu")
+script = ExtResource("8_0ptpp")
 
 [node name="PressureButton" parent="." instance=ExtResource("8_731vn")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -75, 6.078, -111)

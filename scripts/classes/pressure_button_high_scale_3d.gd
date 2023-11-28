@@ -15,6 +15,8 @@ func press(body : Node3D) -> void:
 				emit_signal("pressed")
 				var p_tween : Tween = get_tree().create_tween()
 				p_tween.tween_property($Button, "transform:origin:y", -0.05, 0.25)
+				if((!sound_only_once) or (sound_only_once and !sound_played)):
+					audio_stream.play()
 		
 func unpress(body : Node3D) -> void:
 	if(body.name != "Player"):

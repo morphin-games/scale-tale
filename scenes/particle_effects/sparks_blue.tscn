@@ -21,7 +21,7 @@ angular_velocity_max = 40.0
 angle_min = -360.0
 angle_max = 360.0
 scale_curve = SubResource("CurveTexture_s7h25")
-color = Color(0, 0.694118, 1, 1)
+color = Color(0, 1.38, 2, 1)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 anim_offset_max = 1.0
@@ -40,7 +40,7 @@ particles_anim_loop = true
 material = SubResource("StandardMaterial3D_rdlyh")
 
 [node name="SparksBlue" type="GPUParticles3D"]
-amount = 60
+amount = 150
 randomness = 0.5
 local_coords = true
 draw_order = 3

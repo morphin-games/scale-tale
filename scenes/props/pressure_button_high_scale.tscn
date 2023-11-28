@@ -76,4 +76,6 @@ shape = SubResource("CylinderShape3D_dg3fy")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.834863, 0)
+stream = ExtResource("2_1ud8c")
+pitch_scale = 0.5
 bus = &"Effects"

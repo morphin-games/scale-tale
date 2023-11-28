@@ -97,25 +97,27 @@ func _input(event: InputEvent) -> void:
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
 			
 func _process(delta: float) -> void:
-	if(stuck):
-		stuck_time += delta
-		if(stuck_time >= 5.0):
-			global_transform.origin.y -= 2.0
-			stuck_time = 0.0
-			stuck = false
+#	if(stuck):
+#		stuck_time += delta
+#		if(stuck_time >= 5.0):
+#			global_transform.origin.y -= 2.0
+#			stuck_time = 0.0
+#			stuck = false
 	
-	if(($OxygenSystem as OxygenSystem).health <= ($OxygenSystem as OxygenSystem).max_health / 4):
-		$SFXOxy.volume_db = 0.0
-		ui_oxygen.tint_under = Color(0.5, 0.0, 0.0)
-		ui_oxygen.tint_progress = Color(0.9, 0.0, 0.0)
-	else:
-		$SFXOxy.volume_db = -80.0
-		ui_oxygen.tint_under = Color(0.0, 0.2, 0.6)
-		ui_oxygen.tint_progress = Color(0.0, 0.54, 1.0)
+	if(ui_oxygen != null):
+		if(($OxygenSystem as OxygenSystem).health <= ($OxygenSystem as OxygenSystem).max_health / 4):
+			$SFXOxy.volume_db = 0.0
+			ui_oxygen.tint_under = Color(0.5, 0.0, 0.0)
+			ui_oxygen.tint_progress = Color(0.9, 0.0, 0.0)
+		else:
+			$SFXOxy.volume_db = -80.0
+			ui_oxygen.tint_under = Color(0.0, 0.2, 0.6)
+			ui_oxygen.tint_progress = Color(0.0, 0.54, 1.0)
 		
 	time_since_oxygen_damage += delta
 	if(underwater):
-		ui_oxygen.value = ($OxygenSystem as OxygenSystem).health
+		if(ui_oxygen != null):
+			ui_oxygen.value = ($OxygenSystem as OxygenSystem).health
 		($OxygenSystem as OxygenSystem).damage(delta)
 		if(($OxygenSystem as OxygenSystem).health <= 0.0 and time_since_oxygen_damage >= 2.5):
 			health_system.damage(1)
