@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cl5abm7qiagoo"]
+[gd_scene load_steps=14 format=3 uid="uid://cl5abm7qiagoo"]
 
 [ext_resource type="Script" path="res://scripts/classes/pressure_button_low_scale_3d.gd" id="1_y6d54"]
+[ext_resource type="AudioStream" uid="uid://8lmuew0eofb6" path="res://art/sfx/buttons/sd_0.wav" id="2_f21bo"]
 [ext_resource type="Texture2D" uid="uid://bkvcq6ppws6jp" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_color_1k.png" id="2_ryohq"]
 [ext_resource type="Texture2D" uid="uid://cah3mre7wgw5r" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_height_1k.png" id="3_kfg2n"]
 [ext_resource type="Texture2D" uid="uid://7hlyu5kcp24v" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_metallic_1k.png" id="4_d3e33"]
@@ -50,8 +51,10 @@ radial_segments = 6
 height = 0.514836
 radius = 0.612008
 
-[node name="PressureButtonLowScale" type="Node3D"]
+[node name="PressureButtonLowScale" type="Node3D" node_paths=PackedStringArray("audio_stream")]
 script = ExtResource("1_y6d54")
+audio_stream = NodePath("AudioStreamPlayer3D")
+sound = ExtResource("2_f21bo")
 
 [node name="Base" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_sjkhq")
@@ -70,3 +73,7 @@ mesh = SubResource("CylinderMesh_wcrdd")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.444986, 0)
 shape = SubResource("CylinderShape3D_dg3fy")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.834863, 0)
+bus = &"Effects"

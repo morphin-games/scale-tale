@@ -26,8 +26,8 @@ initial_velocity_min = 3.0
 initial_velocity_max = 3.0
 angle_min = -720.0
 angle_max = 720.0
-scale_min = 0.25
-scale_max = 0.25
+scale_min = 0.5
+scale_max = 0.5
 scale_curve = SubResource("CurveTexture_82ama")
 color_ramp = SubResource("GradientTexture1D_qj1tt")
 

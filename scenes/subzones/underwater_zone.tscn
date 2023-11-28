@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cbpp5b0yiadn" path="res://scenes/props/pressure_button_high_scale.tscn" id="13_3gq2r"]
 [ext_resource type="PackedScene" uid="uid://cl5abm7qiagoo" path="res://scenes/props/pressure_button_low_scale.tscn" id="14_k56wn"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="15_4np6n"]
-[ext_resource type="PackedScene" uid="uid://cnce6bchv6m4b" path="res://scenes/props/chest.tscn" id="16_sfb1y"]
+[ext_resource type="PackedScene" uid="uid://pmhn4jmwk8r8" path="res://scenes/props/chest.tscn" id="16_sfb1y"]
 
 [sub_resource type="GDScript" id="GDScript_vf0am"]
 script/source = "extends Node3D

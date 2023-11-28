@@ -5,11 +5,20 @@ signal pressed
 signal unpressed
 
 @export var admit_any_body : bool = true
+@export_category("Audio")
+@export var audio_stream : AudioStreamPlayer3D
+@export var sound : AudioStreamWAV
+@export var sound_only_once : bool = false
 
+var sound_played : bool = false
 
 func _ready() -> void:
 	($Area3D as Area3D).body_entered.connect(Callable(func(body : Node3D) -> void:
 		press(body)
+		if(audio_stream != null):
+			audio_stream.stream = sound
+			if(sound_only_once and sound_played): return
+			audio_stream.play()
 	))
 	
 	($Area3D as Area3D).body_exited.connect(Callable(func(body : Node3D) -> void:

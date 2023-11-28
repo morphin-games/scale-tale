@@ -39,6 +39,9 @@ enum PlayerStates {
 	,CLIMBING = 7
 }
 
+var stuck : bool = false
+var stuck_time : float = 0.0
+var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
 var added_cam_scale : float = 0.0
 var time_since_oxygen_damage : float = 2.0
 var underwater : bool = false
@@ -84,6 +87,8 @@ func _ready() -> void:
 	else:
 		global_transform.origin = debug_start_positon
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
+	
+	print("GT: ", global_transform.origin)
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
@@ -92,6 +97,22 @@ func _input(event: InputEvent) -> void:
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
 			
 func _process(delta: float) -> void:
+	if(stuck):
+		stuck_time += delta
+		if(stuck_time >= 5.0):
+			global_transform.origin.y -= 2.0
+			stuck_time = 0.0
+			stuck = false
+	
+	if(($OxygenSystem as OxygenSystem).health <= ($OxygenSystem as OxygenSystem).max_health / 4):
+		$SFXOxy.volume_db = 0.0
+		ui_oxygen.tint_under = Color(0.5, 0.0, 0.0)
+		ui_oxygen.tint_progress = Color(0.9, 0.0, 0.0)
+	else:
+		$SFXOxy.volume_db = -80.0
+		ui_oxygen.tint_under = Color(0.0, 0.2, 0.6)
+		ui_oxygen.tint_progress = Color(0.0, 0.54, 1.0)
+		
 	time_since_oxygen_damage += delta
 	if(underwater):
 		ui_oxygen.value = ($OxygenSystem as OxygenSystem).health
@@ -138,6 +159,13 @@ func _physics_process(delta: float) -> void:
 	
 	if(abs(rad_to_deg(last_movement_direction.angle_to(direction))) > 167.5):
 		time_since_lateral = 0.0
+		if(is_on_floor()):
+			var inst : GPUParticlesIPOS3D = explosion.instantiate()
+			get_parent().add_child(inst)
+			inst.global_transform.origin = global_transform.origin
+			inst.global_transform.origin.y -= 1.0
+			$DirectionSFX.play(0.49)
+			acceleration *= 2
 	
 	if(player_state != PlayerStates.CLIMBING):
 		$MovementPivot/Movement.transform.origin.x = move_toward($MovementPivot/Movement.transform.origin.x, (direction.x * 2) + jump_external_force.x, acceleration)
@@ -181,7 +209,7 @@ func _physics_process(delta: float) -> void:
 			if(player_state != PlayerStates.JUMPING and player_state != PlayerStates.HANGJUMPING and player_state != PlayerStates.GROUNDPOUNDING and player_state != PlayerStates.OLYMPIC_JUMPING and player_state != PlayerStates.WALLJUMPING):
 				if(Input.is_action_pressed("ui_groundpound")):
 					player_state = PlayerStates.CROUCHING
-				if(Input.is_action_just_released("ui_groundpound")):
+				elif(!Input.is_action_pressed("ui_groundpound")):
 					player_state = PlayerStates.IDLE
 				
 			if((velocity.x == 0 or velocity.z == 0) and player_state != PlayerStates.CROUCHING):
@@ -218,16 +246,16 @@ func _physics_process(delta: float) -> void:
 		#			Normal jump
 					velocity.y = max_jump_force
 		#			Lateral jump
-					if(time_since_lateral > 0.1 and time_since_lateral < 0.4):
+					if(time_since_lateral >= 0.0 and time_since_lateral <= 0.4):
 						velocity.y = max_jump_force * 1.45
 		else: # Not on floor
 			if(player_state != PlayerStates.GROUNDPOUNDING):
 				velocity.y -= gravity * delta
-				if(Input.is_action_just_pressed("ui_groundpound") and (player_state == PlayerStates.JUMPING or player_state == PlayerStates.OLYMPIC_JUMPING or player_state == PlayerStates.WALLJUMPING)):
-					velocity.y = 0
-					player_state = PlayerStates.GROUNDPOUNDING
-					await(get_tree().create_timer(0.30).timeout)
-					velocity.y = -40.0
+#				if(Input.is_action_just_pressed("ui_groundpound") and (player_state == PlayerStates.JUMPING or player_state == PlayerStates.OLYMPIC_JUMPING or player_state == PlayerStates.WALLJUMPING)):
+#					velocity.y = 0
+#					player_state = PlayerStates.GROUNDPOUNDING
+#					await(get_tree().create_timer(0.30).timeout)
+#					velocity.y = -40.0
 					
 			if($WallHangers/Checker.get_collider() != null and $WallHangers/Hanger.get_collider() != null and !is_on_floor()):
 				if($WallHangers/Checker.get_collider().name != "Player" and $WallHangers/Hanger.get_collider().name != "Player"):
@@ -592,3 +620,23 @@ func _on_oxygen_zone_area_exited(area: Area3D) -> void:
 		underwater = false
 		var o_tween : Tween = get_tree().create_tween()
 		o_tween.tween_property(ui_oxygen, "modulate:a", 0.0, 0.5)
+
+
+func _on_oxygen_zone_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_oxygen_zone_body_exited(body: Node3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_stuck_zone_body_entered(body: Node3D) -> void:
+	if(body.name != "player"):
+		stuck_time = 0.0
+		stuck = true
+
+
+func _on_stuck_zone_body_exited(body: Node3D) -> void:
+	if(body.name != "player"):
+		stuck_time = 0.0
+		stuck = false

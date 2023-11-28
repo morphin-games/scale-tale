@@ -3,7 +3,7 @@ extends Node3D
 
 @export var rotator_active : bool = true
 
-var ipos : PackedScene = preload("res://scenes/particle_effects/coin_taken.tscn")
+var ipos : PackedScene = preload("res://scenes/particle_effects/gem_taken.tscn")
 
 func _ready() -> void:
 	($Rotator3D as Rotator3D).active = rotator_active

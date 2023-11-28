@@ -38,6 +38,7 @@ func get_prev_cam_data() -> Dictionary:
 	}
 	
 func _ready() -> void:
+	current = true
 	if((Persistance.persistance_data as PersistanceData).invert_cam_x):
 		invert_cam_x = -1
 	else:

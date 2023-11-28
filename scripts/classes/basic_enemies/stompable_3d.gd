@@ -11,6 +11,9 @@ signal stomped
 @export var vulnerable_scale : Vector3 = Vector3(0.5, 0.5, 0.5)
 @export_category("Vulnerabilities")
 @export var vulnerable_radius : float = 1.0
+@export_category("Audio")
+@export var killed_sfx : AudioStreamPlayer3D
+@export var bounce_sfx : AudioStreamPlayer3D
 
 var player : SPPlayer3D
 var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
@@ -19,12 +22,13 @@ func stomp() -> void:
 #	if(player.near_bodies.has(enemy)):
 #		player.near_bodies.erase(enemy)
 	
+	killed_sfx.play()
 	enemy.alive = false
 	enemy.collision_shape.queue_free()
 	enemy.stun(100.0)
 	enemy.velocity.y = 0.0
 	var tween_s : Tween = get_tree().create_tween()
-	tween_s.tween_property(enemy.get_node("Mesh").get_child(0), "scale", Vector3(enemy.get_node("Mesh").get_child(0).scale.x, 0, enemy.get_node("Mesh").get_child(0).scale.z), 0.23)
+	tween_s.tween_property(enemy.get_node("Mesh").get_child(0), "scale", Vector3(enemy.get_node("Mesh").get_child(0).scale.x, 0.03, enemy.get_node("Mesh").get_child(0).scale.z), 0.23)
 	
 	tween_s.finished.connect(Callable(func() -> void:
 		await get_tree().create_timer(0.5).timeout
@@ -47,6 +51,7 @@ func _ready() -> void:
 				
 				stomp()
 			else:
+				bounce_sfx.play()
 				var force : Vector3 = (enemy.global_transform.origin - player.global_transform.origin).normalized()
 				player.velocity.y = death_impulse * 2
 				player.move_and_slide()

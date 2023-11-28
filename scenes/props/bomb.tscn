@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://da2kgb6gyvowc"]
+[gd_scene load_steps=17 format=3 uid="uid://da2kgb6gyvowc"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_0m4mt"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_2o4h8"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_2gkg8"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_hncct"]
+[ext_resource type="PackedScene" uid="uid://b0mrtl78f21n0" path="res://art/3D/models/bomb.glb" id="5_gk77t"]
 
 [sub_resource type="GDScript" id="GDScript_30s5s"]
 script/source = "extends RigidBody3D
@@ -114,9 +115,7 @@ script = ExtResource("2_2o4h8")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
-[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_2gkg8")]
-show_interaction_sprite = false
-highlight_mesh = NodePath("../Mesh/MeshInstance3D")
+[node name="Interactuable" parent="." instance=ExtResource("3_2gkg8")]
 interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
@@ -135,19 +134,24 @@ shape = SubResource("SphereShape3D_yxw3d")
 
 [node name="Mesh" type="Node3D" parent="."]
 
+[node name="bomb" parent="Mesh" instance=ExtResource("5_gk77t")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+visible = false
 mesh = SubResource("SphereMesh_tmof0")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894666, 0)
+visible = false
 mesh = SubResource("CylinderMesh_uoq4d")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13796, 0)
+visible = false
 mesh = SubResource("CylinderMesh_eyk1w")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_doskr")
@@ -159,3 +163,5 @@ shape = SubResource("SphereShape3D_p1wkv")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="ExplodeArea" to="." method="_on_explode_area_body_entered"]
+
+[editable path="Mesh/bomb"]

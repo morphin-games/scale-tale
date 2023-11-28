@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://cl64gh2mcanuj"]
+
+[ext_resource type="Texture2D" uid="uid://bxwmpm4s7n61" path="res://art/2D/textures/freestylized_dot_com/concrete/concrete_wall_01_color_1k.png" id="1_kut1w"]
+[ext_resource type="Texture2D" uid="uid://bqfluxwm7tmpk" path="res://art/2D/textures/freestylized_dot_com/concrete/concrete_wall_01_ambient_occlusion_1k.png" id="2_0uu6e"]
+[ext_resource type="Texture2D" uid="uid://dsye4r4d6skp5" path="res://art/2D/textures/freestylized_dot_com/concrete/concrete_wall_01_height_1k.png" id="3_pcisc"]
+[ext_resource type="Texture2D" uid="uid://bugak1pjrjey2" path="res://art/2D/textures/freestylized_dot_com/concrete/concrete_wall_01_normal_gl_1k.png" id="4_q28m7"]
+[ext_resource type="Texture2D" uid="uid://b3w6ivgfryrrr" path="res://art/2D/textures/freestylized_dot_com/concrete/concrete_wall_01_roughness_1k.png" id="5_2igtu"]
+
+[resource]
+albedo_color = Color(1, 0.6, 0, 1)
+albedo_texture = ExtResource("1_kut1w")
+roughness_texture = ExtResource("5_2igtu")
+emission_enabled = true
+emission = Color(0.952941, 0.298039, 0, 1)
+normal_enabled = true
+normal_texture = ExtResource("4_q28m7")
+ao_enabled = true
+ao_texture = ExtResource("2_0uu6e")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_pcisc")
+uv1_triplanar = true

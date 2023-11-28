@@ -8,7 +8,7 @@
 	{"name": "TutorialJump", "text": "How to jump\n > PC: Space\n > Xbox: A\n > Nintendo: B\n > PlayStation: Cross"},
 	{"name": "TutorialOlympicJump", "text": "Olympic jump: Crouch and jump while moving in any direction\n[1/2]"},
 	{"name": "TutorialOlympicJump", "text": "How to crouch:\n > PC: Control\n > Xbox: RB\n > Nintendo: ZR\n > PlayStation: R2\n[2/2]"},
-	{"name": "TutorialLateralJump", "text": "Lateral jump: Move in any direction, then move to the oposite direction and jump\n[1/2]"},
+	{"name": "TutorialLateralJump", "text": "Lateral jump: Move in any direction, then move to the oposite direction and jump\nYou'll see dust particles coming from the floor when you can jump laterally\n[1/2]"},
 	{"name": "TutorialLateralJump", "text": "Backflip: Crouch and then jump while standing still\n[2/2]"},
 	{"name": "TutorialGrabScale", "text": "Grabbing & dropping items:\n > PC: E\n > Xbox: X\n > Nintendo: Y\n > PlayStation: Square\n[1/5]"},
 	{"name": "TutorialGrabScale", "text": "You can throw items forward:\n > PC: Q\n > Xbox: Y\n > Nintendo: X\n > PlayStation: Triangle\n[2/5]"},

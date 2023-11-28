@@ -2,7 +2,8 @@
 
 [resource]
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.701961, 0.701961, 0.701961, 1)
-emission_energy_multiplier = 2.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.5
 clearcoat = 0.31
 refraction_scale = -0.03

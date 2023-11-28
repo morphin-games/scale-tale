@@ -7,3 +7,4 @@ extends Resource
 @export var unit_size : float = 10.0
 @export var max_distance : float = 0.0
 @export var sound_start : float = 0.0
+@export var channel_idx : int = 1

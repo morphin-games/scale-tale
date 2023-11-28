@@ -78,9 +78,7 @@ script = ExtResource("2_1w21r")
 item = NodePath("..")
 interactuable = NodePath("../Interactuable")
 
-[node name="Interactuable" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("3_nl0w7")]
-show_interaction_sprite = false
-highlight_mesh = NodePath("../MeshInstance3D")
+[node name="Interactuable" parent="." instance=ExtResource("3_nl0w7")]
 interaction_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactuable"]
