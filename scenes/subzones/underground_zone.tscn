@@ -19,6 +19,8 @@
 [sub_resource type="GDScript" id="GDScript_nmy6p"]
 script/source = "extends Node3D
 
+
+
 func _ready() -> void:
 	($EnemySpawner3D as Spawner3D).root = get_parent()
 	($EnemySpawner3D2 as Spawner3D).root = get_parent()

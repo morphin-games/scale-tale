@@ -8,17 +8,6 @@ script/source = "extends Control
 
 @onready var back_button : Button = $Back_Button
 
-#vIDEO
-@onready var window_button = $TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton
-@onready var res_button = $TabContainer/Video/MarginContainer/VideoSettings/ResolutionButton
-@onready var vsync_button = $TabContainer/Video/MarginContainer/VideoSettings/CheckButton
-#AUDIO
-@onready var slider_master = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster
-@onready var slider_sfx = $TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX
-@onready var slider_music = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic
-#GAMEPLAY
-@onready var sens_label = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/senslabel
-@onready var sens_slider = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens
 
 func _ready() -> void:
 	visibility_changed.connect(Callable(func() -> void:
@@ -71,10 +60,10 @@ func _on_resolution_button_item_selected(index: int) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed(\"ui_tab_next\"):
-		if($TabContainer.current_tab == 2):
-			$TabContainer.current_tab = 0
-		else:
-			$TabContainer.current_tab = $TabContainer.current_tab +1
+		#if($TabContainer.current_tab == 2):
+		#	$TabContainer.current_tab = 0
+
+		$TabContainer.current_tab = $TabContainer.current_tab +1
 		match $TabContainer.current_tab:
 			0:
 				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
@@ -85,10 +74,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		print($TabContainer.current_tab)
 		
 	if Input.is_action_just_pressed(\"ui_tab_prev\"):
-		if ($TabContainer.current_tab == 0):
-			$TabContainer.current_tab = 2
-		else:
-			$TabContainer.current_tab = $TabContainer.current_tab -1
+		#if ($TabContainer.current_tab == 0):
+		#	$TabContainer.current_tab = 2
+		#else:
+		$TabContainer.current_tab = $TabContainer.current_tab -1
 		match $TabContainer.current_tab:
 			0:
 				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
