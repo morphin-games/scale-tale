@@ -3,6 +3,8 @@
 [sub_resource type="GDScript" id="GDScript_c1rp5"]
 script/source = "extends Node
 
+@onready var music_overworld = $\"../MusicOverworld\"
+@onready var music_over_secret = $\"../MusicSecretOverworld\"
 
 @export var game_paused: bool = false:
 	get: 

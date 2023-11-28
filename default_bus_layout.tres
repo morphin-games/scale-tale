@@ -2,6 +2,7 @@
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_h183m"]
 resource_name = "Reverb"
+room_size = 0.6
 
 [resource]
 bus/1/name = &"Effects"

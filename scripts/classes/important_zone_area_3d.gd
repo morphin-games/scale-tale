@@ -6,6 +6,8 @@ signal important_zone_entered
 @export var zone_name : String = "Unnamed"
 @export var ui : ImportantZoneAnouncer
 @export var sfx : AudioStreamPlayer
+@onready var music_overworld = $"../../MusicOverworld"
+@onready var music_over_secret = $"../../MusicSecretOverworld"
 
 func _ready() -> void:
 	body_entered.connect(Callable(func(body : PhysicsBody3D) -> void:
@@ -14,3 +16,4 @@ func _ready() -> void:
 			if(sfx != null):
 				sfx.play()
 	))
+
