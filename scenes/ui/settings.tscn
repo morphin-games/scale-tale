@@ -8,17 +8,6 @@ script/source = "extends Control
 
 @onready var back_button : Button = $Back_Button
 
-#vIDEO
-@onready var window_button = $TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton
-@onready var res_button = $TabContainer/Video/MarginContainer/VideoSettings/ResolutionButton
-@onready var vsync_button = $TabContainer/Video/MarginContainer/VideoSettings/CheckButton
-#AUDIO
-@onready var slider_master = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster
-@onready var slider_sfx = $TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX
-@onready var slider_music = $TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic
-#GAMEPLAY
-@onready var sens_label = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/senslabel
-@onready var sens_slider = $TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/SliderSens
 
 func _ready() -> void:
 	visibility_changed.connect(Callable(func() -> void:
