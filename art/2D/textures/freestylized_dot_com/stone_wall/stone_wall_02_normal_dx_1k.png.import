@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1376cyuwntf7"
-path="res://.godot/imported/stone_wall_02_normal_dx_1k.png-5a3394fd4d4f90185492a1169340d5e2.ctex"
+path.s3tc="res://.godot/imported/stone_wall_02_normal_dx_1k.png-5a3394fd4d4f90185492a1169340d5e2.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/stone_wall/stone_wall_02_normal_dx_1k.png"
-dest_files=["res://.godot/imported/stone_wall_02_normal_dx_1k.png-5a3394fd4d4f90185492a1169340d5e2.ctex"]
+dest_files=["res://.godot/imported/stone_wall_02_normal_dx_1k.png-5a3394fd4d4f90185492a1169340d5e2.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

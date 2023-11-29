@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkia8cuncx1n8"
-path="res://.godot/imported/grass_02_height_1k.png-ad65a7142a5ca1b0b5fc74777dbe775d.ctex"
+path.s3tc="res://.godot/imported/grass_02_height_1k.png-ad65a7142a5ca1b0b5fc74777dbe775d.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/grass_v3/grass_02_height_1k.png"
-dest_files=["res://.godot/imported/grass_02_height_1k.png-ad65a7142a5ca1b0b5fc74777dbe775d.ctex"]
+dest_files=["res://.godot/imported/grass_02_height_1k.png-ad65a7142a5ca1b0b5fc74777dbe775d.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

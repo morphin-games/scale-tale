@@ -12,6 +12,7 @@ func _ready() -> void:
 
 
 func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
+	
 	var inst : GPUParticlesIPOS3D = ipos.instantiate()
 	get_parent().add_child(inst)
 	inst.global_transform = global_transform
@@ -20,6 +21,7 @@ func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
 	
 	if(!(Persistance.persistance_data as PersistanceData).taken_gems.has(gem_id)):
 		(Persistance.persistance_data as PersistanceData).taken_gems.append(gem_id)
+		player.get_gem()
 		Persistance.save()
 		
 	var data : AudioStream3DData = AudioStream3DData.new()

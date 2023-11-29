@@ -28,7 +28,7 @@ func stomp() -> void:
 	enemy.stun(100.0)
 	enemy.velocity.y = 0.0
 	var tween_s : Tween = get_tree().create_tween()
-	tween_s.tween_property(enemy.get_node("Mesh").get_child(0), "scale", Vector3(enemy.get_node("Mesh").get_child(0).scale.x, 0.03, enemy.get_node("Mesh").get_child(0).scale.z), 0.23)
+	tween_s.tween_property(enemy.get_node("Mesh/Mesh"), "scale", Vector3(enemy.get_node("Mesh").get_child(0).scale.x, 0.03, enemy.get_node("Mesh").get_child(0).scale.z), 0.23)
 	
 	tween_s.finished.connect(Callable(func() -> void:
 		await get_tree().create_timer(0.5).timeout

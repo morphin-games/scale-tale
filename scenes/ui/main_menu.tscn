@@ -8,22 +8,27 @@
 script/source = "extends Control
 @onready var main_scene = \"res://scenes/levels/final/final_v2.tscn\"
 
+@export var fader : AnimationPlayer
+
 func show_hide(first,second):
 	first.show()
 	second.hide()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	$VBoxContainer/Button.grab_focus()
+	fader.animation_finished.connect(Callable(func(anim_name : String) -> void:
+		if(anim_name == \"goto\"):
+			get_tree().change_scene_to_file(main_scene)
+	))
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file(main_scene)
-	print(\"cam\")
+	fader.play(\"goto\")
 
 func _on_button_3_pressed() -> void:
 	get_tree().quit() # Replace with function body.

@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yagsl5ptfqov"
-path="res://.godot/imported/sand_03_ambient_occlusion_1k.png-96856bd4804872a9d173af16b9fb2b2f.ctex"
+path.s3tc="res://.godot/imported/sand_03_ambient_occlusion_1k.png-96856bd4804872a9d173af16b9fb2b2f.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/sand/sand_03_ambient_occlusion_1k.png"
-dest_files=["res://.godot/imported/sand_03_ambient_occlusion_1k.png-96856bd4804872a9d173af16b9fb2b2f.ctex"]
+dest_files=["res://.godot/imported/sand_03_ambient_occlusion_1k.png-96856bd4804872a9d173af16b9fb2b2f.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

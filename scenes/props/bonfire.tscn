@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxxjkan3j4yxm"]
+[gd_scene load_steps=18 format=3 uid="uid://bxxjkan3j4yxm"]
 
 [ext_resource type="PackedScene" uid="uid://cgshqok4kso7m" path="res://scenes/particle_effects/fire.tscn" id="1_jmd3f"]
 [ext_resource type="PackedScene" uid="uid://dxr6mo5cbrils" path="res://art/3D/mapping/hoguera01.glb" id="1_yrlaq"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_v6h4y"]
+[ext_resource type="AudioStream" uid="uid://biy2if8cnab71" path="res://art/sfx/ambience_sfx/bonfire.mp3" id="4_ub3nb"]
+[ext_resource type="Shader" path="res://shaders/regen.gdshader" id="5_oonlj"]
 
 [sub_resource type="GDScript" id="GDScript_i0ddj"]
 script/source = "extends Node3D
@@ -15,6 +17,7 @@ func _on_interactuable_interacted() -> void:
 	get_tree().call_group(\"EnemySpawners\", \"spawn\")
 	get_tree().call_group(\"ItemSpawners\", \"spawn\")
 	
+	$AnimationPlayer.play(\"regen\")
 	($Interactuable as Interactuable3D).player_near.health_system.heal(6)
 "
 
@@ -63,6 +66,130 @@ radius = 4.0
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_rougu"]
 height = 0.493107
 radius = 1.04778
+
+[sub_resource type="SphereMesh" id="SphereMesh_wbjqe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8mbr"]
+render_priority = 0
+shader = ExtResource("5_oonlj")
+shader_parameter/_shield_color = Color(0.568627, 0.2, 0, 1)
+shader_parameter/_shield_color_brightness = 10.0
+shader_parameter/_shield_intensity = 0.0
+shader_parameter/_rotation = Vector3(0.1, 0, 0)
+shader_parameter/_shield_size = 0.0
+shader_parameter/_shield_pulse_frequency = 1.0
+shader_parameter/_shield_pulse_density = 1.0
+shader_parameter/_shield_pulse_amplitude = 1.0
+shader_parameter/_shield_pulse_blend = 1.0
+shader_parameter/_shield_pulse_radius = 1.0
+shader_parameter/_impact_origin = Vector3(1, 0, 0)
+shader_parameter/_impact_frequency = 5.0
+shader_parameter/_impact_density = 5.0
+shader_parameter/_impact_amplitude = 6.0
+shader_parameter/_impact_blend = 0.0
+shader_parameter/_impact_radius = 1.1
+shader_parameter/_impact_anim = 0.0
+
+[sub_resource type="Animation" id="Animation_dhn5i"]
+resource_name = "regen"
+length = 1.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Regen:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Regen:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Regen:scale:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 10, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.2)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Regen:surface_material_override/0:shader_parameter/_shield_intensity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 5, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.2)
+}
+
+[sub_resource type="Animation" id="Animation_lhnaf"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Regen:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Regen:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Regen:scale:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Regen:surface_material_override/0:shader_parameter/_shield_intensity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hmfc"]
+_data = {
+"RESET": SubResource("Animation_lhnaf"),
+"regen": SubResource("Animation_dhn5i")
+}
 
 [node name="Bonfire" type="Node3D"]
 script = SubResource("GDScript_i0ddj")
@@ -115,6 +242,23 @@ omni_range = 8.20327
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.159433, 0)
 shape = SubResource("CylinderShape3D_rougu")
+
+[node name="SparksSFX" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38971, 0)
+stream = ExtResource("4_ub3nb")
+unit_size = 5.0
+max_db = 0.0
+max_distance = 3.65
+
+[node name="Regen" type="MeshInstance3D" parent="."]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.299833, 0)
+mesh = SubResource("SphereMesh_wbjqe")
+surface_material_override/0 = SubResource("ShaderMaterial_u8mbr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6hmfc")
+}
 
 [connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]
 

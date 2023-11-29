@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7rem752jfkjr"
-path="res://.godot/imported/cliff_rocks_01_ambient_occlusion_1k.png-27ddd42c004c409c076f240b88e34c6f.ctex"
+path.s3tc="res://.godot/imported/cliff_rocks_01_ambient_occlusion_1k.png-27ddd42c004c409c076f240b88e34c6f.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/rock_ground/cliff_rocks_01_ambient_occlusion_1k.png"
-dest_files=["res://.godot/imported/cliff_rocks_01_ambient_occlusion_1k.png-27ddd42c004c409c076f240b88e34c6f.ctex"]
+dest_files=["res://.godot/imported/cliff_rocks_01_ambient_occlusion_1k.png-27ddd42c004c409c076f240b88e34c6f.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

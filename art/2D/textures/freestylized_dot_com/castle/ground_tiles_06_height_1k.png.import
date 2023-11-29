@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyma5gmbg4g3v"
-path="res://.godot/imported/ground_tiles_06_height_1k.png-4dc0d24072b5fc655c9dea15999f940d.ctex"
+path.s3tc="res://.godot/imported/ground_tiles_06_height_1k.png-4dc0d24072b5fc655c9dea15999f940d.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/castle/ground_tiles_06_height_1k.png"
-dest_files=["res://.godot/imported/ground_tiles_06_height_1k.png-4dc0d24072b5fc655c9dea15999f940d.ctex"]
+dest_files=["res://.godot/imported/ground_tiles_06_height_1k.png-4dc0d24072b5fc655c9dea15999f940d.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

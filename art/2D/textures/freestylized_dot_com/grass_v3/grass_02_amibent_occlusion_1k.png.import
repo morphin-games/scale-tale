@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://41k0jekypune"
-path="res://.godot/imported/grass_02_amibent_occlusion_1k.png-457cf5883d46a451d2b67529fde1a5d6.ctex"
+path.s3tc="res://.godot/imported/grass_02_amibent_occlusion_1k.png-457cf5883d46a451d2b67529fde1a5d6.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/grass_v3/grass_02_amibent_occlusion_1k.png"
-dest_files=["res://.godot/imported/grass_02_amibent_occlusion_1k.png-457cf5883d46a451d2b67529fde1a5d6.ctex"]
+dest_files=["res://.godot/imported/grass_02_amibent_occlusion_1k.png-457cf5883d46a451d2b67529fde1a5d6.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

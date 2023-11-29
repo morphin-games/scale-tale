@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8j58kmwao0ic"
-path="res://.godot/imported/vines_roughness.png-9175782cac27443bf9901750fa212e8e.ctex"
+path.s3tc="res://.godot/imported/vines_roughness.png-9175782cac27443bf9901750fa212e8e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freepbr_dot_com/vines/vines_roughness.png"
-dest_files=["res://.godot/imported/vines_roughness.png-9175782cac27443bf9901750fa212e8e.ctex"]
+dest_files=["res://.godot/imported/vines_roughness.png-9175782cac27443bf9901750fa212e8e.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

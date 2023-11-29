@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bi8ivhp6sqvr1"]
+[gd_scene load_steps=49 format=3 uid="uid://bi8ivhp6sqvr1"]
 
 [ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_l4eaf"]
 [ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stompable_3d.gd" id="2_2rhaw"]
@@ -22,11 +22,6 @@ chance = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4rmbh"]
 size = Vector3(2, 2, 2)
-
-[sub_resource type="PrismMesh" id="PrismMesh_nwpyt"]
-size = Vector3(2, 2, 2)
-
-[sub_resource type="PrismMesh" id="PrismMesh_ojgij"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu8ra"]
 resource_name = "Hueso"
@@ -355,6 +350,81 @@ size = Vector3(2.38513, 2.37923, 2.44417)
 [sub_resource type="SphereShape3D" id="SphereShape3D_ssvfo"]
 radius = 30.0
 
+[sub_resource type="Animation" id="Animation_a3jmx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Mesh/Head/Jaw:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Mesh/RLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Mesh/LLeg:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Mesh/LArm:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh/Mesh/RArm:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Mesh/Head:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_qs13r"]
 resource_name = "idle"
 length = 10.0
@@ -362,7 +432,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Mesh/Skel/Head/Jaw:rotation")
+tracks/0/path = NodePath("Mesh/Mesh/Head/Jaw:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -374,7 +444,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Mesh/Skel/RLeg:rotation")
+tracks/1/path = NodePath("Mesh/Mesh/RLeg:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -386,7 +456,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Mesh/Skel/LLeg:rotation")
+tracks/2/path = NodePath("Mesh/Mesh/LLeg:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -398,7 +468,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Mesh/Skel/LArm:rotation")
+tracks/3/path = NodePath("Mesh/Mesh/LArm:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -410,7 +480,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Mesh/Skel/RArm:rotation")
+tracks/4/path = NodePath("Mesh/Mesh/RArm:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -422,7 +492,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Mesh/Skel/Head:rotation")
+tracks/5/path = NodePath("Mesh/Mesh/Head:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -432,81 +502,6 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.305433, 0), Vector3(0, 0.305433, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.20944, 0), Vector3(0, -0.20944, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_a3jmx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Mesh/Skel/Head/Jaw:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Mesh/Skel/RLeg:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Mesh/Skel/LLeg:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Mesh/Skel/LArm:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Mesh/Skel/RArm:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Mesh/Skel/Head:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_7so2i"]
 resource_name = "run"
 length = 2.0
@@ -514,7 +509,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Mesh/Skel/LArm:rotation")
+tracks/0/path = NodePath("Mesh/Mesh/LArm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -526,7 +521,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Mesh/Skel/RArm:rotation")
+tracks/1/path = NodePath("Mesh/Mesh/RArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -538,7 +533,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Mesh/Skel/LLeg:rotation")
+tracks/2/path = NodePath("Mesh/Mesh/LLeg:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -550,7 +545,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Mesh/Skel/RLeg:rotation")
+tracks/3/path = NodePath("Mesh/Mesh/RLeg:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -562,7 +557,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Mesh/Skel/Head/Jaw:rotation")
+tracks/4/path = NodePath("Mesh/Mesh/Head/Jaw:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -633,114 +628,85 @@ shape = SubResource("BoxShape3D_4rmbh")
 script = ExtResource("5_2rknf")
 scalable_3d = NodePath("../Scalable3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" index="0"]
-visible = false
-mesh = SubResource("PrismMesh_nwpyt")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" index="1"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
-visible = false
-mesh = SubResource("PrismMesh_ojgij")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Mesh" index="2"]
-transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0.5, 0, 0)
-visible = false
-mesh = SubResource("PrismMesh_ojgij")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Mesh" index="3"]
-transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, -0.707107, -0.707107, -3.09086e-08, -0.707107, 0.5, 0, 0)
-visible = false
-mesh = SubResource("PrismMesh_ojgij")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Mesh" index="4"]
-transform = Transform3D(-4.37114e-08, 1, 0, 0.707107, 3.09086e-08, 0.707107, 0.707107, 3.09086e-08, -0.707107, 0.5, 0, 0)
-visible = false
-mesh = SubResource("PrismMesh_ojgij")
-skeleton = NodePath("../..")
-
-[node name="Skel" type="Node3D" parent="Mesh" index="5"]
+[node name="Mesh" type="Node3D" parent="Mesh" index="0"]
 transform = Transform3D(5.96046e-08, 0, 3, 0, 3, 0, -3, 0, 5.96046e-08, 0, -0.606465, 0)
 
-[node name="Head" type="Node3D" parent="Mesh/Skel" index="0"]
+[node name="Head" type="Node3D" parent="Mesh/Mesh" index="0"]
 
-[node name="FireSmall" parent="Mesh/Skel/Head" index="0" instance=ExtResource("11_pswqp")]
+[node name="FireSmall" parent="Mesh/Mesh/Head" index="0" instance=ExtResource("11_pswqp")]
 transform = Transform3D(0.333333, 0, 0, 0, 0.309801, 0.123022, 0, -0.123022, 0.309801, 0, 0.506561, 0.000170986)
 visibility_aabb = AABB(-4, -4, -4.07422, 8, 8, 8)
 
-[node name="Cube_003" type="MeshInstance3D" parent="Mesh/Skel/Head" index="1"]
+[node name="Cube_003" type="MeshInstance3D" parent="Mesh/Mesh/Head" index="1"]
 transform = Transform3D(-0.015008, -3.45248e-09, 0, 4.89024e-09, -0.0105956, 0, 0, 0, 0.0105956, -0.00278229, 0.445532, 0.0613977)
 mesh = SubResource("ArrayMesh_8andh")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="Jaw" type="Node3D" parent="Mesh/Skel/Head" index="2"]
+[node name="Jaw" type="Node3D" parent="Mesh/Mesh/Head" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.417658, -0.0576428)
 
-[node name="Cube_002" type="MeshInstance3D" parent="Mesh/Skel/Head/Jaw" index="0"]
+[node name="Cube_002" type="MeshInstance3D" parent="Mesh/Mesh/Head/Jaw" index="0"]
 transform = Transform3D(0.015008, 0, 0, 0, 0.0105956, 0, 0, 0, 0.0105956, -0.00278229, -0.0275265, 0.11904)
 mesh = SubResource("ArrayMesh_ym43u")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="Cube_001" type="MeshInstance3D" parent="Mesh/Skel" index="1"]
+[node name="Cube_001" type="MeshInstance3D" parent="Mesh/Mesh" index="1"]
 transform = Transform3D(0.0126305, 0, 0, 0, 0.0126305, 0, 0, 0, 0.0154085, -0.00278229, -0.208808, 0.00630428)
 mesh = SubResource("ArrayMesh_npfxw")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="skeleton_002" type="MeshInstance3D" parent="Mesh/Skel" index="2"]
+[node name="skeleton_002" type="MeshInstance3D" parent="Mesh/Mesh" index="2"]
 transform = Transform3D(0.0183825, 0, 0, 0, 0, -0.0105794, 0, 0.0183825, 0, 0.0505865, 0.0983305, 0.00675434)
 mesh = SubResource("ArrayMesh_0hmy4")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="skeleton_003" type="MeshInstance3D" parent="Mesh/Skel" index="3"]
+[node name="skeleton_003" type="MeshInstance3D" parent="Mesh/Mesh" index="3"]
 transform = Transform3D(0.0156142, 0, 0, 0, 0, -0.0121569, 0, 0.0112937, 0, -0.00278229, 0.275824, 0.0145621)
 mesh = SubResource("ArrayMesh_e5di8")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="skeleton_004" type="MeshInstance3D" parent="Mesh/Skel" index="4"]
+[node name="skeleton_004" type="MeshInstance3D" parent="Mesh/Mesh" index="4"]
 transform = Transform3D(0.0168766, 0, 0, 0, 0, -0.0168766, 0, 0.0168766, 0, -0.00278229, 0.306254, -0.0149885)
 mesh = SubResource("ArrayMesh_yoxta")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="RLeg" type="Node3D" parent="Mesh/Skel" index="5"]
+[node name="RLeg" type="Node3D" parent="Mesh/Mesh" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0840997, 0.083815, 0.0240399)
 
-[node name="skeleton_014" type="MeshInstance3D" parent="Mesh/Skel/RLeg" index="0"]
+[node name="skeleton_014" type="MeshInstance3D" parent="Mesh/Mesh/RLeg" index="0"]
 transform = Transform3D(0.0146938, -0.000119349, -0.000157714, -0.000327293, 0.000360155, -0.00703374, 0.000106757, 0.0175311, 0.000143426, 0.0541728, -0.168158, 0.00422158)
 mesh = SubResource("ArrayMesh_g0da5")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="LLeg" type="Node3D" parent="Mesh/Skel" index="6"]
+[node name="LLeg" type="Node3D" parent="Mesh/Mesh" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.084, 0.084, 0.024)
 
-[node name="skeleton_001" type="MeshInstance3D" parent="Mesh/Skel/LLeg" index="0"]
+[node name="skeleton_001" type="MeshInstance3D" parent="Mesh/Mesh/LLeg" index="0"]
 transform = Transform3D(0.0146976, 2.04136e-11, -3.7395e-05, -7.81053e-05, 1.04518e-09, -0.00703687, -1.02663e-11, 0.0175352, 4.19436e-10, -0.113927, -0.168343, 0.00426153)
 mesh = SubResource("ArrayMesh_t4ubf")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="LArm" type="Node3D" parent="Mesh/Skel" index="7"]
+[node name="LArm" type="Node3D" parent="Mesh/Mesh" index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0991053, 0.321587, 0)
 
-[node name="Cube_022" type="MeshInstance3D" parent="Mesh/Skel/LArm" index="0"]
+[node name="Cube_022" type="MeshInstance3D" parent="Mesh/Mesh/LArm" index="0"]
 transform = Transform3D(0, 0.060297, 0, 0, 0, -0.125097, -0.096773, 0, 0, 0.129357, -0.00287366, -0.0187932)
 mesh = SubResource("ArrayMesh_mv71l")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_vp8wk")
 
-[node name="RArm" type="Node3D" parent="Mesh/Skel" index="8"]
+[node name="RArm" type="Node3D" parent="Mesh/Mesh" index="8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.099, 0.322, 0)
 
-[node name="Cube_006" type="MeshInstance3D" parent="Mesh/Skel/RArm" index="0"]
+[node name="Cube_006" type="MeshInstance3D" parent="Mesh/Mesh/RArm" index="0"]
 transform = Transform3D(0, 0.060297, 0, 0, 0, -0.125097, -0.096773, 0, 0, 0.327463, -0.00328709, -0.0187932)
 mesh = SubResource("ArrayMesh_44q62")
 skeleton = NodePath("")
@@ -778,7 +744,7 @@ animation_tree = NodePath("../AnimationTree")
 [node name="FireStinguiser" type="Node3D" parent="." index="13" node_paths=PackedStringArray("scalable", "particles")]
 script = SubResource("GDScript_g276e")
 scalable = NodePath("../Scalable3D")
-particles = NodePath("../Mesh/Skel/Head/FireSmall")
+particles = NodePath("../Mesh/Mesh/Head/FireSmall")
 
 [node name="BounceSFX" type="AudioStreamPlayer3D" parent="." index="14"]
 stream = ExtResource("13_rdgdd")

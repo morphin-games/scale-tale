@@ -18,6 +18,7 @@ signal grabbed_item_changed(body : Node3D)
 @export_category("UI")
 @export var ui_oxygen : TextureProgressBar
 @export var ui_courtain : ColorRect
+@export var ui_scale_adquired : Label
 @export_category("Debug")
 @export var debug : bool = false
 @export var debug_start_positon : Vector3
@@ -609,6 +610,38 @@ func _on_health_system_damaged() -> void:
 			
 		($HealthSystem as HealthSystem).damage_frozen = false
 	
+func get_gem() -> void:
+	var prev_current_camera : Camera3D = get_viewport().get_camera_3d()
+	set_process(false)
+	set_physics_process(false)
+	health_system.damage_frozen = true
+	$AnimationTree.set("parameters/move_or_gem/blend_amount", 1.0)
+	$Mesh/ScaleAdquired.current = true
+	$Mesh/NewMesh/LHand.visible = false
+	$Mesh/NewMesh/RHand.visible = false
+	$Mesh/NewMesh/LHand2.visible = false
+	$Mesh/NewMesh/RHand2.visible = false
+	$Mesh/NewMesh/AllBody/Head/LHand.visible = false
+	$Mesh/NewMesh/Vhand.visible = true
+	var su_tween : Tween = get_tree().create_tween()
+	su_tween.tween_property(ui_scale_adquired, "modulate:a", 1.0, 0.5)
+	
+	await get_tree().create_timer(2.75).timeout
+	set_process(true)
+	set_physics_process(true)
+	$AnimationTree.set("parameters/move_or_gem/blend_amount", 0.0)
+	prev_current_camera.current = true
+	$Mesh/NewMesh/LHand.visible = true
+	$Mesh/NewMesh/RHand.visible = true
+	$Mesh/NewMesh/LHand2.visible = true
+	$Mesh/NewMesh/RHand2.visible = true
+	$Mesh/NewMesh/AllBody/Head/LHand.visible = true
+	$Mesh/NewMesh/Vhand.visible = false
+	var sd_tween : Tween = get_tree().create_tween()
+	sd_tween.tween_property(ui_scale_adquired, "modulate:a", 0.0, 0.5)
+	
+	await get_tree().create_timer(0.5).timeout
+	health_system.damage_frozen = false
 	
 
 func _on_oxygen_zone_area_entered(area: Area3D) -> void:

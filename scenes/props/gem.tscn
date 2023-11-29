@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/classes/collectible_gem.gd" id="1_6le4d"]
 [ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="2_1s62c"]
-[ext_resource type="Material" uid="uid://u7uqr73oahun" path="res://materials/m_gem_available.tres" id="2_u1ior"]
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://materials/m_scale_coin.tres" id="3_5rivl"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="4_y1h21"]
 
@@ -74,6 +73,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_p622x")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7tqi"]
+transparency = 1
+albedo_color = Color(0, 1, 1, 0.627451)
+rim_enabled = true
+rim = 0.17
+rim_tint = 0.0
+clearcoat = 0.31
+refraction_enabled = true
+refraction_scale = 0.18
+grow_amount = 0.158
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kc6lw"]
 radius = 1.24129
 
@@ -97,7 +107,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 2.5)
 visible = false
 mesh = SubResource("ArrayMesh_q7yis")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("2_u1ior")
+surface_material_override/0 = SubResource("StandardMaterial3D_o7tqi")
 
 [node name="PlayerDetectArea3D" type="Area3D" parent="."]
 script = ExtResource("4_y1h21")

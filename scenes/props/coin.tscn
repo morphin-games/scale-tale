@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://materials/m_scale_coin.tres" id="3_ex8gu"]
 [ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="3_spk5r"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="5_niky3"]
-[ext_resource type="Material" uid="uid://u7uqr73oahun" path="res://materials/m_gem_available.tres" id="6_px674"]
+[ext_resource type="Material" uid="uid://nd0adh16ihvx" path="res://materials/m_gem_available.tres" id="6_px674"]
 [ext_resource type="AudioStream" uid="uid://dpuc1jm38js08" path="res://art/sfx/collectibles/coin.mp3" id="6_rgi6n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ggf4"]

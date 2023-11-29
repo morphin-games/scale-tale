@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dchww31yc3eo6"
-path="res://.godot/imported/ground_tiles_09_ao_r_m_h_1k.png-ddb91d81d32c46ed8785603828775795.ctex"
+path.s3tc="res://.godot/imported/ground_tiles_09_ao_r_m_h_1k.png-ddb91d81d32c46ed8785603828775795.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/ruins_floor/ground_tiles_09_ao_r_m_h_1k.png"
-dest_files=["res://.godot/imported/ground_tiles_09_ao_r_m_h_1k.png-ddb91d81d32c46ed8785603828775795.ctex"]
+dest_files=["res://.godot/imported/ground_tiles_09_ao_r_m_h_1k.png-ddb91d81d32c46ed8785603828775795.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

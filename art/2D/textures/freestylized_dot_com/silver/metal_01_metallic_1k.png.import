@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsh1d37wxa60b"
-path="res://.godot/imported/metal_01_metallic_1k.png-9edec5eedf754a120e10e7f59e534894.ctex"
+path.s3tc="res://.godot/imported/metal_01_metallic_1k.png-9edec5eedf754a120e10e7f59e534894.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/silver/metal_01_metallic_1k.png"
-dest_files=["res://.godot/imported/metal_01_metallic_1k.png-9edec5eedf754a120e10e7f59e534894.ctex"]
+dest_files=["res://.godot/imported/metal_01_metallic_1k.png-9edec5eedf754a120e10e7f59e534894.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

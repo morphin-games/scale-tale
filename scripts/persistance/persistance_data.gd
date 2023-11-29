@@ -16,6 +16,7 @@ enum GraphicalLevels {
 # Config
 @export var fullscreen : Array = [DisplayServer.WINDOW_MODE_FULLSCREEN, true]
 @export var resolution_scale : float = 1.0
+@export var texture_quality : float = 1.0
 @export var volume_db : float = 0.0
 @export var music_db : float = 0.0
 @export var effects_db : float = 0.0

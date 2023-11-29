@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cukcm3y2dt0c2"
-path="res://.godot/imported/wood_02_normal_1k.png-44f77bcdcc511a5079c07daef1d6d73e.ctex"
+path.s3tc="res://.godot/imported/wood_02_normal_1k.png-44f77bcdcc511a5079c07daef1d6d73e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://art/2D/textures/freestylized_dot_com/wood_v2/wood_02_normal_1k.png"
-dest_files=["res://.godot/imported/wood_02_normal_1k.png-44f77bcdcc511a5079c07daef1d6d73e.ctex"]
+dest_files=["res://.godot/imported/wood_02_normal_1k.png-44f77bcdcc511a5079c07daef1d6d73e.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

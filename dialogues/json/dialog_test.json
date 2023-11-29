@@ -23,6 +23,8 @@
 	{"name": "TutorialEnemies1", "text": "Skeletons must be downscaled before jumping on them\n[1/2]"},
 	{"name": "TutorialEnemies1", "text": "Snails can't be rescaled, but you must jump on them too\n[2/2]"},
 	
+	{"name": "BlackWall", "text": "The black wall seems to be cracked, maybe if someone threw something at it..."},
+	
 	{"name": "ZoneExitSign", "text": "Exit door"},
 	
 	{"name": "NpcRand1", "text": "The town's market is not what it used to be..."},
