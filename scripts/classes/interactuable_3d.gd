@@ -21,6 +21,8 @@ signal interacted
 
 var current_scale : Vector3 = Vector3.ONE
 var player_near : SPPlayer3D
+var player_near_persist : SPPlayer3D
+var enabled : bool = true
 
 func _ready() -> void:
 	$InteractionSprite.texture = interaction_sprite
@@ -36,8 +38,11 @@ func _ready() -> void:
 		))
 	
 func _input(event: InputEvent) -> void:
+	if(!enabled) : return
+	
 	if(event.is_action_pressed("ui_interact") and player_near != null):
-		emit_signal("interacted")
+		if(player_near.grabbed_item == null):
+			emit_signal("interacted")
 		
 	if(event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion):
 		$InteractionSprite.texture = interaction_sprite_pc
@@ -45,6 +50,7 @@ func _input(event: InputEvent) -> void:
 		$InteractionSprite.texture = interaction_sprite_console
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if(!enabled) : return
 	if(event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion):
 		$InteractionSprite.texture = interaction_sprite_pc
 	elif(event is InputEventJoypadButton or event is InputEventJoypadMotion):
@@ -55,8 +61,19 @@ func _process(delta: float) -> void:
 	scale = current_scale
 
 func _on_body_entered(body: Node3D) -> void:
+	if(!enabled) : return
 	if(body.name == "Player"):
-		if(show_interaction_sprite):
+		if(player_near_persist == null):
+			player_near_persist = body
+			(player_near_persist as SPPlayer3D).grabbed_item_changed.connect(Callable(func(p_body : PhysicsBody3D) -> void:
+				if(player_near != null):
+					if(p_body == null):
+						$InteractionSprite.visible = true
+					else:
+						$InteractionSprite.visible = false
+			))
+			
+		if(show_interaction_sprite and (body as SPPlayer3D).grabbed_item == null and GrabableDistanceSystem.grabables_near_player.size() == 0):
 			$InteractionSprite.visible = true
 		if(highlight_mesh != null):
 			highlight_mesh.get_active_material(material_surface).set_shader_parameter("outline_width", 5)

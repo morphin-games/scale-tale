@@ -404,16 +404,18 @@ func _physics_process(delta: float) -> void:
 			if(current_camera is CameraFollow3D):
 				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
 				if(scalables.size() > 0 and !current_camera.springed):
-					added_cam_scale = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
-					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
+					pass # Take into account object taken for zoom
+#					added_cam_scale = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
+#					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 	else:
 		added_cam_scale = 0.0
 		if(current_camera != null):
 			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
 			if(current_camera is CameraFollow3D):
 				if(prev_cam_data.keys().size() > 0):
-					current_camera.distance = prev_cam_data.distance
-					current_camera.height = prev_cam_data.height
+					pass # Return to previous camera when taking an object
+#					current_camera.distance = prev_cam_data.distance
+#					current_camera.height = prev_cam_data.height
 			
 				
 #	Item scaling functionality
