@@ -10,6 +10,7 @@ signal recovered
 @export var collision_shape : CollisionShape3D
 @export var player_detect_area : PlayerDetectArea3D
 @export var floor_checker : RayCast3D
+@export var scalable : Scalable3D
 @export_category("Speed")
 @onready var max_speed : float = 5.0
 @onready var speed : float = max_speed
@@ -59,7 +60,7 @@ func cancel_patrol() -> void:
 	
 func set_node_rotation(node : Node3D) -> void:
 	if(rotation.y == global_position.angle_to(target)): 
-		print("NOT ROTATION")
+		#print("NOT ROTATION")
 		return 
 	if(node == null) : return
 	if global_transform.origin.is_equal_approx(target):return
@@ -84,7 +85,7 @@ func behaviour(delta : float) -> void:
 	if(status == EnemyStatus.PATROLING and !floor_checker.is_colliding() and !safezoned):
 		safezoned = true
 		cancel_patrol()
-		var dir : Vector3 = $Mesh.global_transform.basis.z.normalized()
+#		var dir : Vector3 = $Mesh.global_transform.basis.z.normalized()
 		go_to(-target)
 		
 	if(player_visible and status != EnemyStatus.STUNNED):
@@ -93,7 +94,7 @@ func behaviour(delta : float) -> void:
 		target = player.global_transform.origin
 		if($Front.is_colliding()):
 			if($Front.get_collider().name != "Player"):
-				if(player.global_position.y > global_position.y):
+				if(player.global_position.y > global_position.y and is_on_floor()):
 					velocity.y = 10.0
 					move_and_slide()
 					

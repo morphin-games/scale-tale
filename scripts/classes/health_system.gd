@@ -14,7 +14,7 @@ var damage_frozen : bool = false
 var respawning : bool = false
 
 func damage(ammount : int) -> void:
-	print(health)
+	#print(health)
 	if(damage_frozen or respawning) : return
 	health -= ammount
 	emit_signal("damaged")

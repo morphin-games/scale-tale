@@ -11,6 +11,8 @@ bounce = 0.6
 [sub_resource type="GDScript" id="GDScript_30s5s"]
 script/source = "extends RigidBody3D
 
+@onready var scalable = $Scalable3D
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	print(body.name)
 	if(($Scalable3D as Scalable3D).current_scale.x < 3.5): return

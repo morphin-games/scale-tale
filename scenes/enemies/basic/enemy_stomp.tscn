@@ -603,12 +603,13 @@ func _process(delta: float) -> void:
 		particles.emitting = false
 "
 
-[node name="EnemyStomp" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area") instance=ExtResource("1_l4eaf")]
+[node name="EnemyStomp" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area", "scalable") instance=ExtResource("1_l4eaf")]
 script = ExtResource("2_2rhaw")
 drops = Array[ExtResource("4_vb1jx")]([SubResource("Resource_oj01y")])
 stompable = NodePath("Stompable3D")
 collision_shape = NodePath("CollisionShapeScalable3D")
 player_detect_area = NodePath("PlayerDetectArea3D")
+scalable = NodePath("Scalable3D")
 
 [node name="Stompable3D" type="Node3D" parent="." index="0" node_paths=PackedStringArray("enemy", "player_detector", "scalable", "killed_sfx", "bounce_sfx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99307, 0)
@@ -627,6 +628,9 @@ root = NodePath("..")
 shape = SubResource("BoxShape3D_4rmbh")
 script = ExtResource("5_2rknf")
 scalable_3d = NodePath("../Scalable3D")
+
+[node name="Front" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="Mesh" type="Node3D" parent="Mesh" index="0"]
 transform = Transform3D(5.96046e-08, 0, 3, 0, 3, 0, -3, 0, 5.96046e-08, 0, -0.606465, 0)

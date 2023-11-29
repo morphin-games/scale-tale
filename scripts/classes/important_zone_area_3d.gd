@@ -15,8 +15,8 @@ func _ready() -> void:
 	body_entered.connect(Callable(func(body : PhysicsBody3D) -> void:
 		if(played) : return
 		if(body.name == "Player"):
-			print("lol")	
-			print("pririri")
+			#print("lol")	
+			#print("pririri")
 			played = true
 			ui.anounce(zone_name)
 			if(sfx != null):
@@ -25,6 +25,6 @@ func _ready() -> void:
 	
 	body_exited.connect(Callable(func(body : PhysicsBody3D) -> void:
 		if(body.name == "Player"):
-			print("lol")
+			#print("lol")
 			played = false
 	))

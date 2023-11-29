@@ -14,6 +14,7 @@ interaction_sprite_console = ExtResource("2_svbaa")
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 2, 0)
 visible = false
 billboard = 1
+no_depth_test = true
 texture = ExtResource("2_svbaa")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

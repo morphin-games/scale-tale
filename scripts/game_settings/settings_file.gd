@@ -24,7 +24,7 @@ func load_data():
 	
 	file = FileAccess.open(SETTINGS_FILE,FileAccess.READ)
 	game_data = file.get_var()
-	print(game_data)
+	#print(game_data)
 	file.close()
 	
 func save_data():

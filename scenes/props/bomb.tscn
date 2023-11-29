@@ -9,6 +9,8 @@
 [sub_resource type="GDScript" id="GDScript_30s5s"]
 script/source = "extends RigidBody3D
 
+@onready var scalable = $Scalable3D
+
 var explodable : bool = false
 var explosion : PackedScene = preload(\"res://scenes/particle_effects/explosion.tscn\")
 var exploded : bool = false

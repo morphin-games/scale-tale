@@ -1,14 +1,22 @@
 extends Node
 
+signal grabable_added
+signal grabable_removed
+
 var player : SPPlayer3D
 var grabables_near_player : Array[Grabable3D]
 var all_disabled : bool = false
 
 func add_grabable(grabable : Grabable3D) -> void:
 	grabables_near_player.append(grabable)
+	#print(grabables_near_player)
+	emit_signal("grabable_added")
 	
 func remove_grabable(grabable : Grabable3D) -> void:
+	grabable.enabled = true
 	grabables_near_player.erase(grabable)
+	#print(grabables_near_player)
+	emit_signal("grabable_removed")
 	
 func _process(delta: float) -> void:
 	if(grabables_near_player.size() <= 0 or player == null): return

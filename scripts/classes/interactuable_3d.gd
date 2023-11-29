@@ -22,20 +22,38 @@ signal interacted
 var current_scale : Vector3 = Vector3.ONE
 var player_near : SPPlayer3D
 var player_near_persist : SPPlayer3D
-var enabled : bool = true
+var enabled : bool = true : 
+	set(new_enabled):
+		enabled = new_enabled
+		$InteractionSprite.visible = new_enabled
 
 func _ready() -> void:
 	$InteractionSprite.texture = interaction_sprite
 	set_process(fixed_rotation)
-	if(grabable != null):
-		grabable.grabbed.connect(Callable(func() -> void:
-			$InteractionSprite.visible = false
-		))
-		
-		grabable.ungrabbed.connect(Callable(func() -> void:
-			if(player_near == null): return
-			$InteractionSprite.visible = true
-		))
+#	if(grabable != null):
+#		grabable.grabbed.connect(Callable(func() -> void:
+#			$InteractionSprite.visible = false
+#		))
+#
+#		grabable.ungrabbed.connect(Callable(func() -> void:
+#			if(player_near == null): return
+#			$InteractionSprite.visible = true
+#		))
+#
+#	GrabableDistanceSystem.grabable_added.connect(Callable(func() -> void:
+#		$InteractionSprite.visible = false
+#	))
+#
+#	GrabableDistanceSystem.grabable_removed.connect(Callable(func() -> void:
+#		if(GrabableDistanceSystem.grabables_near_player.size() == 0):
+#			if(player_near != null):
+#				if(player_near.grabbed_item == null):
+#					$InteractionSprite.visible = true
+#					enabled = true
+#				else:
+#					$InteractionSprite.visible = false
+#					enabled = false
+#	))
 	
 func _input(event: InputEvent) -> void:
 	if(!enabled) : return
@@ -61,30 +79,31 @@ func _process(delta: float) -> void:
 	scale = current_scale
 
 func _on_body_entered(body: Node3D) -> void:
-	if(!enabled) : return
+#	if(!enabled) : return
 	if(body.name == "Player"):
-		if(player_near_persist == null):
-			player_near_persist = body
-			(player_near_persist as SPPlayer3D).grabbed_item_changed.connect(Callable(func(p_body : PhysicsBody3D) -> void:
-				if(player_near != null):
-					if(p_body == null):
-						$InteractionSprite.visible = true
-					else:
-						$InteractionSprite.visible = false
-			))
+		InteractuableDistanceSystem.add_interactuable(self)
+#		if(player_near_persist == null):
+#			player_near_persist = body
+#			(player_near_persist as SPPlayer3D).grabbed_item_changed.connect(Callable(func(p_body : PhysicsBody3D) -> void:
+#				if(player_near != null):
+#					if(p_body == null):
+#						$InteractionSprite.visible = true
+#						enabled = true
+#					else:
+#						$InteractionSprite.visible = false
+#						enabled = false
+#			))
 			
-		if(show_interaction_sprite and (body as SPPlayer3D).grabbed_item == null and GrabableDistanceSystem.grabables_near_player.size() == 0):
-			$InteractionSprite.visible = true
-		if(highlight_mesh != null):
-			highlight_mesh.get_active_material(material_surface).set_shader_parameter("outline_width", 5)
-			highlight_mesh.get_active_material(material_surface).set_shader_parameter("outline_color", interaction_color)
+#		if(show_interaction_sprite and (body as SPPlayer3D).grabbed_item == null and GrabableDistanceSystem.grabables_near_player.size() == 0):
+#			$InteractionSprite.visible = true
+#			enabled = true
 		player_near = body
 		if(grabable != null):
 			GrabableDistanceSystem.add_grabable(grabable)
 		
 func _on_body_exited(body: Node3D) -> void:
 	if(body.name == "Player"):
-		$InteractionSprite.visible = false
+		InteractuableDistanceSystem.remove_interactuable(self)
 		if(highlight_mesh != null):
 			highlight_mesh.get_active_material(material_surface).set_shader_parameter("outline_width", 0)
 		player_near = null
@@ -93,7 +112,7 @@ func _on_body_exited(body: Node3D) -> void:
 		if(npc_dialog != null):
 			npc_dialog.dialog_active = false
 	if DialogManager.is_dialog_active:
-		if DialogManager.text_box != null:			
+		if DialogManager.text_box != null:
 			DialogManager.is_dialog_active = false
 			DialogManager.current_line_index = 0
 			DialogManager.text_box.queue_free()

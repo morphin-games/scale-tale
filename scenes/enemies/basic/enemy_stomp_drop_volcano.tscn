@@ -18,10 +18,10 @@ drop = ExtResource("3_1v32q")
 chance = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pqxmu"]
-size = Vector3(2.3116, 1.55498, 1.01832)
+size = Vector3(2.3116, 1.30809, 1.01832)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cdqhv"]
-size = Vector3(2.60271, 1.85453, 1.33785)
+size = Vector3(2.98956, 1.76845, 1.44221)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8igkn"]
 radius = 30.0
@@ -79,8 +79,11 @@ killed_sfx = NodePath("../KillSFX")
 bounce_sfx = NodePath("../BounceSFX")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.167072, -0.181191, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.167072, -0.311226, 0)
 shape = SubResource("BoxShape3D_pqxmu")
+
+[node name="Front" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="Mesh" parent="Mesh" index="0" instance=ExtResource("6_1opuc")]
 transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, -0.388, -0.785, 0)

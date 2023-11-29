@@ -1,23 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnohm5mj6nbcc"]
+[gd_scene load_steps=3 format=3 uid="uid://bnohm5mj6nbcc"]
 
 [ext_resource type="PackedScene" uid="uid://cccr8a6rxvols" path="res://art/3D/models/crystal.glb" id="1_d6n6e"]
 [ext_resource type="Material" uid="uid://dqb28axlycd5e" path="res://materials/m_crystal.tres" id="2_588w6"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_4r3y2"]
-radius = 1.56709
 
 [node name="Crystal" type="Node3D"]
 
 [node name="crystal" parent="." instance=ExtResource("1_d6n6e")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="crystal"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14234, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="crystal/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0715985, 0)
-shape = SubResource("SphereShape3D_4r3y2")
-
-[node name="Crystal" parent="crystal" index="1"]
+[node name="Crystal" parent="crystal" index="0"]
 surface_material_override/0 = ExtResource("2_588w6")
 
 [node name="Circle" parent="crystal/Crystal" index="0"]

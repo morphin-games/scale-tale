@@ -17,10 +17,11 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="SafePositionChecker" type="RayCast3D" parent="."]
-target_position = Vector3(0, -1.5, 0)
+target_position = Vector3(0, -4, 0)
 hit_from_inside = true
 
 [node name="FloorChecker" type="Node3D" parent="."]
 
 [node name="RayCast3D" type="RayCast3D" parent="FloorChecker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35302, -0.551231, 0)
+target_position = Vector3(0, -4, 0)

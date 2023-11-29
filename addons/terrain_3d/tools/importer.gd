@@ -43,7 +43,7 @@ func update_heights(value) -> void:
 
 func start_import(value: bool) -> void:
 	if value:
-		print("Importing files:\n\t%s\n\t%s\n\t%s" % [ height_file_name, control_file_name, color_file_name])
+		#print("Importing files:\n\t%s\n\t%s\n\t%s" % [ height_file_name, control_file_name, color_file_name])
 		if not storage:
 			storage = Terrain3DStorage.new()
 
@@ -72,5 +72,5 @@ enum { TYPE_HEIGHT, TYPE_CONTROL, TYPE_COLOR }
 
 func start_export(value: bool) -> void:
 	var err: int = storage.export_image(file_name_out, map_type)
-	print("Export error status: ", err, " ", error_string(err))
+	#print("Export error status: ", err, " ", error_string(err))
 	

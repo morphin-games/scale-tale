@@ -1,10 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6s07jbaevk4v"]
+[gd_scene load_steps=13 format=3 uid="uid://b6s07jbaevk4v"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_nj541"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_r8801"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_bp5my"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_1lc6i"]
 [ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_kchgv"]
+
+[sub_resource type="GDScript" id="GDScript_k80lr"]
+script/source = "extends RigidBody3D
+
+@onready var scalable = $Scalable3D
+"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_deln8"]
 radius = 2.53683
@@ -50,6 +56,7 @@ shader_parameter/outline_width = 0.0
 size = Vector3(2, 2, 2)
 
 [node name="GrabableBox" type="RigidBody3D" groups=["Items"]]
+script = SubResource("GDScript_k80lr")
 
 [node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("1_nj541")

@@ -82,6 +82,7 @@ var direction : Vector2 = Vector2.ZERO :
 func _ready() -> void:
 	$AnimationPlayerAid.play("swim")
 	GrabableDistanceSystem.player = self
+	InteractuableDistanceSystem.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if(!debug):
 		respawn()
@@ -89,7 +90,7 @@ func _ready() -> void:
 		global_transform.origin = debug_start_positon
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
 	
-	print("GT: ", global_transform.origin)
+	#print("GT: ", global_transform.origin)
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
@@ -395,16 +396,18 @@ func _physics_process(delta: float) -> void:
 #	Item grab functionality
 	if(grabbed_item != null):
 		grabbed_item.global_transform.origin = $GrabPivot/Grabbed.global_transform.origin
-		if(Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd").size() > 0):
-			$GrabPivot/Grabbed.transform.origin.x = 1.5 + (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
-			$GrabPivot/Grabbed.transform.origin.y = (Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")[0] as Scalable3D).current_scale.x
+#		var scalables = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
+#		if(scalables.size() > 0):
+		if(is_scalable(grabbed_item)):
+			$GrabPivot/Grabbed.transform.origin.x = 1.5 + (grabbed_item.scalable as Scalable3D).current_scale.x
+			$GrabPivot/Grabbed.transform.origin.y = (grabbed_item.scalable as Scalable3D).current_scale.x
 		grabbed_item.global_rotation = $GrabPivot/Grabbed.global_rotation
-		if(current_camera != null):
-			camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
-			if(current_camera is CameraFollow3D):
-				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
-				if(scalables.size() > 0 and !current_camera.springed):
-					pass # Take into account object taken for zoom
+#		if(current_camera != null):
+#			# camera_view_direction = (current_camera.global_transform.origin - global_transform.origin).normalized()
+#			if(current_camera is CameraFollow3D):
+#				var scalables : Array[Node] = Utils.find_custom_nodes(grabbed_item, "res://scripts/classes/scalable_3d.gd")
+#				if(scalables.size() > 0 and !current_camera.springed):
+#					pass # Take into account object taken for zoom
 #					added_cam_scale = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 #					current_camera.distance = 7.0 + ((scalables[0] as Scalable3D).current_scale.x * 1.2)
 	else:
@@ -442,9 +445,10 @@ func _physics_process(delta: float) -> void:
 
 			for body in near_bodies:
 				if(is_instance_valid(body)):
-					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-					if(scalables.size() > 0):
-						(scalables[0] as Scalable3D).downscale(delta)
+#					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#					if(scalables.size() > 0):
+					if(is_scalable(body)):
+						(body.scalable as Scalable3D).downscale(delta)
 						if($SFXAudioStreamPlayer3D.playing == false):
 							$SFXAudioStreamPlayer3D.play()
 							scale_sfx_upscale()
@@ -473,9 +477,10 @@ func _physics_process(delta: float) -> void:
 				
 			for body in near_bodies:
 				if(is_instance_valid(body)):
-					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-					if(scalables.size() > 0):
-						(scalables[0] as Scalable3D).upscale(delta)
+#					var scalables : Array[Node] = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#					if(scalables.size() > 0):
+					if(is_scalable(body)):
+						(body.scalable as Scalable3D).upscale(delta)
 						if($SFXAudioStreamPlayer3D.playing == false):
 							$SFXAudioStreamPlayer3D.play()
 							scale_sfx_downscale()
@@ -499,17 +504,23 @@ func _physics_process(delta: float) -> void:
 	if(rescaling_item):
 		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, 0.0, 0.065)
 		for body in near_bodies:
-			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-			if(scalables.size() > 0):
-				if((scalables[0] as Scalable3D).particles != null):
-					(scalables[0] as Scalable3D).particles.set_number(60)
+			if(is_scalable(body)):
+				if((body.scalable as Scalable3D).particles != null):
+					(body.scalable as Scalable3D).particles.set_number(60)
+#			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#			if(scalables.size() > 0):
+#				if((scalables[0] as Scalable3D).particles != null):
+#					(scalables[0] as Scalable3D).particles.set_number(60)
 	else:
 		($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db = lerp(($NearBodies/RayVisualizer as RayVisualizer3D).audio.volume_db, -80.0, 0.065)
 		for body in near_bodies:
-			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-			if(scalables.size() > 0):
-				if((scalables[0] as Scalable3D).particles != null):
-					(scalables[0] as Scalable3D).particles.set_number(5)
+			if(is_scalable(body)):
+				if((body.scalable as Scalable3D).particles != null):
+					(body.scalable as Scalable3D).particles.set_number(60)
+#			var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#			if(scalables.size() > 0):
+#				if((scalables[0] as Scalable3D).particles != null):
+#					(scalables[0] as Scalable3D).particles.set_number(5)
 					
 	if(player_state == PlayerStates.SWIMMING):
 		$SwimFootsteps.volume_db = -20.0
@@ -526,22 +537,32 @@ func play_water_drop_sfx() -> void:
 
 func add_near_body(body : Node3D) -> void:
 	if(body.name == "Player"): return
-	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-	if(scalables.size() > 0):
-		if((scalables[0] as Scalable3D).particles != null):
-			(scalables[0] as Scalable3D).particles.emit(true)
+	if(is_scalable(body)):
+		if((body.scalable as Scalable3D).particles != null):
+			(body.scalable as Scalable3D).particles.emit(true)
 			if(rescaling_item):
-				(scalables[0] as Scalable3D).particles.set_number(60)
+				(body.scalable as Scalable3D).particles.set_number(60)
 			else:
-				(scalables[0] as Scalable3D).particles.set_number(5)
+				(body.scalable as Scalable3D).particles.set_number(5)
+#	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#	if(scalables.size() > 0):
+#		if((scalables[0] as Scalable3D).particles != null):
+#			(scalables[0] as Scalable3D).particles.emit(true)
+#			if(rescaling_item):
+#				(scalables[0] as Scalable3D).particles.set_number(60)
+#			else:
+#				(scalables[0] as Scalable3D).particles.set_number(5)
 		
 	near_bodies.append(body)
 
 func erase_near_body(body : Node3D) -> void:
-	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
-	if(scalables.size() > 0):
-		if((scalables[0] as Scalable3D).particles != null):
-			(scalables[0] as Scalable3D).particles.emit(false)
+	if(is_scalable(body)):
+		if((body.scalable as Scalable3D).particles != null):
+			(body.scalable as Scalable3D).particles.emit(false)
+#	var scalables : Array = Utils.find_custom_nodes(body, "res://scripts/classes/scalable_3d.gd")
+#	if(scalables.size() > 0):
+#		if((scalables[0] as Scalable3D).particles != null):
+#			(scalables[0] as Scalable3D).particles.emit(false)
 	near_bodies.erase(body)
 
 func _on_near_bodies_body_entered(body: Node3D) -> void:
@@ -556,7 +577,10 @@ func _on_near_bodies_body_exited(body: Node3D) -> void:
 	erase_near_body(body)
 
 func respawn(transition : bool = false) -> void:
-	if((Persistance.persistance_data as PersistanceData).respawn_position != null):
+#	if((Persistance.persistance_data as PersistanceData).respawn_position != null):
+#		global_transform.origin = (Persistance.persistance_data as PersistanceData).respawn_position
+		
+	if((Persistance.persistance_data as PersistanceData).respawn_position != Vector3.ZERO):
 		global_transform.origin = (Persistance.persistance_data as PersistanceData).respawn_position
 
 func scale_sfx_downscale():
@@ -611,6 +635,12 @@ func _on_health_system_damaged() -> void:
 			await get_tree().create_timer(0.09).timeout
 			
 		($HealthSystem as HealthSystem).damage_frozen = false
+	
+func is_scalable(item : Node3D) -> bool:
+	if("scalable" in item):
+		return item.scalable as Scalable3D != null
+	return false
+			
 	
 func get_gem() -> void:
 	var prev_current_camera : Camera3D = get_viewport().get_camera_3d()
