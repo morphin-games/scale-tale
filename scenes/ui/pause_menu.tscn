@@ -135,6 +135,10 @@ func _on_button_4_pressed() -> void:
 	toggle()
 	game_manager.game_paused = false
 	player.health_system.damage(6)
+	get_tree().call_group(\"Enemies\", \"queue_free\")
+	get_tree().call_group(\"Items\", \"queue_free\")
+	get_tree().call_group(\"EnemySpawners\", \"spawn\")
+	get_tree().call_group(\"ItemSpawners\", \"spawn\")
 	
 "
 

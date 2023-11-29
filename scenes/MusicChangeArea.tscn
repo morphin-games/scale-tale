@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://b780dbnaqi5xy"]
+
+[sub_resource type="GDScript" id="GDScript_moc01"]
+script/source = "extends Area3D
+
+@onready var music_over_secret = $\"../MusicSecret\"
+@onready var music_overworld = $\"../MusicNormal\"
+
+
+
+func _on_body_entered(body: Node3D) -> void:
+	if body.name == \"Player\": 
+		music_overworld.volume_db = -80
+		music_over_secret.volume_db = -10
+		AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index(\"Effects\"),0,true)
+
+func _on_body_exited(body: Node3D) -> void:
+	if body.name == \"Player\": 
+		music_overworld.volume_db = -10
+		music_over_secret.volume_db = -80
+		AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index(\"Effects\"),0,false)
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uw4sr"]
+
+[node name="MusicChangeArea" type="Area3D"]
+script = SubResource("GDScript_moc01")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_uw4sr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

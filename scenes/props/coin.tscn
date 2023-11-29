@@ -4,8 +4,8 @@
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://materials/m_scale_coin.tres" id="3_ex8gu"]
 [ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="3_spk5r"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="5_niky3"]
-[ext_resource type="Material" uid="uid://nd0adh16ihvx" path="res://materials/m_gem_available.tres" id="6_px674"]
-[ext_resource type="AudioStream" uid="uid://dpuc1jm38js08" path="res://art/sfx/collectibles/coin.mp3" id="6_rgi6n"]
+[ext_resource type="AudioStream" uid="uid://dhe5toyl5agc3" path="res://art/sfx/collectibles/coinv2.mp3" id="6_7fpgu"]
+[ext_resource type="Material" uid="uid://u7uqr73oahun" path="res://materials/m_gem_available.tres" id="6_px674"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ggf4"]
 
@@ -97,14 +97,16 @@ script = ExtResource("5_niky3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectArea3D"]
 shape = SubResource("SphereShape3D_2xxyu")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("6_rgi6n")
-bus = &"Effects"
-
 [node name="Mesh2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 2.5)
 mesh = SubResource("ArrayMesh_1fbo0")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_px674")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_7fpgu")
+volume_db = -8.0
+max_db = -3.0
+bus = &"Effects"
 
 [connection signal="player_entered" from="PlayerDetectArea3D" to="." method="_on_player_detect_area_3d_player_entered"]
