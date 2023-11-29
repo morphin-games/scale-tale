@@ -56,6 +56,7 @@ static func play_3d_sound_at(sound : AudioStreamMP3, location : Vector3, parent 
 	audio_stream.volume_db = config.volume_db
 	audio_stream.pitch_scale = config.pitch_scale
 	audio_stream.unit_size = config.unit_size
+	audio_stream.set_bus("Effects")
 	audio_stream.finished.connect(Callable(func() -> void:
 		audio_stream.queue_free()
 	))

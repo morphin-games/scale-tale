@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7vkqcbux72wk"]
+[gd_scene load_steps=11 format=3 uid="uid://c7vkqcbux72wk"]
 
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://materials/m_scale_coin.tres" id="1_8jyx7"]
 [ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="1_etkmn"]
+[ext_resource type="AudioStream" uid="uid://dhe5toyl5agc3" path="res://art/sfx/collectibles/coinv2.mp3" id="3_2m7k5"]
 
 [sub_resource type="Gradient" id="Gradient_mljqe"]
 offsets = PackedFloat32Array(0.487544, 1)
@@ -67,3 +68,8 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_kgxpg")
 draw_pass_1 = SubResource("ArrayMesh_1awpo")
 script = ExtResource("1_etkmn")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_2m7k5")
+max_db = -3.0
+bus = &"Effects"

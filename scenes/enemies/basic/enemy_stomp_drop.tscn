@@ -45,9 +45,8 @@ nodes/run/node = SubResource("AnimationNodeAnimation_xibh4")
 nodes/run/position = Vector2(-203.91, 195.245)
 node_connections = [&"output", 0, &"idle_or_run", &"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run"]
 
-[sub_resource type="Animation" id="Animation_aqdh1"]
-resource_name = "idle"
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_isnsq"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -61,8 +60,9 @@ tracks/0/keys = {
 "values": [Vector3(1.36, 1.36, 1.36)]
 }
 
-[sub_resource type="Animation" id="Animation_isnsq"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_aqdh1"]
+resource_name = "idle"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
