@@ -12,7 +12,7 @@
 [ext_resource type="Material" uid="uid://cl64gh2mcanuj" path="res://materials/m_bone.tres" id="9_vp8wk"]
 [ext_resource type="PackedScene" uid="uid://ck0tdwoixnrau" path="res://scenes/particle_effects/fire_small.tscn" id="11_pswqp"]
 [ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="12_cuhu3"]
-[ext_resource type="AudioStream" uid="uid://c0lt66rqvk0hs" path="res://art/sfx/damage/bounce.mp3" id="13_rdgdd"]
+[ext_resource type="AudioStream" uid="uid://cccyxsi30ag8x" path="res://art/sfx/damage/bouncev2.mp3" id="13_k4bl3"]
 [ext_resource type="AudioStream" uid="uid://xxq08jr5emnt" path="res://art/sfx/damage/skeletonv2.mp3" id="14_wq77v"]
 
 [sub_resource type="Resource" id="Resource_oj01y"]
@@ -751,7 +751,7 @@ scalable = NodePath("../Scalable3D")
 particles = NodePath("../Mesh/Mesh/Head/FireSmall")
 
 [node name="BounceSFX" type="AudioStreamPlayer3D" parent="." index="14"]
-stream = ExtResource("13_rdgdd")
+stream = ExtResource("13_k4bl3")
 bus = &"Effects"
 
 [node name="KillSFX" type="AudioStreamPlayer3D" parent="." index="15"]
