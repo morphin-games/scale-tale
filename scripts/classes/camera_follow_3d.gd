@@ -95,7 +95,7 @@ func _process(delta: float) -> void:
 	angle -= camera_direction_x * delta * 4.0 * cam_speed_x * invert_cam_x
 	
 	var camera_direction_y : float = Input.get_axis("ui_down_camera", "ui_up_camera")
-	height += camera_direction_y * delta * 8.0 * cam_speed_y * invert_cam_x
+	height += camera_direction_y * delta * 8.0 * cam_speed_y * invert_cam_y
 
 func _physics_process(delta: float) -> void:
 	direction = Vector2.RIGHT.from_angle(angle).normalized() * distance

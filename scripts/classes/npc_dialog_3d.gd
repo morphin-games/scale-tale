@@ -1,6 +1,8 @@
 class_name NpcDialog3D
 extends Node3D
 
+@export var interactuable : Interactuable3D
+
 #@onready var speech_sound:AudioStream = preload("res://art/sfx/talk_effect.wav")
 @onready var speech_sound = $AudioStreamPlayer3D
 var dialog_active = false : 
@@ -45,3 +47,12 @@ func _ready() -> void:
 func _on_interactuable_interacted() -> void:
 	dialog_active = true
 	DialogManager.start_dialog(global_position, dialogue, speech_sound, self)
+
+
+func _on_interactuable_body_exited(body: Node3D) -> void:
+	if(DialogManager.is_dialog_active):
+		DialogManager.is_dialog_active = false
+		DialogManager.text_box.queue_free()
+		DialogManager.can_advance_line = false
+		DialogManager.current_line_index = 0
+		DialogManager.dialog_lines = []

@@ -34,7 +34,7 @@ func show_text_box():
 	text_box.global_position = text_box_position
 	text_box.display_text(dialog_lines[current_line_index],sfx)
 	can_advance_line = false
-	(text_box as Sprite3D).no_depth_test = true
+#	(text_box as Sprite3D).no_depth_test = true
 
 func _on_text_box_finished_displaying():
 	can_advance_line = true

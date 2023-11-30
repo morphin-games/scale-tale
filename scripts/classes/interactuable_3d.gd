@@ -111,8 +111,8 @@ func _on_body_exited(body: Node3D) -> void:
 			GrabableDistanceSystem.remove_grabable(grabable)
 		if(npc_dialog != null):
 			npc_dialog.dialog_active = false
-	if DialogManager.is_dialog_active:
-		if DialogManager.text_box != null:
-			DialogManager.is_dialog_active = false
-			DialogManager.current_line_index = 0
-			DialogManager.text_box.queue_free()
+#	if DialogManager.is_dialog_active:
+#		if DialogManager.text_box != null:
+#			DialogManager.is_dialog_active = false
+#			DialogManager.current_line_index = 0
+#			DialogManager.text_box.queue_free()

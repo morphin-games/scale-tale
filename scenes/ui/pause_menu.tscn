@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://j6ri7bkkvs4r"]
+[gd_scene load_steps=8 format=3 uid="uid://j6ri7bkkvs4r"]
 
 [ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_xiroe"]
 [ext_resource type="PackedScene" uid="uid://25r75xgdpwqg" path="res://scenes/ui/settings.tscn" id="2_f65l3"]
@@ -153,6 +153,21 @@ func _ready() -> void:
 	))
 "
 
+[sub_resource type="GDScript" id="GDScript_17yu4"]
+script/source = "extends Control
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var gems : int = min(5, (Persistance.persistance_data as PersistanceData).taken_gems.size())
+	for i in range(0, gems):
+		($Gems.get_child(i) as TextureRect).modulate = Color(0, 1.4, 2.0)
+	
+	Persistance.persistance_data_changed.connect(Callable(func() -> void:
+		for i in range(0, gems):
+			($Gems.get_child(i) as TextureRect).modulate = Color(0, 1.4, 2.0)
+	))
+"
+
 [node name="pause_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -209,6 +224,7 @@ texture = ExtResource("3_y2jnv")
 expand_mode = 2
 
 [node name="Coins" type="HBoxContainer" parent="CollecCounters"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.131
@@ -232,6 +248,71 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_aj61m")
 expand_mode = 2
+
+[node name="GemCounter" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xiroe")
+script = SubResource("GDScript_17yu4")
+metadata/_edit_use_anchors_ = true
+
+[node name="Gems" type="HBoxContainer" parent="GemCounter"]
+modulate = Color(1.5, 1.5, 1.5, 0.8)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 396.0
+offset_top = 17.0
+offset_right = -396.0
+offset_bottom = -652.0
+grow_horizontal = 2
+theme_override_constants/separation = -200
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GemCounter/Gems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_aj61m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="GemCounter/Gems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_aj61m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="GemCounter/Gems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_aj61m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="GemCounter/Gems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_aj61m")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="GemCounter/Gems"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_aj61m")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

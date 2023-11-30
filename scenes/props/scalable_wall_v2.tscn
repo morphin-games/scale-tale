@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://ceqa8d5beu8up"]
+[gd_scene load_steps=11 format=3 uid="uid://ceqa8d5beu8up"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_6afgj"]
 [ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="3_43kxf"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_oists"]
+
+[sub_resource type="GDScript" id="GDScript_vsebr"]
+script/source = "extends RigidBody3D
+
+@onready var scalable = $Scalable3D
+"
 
 [sub_resource type="BoxMesh" id="BoxMesh_h88xo"]
 size = Vector3(2, 2, 2)
@@ -48,6 +54,7 @@ size = Vector3(12, 12, 4)
 size = Vector3(12, 12, 4)
 
 [node name="ScalableWall" type="RigidBody3D"]
+script = SubResource("GDScript_vsebr")
 
 [node name="Scalable3D" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("1_6afgj")

@@ -9,8 +9,9 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mq8fi"]
 radius = 3.97996
 
-[node name="npc_test" type="Node3D"]
+[node name="npc_test" type="Node3D" node_paths=PackedStringArray("interactuable")]
 script = ExtResource("1_j34y0")
+interactuable = NodePath("Interactuable")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -28,4 +29,5 @@ stream = ExtResource("2_je4kh")
 volume_db = 3.0
 emission_angle_degrees = 34.0
 
+[connection signal="body_exited" from="Interactuable" to="." method="_on_interactuable_body_exited"]
 [connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]
