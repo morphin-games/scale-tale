@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/classes/distance_enabler_3d.gd" id="8_br5vb"]
 [ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="10_of4dt"]
 [ext_resource type="AudioStream" uid="uid://c0lt66rqvk0hs" path="res://art/sfx/damage/bounce.mp3" id="11_qqwb7"]
-[ext_resource type="AudioStream" uid="uid://hpm4duler1pi" path="res://art/sfx/damage/damage_taken.mp3" id="12_h6oqk"]
+[ext_resource type="AudioStream" uid="uid://ca4o8xhdcnkl2" path="res://art/sfx/damage/snail.mp3" id="12_x5o14"]
 
 [sub_resource type="Resource" id="Resource_2mlj6"]
 script = ExtResource("3_7l78g")
@@ -161,7 +161,7 @@ stream = ExtResource("11_qqwb7")
 bus = &"Effects"
 
 [node name="KillSFX" type="AudioStreamPlayer3D" parent="." index="13"]
-stream = ExtResource("12_h6oqk")
+stream = ExtResource("12_x5o14")
 volume_db = 5.0
 bus = &"Effects"
 
