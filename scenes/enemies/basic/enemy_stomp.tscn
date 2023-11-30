@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ck0tdwoixnrau" path="res://scenes/particle_effects/fire_small.tscn" id="11_pswqp"]
 [ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="12_cuhu3"]
 [ext_resource type="AudioStream" uid="uid://c0lt66rqvk0hs" path="res://art/sfx/damage/bounce.mp3" id="13_rdgdd"]
-[ext_resource type="AudioStream" uid="uid://5phtiusl1ch2" path="res://art/sfx/damage/skelyde.wav" id="14_xnelm"]
+[ext_resource type="AudioStream" uid="uid://xxq08jr5emnt" path="res://art/sfx/damage/skeletonv2.mp3" id="14_wq77v"]
 
 [sub_resource type="Resource" id="Resource_oj01y"]
 script = ExtResource("4_vb1jx")
@@ -755,5 +755,5 @@ stream = ExtResource("13_rdgdd")
 bus = &"Effects"
 
 [node name="KillSFX" type="AudioStreamPlayer3D" parent="." index="15"]
-stream = ExtResource("14_xnelm")
+stream = ExtResource("14_wq77v")
 bus = &"Effects"

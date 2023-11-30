@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ht5upw5kcrgt"]
+[gd_scene load_steps=6 format=3 uid="uid://ht5upw5kcrgt"]
 
 [ext_resource type="Script" path="res://scripts/classes/platform_body_3d.gd" id="1_cwbbu"]
 [ext_resource type="Script" path="res://scripts/classes/damage_area_3d.gd" id="2_6fkhe"]
 [ext_resource type="PackedScene" uid="uid://ctessw6gxcdtv" path="res://scenes/particle_effects/sparks_blue.tscn" id="3_70cls"]
+[ext_resource type="AudioStream" uid="uid://cq5xbwam8oy7e" path="res://art/sfx/damage/electric.mp3" id="4_aa64a"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_56qob"]
 radius = 0.475158
@@ -17,3 +18,9 @@ script = ExtResource("2_6fkhe")
 shape = SubResource("SphereShape3D_56qob")
 
 [node name="Fire" parent="." instance=ExtResource("3_70cls")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_aa64a")
+volume_db = -10.0
+autoplay = true
+bus = &"Effects"

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/classes/chest_3d.gd" id="1_simyc"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="3_6kvpg"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="4_gukrv"]
-[ext_resource type="AudioStream" uid="uid://m2bn1rbg5asu" path="res://art/sfx/collectibles/chest.wav" id="5_csaae"]
+[ext_resource type="AudioStream" uid="uid://chxbeyo01x13c" path="res://art/sfx/collectibles/chestv2.mp3" id="5_s4fhd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_emxoi"]
 height = 1.56154
@@ -296,8 +296,9 @@ transform = Transform3D(-5.96046e-08, 0, 1, 0, 1, 0, -1, 0, -5.96046e-08, 2.9137
 rotator_active = false
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_csaae")
+stream = ExtResource("5_s4fhd")
 pitch_scale = 1.2
+bus = &"Effects"
 
 [connection signal="player_entered" from="PlayerDetectArea3D" to="." method="_on_player_detect_area_3d_player_entered"]
 
