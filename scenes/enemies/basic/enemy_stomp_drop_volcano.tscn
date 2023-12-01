@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://q1gjti8wpcpq" path="res://art/3D/models/caracol_volcan.glb" id="6_1opuc"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="8_1qcp7"]
 [ext_resource type="Script" path="res://scripts/classes/distance_enabler_3d.gd" id="9_d7lvl"]
+[ext_resource type="AudioStream" uid="uid://cccyxsi30ag8x" path="res://art/sfx/damage/bouncev2.mp3" id="10_t0nkc"]
 [ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="10_vsqnx"]
-[ext_resource type="AudioStream" uid="uid://c0lt66rqvk0hs" path="res://art/sfx/damage/bounce.mp3" id="11_hhxr7"]
 [ext_resource type="AudioStream" uid="uid://ca4o8xhdcnkl2" path="res://art/sfx/damage/snail.mp3" id="13_a27yl"]
 
 [sub_resource type="Resource" id="Resource_2mlj6"]
@@ -119,7 +119,7 @@ animation = NodePath("../AnimationPlayer")
 animation_tree = NodePath("../AnimationTree")
 
 [node name="BounceSFX" type="AudioStreamPlayer3D" parent="." index="12"]
-stream = ExtResource("11_hhxr7")
+stream = ExtResource("10_t0nkc")
 bus = &"Effects"
 
 [node name="KillSFX" type="AudioStreamPlayer3D" parent="." index="13"]

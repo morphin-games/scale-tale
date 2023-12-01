@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxxjkan3j4yxm"]
+[gd_scene load_steps=19 format=3 uid="uid://bxxjkan3j4yxm"]
 
 [ext_resource type="PackedScene" uid="uid://cgshqok4kso7m" path="res://scenes/particle_effects/fire.tscn" id="1_jmd3f"]
 [ext_resource type="PackedScene" uid="uid://dxr6mo5cbrils" path="res://art/3D/mapping/hoguera01.glb" id="1_yrlaq"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_v6h4y"]
 [ext_resource type="AudioStream" uid="uid://biy2if8cnab71" path="res://art/sfx/ambience_sfx/bonfire.mp3" id="4_ub3nb"]
 [ext_resource type="Shader" path="res://shaders/regen.gdshader" id="5_oonlj"]
+[ext_resource type="AudioStream" uid="uid://daviktljpeq2b" path="res://art/sfx/collectibles/heal.mp3" id="6_rq6cs"]
 
 [sub_resource type="GDScript" id="GDScript_i0ddj"]
 script/source = "extends Node3D
@@ -16,7 +17,7 @@ func _on_interactuable_interacted() -> void:
 	get_tree().call_group(\"Items\", \"queue_free\")
 	get_tree().call_group(\"EnemySpawners\", \"spawn\")
 	get_tree().call_group(\"ItemSpawners\", \"spawn\")
-	
+	$AudioStreamPlayer3D.play()
 	$AnimationPlayer.play(\"regen\")
 	($Interactuable as Interactuable3D).player_near.health_system.heal(6)
 "
@@ -246,9 +247,12 @@ shape = SubResource("CylinderShape3D_rougu")
 [node name="SparksSFX" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38971, 0)
 stream = ExtResource("4_ub3nb")
+volume_db = 50.0
 unit_size = 5.0
 max_db = 0.0
-max_distance = 3.65
+autoplay = true
+max_distance = 5.0
+bus = &"Effects"
 
 [node name="Regen" type="MeshInstance3D" parent="."]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.299833, 0)
@@ -259,6 +263,10 @@ surface_material_override/0 = SubResource("ShaderMaterial_u8mbr")
 libraries = {
 "": SubResource("AnimationLibrary_6hmfc")
 }
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_rq6cs")
+bus = &"Effects"
 
 [connection signal="interacted" from="Interactuable" to="." method="_on_interactuable_interacted"]
 

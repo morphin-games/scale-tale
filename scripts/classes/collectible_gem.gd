@@ -27,6 +27,7 @@ func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
 			player.credits()
 		
 	var data : AudioStream3DData = AudioStream3DData.new()
+	data.volume_db = -10
 	Utils.play_3d_sound_at(load("res://art/sfx/pick_up_sfx/gema.mp3"), global_transform.origin, get_parent(), data)
 	
 	queue_free()
