@@ -18,6 +18,10 @@ func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
 	if((Persistance.persistance_data as PersistanceData).taken_gems.has(gem_id)):
 		(inst as GPUParticlesIPOS3D).draw_pass_1.surface_set_material(0, load("res://materials/m_gem_taken.tres"))
 	
+	var data : AudioStream3DData = AudioStream3DData.new()
+	data.volume_db = -10
+	Utils.play_3d_sound_at(load("res://art/sfx/pick_up_sfx/gema.mp3"), global_transform.origin, get_parent(), data)
+	
 	if(!(Persistance.persistance_data as PersistanceData).taken_gems.has(gem_id)):
 		(Persistance.persistance_data as PersistanceData).taken_gems.append(gem_id)
 		player.get_gem()
@@ -26,8 +30,5 @@ func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
 		if((Persistance.persistance_data as PersistanceData).taken_gems.size() >= 5):
 			player.credits()
 		
-	var data : AudioStream3DData = AudioStream3DData.new()
-	data.volume_db = -10
-	Utils.play_3d_sound_at(load("res://art/sfx/pick_up_sfx/gema.mp3"), global_transform.origin, get_parent(), data)
 	
 	queue_free()
