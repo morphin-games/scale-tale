@@ -9,6 +9,7 @@ func _ready() -> void:
 	if(video != null):
 		video.finished.connect(Callable(func() -> void:
 			get_tree().change_scene_to_packed(next_scene)
+			video.visible = false
 		))
 		
 	if(anim != null):

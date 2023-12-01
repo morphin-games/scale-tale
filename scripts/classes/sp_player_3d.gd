@@ -7,6 +7,7 @@ signal scaling_stopped
 signal near_body_entered(body : Node3D)
 signal near_body_exited(body : Node3D)
 signal grabbed_item_changed(body : Node3D)
+signal gem_taken_animation_finished
 
 @export var health_system : HealthSystem
 @export_category("Controls")
@@ -19,12 +20,14 @@ signal grabbed_item_changed(body : Node3D)
 @export var ui_oxygen : TextureProgressBar
 @export var ui_courtain : ColorRect
 @export var ui_scale_adquired : Label
+@export var ui_fader : InLevelFader
 @export_category("Debug")
 @export var debug : bool = false
 @export var debug_start_positon : Vector3
 
 @onready var r_acceleration : float = acceleration
 @onready var speed : float = max_speed
+@onready var invalid_drop_sfx : AudioStreamPlayer = $InvalidDropSFX
 
 enum PlayerStates {
 	IDLE = 0
@@ -40,8 +43,7 @@ enum PlayerStates {
 	,CLIMBING = 7
 }
 
-var stuck : bool = false
-var stuck_time : float = 0.0
+var stuck_items : Array[PhysicsBody3D] = []
 var explosion : PackedScene = preload("res://scenes/particle_effects/smoke.tscn")
 var added_cam_scale : float = 0.0
 var time_since_oxygen_damage : float = 2.0
@@ -89,8 +91,6 @@ func _ready() -> void:
 	else:
 		global_transform.origin = debug_start_positon
 	$NearBodies/RayVisualizer/RayMesh/RayActive.play("active")
-	
-	#print("GT: ", global_transform.origin)
 
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey):
@@ -99,13 +99,16 @@ func _input(event: InputEvent) -> void:
 			v_tween.tween_property(self, "velocity:y", 0.0, 0.1)
 			
 func _process(delta: float) -> void:
-#	if(stuck):
-#		stuck_time += delta
-#		if(stuck_time >= 5.0):
-#			global_transform.origin.y -= 2.0
-#			stuck_time = 0.0
-#			stuck = false
-	
+	if(grabbed_item != null):
+		$DropCollider.enabled = true
+		if(is_grabable(grabbed_item)):
+			$DropCollider.target_position.x = 2.5
+			if(is_scalable(grabbed_item)):
+				$DropCollider.target_position.x = 3.5 + (grabbed_item.scalable as Scalable3D).current_scale.x
+	else:
+		$DropCollider.target_position.x = 0.0
+		$DropCollider.enabled = false
+		
 	if(ui_oxygen != null):
 		if(($OxygenSystem as OxygenSystem).health <= ($OxygenSystem as OxygenSystem).max_health / 4):
 			$SFXOxy.volume_db = 0.0
@@ -199,6 +202,7 @@ func _physics_process(delta: float) -> void:
 	
 	$NearBodies.rotation.y = %Mesh.rotation.y
 	$WallHangers.rotation.y = %Mesh.rotation.y
+	$DropCollider.rotation.y = %Mesh.rotation.y
 	
 	if(velocity.y < -100.0):
 		$WallHangers.scale.x = 1.0
@@ -617,15 +621,13 @@ func _on_health_system_damaged() -> void:
 		respawn()
 		
 		await get_tree().create_timer(0.5).timeout
+		health_system.heal(6)
 		var c_tween_2 : Tween = get_tree().create_tween()
 		c_tween_2.tween_property(ui_courtain, "modulate:a", 0.0, 0.5)
 		
 		await c_tween_2.finished
 		ui_courtain.visible = false
 		health_system.respawning = false
-		for i in range(0, 6):
-			health_system.heal(1)
-			await get_tree().create_timer(0.14).timeout
 	else:
 		($HealthSystem as HealthSystem).damage_frozen = true
 		for i in range(0, 8):
@@ -640,7 +642,15 @@ func is_scalable(item : Node3D) -> bool:
 	if("scalable" in item):
 		return item.scalable as Scalable3D != null
 	return false
+	
+func is_grabable(item : Node3D) -> bool:
+	if("grabable" in item):
+		return item.grabable as Grabable3D != null
+	return false
 			
+func is_drop_position_valid() -> bool:
+	var valid : bool = !$DropCollider.is_colliding() or $DropCollider.get_collider() is EnemyBody3D or $DropCollider.get_collider() == grabbed_item
+	return valid
 	
 func get_gem() -> void:
 	var prev_current_camera : Camera3D = get_viewport().get_camera_3d()
@@ -671,9 +681,15 @@ func get_gem() -> void:
 	$Mesh/NewMesh/Vhand.visible = false
 	var sd_tween : Tween = get_tree().create_tween()
 	sd_tween.tween_property(ui_scale_adquired, "modulate:a", 0.0, 0.5)
+	emit_signal("gem_taken_animation_finished")
 	
 	await get_tree().create_timer(0.5).timeout
 	health_system.damage_frozen = false
+	
+func credits() -> void:
+	ui_fader.fade_in()
+	await ui_fader.faded_in
+	get_tree().change_scene_to_file("res://scenes/credits.tscn")
 	
 
 func _on_oxygen_zone_area_entered(area: Area3D) -> void:
@@ -698,12 +714,9 @@ func _on_oxygen_zone_body_exited(body: Node3D) -> void:
 
 
 func _on_stuck_zone_body_entered(body: Node3D) -> void:
-	if(body.name != "player"):
-		stuck_time = 0.0
-		stuck = true
-
+	if(body.name != "Player"):
+		stuck_items.append(body)
 
 func _on_stuck_zone_body_exited(body: Node3D) -> void:
-	if(body.name != "player"):
-		stuck_time = 0.0
-		stuck = false
+	if(body.name != "Player"):
+		stuck_items.erase(body)

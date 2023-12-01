@@ -12,7 +12,6 @@ func _ready() -> void:
 
 
 func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
-	
 	var inst : GPUParticlesIPOS3D = ipos.instantiate()
 	get_parent().add_child(inst)
 	inst.global_transform = global_transform
@@ -23,6 +22,9 @@ func _on_player_detect_area_3d_player_entered(player : SPPlayer3D) -> void:
 		(Persistance.persistance_data as PersistanceData).taken_gems.append(gem_id)
 		player.get_gem()
 		Persistance.save()
+		await player.gem_taken_animation_finished
+		if((Persistance.persistance_data as PersistanceData).taken_gems.size() >= 5):
+			player.credits()
 		
 	var data : AudioStream3DData = AudioStream3DData.new()
 	Utils.play_3d_sound_at(load("res://art/sfx/pick_up_sfx/gema.mp3"), global_transform.origin, get_parent(), data)

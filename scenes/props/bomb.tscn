@@ -1,15 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://da2kgb6gyvowc"]
+[gd_scene load_steps=19 format=3 uid="uid://da2kgb6gyvowc"]
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_0m4mt"]
 [ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_2o4h8"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_2gkg8"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="4_hncct"]
 [ext_resource type="PackedScene" uid="uid://b0mrtl78f21n0" path="res://art/3D/models/bomb.glb" id="5_gk77t"]
+[ext_resource type="Script" path="res://scripts/classes/rigid_contact_sound_3d.gd" id="6_cvgcp"]
+[ext_resource type="AudioStream" uid="uid://bx1k7yn6swk0v" path="res://art/sfx/hit/generic_hit.mp3" id="7_jjw44"]
 
 [sub_resource type="GDScript" id="GDScript_30s5s"]
 script/source = "extends RigidBody3D
 
-@onready var scalable = $Scalable3D
+@onready var scalable : Scalable3D = $Scalable3D
+@onready var grabable : Grabable3D = $GrabableRigid3D
 
 var explodable : bool = false
 var explosion : PackedScene = preload(\"res://scenes/particle_effects/explosion.tscn\")
@@ -162,6 +165,16 @@ surface_material_override/0 = SubResource("ShaderMaterial_doskr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ExplodeArea"]
 shape = SubResource("SphereShape3D_p1wkv")
+
+[node name="RigidContactSound3D" type="Node3D" parent="." node_paths=PackedStringArray("contact_sfx")]
+script = ExtResource("6_cvgcp")
+contact_sfx = NodePath("AudioStreamPlayer3D")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RigidContactSound3D"]
+stream = ExtResource("7_jjw44")
+max_distance = 22.0
+max_polyphony = 5
+bus = &"Effects"
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="ExplodeArea" to="." method="_on_explode_area_body_entered"]

@@ -1,32 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://25r75xgdpwqg"]
+[gd_scene load_steps=5 format=3 uid="uid://25r75xgdpwqg"]
 
 [ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
 [ext_resource type="Script" path="res://scripts/classes/syncro_label.gd" id="2_a8se4"]
+[ext_resource type="Script" path="res://scripts/classes/gamepad_h_slider.gd" id="2_js1jv"]
 
 [sub_resource type="GDScript" id="GDScript_lf7rh"]
 script/source = "extends Control
 
 @onready var back_button : Button = $Back_Button
 
+@onready var gameplay = $TabContainer/Gameplay
+@onready var video = $TabContainer/Video
+@onready var audio = $TabContainer/Audio
 
 func _ready() -> void:
 	visibility_changed.connect(Callable(func() -> void:
-		$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.value = (Persistance.persistance_data as PersistanceData).cam_speed_x
-		$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2/CamSensY.value = (Persistance.persistance_data as PersistanceData).cam_speed_y
-		$TabContainer/Gameplay/MarginContainer/VideoSettings/InvertX.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_x
-		$TabContainer/Gameplay/MarginContainer/VideoSettings/InvertY.button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_y
-		$TabContainer/Video/MarginContainer/VideoSettings/ResScale/ResScaleBar.value = (Persistance.persistance_data as PersistanceData).resolution_scale
-		$TabContainer/Video/MarginContainer/VideoSettings/TexScale/TexScaleBar.value = abs(((Persistance.persistance_data as PersistanceData).texture_quality / 5.0) - 1.0)
-		$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.value = (Persistance.persistance_data as PersistanceData).volume_db
-		$TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX.value = (Persistance.persistance_data as PersistanceData).effects_db
-		$TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic.value = (Persistance.persistance_data as PersistanceData).music_db
+		gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer/CamSensX\").value = (Persistance.persistance_data as PersistanceData).cam_speed_x
+		gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer2/CamSensY\").value = (Persistance.persistance_data as PersistanceData).cam_speed_y
+		gameplay.get_node(\"MarginContainer/VideoSettings/InvertX\").button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_x
+		gameplay.get_node(\"MarginContainer/VideoSettings/InvertY\").button_pressed = (Persistance.persistance_data as PersistanceData).invert_cam_y
+		video.get_node(\"MarginContainer/VideoSettings/ResScale/ResScaleBar\").value = (Persistance.persistance_data as PersistanceData).resolution_scale
+		video.get_node(\"MarginContainer/VideoSettings/TexScale/TexScaleBar\").value = abs(((Persistance.persistance_data as PersistanceData).texture_quality / 5.0) - 1.0)
+		audio.get_node(\"MarginContainer/VideoSettings/SliderMaster\").value = (Persistance.persistance_data as PersistanceData).volume_db
+		audio.get_node(\"MarginContainer/VideoSettings/SliderSFX\").value = (Persistance.persistance_data as PersistanceData).effects_db
+		audio.get_node(\"MarginContainer/VideoSettings/SliderMusic\").value = (Persistance.persistance_data as PersistanceData).music_db
 		
 		if((Persistance.persistance_data as PersistanceData).fullscreen[0] == 3):
-			$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.select(1)
+			video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").select(1)
 		else:
-			$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.select(0)
+			video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").select(0)
 	))
-	$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
+	gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer/CamSensX\").grab_focus()
 
 func _on_windows_mode_button_item_selected(index: int) -> void:
 	match index:
@@ -67,11 +71,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		$TabContainer.current_tab = $TabContainer.current_tab +1
 		match $TabContainer.current_tab:
 			0:
-				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
+				gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer/CamSensX\").grab_focus()
 			1:
-				$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.grab_focus()
+				video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").grab_focus()
 			2:
-				$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.grab_focus()
+				audio.get_node(\"MarginContainer/VideoSettings/SliderMaster\").grab_focus()
 		print($TabContainer.current_tab)
 		
 	if Input.is_action_just_pressed(\"ui_tab_prev\"):
@@ -81,12 +85,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		$TabContainer.current_tab = $TabContainer.current_tab -1
 		match $TabContainer.current_tab:
 			0:
-				$TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX.grab_focus()
+				gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer/CamSensX\").grab_focus()
 			1:
-				$TabContainer/Video/MarginContainer/VideoSettings/WindowsModeButton.grab_focus()
+				video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").grab_focus()
 			2:
-				$TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster.grab_focus()
+				audio.get_node(\"MarginContainer/VideoSettings/SliderMaster\").grab_focus()
 		print($TabContainer.current_tab)
+		
+	if(event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion):
+		gameplay.name = \"Gameplay\"
+		video.name = \"Video\"
+		audio.name = \"Audio\"
+	elif(event is InputEventJoypadButton or event is InputEventJoypadMotion):
+		set_tabs()
 		
 func _on_check_button_toggled(button_pressed: bool) -> void:
 	GlobalSettings.change_vsync(button_pressed) 
@@ -131,6 +142,21 @@ func _on_tex_scale_bar_value_changed(value: float) -> void:
 	get_viewport().texture_mipmap_bias = 5.0 - value * 5.0
 	(Persistance.persistance_data as PersistanceData).texture_quality = 5.0 - value * 5.0
 	Persistance.save()
+
+
+func set_tabs() -> void:
+	if($TabContainer.current_tab == 0):
+		gameplay.name = \"Gameplay\"
+		video.name = \"Video [R]\"
+		audio.name = \"Audio\"
+	elif($TabContainer.current_tab == 1):
+		gameplay.name = \"Gameplay [L]\"
+		video.name = \"Video\"
+		audio.name = \"Audio [R]\"
+	elif($TabContainer.current_tab == 2):
+		gameplay.name = \"Gameplay\"
+		video.name = \"Video [L]\"
+		audio.name = \"Audio\"
 "
 
 [node name="Settings" type="Control"]
@@ -165,6 +191,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Gameplay" type="TabBar" parent="TabContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_right = NodePath("../Video")
 
@@ -204,6 +231,7 @@ min_value = 0.05
 max_value = 3.0
 step = 0.05
 value = 1.0
+script = ExtResource("2_js1jv")
 
 [node name="sensXLabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer" node_paths=PackedStringArray("slider")]
 custom_minimum_size = Vector2(100, 0)
@@ -235,6 +263,7 @@ min_value = 0.05
 max_value = 3.0
 step = 0.05
 value = 1.0
+script = ExtResource("2_js1jv")
 
 [node name="sensYLabel" type="Label" parent="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2" node_paths=PackedStringArray("slider")]
 custom_minimum_size = Vector2(100, 0)
@@ -267,6 +296,7 @@ focus_neighbor_top = NodePath("../InvertX")
 focus_neighbor_bottom = NodePath("../../../../../Back_Button")
 
 [node name="Video" type="TabBar" parent="TabContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 focus_neighbor_right = NodePath("../Audio")
@@ -343,6 +373,7 @@ min_value = 0.1
 max_value = 1.0
 step = 0.05
 value = 1.0
+script = ExtResource("2_js1jv")
 
 [node name="sensYLabel" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings/ResScale" node_paths=PackedStringArray("slider")]
 custom_minimum_size = Vector2(100, 0)
@@ -370,6 +401,7 @@ min_value = 0.1
 max_value = 1.0
 step = 0.05
 value = 1.0
+script = ExtResource("2_js1jv")
 
 [node name="sensYLabel" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings/TexScale" node_paths=PackedStringArray("slider")]
 custom_minimum_size = Vector2(100, 0)
@@ -381,6 +413,7 @@ script = ExtResource("2_a8se4")
 slider = NodePath("../TexScaleBar")
 
 [node name="Audio" type="TabBar" parent="TabContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
@@ -413,6 +446,7 @@ size_flags_vertical = 4
 min_value = -80.0
 max_value = 0.0
 rounded = true
+script = ExtResource("2_js1jv")
 
 [node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
 layout_mode = 2
@@ -426,6 +460,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 min_value = -80.0
 max_value = 0.0
+script = ExtResource("2_js1jv")
 
 [node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
 layout_mode = 2
@@ -439,6 +474,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 min_value = -80.0
 max_value = 0.0
+script = ExtResource("2_js1jv")
 
 [node name="Back_Button" type="Button" parent="."]
 layout_mode = 2
@@ -454,6 +490,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Go back"
 
+[connection signal="tab_changed" from="TabContainer" to="." method="_on_tab_container_tab_changed"]
 [connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer/CamSensX" to="." method="_on_cam_sens_x_value_changed"]
 [connection signal="value_changed" from="TabContainer/Gameplay/MarginContainer/VideoSettings/HBoxContainer2/CamSensY" to="." method="_on_cam_sens_y_value_changed"]
 [connection signal="toggled" from="TabContainer/Gameplay/MarginContainer/VideoSettings/InvertX" to="." method="_on_invert_x_toggled"]

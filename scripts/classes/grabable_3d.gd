@@ -28,19 +28,25 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("ui_interact") and Time.get_unix_time_from_system() - time_taken > 0.33):
 		if(player != null):
-			drop()
-#			player.erase_near_body(item)
-			time_ungrabbed = Time.get_unix_time_from_system()
-			player = null
-			GrabableDistanceSystem.all_disabled = false
+			if(player.is_drop_position_valid()):
+				drop()
+	#			player.erase_near_body(item)
+				time_ungrabbed = Time.get_unix_time_from_system()
+				player = null
+				GrabableDistanceSystem.all_disabled = false
+			else:
+				player.invalid_drop_sfx.play(0.64)
 			
 	if(event.is_action_pressed("ui_throw") and Time.get_unix_time_from_system() - time_taken > 0.33):
 		if(player != null):
-			throw()
-#			player.erase_near_body(item)
-			time_ungrabbed = Time.get_unix_time_from_system()
-			player = null
-			GrabableDistanceSystem.all_disabled = false
+			if(player.is_drop_position_valid()):
+				throw()
+	#			player.erase_near_body(item)
+				time_ungrabbed = Time.get_unix_time_from_system()
+				player = null
+				GrabableDistanceSystem.all_disabled = false
+			else:
+				player.invalid_drop_sfx.play(0.64)
 	
 func set_colliders_disabled(disabled : bool) -> void:
 	for collider in item.get_children(true):
