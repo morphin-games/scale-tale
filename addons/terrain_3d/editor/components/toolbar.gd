@@ -13,8 +13,11 @@ const ICON_HEIGHT_FLAT: String = "res://addons/terrain_3d/icons/icon_height_flat
 const ICON_HEIGHT_SMOOTH: String = "res://addons/terrain_3d/icons/icon_height_smooth.svg"
 const ICON_PAINT_TEXTURE: String = "res://addons/terrain_3d/icons/icon_brush.svg"
 const ICON_SPRAY_TEXTURE: String = "res://addons/terrain_3d/icons/icon_spray.svg"
-const ICON_PAINT_COLOR: String = "res://addons/terrain_3d/icons/icon_color.svg"
-const ICON_PAINT_ROUGHNESS: String = "res://addons/terrain_3d/icons/icon_roughness.svg"
+const ICON_COLOR: String = "res://addons/terrain_3d/icons/icon_color.svg"
+const ICON_WETNESS: String = "res://addons/terrain_3d/icons/icon_wetness.svg"
+const ICON_AUTOSHADER: String = "res://addons/terrain_3d/icons/icon_terrain_material.svg"
+const ICON_HOLES: String = "res://addons/terrain_3d/icons/icon_holes.svg"
+const ICON_NAVIGATION: String = "res://addons/terrain_3d/icons/icon_navigation.svg"
 
 var tool_group: ButtonGroup = ButtonGroup.new()
 
@@ -36,17 +39,21 @@ func _ready() -> void:
 	add_tool_button(Terrain3DEditor.HEIGHT, Terrain3DEditor.REPLACE, "Flatten", load(ICON_HEIGHT_FLAT), tool_group)
 	add_tool_button(Terrain3DEditor.HEIGHT, Terrain3DEditor.AVERAGE, "Smooth", load(ICON_HEIGHT_SMOOTH), tool_group)
 	add_child(HSeparator.new())
-	add_tool_button(Terrain3DEditor.TEXTURE, Terrain3DEditor.REPLACE, "Paint Texture", load(ICON_PAINT_TEXTURE), tool_group)
-	add_tool_button(Terrain3DEditor.TEXTURE, Terrain3DEditor.ADD, "Spray Texture", load(ICON_SPRAY_TEXTURE), tool_group)
+	add_tool_button(Terrain3DEditor.TEXTURE, Terrain3DEditor.REPLACE, "Paint Base Texture", load(ICON_PAINT_TEXTURE), tool_group)
+	add_tool_button(Terrain3DEditor.TEXTURE, Terrain3DEditor.ADD, "Spray Overlay Texture", load(ICON_SPRAY_TEXTURE), tool_group)
+	add_tool_button(Terrain3DEditor.AUTOSHADER, Terrain3DEditor.REPLACE, "Autoshader", load(ICON_AUTOSHADER), tool_group)
 	add_child(HSeparator.new())
-	add_tool_button(Terrain3DEditor.COLOR, Terrain3DEditor.REPLACE, "Paint Color", load(ICON_PAINT_COLOR), tool_group)
-	add_tool_button(Terrain3DEditor.ROUGHNESS, Terrain3DEditor.REPLACE, "Paint Roughness", load(ICON_PAINT_ROUGHNESS), tool_group)
+	add_tool_button(Terrain3DEditor.COLOR, Terrain3DEditor.REPLACE, "Paint Color", load(ICON_COLOR), tool_group)
+	add_tool_button(Terrain3DEditor.ROUGHNESS, Terrain3DEditor.REPLACE, "Paint Wetness", load(ICON_WETNESS), tool_group)
+	add_child(HSeparator.new())
+	add_tool_button(Terrain3DEditor.HOLES, Terrain3DEditor.REPLACE, "Create Holes", load(ICON_HOLES), tool_group)
+	add_tool_button(Terrain3DEditor.NAVIGATION, Terrain3DEditor.REPLACE, "Paint Navigable Area", load(ICON_NAVIGATION), tool_group)
 
 	var buttons: Array[BaseButton] = tool_group.get_buttons()
 	buttons[0].set_pressed(true)
 
 
-func add_tool_button(p_tool: Terrain3DEditor.Tool, p_operation: Terrain3DEditor.Operation, 
+func add_tool_button(p_tool: Terrain3DEditor.Tool, p_operation: Terrain3DEditor.Operation,
 		p_tip: String, p_icon: Texture2D, p_group: ButtonGroup) -> void:
 		
 	var button: Button = Button.new()
@@ -59,8 +66,7 @@ func add_tool_button(p_tool: Terrain3DEditor.Tool, p_operation: Terrain3DEditor.
 	button.set_toggle_mode(true)
 	button.set_h_size_flags(SIZE_SHRINK_END)
 	add_child(button)
-		
+
 
 func _on_tool_selected(p_button: BaseButton) -> void:
 	emit_signal("tool_changed", p_button.get_meta("Tool", -1), p_button.get_meta("Operation", -1))
-	
