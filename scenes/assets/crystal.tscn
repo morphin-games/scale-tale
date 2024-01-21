@@ -22,4 +22,9 @@ surface_material_override/0 = ExtResource("2_588w6")
 [node name="Circle_003" parent="crystal/Crystal" index="3"]
 surface_material_override/0 = ExtResource("2_588w6")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08537, 0)
+light_color = Color(0.741176, 0, 0.537255, 1)
+light_energy = 10.0
+
 [editable path="crystal"]
