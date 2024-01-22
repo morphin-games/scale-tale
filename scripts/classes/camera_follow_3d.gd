@@ -45,9 +45,9 @@ func _ready() -> void:
 		invert_cam_x = 1
 		
 	if((Persistance.persistance_data as PersistanceData).invert_cam_y):
-		invert_cam_y = -1
-	else:
 		invert_cam_y = 1
+	else:
+		invert_cam_y = -1
 			
 	Persistance.persistance_data_changed.connect(Callable(func() -> void:
 		cam_speed_x = (Persistance.persistance_data as PersistanceData).cam_speed_x
@@ -58,9 +58,9 @@ func _ready() -> void:
 			invert_cam_x = 1
 			
 		if((Persistance.persistance_data as PersistanceData).invert_cam_y):
-			invert_cam_y = -1
-		else:
 			invert_cam_y = 1
+		else:
+			invert_cam_y = -1
 	))
 
 func _input(event: InputEvent) -> void:
