@@ -11,7 +11,7 @@ script/source = "extends Area3D
 func _on_body_entered(body: Node3D) -> void:
 	if body.name == \"Player\": 
 		directional_light.rotation_degrees.x = 80
-		directional_light.light_energy = 0
+		directional_light.light_energy = 0.3
 		print(\"Rotation\",directional_light.rotation)
 		
 		

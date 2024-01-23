@@ -22,15 +22,16 @@ func update_brightness(value):
 #AUDIO
 func update_master_vol(bus_idx, vol): #-50 min slider
 	AudioServer.set_bus_volume_db(bus_idx,linear_to_db(vol))
+	print("vol",vol)
 	match bus_idx:
 		0:
-			SettingsFile.game_data.master_vol = linear_to_db(vol)
+			SettingsFile.game_data.master_vol = vol
 			SettingsFile.save_data()
 		1:
-			SettingsFile.game_data.music_vol = linear_to_db(vol)
+			SettingsFile.game_data.music_vol = vol
 			SettingsFile.save_data()
 		2:
-			SettingsFile.game_data.sfx_vol = linear_to_db(vol)
+			SettingsFile.game_data.sfx_vol = vol
 			SettingsFile.save_data()
 
 func update_mouse_sens(value):

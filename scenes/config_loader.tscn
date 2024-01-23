@@ -10,9 +10,12 @@ func _ready() -> void:
 	get_viewport().texture_mipmap_bias = (Persistance.persistance_data as PersistanceData).texture_quality
 	DisplayServer.window_set_mode((Persistance.persistance_data as PersistanceData).fullscreen[0])
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, (Persistance.persistance_data as PersistanceData).fullscreen[1])
-	AudioServer.set_bus_volume_db(0, (Persistance.persistance_data as PersistanceData).volume_db)
-	AudioServer.set_bus_volume_db(1, (Persistance.persistance_data as PersistanceData).effects_db)
-	AudioServer.set_bus_volume_db(2, (Persistance.persistance_data as PersistanceData).music_db)
+	AudioServer.set_bus_volume_db(0, linear_to_db((Persistance.persistance_data as PersistanceData).volume_db))
+	print(\"vol_Master\",(Persistance.persistance_data as PersistanceData).volume_db)
+	AudioServer.set_bus_volume_db(1, linear_to_db((Persistance.persistance_data as PersistanceData).effects_db))
+	print(\"vol_sfx\",(Persistance.persistance_data as PersistanceData).effects_db)
+	AudioServer.set_bus_volume_db(2,linear_to_db((Persistance.persistance_data as PersistanceData).music_db))
+	print(\"vol_sfx\",(Persistance.persistance_data as PersistanceData).music_db)
 	
 	get_tree().change_scene_to_file(\"res://scenes/introductory/morphin_games.tscn\")
 "

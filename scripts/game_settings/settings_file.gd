@@ -15,9 +15,9 @@ func load_data():
 		game_data = {
 			"full_screen_on": false,
 			"vsync_on": false,
-			"master_vol": -10,
-			"music_vol": -10,
-			"sfx_vol": -10,
+			"master_vol": 0,
+			"music_vol": 0,
+			"sfx_vol": 0,
 			"mouse_sens": 0.002
 		}
 		save_data()
