@@ -497,7 +497,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -511,7 +511,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -525,7 +525,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Back_Button" type="Button" parent="."]
