@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/dancing_script.ttf-6d4b61de4fdb40394286f48a99
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

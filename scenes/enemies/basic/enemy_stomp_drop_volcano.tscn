@@ -42,7 +42,7 @@ nodes/idle_or_run/node = SubResource("AnimationNodeBlend2_2g16i")
 nodes/idle_or_run/position = Vector2(0, 100)
 nodes/run/node = SubResource("AnimationNodeAnimation_xibh4")
 nodes/run/position = Vector2(-203.91, 195.245)
-node_connections = [&"output", 0, &"idle_or_run", &"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run"]
+node_connections = [&"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run", &"output", 0, &"idle_or_run"]
 
 [sub_resource type="Animation" id="Animation_isnsq"]
 length = 0.001

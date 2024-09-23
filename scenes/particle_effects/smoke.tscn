@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="1_4yat1"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14yf2"]
+particle_flag_rotate_y = true
 emission_shape = 3
 emission_box_extents = Vector3(0.6, 0.3, 0.6)
-particle_flag_rotate_y = true
-direction = Vector3(0, 1, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 1.5
-initial_velocity_max = 2.0
 angle_min = -360.0
 angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
 color = Color(0.937255, 0.937255, 0.937255, 0.447059)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
