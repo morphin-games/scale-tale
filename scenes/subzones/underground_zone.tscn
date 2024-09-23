@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bi8ivhp6sqvr1" path="res://scenes/enemies/basic/enemy_stomp.tscn" id="5_4jyk2"]
 [ext_resource type="Script" path="res://scripts/classes/water_area_3d.gd" id="6_o1mav"]
 [ext_resource type="PackedScene" uid="uid://btlbjw8y0rbta" path="res://scenes/enemies/basic/enemy_stomp_drop.tscn" id="7_j6hjl"]
-[ext_resource type="Material" uid="uid://dhma2f41npqom" path="res://shaders/water/water_cool.tres" id="7_n5ngi"]
+[ext_resource type="Material" uid="uid://dhma2f41npqom" path="res://resources/shaders/water/water_cool.tres" id="7_n5ngi"]
 [ext_resource type="PackedScene" uid="uid://b6s07jbaevk4v" path="res://scenes/props/grabable_box.tscn" id="8_cbndo"]
 [ext_resource type="PackedScene" uid="uid://dlcsatdr35bbg" path="res://scenes/assets/door.tscn" id="9_4j3v8"]
 [ext_resource type="PackedScene" uid="uid://bxxjkan3j4yxm" path="res://scenes/props/bonfire.tscn" id="9_cpypn"]

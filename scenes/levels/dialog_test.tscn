@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cr53rsuby7qyv" path="res://scenes/player/player.tscn" id="1_bir06"]
 [ext_resource type="Script" path="res://scripts/classes/camera_follow_3d.gd" id="2_tu6q6"]
 [ext_resource type="PackedScene" uid="uid://v3g1medevgu4" path="res://scenes/props/tps.tscn" id="4_0xw5w"]
-[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://old_dialogues/npc_test.tscn" id="4_huek1"]
-[ext_resource type="PackedScene" uid="uid://d1cjwpxspno5e" path="res://shaders/post_process_outline/post_processing_underwater.tscn" id="5_vt2ky"]
+[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://resources/old_dialogues/npc_test.tscn" id="4_huek1"]
+[ext_resource type="PackedScene" uid="uid://d1cjwpxspno5e" path="res://resources/shaders/post_process_outline/post_processing_underwater.tscn" id="5_vt2ky"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b8cmg"]
 size = Vector3(15, 1, 15)

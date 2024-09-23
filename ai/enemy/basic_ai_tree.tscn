@@ -1,25 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmduh8560sctn"]
-
-[sub_resource type="Resource" id="Resource_oq6mj"]
-metadata/__load_path__ = "res://addons/beehave/nodes/beehave_tree.gd"
-
-[sub_resource type="Resource" id="Resource_q56q2"]
-metadata/__load_path__ = "res://addons/beehave/nodes/composites/sequence.gd"
-
-[sub_resource type="Resource" id="Resource_2m20x"]
-metadata/__load_path__ = "res://addons/beehave/nodes/leaves/blackboard_set.gd"
-
-[sub_resource type="Resource" id="Resource_qtlh2"]
-metadata/__load_path__ = "res://addons/beehave/nodes/leaves/blackboard_set.gd"
+[gd_scene format=3 uid="uid://bmduh8560sctn"]
 
 [node name="BasiAITree" type="Node"]
-script = SubResource("Resource_oq6mj")
 
 [node name="SequenceComposite" type="Node" parent="."]
-script = SubResource("Resource_q56q2")
 
 [node name="BlackboardSetAction" type="Node" parent="SequenceComposite"]
-script = SubResource("Resource_2m20x")
 
 [node name="BlackboardSetAction2" type="Node" parent="SequenceComposite"]
-script = SubResource("Resource_qtlh2")

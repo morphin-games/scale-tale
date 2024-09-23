@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3rfmem8olkep"]
 
 [ext_resource type="PackedScene" uid="uid://b110vb63rbghg" path="res://art/3D/models/sign.glb" id="1_pc3p4"]
-[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://materials/m_wood_2.tres" id="2_hkr24"]
-[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="3_0wg4u"]
+[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://resources/materials/m_wood_2.tres" id="2_hkr24"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://resources/materials/m_wood_1.tres" id="3_0wg4u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_amflp"]
 size = Vector3(0.483057, 1.46535, 1.07444)

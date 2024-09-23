@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d37v1kow3mp4n"]
 
-[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_qjquv"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_qjquv"]
 [ext_resource type="PackedScene" uid="uid://25r75xgdpwqg" path="res://scenes/ui/settings.tscn" id="2_81sfc"]
-[ext_resource type="FontFile" uid="uid://dn5irshhmekal" path="res://ui/fonts/playball.ttf" id="3_imop4"]
+[ext_resource type="FontFile" uid="uid://dn5irshhmekal" path="res://resources/ui/fonts/playball.ttf" id="3_imop4"]
 
 [sub_resource type="GDScript" id="GDScript_qq5uv"]
 script/source = "extends Control

@@ -1,15 +1,15 @@
 [gd_scene load_steps=64 format=4 uid="uid://djcviif6jlwof"]
 
-[ext_resource type="Material" uid="uid://byd6jy4altcm5" path="res://materials/m_dirt.tres" id="2_1h74b"]
-[ext_resource type="Material" uid="uid://cia8qfk1d8dmm" path="res://materials/m_grass_darker.tres" id="2_aw5px"]
+[ext_resource type="Material" uid="uid://byd6jy4altcm5" path="res://resources/materials/m_dirt.tres" id="2_1h74b"]
+[ext_resource type="Material" uid="uid://cia8qfk1d8dmm" path="res://resources/materials/m_grass_darker.tres" id="2_aw5px"]
 [ext_resource type="Texture2D" uid="uid://bth15fo51xi2w" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_color_1k.png" id="3_3tk37"]
 [ext_resource type="Texture2D" uid="uid://cn0b0t1r44g4h" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_ambient_occlusion_1k.png" id="4_u0x5i"]
 [ext_resource type="Texture2D" uid="uid://ctfs8b1sa6kme" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_height_1k.png" id="5_f8hte"]
 [ext_resource type="Texture2D" uid="uid://bfsksq0gkxq5i" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_normal_gl_1k.png" id="6_wd5w1"]
 [ext_resource type="Texture2D" uid="uid://bdevw6wfxta55" path="res://art/2D/textures/freestylized_dot_com/path/ground_tiles_01_roughness_1k.png" id="7_ssfs4"]
-[ext_resource type="Material" uid="uid://dnv0548j5abv5" path="res://materials/m_rocks_2.tres" id="8_kpfjw"]
-[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="9_rmtix"]
-[ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://materials/m_coin_2.tres" id="10_75q84"]
+[ext_resource type="Material" uid="uid://dnv0548j5abv5" path="res://resources/materials/m_rocks_2.tres" id="8_kpfjw"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://resources/materials/m_wood_1.tres" id="9_rmtix"]
+[ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://resources/materials/m_coin_2.tres" id="10_75q84"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ax2tk"]
 size = Vector3(4.35259, 1, 4.3807)

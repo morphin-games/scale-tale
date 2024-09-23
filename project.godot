@@ -16,9 +16,13 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
 config/icon="res://art/2D/ico.png"
 
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
+
 [autoload]
 
-DialogManager="*res://old_dialogues/dialog_manager.gd"
+DialogManager="*res://resources/old_dialogues/dialog_manager.gd"
 BeehaveGlobalMetrics="res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="res://addons/beehave/debug/global_debugger.gd"
 Persistance="*res://scripts/persistance/persistance.gd"
@@ -36,7 +40,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
-"test_timeline": "res://dialogic/test_timeline.dtl"
+"test_timeline": "res://resources/dialogic/test_timeline.dtl"
 }
 layout/style_list=["res://dialogic/dialogic_style.tres"]
 layout/default_style="res://dialogic/dialogic_style.tres"

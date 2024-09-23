@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvqrsab0cofjc" path="res://scenes/enemies/enemy.tscn" id="1_iovw4"]
 [ext_resource type="Script" path="res://scripts/classes/basic_enemies/enemy_body_stunnable_3d.gd" id="2_gf3cj"]
-[ext_resource type="Material" uid="uid://d3edj53bbe2vc" path="res://materials/default_interaction.tres" id="4_8fsam"]
+[ext_resource type="Material" uid="uid://d3edj53bbe2vc" path="res://resources/materials/default_interaction.tres" id="4_8fsam"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="5_58rpt"]
 [ext_resource type="Script" path="res://scripts/classes/basic_enemies/stompable_3d.gd" id="6_ouafc"]
 

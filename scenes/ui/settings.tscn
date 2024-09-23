@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://25r75xgdpwqg"]
 
-[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_rr7h5"]
 [ext_resource type="Script" path="res://scripts/classes/syncro_label.gd" id="2_a8se4"]
 [ext_resource type="Script" path="res://scripts/classes/gamepad_h_slider.gd" id="2_js1jv"]
 

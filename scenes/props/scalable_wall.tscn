@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="1_efe0h"]
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="2_csuhr"]
-[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="3_en082"]
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://resources/materials/m_ruins_2.tres" id="3_en082"]
 
 [sub_resource type="GDScript" id="GDScript_ndq3h"]
 script/source = "extends StaticBody3D

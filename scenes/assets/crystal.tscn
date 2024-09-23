@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnohm5mj6nbcc"]
 
 [ext_resource type="PackedScene" uid="uid://cccr8a6rxvols" path="res://art/3D/models/crystal.glb" id="1_d6n6e"]
-[ext_resource type="Material" uid="uid://dqb28axlycd5e" path="res://materials/m_crystal.tres" id="2_588w6"]
+[ext_resource type="Material" uid="uid://dqb28axlycd5e" path="res://resources/materials/m_crystal.tres" id="2_588w6"]
 
 [node name="Crystal" type="Node3D"]
 

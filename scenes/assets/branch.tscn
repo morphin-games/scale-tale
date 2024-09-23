@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bi83286qxncdc"]
 
-[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://materials/m_wood_2.tres" id="1_074yr"]
+[ext_resource type="Material" uid="uid://t0xp3jqfdj5r" path="res://resources/materials/m_wood_2.tres" id="1_074yr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lwkii"]
 size = Vector3(10, 2, 2)

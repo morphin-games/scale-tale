@@ -1,7 +1,7 @@
 [gd_resource type="MeshLibrary" load_steps=15 format=3 uid="uid://7ei7y2bwyjt1"]
 
-[ext_resource type="Material" uid="uid://dfyshgaic3oxo" path="res://materials/m_dirt_2.tres" id="1_pwjy7"]
-[ext_resource type="Material" uid="uid://cxix2cmyg82ue" path="res://materials/m_rocks.tres" id="2_ofnx2"]
+[ext_resource type="Material" uid="uid://dfyshgaic3oxo" path="res://resources/materials/m_dirt_2.tres" id="1_pwjy7"]
+[ext_resource type="Material" uid="uid://cxix2cmyg82ue" path="res://resources/materials/m_rocks.tres" id="2_ofnx2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_tgu5k"]
 material = ExtResource("1_pwjy7")

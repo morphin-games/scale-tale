@@ -1,7 +1,7 @@
 [gd_resource type="MeshLibrary" load_steps=15 format=3 uid="uid://3h0ht1b6521c"]
 
-[ext_resource type="Material" uid="uid://ce2qb8qxeajn4" path="res://materials/m_grass.tres" id="1_j8sf8"]
-[ext_resource type="Material" uid="uid://byd6jy4altcm5" path="res://materials/m_dirt.tres" id="2_7gyg1"]
+[ext_resource type="Material" uid="uid://ce2qb8qxeajn4" path="res://resources/materials/m_grass.tres" id="1_j8sf8"]
+[ext_resource type="Material" uid="uid://byd6jy4altcm5" path="res://resources/materials/m_dirt.tres" id="2_7gyg1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wss8a"]
 resource_name = "Material.001"

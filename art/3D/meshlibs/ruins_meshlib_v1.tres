@@ -1,6 +1,6 @@
 [gd_resource type="MeshLibrary" load_steps=10 format=3 uid="uid://btvsv1epc33g3"]
 
-[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="1_lnho7"]
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://resources/materials/m_ruins_2.tres" id="1_lnho7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ekwcd"]
 material = ExtResource("1_lnho7")

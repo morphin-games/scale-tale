@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/classes/npc_rand_anim_speed.gd" id="1_0pwx7"]
 [ext_resource type="Material" uid="uid://ejek0tlgyj1c" path="res://art/3D/player/skin_v3.tres" id="1_38nci"]
-[ext_resource type="Material" uid="uid://dxnjnnpaebndy" path="res://materials/m_coin.tres" id="2_2ks6n"]
-[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://dialogues/npc_test.tscn" id="2_tjdpr"]
+[ext_resource type="Material" uid="uid://dxnjnnpaebndy" path="res://resources/materials/m_coin.tres" id="2_2ks6n"]
+[ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://resources/old_dialogues/npc_test.tscn" id="2_tjdpr"]
 [ext_resource type="Material" uid="uid://d2cekgdbd51y0" path="res://art/3D/player/cloth_body_v3.tres" id="3_sqdlj"]
 [ext_resource type="Material" uid="uid://bpnc6pbckvtcs" path="res://art/3D/player/eyeball.tres" id="4_o6ee2"]
 [ext_resource type="Material" uid="uid://bvjies35wpu5l" path="res://art/3D/player/corne.tres" id="5_uv50l"]
