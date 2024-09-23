@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="KDReferenceManager" load_steps=2 format=3 uid="uid://c6o6mxw7a0yu7"]
+
+[ext_resource type="Script" path="res://addons/kuriakuto/resources/kd_reference_manager.gd" id="1_p26m2"]
+
+[resource]
+script = ExtResource("1_p26m2")
+references = {
+"res://scenes/config_loader.tscn::GDScript_hf7i1ConfigLoader0": {},
+"res://shaders/grass.tscn::GDScript_dxgvfGrass0": {}
+}

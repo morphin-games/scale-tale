@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyu72pflcsg73"]
+
+[ext_resource type="Script" path="res://addons/terminal/src/terminal_edit.gd" id="1_dj4mr"]
+[ext_resource type="Theme" uid="uid://bskn655qnv3n2" path="res://addons/terminal/resources/terminal_theme.tres" id="1_qcgwh"]
+[ext_resource type="CodeHighlighter" uid="uid://nm5rtwlpxhdc" path="res://addons/terminal/resources/terminal_highlight.tres" id="2_sesn7"]
+
+[sub_resource type="GDScript" id="GDScript_tkoxm"]
+script/source = "@tool
+extends VBoxContainer
+
+func setup(plugin : EditorPlugin) -> void:
+	($TerminalEdit as TerminalEdit).plugin = plugin
+"
+
+[node name="Terminal" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_tkoxm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Clear" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="TerminalEdit" type="CodeEdit" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qcgwh")
+text = "res://$ "
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+scroll_smooth = true
+caret_move_on_right_click = false
+caret_multiple = false
+syntax_highlighter = ExtResource("2_sesn7")
+highlight_all_occurrences = true
+script = ExtResource("1_dj4mr")
