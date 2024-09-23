@@ -754,9 +754,11 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_w6yom")
+}
 tree_root = SubResource("AnimationNodeBlendTree_vtn1d")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/idle_or_run/blend_amount = 0.0
 
 [node name="EnemyAnimationController" type="Node" parent="." index="12" node_paths=PackedStringArray("enemy", "animation", "animation_tree")]

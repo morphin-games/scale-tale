@@ -109,8 +109,8 @@ func _on_body_exited(body: Node3D) -> void:
 		player_near = null
 		if(grabable != null):
 			GrabableDistanceSystem.remove_grabable(grabable)
-		if(npc_dialog != null):
-			npc_dialog.dialog_active = false
+		#if(npc_dialog != null):
+			#npc_dialog.dialog_active = false
 #	if DialogManager.is_dialog_active:
 #		if DialogManager.text_box != null:
 #			DialogManager.is_dialog_active = false

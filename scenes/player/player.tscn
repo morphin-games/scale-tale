@@ -1588,6 +1588,52 @@ _data = {
 "walk": SubResource("Animation_0yco2")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6l01n"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqyu5"]
+animation = &"gem"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lv3o3"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_jd1oj"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_cv1mb"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l6jcj"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_2x8r0"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3m6py"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b3fq7"]
+animation = &"scale"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_bl87l"]
+graph_offset = Vector2(-117.262, -114.617)
+nodes/fall/node = SubResource("AnimationNodeAnimation_6l01n")
+nodes/fall/position = Vector2(20, 80)
+nodes/gem/node = SubResource("AnimationNodeAnimation_mqyu5")
+nodes/gem/position = Vector2(260, 120)
+nodes/idle/node = SubResource("AnimationNodeAnimation_lv3o3")
+nodes/idle/position = Vector2(-400, -160)
+nodes/idle_or_run/node = SubResource("AnimationNodeBlend2_jd1oj")
+nodes/idle_or_run/position = Vector2(-220, -140)
+nodes/move_or_fall/node = SubResource("AnimationNodeBlend2_cv1mb")
+nodes/move_or_fall/position = Vector2(260, -80)
+nodes/move_or_gem/node = SubResource("AnimationNodeBlend2_l6jcj")
+nodes/move_or_gem/position = Vector2(600, -60)
+nodes/move_scale/node = SubResource("AnimationNodeAdd2_2x8r0")
+nodes/move_scale/position = Vector2(0, -120)
+nodes/output/position = Vector2(760, -60)
+nodes/run/node = SubResource("AnimationNodeAnimation_3m6py")
+nodes/run/position = Vector2(-400, -40)
+nodes/scale/node = SubResource("AnimationNodeAnimation_b3fq7")
+nodes/scale/position = Vector2(-220, 80)
+node_connections = [&"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run", &"move_or_fall", 0, &"move_scale", &"move_or_fall", 1, &"fall", &"move_or_gem", 0, &"move_or_fall", &"move_or_gem", 1, &"gem", &"move_scale", 0, &"idle_or_run", &"move_scale", 1, &"scale", &"output", 0, &"move_or_gem"]
+
 [sub_resource type="Animation" id="Animation_t112h"]
 length = 0.001
 tracks/0/type = "value"
@@ -1936,9 +1982,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06253, 0)
 current = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nyb8r")
+}
 tree_root = SubResource("AnimationNodeBlendTree_bl87l")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/idle_or_run/blend_amount = 0.0
 parameters/move_or_fall/blend_amount = 0.0
 parameters/move_or_gem/blend_amount = 0.0

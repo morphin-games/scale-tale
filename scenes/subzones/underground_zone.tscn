@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bkj44qei81yoa"]
+[gd_scene load_steps=22 format=3 uid="uid://bkj44qei81yoa"]
 
 [ext_resource type="MeshLibrary" uid="uid://cyufehng0x42f" path="res://art/3D/meshlibs/underground.tres" id="1_6kcgq"]
 [ext_resource type="PackedScene" uid="uid://cwbjycotfg2hv" path="res://scenes/props/gem.tscn" id="1_hs34o"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/classes/spawner_3d.gd" id="10_ua1jv"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="13_ua1ru"]
 [ext_resource type="PackedScene" uid="uid://pmhn4jmwk8r8" path="res://scenes/props/chest.tscn" id="14_pipib"]
+[ext_resource type="PackedScene" uid="uid://bsvm6d1qogma7" path="res://scenes/assets/torch.tscn" id="16_os736"]
 
 [sub_resource type="GDScript" id="GDScript_nmy6p"]
 script/source = "extends Node3D
@@ -239,3 +240,63 @@ transform = Transform3D(-0.845383, 0, -0.534161, 0, 1, 0, 0.534161, 0, -0.845383
 
 [node name="Chest5" parent="." instance=ExtResource("14_pipib")]
 transform = Transform3D(-0.258752, 0, -0.965944, 0, 1, 0, 0.965944, 0, -0.258752, 23.2507, 4, 39.0467)
+
+[node name="Torch" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -6.93752, 4, -8.85252)
+
+[node name="Torch7" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -6.93752, 4, -34.6558)
+
+[node name="Torch8" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 3.45284, 4, -34.6558)
+
+[node name="Torch5" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.644499, 4, 5.14748)
+
+[node name="Torch6" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.644499, 4, 16.7122)
+
+[node name="Torch4" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 12.6825, 4, -8.85252)
+
+[node name="Torch2" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -17.791, 4, -8.85252)
+
+[node name="Torch3" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -32.2974, 4, -8.85252)
+
+[node name="Torch9" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11.1365, 20, 32.5171)
+
+[node name="Torch10" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.63359, 20, 32.5171)
+
+[node name="Torch11" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 19.0467, 20, 55.413)
+
+[node name="Torch12" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 19.0467, 20, 45.032)
+
+[node name="Torch13" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 32.7882, 20, 41.0423)
+
+[node name="Torch14" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 32.7882, 20, 55.418)
+
+[node name="Torch17" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 59.2288, 20, 41.0423)
+
+[node name="Torch18" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 59.2288, 20, 55.418)
+
+[node name="Torch15" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 45.963, 20, 37.329)
+
+[node name="Torch16" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 45.963, 20, 58.5926)
+
+[node name="Torch19" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 83.0529, 20, 37.7138)
+
+[node name="Torch20" parent="." instance=ExtResource("16_os736")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 89.5706, 20, 37.7138)
