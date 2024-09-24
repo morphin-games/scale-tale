@@ -3,6 +3,7 @@ extends VBoxContainer
 	
 signal tool_changed(p_tool: Terrain3DEditor.Tool, p_operation: Terrain3DEditor.Operation)
 
+<<<<<<< HEAD:addons/terrain_3d/src/toolbar.gd
 const ICON_REGION_ADD: String = "res://addons/terrain_3d/icons/region_add.svg"
 const ICON_REGION_REMOVE: String = "res://addons/terrain_3d/icons/region_remove.svg"
 const ICON_HEIGHT_ADD: String = "res://addons/terrain_3d/icons/height_add.svg"
@@ -20,6 +21,23 @@ const ICON_AUTOSHADER: String = "res://addons/terrain_3d/icons/autoshader.svg"
 const ICON_HOLES: String = "res://addons/terrain_3d/icons/holes.svg"
 const ICON_NAVIGATION: String = "res://addons/terrain_3d/icons/navigation.svg"
 const ICON_INSTANCER: String = "res://addons/terrain_3d/icons/multimesh.svg"
+=======
+const ICON_REGION_ADD: String = "res://addons/terrain_3d/icons/icon_map_add.svg"
+const ICON_REGION_REMOVE: String = "res://addons/terrain_3d/icons/icon_map_remove.svg"
+const ICON_HEIGHT_ADD: String = "res://addons/terrain_3d/icons/icon_height_add.svg"
+const ICON_HEIGHT_SUB: String = "res://addons/terrain_3d/icons/icon_height_sub.svg"
+const ICON_HEIGHT_MUL: String = "res://addons/terrain_3d/icons/icon_height_mul.svg"
+const ICON_HEIGHT_DIV: String = "res://addons/terrain_3d/icons/icon_height_div.svg"
+const ICON_HEIGHT_FLAT: String = "res://addons/terrain_3d/icons/icon_height_flat.svg"
+const ICON_HEIGHT_SMOOTH: String = "res://addons/terrain_3d/icons/icon_height_smooth.svg"
+const ICON_PAINT_TEXTURE: String = "res://addons/terrain_3d/icons/icon_brush.svg"
+const ICON_SPRAY_TEXTURE: String = "res://addons/terrain_3d/icons/icon_spray.svg"
+const ICON_COLOR: String = "res://addons/terrain_3d/icons/icon_color.svg"
+const ICON_WETNESS: String = "res://addons/terrain_3d/icons/icon_wetness.svg"
+const ICON_AUTOSHADER: String = "res://addons/terrain_3d/icons/icon_terrain_material.svg"
+const ICON_HOLES: String = "res://addons/terrain_3d/icons/icon_holes.svg"
+const ICON_NAVIGATION: String = "res://addons/terrain_3d/icons/icon_navigation.svg"
+>>>>>>> Saul:addons/terrain_3d/editor/components/toolbar.gd
 
 var tool_group: ButtonGroup = ButtonGroup.new()
 
@@ -51,7 +69,10 @@ func _ready() -> void:
 	add_child(HSeparator.new())
 	add_tool_button(Terrain3DEditor.HOLES, Terrain3DEditor.REPLACE, "Create Holes", load(ICON_HOLES), tool_group)
 	add_tool_button(Terrain3DEditor.NAVIGATION, Terrain3DEditor.REPLACE, "Paint Navigable Area", load(ICON_NAVIGATION), tool_group)
+<<<<<<< HEAD:addons/terrain_3d/src/toolbar.gd
 	add_tool_button(Terrain3DEditor.INSTANCER, Terrain3DEditor.ADD, "Instance Meshes", load(ICON_INSTANCER), tool_group)
+=======
+>>>>>>> Saul:addons/terrain_3d/editor/components/toolbar.gd
 
 	var buttons: Array[BaseButton] = tool_group.get_buttons()
 	buttons[0].set_pressed(true)

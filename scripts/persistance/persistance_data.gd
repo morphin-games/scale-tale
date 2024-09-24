@@ -20,6 +20,7 @@ enum GraphicalLevels {
 @export var volume_db : float = 0.0
 @export var music_db : float = 0.0
 @export var effects_db : float = 0.0
+@export var max_fps : int = 60
 
 # Controls
 @export var invert_cam_x : bool = false

@@ -5,7 +5,7 @@ script/source = "extends Node
 
 @onready var music_overworld = $\"../MusicOverworld\"
 @onready var music_over_secret = $\"../MusicSecretOverworld\"
-
+var player
 @export var game_paused: bool = false:
 	get: 
 		return game_paused
@@ -15,7 +15,8 @@ script/source = "extends Node
 #		emit_signal(\"toggle_game_paused\", game_paused)
 func _ready() -> void:
 	game_paused = false
-
+	player=get_node(\"/root/FinalLevel/Player\")
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if(event.is_action_pressed(\"ui_toggle\")):
 		print(game_paused)
@@ -26,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else: 
 			$\"../CanvasLayer/pause_menu\".hide()
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 "
 
 [node name="GameManager" type="Node"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://25r75xgdpwqg"]
 
-[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_rr7h5"]
 [ext_resource type="Script" path="res://scripts/classes/syncro_label.gd" id="2_a8se4"]
 [ext_resource type="Script" path="res://scripts/classes/gamepad_h_slider.gd" id="2_js1jv"]
 
@@ -29,6 +29,17 @@ func _ready() -> void:
 			video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").select(1)
 		else:
 			video.get_node(\"MarginContainer/VideoSettings/WindowsModeButton\").select(0)
+		
+		match ((Persistance.persistance_data as PersistanceData).max_fps):
+			60:
+				video.get_node(\"MarginContainer/VideoSettings/OptionsFPSLimit\").select(0)
+			90:
+				video.get_node(\"MarginContainer/VideoSettings/OptionsFPSLimit\").select(1)
+			120:
+				video.get_node(\"MarginContainer/VideoSettings/OptionsFPSLimit\").select(2)
+			0:
+				video.get_node(\"MarginContainer/VideoSettings/OptionsFPSLimit\").select(3)
+				
 	))
 	gameplay.get_node(\"MarginContainer/VideoSettings/HBoxContainer/CamSensX\").grab_focus()
 
@@ -157,6 +168,26 @@ func set_tabs() -> void:
 		gameplay.name = \"Gameplay\"
 		video.name = \"Video [L]\"
 		audio.name = \"Audio\"
+
+
+func _on_options_fps_limit_item_selected(index: int) -> void:
+	match index:
+		0:
+			Engine.max_fps = 60
+			(Persistance.persistance_data as PersistanceData).max_fps = 60
+			Persistance.save()
+		1:
+			Engine.max_fps = 90
+			(Persistance.persistance_data as PersistanceData).max_fps = 90
+			Persistance.save()
+		2:
+			Engine.max_fps = 120
+			(Persistance.persistance_data as PersistanceData).max_fps = 120
+			Persistance.save()
+		3:
+			(Persistance.persistance_data as PersistanceData).max_fps = 0
+			Persistance.save()			
+			Engine.max_fps = 0
 "
 
 [node name="Settings" type="Control"]
@@ -412,6 +443,28 @@ horizontal_alignment = 1
 script = ExtResource("2_a8se4")
 slider = NodePath("../TexScaleBar")
 
+[node name="LabelMaxFps" type="Label" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+text = "FPS Limit"
+vertical_alignment = 1
+
+[node name="OptionsFPSLimit" type="OptionButton" parent="TabContainer/Video/MarginContainer/VideoSettings"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme = ExtResource("1_rr7h5")
+item_count = 4
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "60"
+popup/item_0/id = 0
+popup/item_1/text = "90"
+popup/item_1/id = 1
+popup/item_2/text = "120"
+popup/item_2/id = 2
+popup/item_3/text = "Unlimited"
+popup/item_3/id = 3
+
 [node name="Audio" type="TabBar" parent="TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -443,9 +496,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -80.0
-max_value = 0.0
-rounded = true
+max_value = 1.0
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -458,8 +510,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -80.0
-max_value = 0.0
+max_value = 1.0
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -472,8 +524,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-min_value = -80.0
-max_value = 0.0
+max_value = 1.0
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Back_Button" type="Button" parent="."]
@@ -500,6 +552,7 @@ text = "Go back"
 [connection signal="toggled" from="TabContainer/Video/MarginContainer/VideoSettings/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="value_changed" from="TabContainer/Video/MarginContainer/VideoSettings/ResScale/ResScaleBar" to="." method="_on_res_scale_bar_value_changed"]
 [connection signal="value_changed" from="TabContainer/Video/MarginContainer/VideoSettings/TexScale/TexScaleBar" to="." method="_on_tex_scale_bar_value_changed"]
+[connection signal="item_selected" from="TabContainer/Video/MarginContainer/VideoSettings/OptionsFPSLimit" to="." method="_on_options_fps_limit_item_selected"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMaster" to="." method="_on_slider_master_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderSFX" to="." method="_on_slider_sfx_value_changed"]
 [connection signal="value_changed" from="TabContainer/Audio/MarginContainer/VideoSettings/SliderMusic" to="." method="_on_slider_music_value_changed"]

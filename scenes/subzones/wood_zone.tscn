@@ -1,12 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://vnb6iycymg8r"]
+[gd_scene load_steps=30 format=3 uid="uid://vnb6iycymg8r"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwn66jvm5n8nr" path="res://art/3D/meshlibs/wood_v2.tres" id="2_ufndb"]
 [ext_resource type="Script" path="res://scripts/classes/platform_mover_3d.gd" id="3_djbly"]
 [ext_resource type="Script" path="res://scripts/classes/platform_body_3d.gd" id="4_vrex0"]
 [ext_resource type="Script" path="res://scripts/classes/climb_area_3d.gd" id="5_co8jx"]
-[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="5_e3ntq"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://resources/materials/m_wood_1.tres" id="5_e3ntq"]
 [ext_resource type="PackedScene" uid="uid://ht5upw5kcrgt" path="res://scenes/enemies/enemy_platform.tscn" id="5_kpvu1"]
-[ext_resource type="Material" uid="uid://bu3ka76b18u5y" path="res://materials/m_clilbable.tres" id="7_lrbbe"]
+[ext_resource type="Material" uid="uid://bu3ka76b18u5y" path="res://resources/materials/m_clilbable.tres" id="7_lrbbe"]
 [ext_resource type="Script" path="res://scripts/classes/vis_mesh_3d.gd" id="8_0ptpp"]
 [ext_resource type="PackedScene" uid="uid://ddew86sdeock" path="res://scenes/props/pressure_button.tscn" id="8_731vn"]
 [ext_resource type="Script" path="res://scripts/classes/spawner_3d.gd" id="9_av8cx"]
@@ -17,7 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://dl8avbixbc46w" path="res://art/2D/textures/void.png" id="15_odkg8"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="16_p6f8y"]
 [ext_resource type="PackedScene" uid="uid://pmhn4jmwk8r8" path="res://scenes/props/chest.tscn" id="16_sqc03"]
-[ext_resource type="Material" uid="uid://bxgfj8dlqqjei" path="res://materials/m_void.tres" id="17_ve4vm"]
+[ext_resource type="Material" uid="uid://bxgfj8dlqqjei" path="res://resources/materials/m_void.tres" id="17_ve4vm"]
+[ext_resource type="PackedScene" uid="uid://bsvm6d1qogma7" path="res://scenes/assets/torch.tscn" id="19_v2r4o"]
 
 [sub_resource type="GDScript" id="GDScript_j666t"]
 script/source = "extends Node3D
@@ -55,6 +56,10 @@ size = Vector3(175.019, 19.3063, 108.04)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uvsp4"]
 size = Vector2(24.56, 100.67)
+
+[sub_resource type="FogMaterial" id="FogMaterial_gukou"]
+density = 0.03
+albedo = Color(0.196078, 0.564706, 0.8, 1)
 
 [node name="WoodZone" type="Node3D"]
 script = SubResource("GDScript_j666t")
@@ -613,5 +618,49 @@ mesh = SubResource("PlaneMesh_uvsp4")
 
 [node name="Chest" parent="." instance=ExtResource("16_sqc03")]
 transform = Transform3D(-0.218228, 0, -0.975898, 0, 1, 0, 0.975898, 0, -0.218228, 27.0573, 0, -152.98)
+
+[node name="Torch3" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -3.91608, 6, -47.8527)
+
+[node name="Torch4" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 9.31838, 6, -47.8922)
+
+[node name="Torch5" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -3.91608, 6, -32.9174)
+
+[node name="Torch6" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 9.31838, 6, -32.9569)
+
+[node name="Torch7" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -3.91608, 6, -21.1601)
+
+[node name="Torch8" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 9.31838, 6, -21.1996)
+
+[node name="Torch9" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -3.91608, -7.33324, -122.179)
+
+[node name="Torch10" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 9.31838, -7.33324, -122.218)
+
+[node name="Torch11" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -3.91608, -7.33324, -135.182)
+
+[node name="Torch12" parent="." instance=ExtResource("19_v2r4o")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 9.31838, -7.33324, -135.221)
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0.000873731, 0.000111572, -0.000873716, 1, -0.00012833, -0.00011169, 0.000128227, 1, 38.2674, 26.5322, -101.474)
+size = Vector3(280.36, 100.087, 209.788)
+material = SubResource("FogMaterial_gukou")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.089242, 0.99601, 0, -0.99601, 0.089242, 33.8803, 37.6334, -101.538)
+light_color = Color(0, 0.72549, 0.894118, 1)
+light_energy = 20.234
+light_indirect_energy = 0.568
+spot_range = 160.868
+spot_attenuation = 0.466515
+spot_angle = 157.0
 
 [connection signal="pressed" from="PressureButton" to="." method="_on_pressure_button_pressed"]

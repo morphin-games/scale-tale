@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dlwcuuf6ijgss"]
 
 [ext_resource type="PackedScene" uid="uid://d1hkd52tgkov5" path="res://art/3D/trees/pine_1.fbx" id="1_wfjgb"]
-[ext_resource type="Material" uid="uid://dhe8mfo62djsl" path="res://materials/m_wood_2_v2.tres" id="2_texlx"]
-[ext_resource type="Material" uid="uid://cpyyrkih4xrh2" path="res://materials/m_grass_v2.tres" id="3_vs477"]
+[ext_resource type="Material" uid="uid://dhe8mfo62djsl" path="res://resources/materials/m_wood_2_v2.tres" id="2_texlx"]
+[ext_resource type="Material" uid="uid://cpyyrkih4xrh2" path="res://resources/materials/m_grass_v2.tres" id="3_vs477"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_q43cn"]
 height = 2.6013

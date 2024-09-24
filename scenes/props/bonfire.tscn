@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dxr6mo5cbrils" path="res://art/3D/mapping/hoguera01.glb" id="1_yrlaq"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_v6h4y"]
 [ext_resource type="AudioStream" uid="uid://biy2if8cnab71" path="res://art/sfx/ambience_sfx/bonfire.mp3" id="4_ub3nb"]
-[ext_resource type="Shader" path="res://shaders/regen.gdshader" id="5_oonlj"]
+[ext_resource type="Shader" path="res://resources/shaders/regen.gdshader" id="5_oonlj"]
 [ext_resource type="AudioStream" uid="uid://daviktljpeq2b" path="res://art/sfx/collectibles/heal.mp3" id="6_rq6cs"]
 
 [sub_resource type="GDScript" id="GDScript_i0ddj"]

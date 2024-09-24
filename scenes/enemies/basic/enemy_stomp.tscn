@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/classes/collision_shape_scalable_3d.gd" id="5_2rknf"]
 [ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="6_75ych"]
 [ext_resource type="Script" path="res://scripts/classes/distance_enabler_3d.gd" id="9_8xxw8"]
-[ext_resource type="Material" uid="uid://cl64gh2mcanuj" path="res://materials/m_bone.tres" id="9_vp8wk"]
+[ext_resource type="Material" uid="uid://cl64gh2mcanuj" path="res://resources/materials/m_bone.tres" id="9_vp8wk"]
 [ext_resource type="PackedScene" uid="uid://ck0tdwoixnrau" path="res://scenes/particle_effects/fire_small.tscn" id="11_pswqp"]
 [ext_resource type="Script" path="res://scripts/classes/enemy_animation_controller.gd" id="12_cuhu3"]
 [ext_resource type="AudioStream" uid="uid://cccyxsi30ag8x" path="res://art/sfx/damage/bouncev2.mp3" id="13_k4bl3"]
@@ -754,9 +754,11 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_w6yom")
+}
 tree_root = SubResource("AnimationNodeBlendTree_vtn1d")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/idle_or_run/blend_amount = 0.0
 
 [node name="EnemyAnimationController" type="Node" parent="." index="12" node_paths=PackedStringArray("enemy", "animation", "animation_tree")]

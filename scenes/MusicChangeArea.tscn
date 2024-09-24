@@ -5,20 +5,32 @@ script/source = "extends Area3D
 
 @onready var music_over_secret = $\"../MusicSecret\"
 @onready var music_overworld = $\"../MusicNormal\"
-
+@onready var directional_light = $\"../DirectionalLight3D\"
 
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.name == \"Player\": 
+		directional_light.rotation_degrees.x = 80
+		directional_light.light_energy = 0.3
+		print(\"Rotation\",directional_light.rotation)
+		
+		
 		music_overworld.volume_db = -80
-		music_over_secret.volume_db = -10
+		music_over_secret.volume_db = 0
+		
 		AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index(\"Effects\"),0,true)
-
+		
 func _on_body_exited(body: Node3D) -> void:
 	if body.name == \"Player\": 
-		music_overworld.volume_db = -10
+		directional_light.rotate_x(275)
+		directional_light.light_energy = 1
+		print(\"Rotation\",directional_light.rotation)		
+		
+		music_overworld.volume_db = 0
 		music_over_secret.volume_db = -80
 		AudioServer.set_bus_effect_enabled(AudioServer.get_bus_index(\"Effects\"),0,false)
+
+
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uw4sr"]

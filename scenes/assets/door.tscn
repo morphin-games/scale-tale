@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=4 uid="uid://dlcsatdr35bbg"]
 
-[ext_resource type="Material" uid="uid://dnv0548j5abv5" path="res://materials/m_rocks_2.tres" id="1_unm7e"]
-[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://materials/m_wood_1.tres" id="2_yfgcp"]
-[ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://materials/m_coin_2.tres" id="3_i2ihx"]
+[ext_resource type="Material" uid="uid://dnv0548j5abv5" path="res://resources/materials/m_rocks_2.tres" id="1_unm7e"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://resources/materials/m_wood_1.tres" id="2_yfgcp"]
+[ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://resources/materials/m_coin_2.tres" id="3_i2ihx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3r6p"]
 resource_name = "Piedra"

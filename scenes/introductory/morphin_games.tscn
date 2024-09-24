@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/classes/intro_vid_manager.gd" id="1_yoh4k"]
 [ext_resource type="PackedScene" uid="uid://ouamby6aymk5" path="res://scenes/introductory/gamepad.tscn" id="2_fqpyn"]
-[ext_resource type="VideoStream" path="res://videos/intro_final.ogv" id="3_kx8kg"]
+[ext_resource type="VideoStream" path="res://resources/videos/intro_final.ogv" id="3_kx8kg"]
 
 [node name="MorphinGames" type="Control" node_paths=PackedStringArray("video")]
 layout_mode = 3

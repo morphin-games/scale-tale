@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqgrsnf0dp4mj"]
 
 [ext_resource type="Texture2D" uid="uid://cy8t4dfcy87yy" path="res://art/2D/ui/scale_life.png" id="1_so1al"]
-[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_wdft6"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_wdft6"]
 [ext_resource type="Texture2D" uid="uid://lep82848lrru" path="res://art/2D/ui/life_filled.png" id="2_jkvb3"]
 
 [sub_resource type="GDScript" id="GDScript_sdhlm"]

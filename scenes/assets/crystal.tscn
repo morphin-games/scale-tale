@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnohm5mj6nbcc"]
 
 [ext_resource type="PackedScene" uid="uid://cccr8a6rxvols" path="res://art/3D/models/crystal.glb" id="1_d6n6e"]
-[ext_resource type="Material" uid="uid://dqb28axlycd5e" path="res://materials/m_crystal.tres" id="2_588w6"]
+[ext_resource type="Material" uid="uid://dqb28axlycd5e" path="res://resources/materials/m_crystal.tres" id="2_588w6"]
 
 [node name="Crystal" type="Node3D"]
 
@@ -21,5 +21,11 @@ surface_material_override/0 = ExtResource("2_588w6")
 
 [node name="Circle_003" parent="crystal/Crystal" index="3"]
 surface_material_override/0 = ExtResource("2_588w6")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08537, 0)
+light_color = Color(0.741176, 0, 0.537255, 1)
+light_energy = 10.0
+omni_range = 10.0
 
 [editable path="crystal"]

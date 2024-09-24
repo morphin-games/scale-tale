@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/classes/intro_vid_manager.gd" id="1_8l1ui"]
 [ext_resource type="PackedScene" uid="uid://e3isac4kd47s" path="res://scenes/introductory/morphin_games.tscn" id="2_70ehh"]
-[ext_resource type="VideoStream" path="res://videos/credits.ogv" id="3_tjnnv"]
+[ext_resource type="VideoStream" path="res://resources/videos/credits.ogv" id="3_tjnnv"]
 
 [node name="Credits" type="Control" node_paths=PackedStringArray("video")]
 layout_mode = 3

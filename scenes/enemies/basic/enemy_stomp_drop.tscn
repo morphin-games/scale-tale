@@ -246,6 +246,24 @@ _data = {
 "run": SubResource("Animation_xrrfu")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ip1xh"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_2g16i"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xibh4"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8pv23"]
+graph_offset = Vector2(-462.302, -7.23076)
+nodes/idle/node = SubResource("AnimationNodeAnimation_ip1xh")
+nodes/idle/position = Vector2(-200, 40)
+nodes/idle_or_run/node = SubResource("AnimationNodeBlend2_2g16i")
+nodes/idle_or_run/position = Vector2(0, 100)
+nodes/run/node = SubResource("AnimationNodeAnimation_xibh4")
+nodes/run/position = Vector2(-203.91, 195.245)
+node_connections = [&"idle_or_run", 0, &"idle", &"idle_or_run", 1, &"run", &"output", 0, &"idle_or_run"]
+
 [node name="EnemyStompDrop" node_paths=PackedStringArray("stompable", "collision_shape", "player_detect_area") instance=ExtResource("1_wanvk")]
 script = ExtResource("2_pt0it")
 drops = Array[ExtResource("3_7l78g")]([SubResource("Resource_2mlj6")])
@@ -305,9 +323,11 @@ script = ExtResource("8_br5vb")
 shape = SubResource("SphereShape3D_8igkn")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="9"]
+libraries = {
+"": SubResource("AnimationLibrary_xd1ya")
+}
 tree_root = SubResource("AnimationNodeBlendTree_8pv23")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/idle_or_run/blend_amount = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]

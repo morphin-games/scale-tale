@@ -29,6 +29,8 @@ signal gem_taken_animation_finished
 @onready var speed : float = max_speed
 @onready var invalid_drop_sfx : AudioStreamPlayer = $InvalidDropSFX
 
+var is_on_dialoge = false
+
 enum PlayerStates {
 	IDLE = 0
 	,MOVING = 1
@@ -685,6 +687,16 @@ func get_gem() -> void:
 	
 	await get_tree().create_timer(0.5).timeout
 	health_system.damage_frozen = false
+	
+func active_dialog() -> void:
+	is_on_dialoge = true
+	set_process(false)
+	set_physics_process(false)
+	
+func end_dialog() -> void:
+	is_on_dialoge = false
+	set_process(true)
+	set_physics_process(true)
 	
 func credits() -> void:
 	ui_fader.fade_in()
