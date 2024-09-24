@@ -99,5 +99,16 @@ references = {
 "res://src/pawns/platformer_pawn.gdPlatformerPawn1": {},
 "res://src/pawns/platformer_pawn.gdPlayer0": {},
 "res://src/pawns/platformer_pawn.gdPlayer1": {},
-"res://src/pawns/platformer_pawn.gdPlayer2": {}
+"res://src/pawns/platformer_pawn.gdPlayer2": {},
+"res://src/state_machine/platformer_pawn/platformer_pawn_state_machine.gd": {},
+"res://src/state_machine/platformer_pawn/platformer_pawn_state_machine.gdPlatformerPawnStateMachine1": {},
+"res://src/state_machine/platformer_pawn/platformer_pawn_state_machine.gdPlatformerPawnStateMachine3": {},
+"res://src/state_machine/platformer_pawn/states/platformer_pawn_state_falling.gd": {},
+"res://src/state_machine/platformer_pawn/states/platformer_pawn_state_idle.gd": {},
+"res://src/state_machine/platformer_pawn/states/platformer_pawn_state_jumping.gd": {},
+"res://src/state_machine/platformer_pawn/states/platformer_pawn_state_moving.gd": {},
+"res://src/state_machine/platformer_pawn_state.gd": {},
+"res://src/state_machine/platformer_pawn_state_machine.gd": {},
+"res://src/state_machine/state.gd": {},
+"res://src/state_machine/state_machine.gd": {}
 }

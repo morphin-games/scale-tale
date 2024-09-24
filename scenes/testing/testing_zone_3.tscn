@@ -13,7 +13,7 @@ func _ready() -> void:
 	Keyxplorer.setup(\"res://resources/input_remaps/kxm_default.tres\", true)
 "
 
-[sub_resource type="Resource" id="Resource_kidx7"]
+[sub_resource type="Resource" id="Resource_elv60"]
 script = ExtResource("2_4w5ap")
 direction = Vector2(0, 0)
 
@@ -31,7 +31,7 @@ script = SubResource("GDScript_42wkf")
 [node name="PlatformerController" type="Node" parent="." node_paths=PackedStringArray("pawn")]
 script = ExtResource("1_ali74")
 pawn = NodePath("../Player")
-control_context = SubResource("Resource_kidx7")
+control_context = SubResource("Resource_elv60")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.944422, 0.328735, 0, -0.328735, 0.944422, -0.1184, 2.1283, 3.77128)

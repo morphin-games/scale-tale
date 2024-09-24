@@ -1,6 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=14 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_b5f1o"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/platformer_pawn_state_machine.gd" id="2_o7wxq"]
+[ext_resource type="Script" path="res://src/state_machine/state.gd" id="3_xktu7"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_idle.gd" id="4_r885v"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_moving.gd" id="5_6ju17"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_jumping.gd" id="6_bvijv"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_falling.gd" id="7_0lpaf"]
+
+[sub_resource type="Resource" id="Resource_revfx"]
+script = ExtResource("4_r885v")
+
+[sub_resource type="Resource" id="Resource_mipu5"]
+script = ExtResource("5_6ju17")
+
+[sub_resource type="Resource" id="Resource_rm6sp"]
+script = ExtResource("6_bvijv")
+
+[sub_resource type="Resource" id="Resource_5xfm4"]
+script = ExtResource("7_0lpaf")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ww0a"]
 
@@ -9,6 +27,10 @@
 [node name="Player" type="Node3D" node_paths=PackedStringArray("body")]
 script = ExtResource("1_b5f1o")
 body = NodePath("CharacterBody3D")
+
+[node name="PlatformerPawnStateMachine" type="Node" parent="."]
+script = ExtResource("2_o7wxq")
+states = Array[ExtResource("3_xktu7")]([SubResource("Resource_revfx"), SubResource("Resource_mipu5"), SubResource("Resource_rm6sp"), SubResource("Resource_5xfm4")])
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_mask = 30
