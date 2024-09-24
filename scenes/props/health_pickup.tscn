@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://x8exey3j1ib6"]
 
-[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="1_3iodx"]
-[ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="2_733bc"]
+[ext_resource type="Script" path="res://src/classes/player_detect_area_3d.gd" id="1_3iodx"]
+[ext_resource type="Script" path="res://src/classes/rotator_3d.gd" id="2_733bc"]
 
 [sub_resource type="GDScript" id="GDScript_6liug"]
 script/source = "extends Node3D

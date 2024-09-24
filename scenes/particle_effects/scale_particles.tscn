@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://kralj8xqowd7"]
 
-[ext_resource type="Script" path="res://scripts/classes/scale_particles.gd" id="1_rjrkl"]
+[ext_resource type="Script" path="res://src/classes/scale_particles.gd" id="1_rjrkl"]
 [ext_resource type="ArrayMesh" uid="uid://b32ey4lx36rve" path="res://art/3D/runes/meshes/smol_Plane_006.res" id="2_pt7aa"]
 [ext_resource type="ArrayMesh" uid="uid://dtb2834qayud8" path="res://art/3D/runes/meshes/big_Plane.res" id="3_7h0o5"]
 [ext_resource type="ArrayMesh" uid="uid://cclv33kkux4e7" path="res://art/3D/runes/meshes/earth_Plane_007.res" id="4_6yjk5"]
@@ -23,19 +23,19 @@ point_count = 3
 curve = SubResource("Curve_tcra3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_15nr2"]
+particle_flag_rotate_y = true
 emission_shape = 3
 emission_box_extents = Vector3(5, 5, 5)
-particle_flag_rotate_y = true
+angle_min = -180.0
+angle_max = 180.0
 direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3(0, 0, 0)
 angular_velocity_min = -200.0
 angular_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
 radial_accel_min = 5.0
 radial_accel_max = 5.0
 radial_accel_curve = SubResource("CurveTexture_4bmr2")
-angle_min = -180.0
-angle_max = 180.0
 scale_min = 0.38
 scale_max = 0.75
 scale_curve = SubResource("CurveTexture_lcvfv")

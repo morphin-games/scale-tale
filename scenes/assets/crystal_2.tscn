@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwbkg8g2n7d0w"]
 
 [ext_resource type="PackedScene" uid="uid://cccr8a6rxvols" path="res://art/3D/models/crystal.glb" id="1_7wbw7"]
-[ext_resource type="Material" uid="uid://bbeyugccyge3v" path="res://materials/m_crystal_3.tres" id="2_15y7j"]
+[ext_resource type="Material" uid="uid://bbeyugccyge3v" path="res://resources/materials/m_crystal_3.tres" id="2_15y7j"]
 
 [node name="Crystal" type="Node3D"]
 
@@ -26,5 +26,6 @@ surface_material_override/0 = ExtResource("2_15y7j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08537, 0)
 light_color = Color(0.117647, 0.627451, 1, 1)
 light_energy = 10.0
+omni_range = 10.0
 
 [editable path="crystal"]

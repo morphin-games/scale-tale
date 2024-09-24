@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ht5upw5kcrgt"]
 
-[ext_resource type="Script" path="res://scripts/classes/platform_body_3d.gd" id="1_cwbbu"]
-[ext_resource type="Script" path="res://scripts/classes/damage_area_3d.gd" id="2_6fkhe"]
+[ext_resource type="Script" path="res://src/classes/platform_body_3d.gd" id="1_cwbbu"]
+[ext_resource type="Script" path="res://src/classes/damage_area_3d.gd" id="2_6fkhe"]
 [ext_resource type="PackedScene" uid="uid://ctessw6gxcdtv" path="res://scenes/particle_effects/sparks_blue.tscn" id="3_70cls"]
 [ext_resource type="AudioStream" uid="uid://cq5xbwam8oy7e" path="res://art/sfx/damage/electric.mp3" id="4_aa64a"]
 

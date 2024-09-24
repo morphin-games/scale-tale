@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://25r75xgdpwqg"]
 
-[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://ui/main_ui.theme" id="1_rr7h5"]
-[ext_resource type="Script" path="res://scripts/classes/syncro_label.gd" id="2_a8se4"]
-[ext_resource type="Script" path="res://scripts/classes/gamepad_h_slider.gd" id="2_js1jv"]
+[ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_rr7h5"]
+[ext_resource type="Script" path="res://src/classes/syncro_label.gd" id="2_a8se4"]
+[ext_resource type="Script" path="res://src/classes/gamepad_h_slider.gd" id="2_js1jv"]
 
 [sub_resource type="GDScript" id="GDScript_lf7rh"]
 script/source = "extends Control
@@ -497,7 +497,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label2" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -511,7 +511,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Label3" type="Label" parent="TabContainer/Audio/MarginContainer/VideoSettings"]
@@ -525,7 +525,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 max_value = 1.0
-step = 0.001
+step = 0.01
 script = ExtResource("2_js1jv")
 
 [node name="Back_Button" type="Button" parent="."]

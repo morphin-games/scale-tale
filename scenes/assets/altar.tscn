@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://csjf1oiu18gwq"]
 
 [ext_resource type="PackedScene" uid="uid://cxm26vo3pk6wb" path="res://art/3D/models/altar_destroyed.glb" id="1_jpkp3"]
-[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://materials/m_ruins_2.tres" id="2_rck0p"]
+[ext_resource type="Material" uid="uid://rhvaixf3mpc7" path="res://resources/materials/m_ruins_2.tres" id="2_rck0p"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vra3n"]
 height = 0.880134

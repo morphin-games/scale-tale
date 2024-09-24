@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="KXMap" load_steps=19 format=3 uid="uid://butw7uh427oqh"]
+
+[ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_input.gd" id="1_36x65"]
+[ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_map.gd" id="2_4jb0g"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_kywwv"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="Resource" id="Resource_k8yfo"]
+script = ExtResource("1_36x65")
+show_name = "kxi_left"
+input_name = "kxi_left"
+slot_1 = SubResource("InputEventKey_kywwv")
+
+[sub_resource type="InputEventKey" id="InputEventKey_73blo"]
+device = -1
+keycode = 68
+unicode = 100
+
+[sub_resource type="Resource" id="Resource_b3k5f"]
+script = ExtResource("1_36x65")
+show_name = "kxi_right"
+input_name = "kxi_right"
+slot_1 = SubResource("InputEventKey_73blo")
+
+[sub_resource type="InputEventKey" id="InputEventKey_51sjs"]
+device = -1
+keycode = 87
+unicode = 119
+
+[sub_resource type="Resource" id="Resource_6irlf"]
+script = ExtResource("1_36x65")
+show_name = "kxi_up"
+input_name = "kxi_up"
+slot_1 = SubResource("InputEventKey_51sjs")
+
+[sub_resource type="InputEventKey" id="InputEventKey_davoc"]
+device = -1
+keycode = 83
+unicode = 115
+
+[sub_resource type="Resource" id="Resource_gwrkc"]
+script = ExtResource("1_36x65")
+show_name = "kxi_down"
+input_name = "kxi_down"
+slot_1 = SubResource("InputEventKey_davoc")
+
+[sub_resource type="InputEventKey" id="InputEventKey_t8gic"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Resource" id="Resource_x354r"]
+script = ExtResource("1_36x65")
+show_name = "kxi_jump"
+input_name = "kxi_jump"
+slot_1 = SubResource("InputEventKey_t8gic")
+
+[sub_resource type="InputEventKey" id="InputEventKey_644pw"]
+device = -1
+keycode = 4194326
+
+[sub_resource type="Resource" id="Resource_qforo"]
+script = ExtResource("1_36x65")
+show_name = "kxi_crouch"
+input_name = "kxi_crouch"
+slot_1 = SubResource("InputEventKey_644pw")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_ellwk"]
+button_index = 1
+
+[sub_resource type="Resource" id="Resource_6b8le"]
+script = ExtResource("1_36x65")
+show_name = "kxi_action_1"
+input_name = "kxi_action_1"
+slot_1 = SubResource("InputEventMouseButton_ellwk")
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_jorrk"]
+button_index = 2
+
+[sub_resource type="Resource" id="Resource_mltbd"]
+script = ExtResource("1_36x65")
+show_name = "kxi_action_2"
+input_name = "kxi_action_2"
+slot_1 = SubResource("InputEventMouseButton_jorrk")
+
+[resource]
+script = ExtResource("2_4jb0g")
+keyxplorer_inputs = Array[ExtResource("1_36x65")]([SubResource("Resource_k8yfo"), SubResource("Resource_b3k5f"), SubResource("Resource_6irlf"), SubResource("Resource_gwrkc"), SubResource("Resource_x354r"), SubResource("Resource_qforo"), SubResource("Resource_6b8le"), SubResource("Resource_mltbd")])

@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://pmhn4jmwk8r8"]
 
 [ext_resource type="PackedScene" uid="uid://cj8hhqsd44v8u" path="res://scenes/assets/chest.tscn" id="1_ll05h"]
-[ext_resource type="Script" path="res://scripts/classes/chest_3d.gd" id="1_simyc"]
-[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="3_6kvpg"]
+[ext_resource type="Script" path="res://src/classes/chest_3d.gd" id="1_simyc"]
+[ext_resource type="Script" path="res://src/classes/player_detect_area_3d.gd" id="3_6kvpg"]
 [ext_resource type="PackedScene" uid="uid://bwwsgvyouufox" path="res://scenes/props/coin.tscn" id="4_gukrv"]
 [ext_resource type="AudioStream" uid="uid://chxbeyo01x13c" path="res://art/sfx/collectibles/chestv2.mp3" id="5_s4fhd"]
 

@@ -1,0 +1,23 @@
+[gd_resource type="CodeHighlighter" format=3 uid="uid://nm5rtwlpxhdc"]
+
+[resource]
+number_color = Color(0.989796, 1, 0.604981, 1)
+symbol_color = Color(0.864678, 0.864674, 0.864675, 1)
+function_color = Color(0.862745, 0.862745, 0.862745, 1)
+member_variable_color = Color(0.862745, 0.862745, 0.862745, 1)
+keyword_colors = {
+"cd": Color(0.611765, 0.909804, 1, 1),
+"clear": Color(0.611765, 0.909804, 1, 1),
+"comls": Color(0.611765, 0.909804, 1, 1),
+"editscn": Color(0.611765, 0.909804, 1, 1),
+"editscr": Color(0.611765, 0.909804, 1, 1),
+"mkcls": Color(0.611765, 0.909804, 1, 1),
+"mkcom": Color(0.611765, 0.909804, 1, 1),
+"mkscn": Color(0.611765, 0.909804, 1, 1),
+"mktscn": Color(0.611765, 0.909804, 1, 1),
+"plugren": Color(0.611765, 0.909804, 1, 1),
+"restart": Color(0.611765, 0.909804, 1, 1),
+"run": Color(0.611765, 0.909804, 1, 1),
+"stop": Color(0.611765, 0.909804, 1, 1),
+"tren": Color(0.611765, 0.909804, 1, 1)
+}

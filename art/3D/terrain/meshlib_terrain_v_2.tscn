@@ -2,7 +2,7 @@
 
 [ext_resource type="ArrayMesh" uid="uid://bkygbhwhfcs4m" path="res://art/3D/terrain/mesh/wall_1_Cube_001.res" id="1_x276p"]
 [ext_resource type="ArrayMesh" uid="uid://c5hjdcd62um3b" path="res://art/3D/terrain/mesh/ground_1_Cube_001.res" id="2_gi7c2"]
-[ext_resource type="ArrayMesh" uid="uid://ci8j3m1c43kcx" path="res://art/3D/terrain/mesh/wall_long3_Cube_014.res" id="4_8mfd2"]
+[ext_resource type="ArrayMesh" uid="uid://3tfwapoq56ay" path="res://art/3D/terrain/mesh/wall_long3_Cube_014.res" id="4_8mfd2"]
 [ext_resource type="ArrayMesh" uid="uid://b2g0hbw2ct2r8" path="res://art/3D/terrain/mesh/wall_long_empty_3_Cube_014.res" id="5_8mxdf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ht6t"]
