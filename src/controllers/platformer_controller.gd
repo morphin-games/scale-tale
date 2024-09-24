@@ -20,11 +20,12 @@ signal kxi_crouch_released
 signal kxi_released
 #endregion
 
-var platformer_control_context : PlatformerControlContext = control_context as PlatformerControlContext 
+@onready var platformer_control_context : PlatformerControlContext = control_context as PlatformerControlContext 
 
 # Virtual function, called on ready.
 # Override to add your behaviour.
 func ready() -> void:
+	print("platformer_control_context:", platformer_control_context)
 	pass
 	
 # Virtual function, called on the associated [member pawn].
