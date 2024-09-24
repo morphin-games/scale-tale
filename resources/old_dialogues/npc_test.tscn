@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://g05ecni800s6"]
 
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="1_4veml"]
-[ext_resource type="Script" path="res://scripts/classes/npc_dialog_3d.gd" id="1_j34y0"]
+[ext_resource type="Script" path="res://src/classes/npc_dialog_3d.gd" id="1_j34y0"]
 [ext_resource type="AudioStream" uid="uid://qhneiqp4k2ic" path="res://art/sfx/talk_sfx/talk_effect.mp3" id="2_je4kh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_s7e46"]

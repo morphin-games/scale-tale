@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://kralj8xqowd7"]
 
-[ext_resource type="Script" path="res://scripts/classes/scale_particles.gd" id="1_rjrkl"]
+[ext_resource type="Script" path="res://src/classes/scale_particles.gd" id="1_rjrkl"]
 [ext_resource type="ArrayMesh" uid="uid://b32ey4lx36rve" path="res://art/3D/runes/meshes/smol_Plane_006.res" id="2_pt7aa"]
 [ext_resource type="ArrayMesh" uid="uid://dtb2834qayud8" path="res://art/3D/runes/meshes/big_Plane.res" id="3_7h0o5"]
 [ext_resource type="ArrayMesh" uid="uid://cclv33kkux4e7" path="res://art/3D/runes/meshes/earth_Plane_007.res" id="4_6yjk5"]

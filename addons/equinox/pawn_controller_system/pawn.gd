@@ -1,12 +1,18 @@
 @icon("ipawn.svg")
 class_name Pawn
 ## @experimental
-## NOTE: This class is still experimental and is not used in this version.
+## NOTE: This class is still experimental.
 ##
 ## Component used both in Pawn2D and Pawn3D.
 ## Pawn2D and Pawn3D extend from different classes but require the same functionality.
 ## To prevent code repetition, this component is added to both Pawn2D and Pawn3D to add the needed functionality.
 extends Node
+
+## Priority for [method ready], [method input], [method process] and [method physics_process] callings between a [Pawn] and a [Controller]
+enum ControlPriority {
+	CONTROLLER,
+	PAWN,
+}
 
 ## Associated [ControlContext]
 ## The [ControlContext] acts as a shared resource of values where the [Controller] modifies them and the Pawn reads them to add functionality.

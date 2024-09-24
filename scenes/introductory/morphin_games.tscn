@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://e3isac4kd47s"]
 
-[ext_resource type="Script" path="res://scripts/classes/intro_vid_manager.gd" id="1_yoh4k"]
+[ext_resource type="Script" path="res://src/classes/intro_vid_manager.gd" id="1_yoh4k"]
 [ext_resource type="PackedScene" uid="uid://ouamby6aymk5" path="res://scenes/introductory/gamepad.tscn" id="2_fqpyn"]
 [ext_resource type="VideoStream" path="res://resources/videos/intro_final.ogv" id="3_kx8kg"]
 

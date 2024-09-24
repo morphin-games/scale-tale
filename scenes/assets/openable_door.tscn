@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://cbockryiasaqa"]
 
 [ext_resource type="Texture2D" uid="uid://dc004jcmojtff" path="res://art/3D/rick_objs/puerta_muralla02_T_wood_06_BC.png" id="1_0ahoj"]
-[ext_resource type="Script" path="res://scripts/classes/openable_door_3d.gd" id="1_7em4c"]
+[ext_resource type="Script" path="res://src/classes/openable_door_3d.gd" id="1_7em4c"]
 [ext_resource type="Texture2D" uid="uid://bn7ksxue2r5nx" path="res://art/3D/rick_objs/puerta_muralla02_T_wood_06_N.png" id="2_v3s5l"]
 [ext_resource type="Texture2D" uid="uid://b8bdsx5ete7bc" path="res://art/3D/rick_objs/puerta_muralla02_T_wood_detail_01_BC.png" id="3_l4n8j"]
 [ext_resource type="Texture2D" uid="uid://dmmweyfqor15k" path="res://art/3D/rick_objs/puerta_muralla02_T_metal_02_BC.png" id="4_ghk4d"]

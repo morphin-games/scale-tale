@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://7oae68dtnivx"]
 
-[ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="1_4yat1"]
+[ext_resource type="Script" path="res://src/classes/gpu_particles_ipos_3d.gd" id="1_4yat1"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14yf2"]
 particle_flag_rotate_y = true

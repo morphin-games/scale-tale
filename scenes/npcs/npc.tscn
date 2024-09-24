@@ -1,7 +1,7 @@
 [gd_scene load_steps=57 format=4 uid="uid://b10oux5f5j4e0"]
 
 [ext_resource type="Material" uid="uid://cys6cnj6llwip" path="res://art/3D/player/skin_v2.tres" id="1_6ojs4"]
-[ext_resource type="Script" path="res://scripts/classes/npc_rand_anim_speed.gd" id="1_s40so"]
+[ext_resource type="Script" path="res://src/classes/npc_rand_anim_speed.gd" id="1_s40so"]
 [ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://resources/old_dialogues/npc_test.tscn" id="2_gtrod"]
 [ext_resource type="Material" uid="uid://b80vekh67dljp" path="res://art/3D/player/cloth_body_v2.tres" id="3_vh6od"]
 [ext_resource type="Material" uid="uid://dxnjnnpaebndy" path="res://resources/materials/m_coin.tres" id="5_3mekt"]

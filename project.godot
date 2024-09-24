@@ -25,15 +25,16 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 DialogManager="*res://resources/old_dialogues/dialog_manager.gd"
 BeehaveGlobalMetrics="res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="res://addons/beehave/debug/global_debugger.gd"
-Persistance="*res://scripts/persistance/persistance.gd"
-GrabableDistanceSystem="*res://scripts/singletons/grabable_distance_system.gd"
-GlobalSettings="*res://scripts/game_settings/global_settings.gd"
-SettingsFile="*res://scripts/game_settings/settings_file.gd"
-InteractuableDistanceSystem="*res://scripts/singletons/interactiable_distance_system.gd"
+Persistance="*res://src/persistance/persistance.gd"
+GrabableDistanceSystem="*res://src/singletons/grabable_distance_system.gd"
+GlobalSettings="*res://src/game_settings/global_settings.gd"
+SettingsFile="*res://src/game_settings/settings_file.gd"
+InteractuableDistanceSystem="*res://src/singletons/interactiable_distance_system.gd"
 LevelManager="*res://addons/equinox/level_manager_system/level_manager.gd"
 Keyxplorer="*res://addons/keyxplorer/keyxplorer.gd"
 KuriakutoCore="*res://addons/kuriakuto/kuriakuto_core.gd"
 KD="*res://_kuriakuto/kuriakuto_dict.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
@@ -42,7 +43,7 @@ directories/dch_directory={}
 directories/dtl_directory={
 "test_timeline": "res://resources/dialogic/test_timeline.dtl"
 }
-layout/style_list=["res://dialogic/dialogic_style.tres"]
+layout/style_list=[]
 layout/default_style="res://dialogic/dialogic_style.tres"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -272,6 +273,14 @@ dialogic_default_action={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="solid"
+3d_physics/layer_3="enemy"
+3d_physics/layer_4="water"
+3d_physics/layer_5="scale_projectile"
 
 [physics]
 

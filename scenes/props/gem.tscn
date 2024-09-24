@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=4 uid="uid://cwbjycotfg2hv"]
 
-[ext_resource type="Script" path="res://scripts/classes/collectible_gem.gd" id="1_6le4d"]
-[ext_resource type="Script" path="res://scripts/classes/rotator_3d.gd" id="2_1s62c"]
+[ext_resource type="Script" path="res://src/classes/collectible_gem.gd" id="1_6le4d"]
+[ext_resource type="Script" path="res://src/classes/rotator_3d.gd" id="2_1s62c"]
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://resources/materials/m_scale_coin.tres" id="3_5rivl"]
-[ext_resource type="Script" path="res://scripts/classes/player_detect_area_3d.gd" id="4_y1h21"]
+[ext_resource type="Script" path="res://src/classes/player_detect_area_3d.gd" id="4_y1h21"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ggf4"]
 

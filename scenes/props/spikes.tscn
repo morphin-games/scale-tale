@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://qprtrdj18vmc"]
 
-[ext_resource type="Script" path="res://scripts/classes/damage_area_3d.gd" id="1_mfjkr"]
+[ext_resource type="Script" path="res://src/classes/damage_area_3d.gd" id="1_mfjkr"]
 [ext_resource type="Material" uid="uid://0mcy05ir3mb5" path="res://resources/materials/m_coin_2.tres" id="2_hmvwt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s8dyn"]

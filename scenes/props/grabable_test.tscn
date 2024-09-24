@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cbxyo440n04po"]
 
-[ext_resource type="Script" path="res://scripts/classes/grabable_3d.gd" id="1_ve2a5"]
+[ext_resource type="Script" path="res://src/classes/grabable_3d.gd" id="1_ve2a5"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="2_h5n6f"]
-[ext_resource type="Script" path="res://scripts/classes/scalable_3d.gd" id="3_6wj3l"]
+[ext_resource type="Script" path="res://src/classes/scalable_3d.gd" id="3_6wj3l"]
 
 [sub_resource type="GDScript" id="GDScript_1ybhe"]
 script/source = "extends Node3D

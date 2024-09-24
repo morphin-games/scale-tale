@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bd4kehg6aokya"]
 
-[ext_resource type="Script" path="res://scripts/classes/ray_visualizer_3d.gd" id="1_waunh"]
+[ext_resource type="Script" path="res://src/classes/ray_visualizer_3d.gd" id="1_waunh"]
 [ext_resource type="Material" uid="uid://kcqa2bvm4wvb" path="res://resources/materials/m_ray_visualizer.tres" id="2_23lji"]
 [ext_resource type="AudioStream" uid="uid://d3o5okts87ive" path="res://art/sfx/scale_sfx/scale_sfx.mp3" id="3_3q6c7"]
 [ext_resource type="PackedScene" uid="uid://cwidhqmak2xtb" path="res://scenes/particle_effects/ray_visualizer_particles.tscn" id="4_5qxkp"]

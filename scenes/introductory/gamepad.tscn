@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ouamby6aymk5"]
 
-[ext_resource type="Script" path="res://scripts/classes/intro_vid_manager.gd" id="1_pf555"]
+[ext_resource type="Script" path="res://src/classes/intro_vid_manager.gd" id="1_pf555"]
 [ext_resource type="PackedScene" uid="uid://cg1jchsdi4asa" path="res://scenes/levels/level_main_menu/level_main_menu.tscn" id="2_2bdn8"]
 [ext_resource type="Texture2D" uid="uid://bv4mvnjd8pxqe" path="res://art/2D/ui/gamepad.png" id="2_o6h14"]
 

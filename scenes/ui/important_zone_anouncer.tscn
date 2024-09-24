@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjpelmvfmcedv"]
 
 [ext_resource type="Theme" uid="uid://c2crelxm4m1h2" path="res://resources/ui/main_ui.theme" id="1_mdlk0"]
-[ext_resource type="Script" path="res://scripts/classes/important_zone_anouncer.gd" id="2_s2i4t"]
+[ext_resource type="Script" path="res://src/classes/important_zone_anouncer.gd" id="2_s2i4t"]
 
 [sub_resource type="Animation" id="Animation_ttefv"]
 length = 0.001

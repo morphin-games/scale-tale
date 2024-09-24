@@ -1,10 +1,12 @@
 @icon("ipawn_2d.svg")
 class_name Pawn2D
 ## Base class for all 2D Pawns.
-## A Pawn2D is a [2D Node] that can be controlled by either a player or AI. 
+## A Pawn2D is a [Node2D] that can be controlled by either a player or AI. 
 ## Pawns must never take input, it must only process the [ControlContext], act according to its values, and sometimes write in it to communicate with the [Controller].
 ## All 2D Pawns must extend from this base class.
 extends Node2D
+
+@export var control_priority : Pawn.ControlPriority
 
 ## Associated [ControlContext]
 ## The [ControlContext] acts as a shared resource of values where the [Controller] modifies them and the Pawn reads them to add functionality.
@@ -15,6 +17,7 @@ var context : ControlContext
 var _controller : Controller
 
 func set_control(controller : Controller):
+	control_priority
 	if(_controller != null): return
 	_controller = controller
 	context = controller.control_context
@@ -51,16 +54,31 @@ func _ready() -> void:
 	ready()
 	
 func _input(event: InputEvent) -> void:
-	if(_controller != null):
-		_controller.input(event)
-	input(event)
+	if(control_priority == Pawn.ControlPriority.CONTROLLER):
+		if(_controller != null):
+			_controller.input(event)
+		input(event)
+	else:
+		input(event)
+		if(_controller != null):
+			_controller.input(event)
 	
 func _process(delta: float) -> void:
-	if(_controller != null):
-		_controller.process(delta)
-	process(delta)
+	if(control_priority == Pawn.ControlPriority.CONTROLLER):
+		if(_controller != null):
+			_controller.process(delta)
+		process(delta)
+	else:
+		process(delta)
+		if(_controller != null):
+			_controller.process(delta)
 	
 func _physics_process(delta: float) -> void:
-	if(_controller != null):
-		_controller.physics_process(delta)
-	physics_process(delta)
+	if(control_priority == Pawn.ControlPriority.CONTROLLER):
+		if(_controller != null):
+			_controller.physics_process(delta)
+		physics_process(delta)
+	else:
+		physics_process(delta)
+		if(_controller != null):
+			_controller.physics_process(delta)

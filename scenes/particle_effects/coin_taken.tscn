@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=4 uid="uid://c7vkqcbux72wk"]
 
 [ext_resource type="Material" uid="uid://d1q6ti64vwnel" path="res://resources/materials/m_scale_coin.tres" id="1_8jyx7"]
-[ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="1_etkmn"]
+[ext_resource type="Script" path="res://src/classes/gpu_particles_ipos_3d.gd" id="1_etkmn"]
 [ext_resource type="AudioStream" uid="uid://dhe5toyl5agc3" path="res://art/sfx/collectibles/coinv2.mp3" id="3_2m7k5"]
 
 [sub_resource type="Gradient" id="Gradient_mljqe"]

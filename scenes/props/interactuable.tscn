@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dutnoet18jlv1"]
 
-[ext_resource type="Script" path="res://scripts/classes/interactuable_3d.gd" id="1_jaol8"]
+[ext_resource type="Script" path="res://src/classes/interactuable_3d.gd" id="1_jaol8"]
 [ext_resource type="Texture2D" uid="uid://dt7yq8815gefw" path="res://art/2D/ui/e_interact.png" id="2_0pei3"]
 [ext_resource type="Texture2D" uid="uid://cx1378yomfs7q" path="res://art/2D/ui/joypad.png" id="2_svbaa"]
 

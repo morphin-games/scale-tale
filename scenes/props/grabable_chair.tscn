@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://dpenn51xxe66g"]
 
-[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="2_yalyx"]
+[ext_resource type="Script" path="res://src/classes/grabables/grabable_rigid_3d.gd" id="2_yalyx"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_ecm0a"]
 [ext_resource type="PackedScene" uid="uid://qckcdektxl5t" path="res://art/3D/rick_objs/silla02.glb" id="3_gdusj"]
 [ext_resource type="PackedScene" uid="uid://m6ixeqc8sdhg" path="res://art/3D/mapping/caja01.glb" id="5_5mqqa"]
-[ext_resource type="Script" path="res://scripts/classes/rigid_contact_sound_3d.gd" id="5_37p6q"]
+[ext_resource type="Script" path="res://src/classes/rigid_contact_sound_3d.gd" id="5_37p6q"]
 [ext_resource type="AudioStream" uid="uid://dex3w7521b8yx" path="res://art/sfx/wood/wood_crack.mp3" id="6_5o17y"]
 
 [sub_resource type="GDScript" id="GDScript_v0daa"]

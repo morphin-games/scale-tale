@@ -40,6 +40,7 @@ func posess(pawn : Variant) -> void:
 		pawn.free_control()
 	pawn.set_control(self)
 	self.pawn = pawn
+	posess_ready()
 	pawn_posessed.emit(pawn)
 	
 ## Liberates pawn.
@@ -61,6 +62,11 @@ func is_action_released(event : InputEvent, action : StringName) -> bool:
 ## Virtual function, called on ready.
 ## Override to add your behaviour.
 func ready() -> void:
+	pass
+	
+## Virtual function, called on posession.
+## Override to add your behaviour.
+func posess_ready() -> void:
 	pass
 	
 ## Virtual function, called on the associated [member pawn].

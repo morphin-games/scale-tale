@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5xxlo8mcdms"]
 
 [ext_resource type="Texture2D" uid="uid://l5fflnk2iktj" path="res://art/2D/textures/smoke_30fps.png" id="1_afq4f"]
-[ext_resource type="Script" path="res://scripts/classes/gpu_particles_ipos_3d.gd" id="2_40t5x"]
+[ext_resource type="Script" path="res://src/classes/gpu_particles_ipos_3d.gd" id="2_40t5x"]
 
 [sub_resource type="Gradient" id="Gradient_a5l41"]
 offsets = PackedFloat32Array(0, 0.181495, 0.441281, 0.480427, 0.519573, 0.80427, 1)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://byo6wmgypr6v6"]
 
-[ext_resource type="Script" path="res://scripts/classes/grabables/grabable_rigid_3d.gd" id="1_cl0oy"]
+[ext_resource type="Script" path="res://src/classes/grabables/grabable_rigid_3d.gd" id="1_cl0oy"]
 [ext_resource type="PackedScene" uid="uid://dusev5ppuewqo" path="res://scenes/enemies/basic/enemy_stun.tscn" id="2_fryuo"]
 [ext_resource type="PackedScene" uid="uid://dutnoet18jlv1" path="res://scenes/props/interactuable.tscn" id="3_yao8j"]
 

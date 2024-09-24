@@ -1,6 +1,6 @@
 [gd_scene load_steps=57 format=4 uid="uid://bckcwd47xowua"]
 
-[ext_resource type="Script" path="res://scripts/classes/npc_rand_anim_speed.gd" id="1_0pwx7"]
+[ext_resource type="Script" path="res://src/classes/npc_rand_anim_speed.gd" id="1_0pwx7"]
 [ext_resource type="Material" uid="uid://ejek0tlgyj1c" path="res://art/3D/player/skin_v3.tres" id="1_38nci"]
 [ext_resource type="Material" uid="uid://dxnjnnpaebndy" path="res://resources/materials/m_coin.tres" id="2_2ks6n"]
 [ext_resource type="PackedScene" uid="uid://g05ecni800s6" path="res://resources/old_dialogues/npc_test.tscn" id="2_tjdpr"]

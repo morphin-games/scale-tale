@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cl5abm7qiagoo"]
 
-[ext_resource type="Script" path="res://scripts/classes/pressure_button_low_scale_3d.gd" id="1_y6d54"]
+[ext_resource type="Script" path="res://src/classes/pressure_button_low_scale_3d.gd" id="1_y6d54"]
 [ext_resource type="AudioStream" uid="uid://8lmuew0eofb6" path="res://art/sfx/buttons/sd_0.wav" id="2_f21bo"]
 [ext_resource type="Texture2D" uid="uid://bkvcq6ppws6jp" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_color_1k.png" id="2_ryohq"]
 [ext_resource type="Texture2D" uid="uid://cah3mre7wgw5r" path="res://art/2D/textures/freestylized_dot_com/metal_plates/metal_plates_01_height_1k.png" id="3_kfg2n"]

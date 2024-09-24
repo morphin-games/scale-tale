@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_p26m2")
 references = {
+"res://addons/equinox/pawn_controller_system/pawn_3d.gdPlayer0": {},
 "res://scenes/config_loader.tscn::GDScript_hf7i1ConfigLoader0": {},
 "res://scenes/props/bomb.tscn::GDScript_30s5sBomb39": {},
 "res://scenes/props/bonfire.tscn::GDScript_i0ddjBonfire71": {},
@@ -79,5 +80,19 @@ references = {
 "res://scripts/classes/water_area_3d.gdWaterArea3D254": {},
 "res://scripts/classes/water_area_3d.gdWaterArea3D326": {},
 "res://scripts/classes/water_area_3d.gdWaterArea3D53": {},
-"res://shaders/grass.tscn::GDScript_dxgvfGrass0": {}
+"res://shaders/grass.tscn::GDScript_dxgvfGrass0": {},
+"res://src/classes/health_system.gdHealthSystem1": {},
+"res://src/classes/oxygen_system.gdOxygenSystem2": {},
+"res://src/classes/ray_visualizer_3d.gdRayVisualizer3": {},
+"res://src/classes/sp_player_3d.gdPlayer0": {},
+"res://src/control_contexts/basic_control_context.gd": {},
+"res://src/control_contexts/platformer_control_context.gd": {},
+"res://src/controllers/platformer_controller.gd": {},
+"res://src/controllers/platformer_controller.gdPlatformerController0": {},
+"res://src/controllers/player_controller.gd": {},
+"res://src/pawns/basic_pawn.gd": {},
+"res://src/pawns/platformer_pawn.gd": {},
+"res://src/pawns/platformer_pawn.gdBasicPawn1": {},
+"res://src/pawns/platformer_pawn.gdPlatformerPawn1": {},
+"res://src/pawns/platformer_pawn.gdPlayer0": {}
 }
