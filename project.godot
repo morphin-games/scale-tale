@@ -277,7 +277,7 @@ dialogic_default_action={
 
 [physics]
 
-3d/default_gravity=30.0
+3d/default_gravity=0.98
 
 [rendering]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=8 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/platformer_controller.gd" id="1_ali74"]
 [ext_resource type="Script" path="res://src/control_contexts/platformer_control_context.gd" id="2_4w5ap"]
@@ -17,6 +17,12 @@ func _ready() -> void:
 script = ExtResource("2_4w5ap")
 direction = Vector2(0, 0)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryg2p"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gll08"]
+size = Vector3(100, 1, 100)
+
 [node name="TestingZone3" type="Node3D"]
 
 [node name="SetupKeyxplorer" type="Node" parent="."]
@@ -31,3 +37,18 @@ control_context = SubResource("Resource_kidx7")
 transform = Transform3D(1, 0, 0, 0, 0.944422, 0.328735, 0, -0.328735, 0.944422, -0.1184, 2.1283, 3.77128)
 
 [node name="Player" parent="." instance=ExtResource("3_hiiyw")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.06296, 0)
+collision_layer = 2
+collision_mask = 23
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ryg2p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_gll08")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.72211, 3.61244, -3.00883)
+omni_range = 14.4869
