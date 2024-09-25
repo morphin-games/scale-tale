@@ -17,7 +17,6 @@ func setup() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	print(state.resource_path)
 	for iterated in states:
 		if(iterated.enter_condition()):
 			state = iterated

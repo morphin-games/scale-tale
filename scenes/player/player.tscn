@@ -1,24 +1,34 @@
-[gd_scene load_steps=14 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=18 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_b5f1o"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/platformer_pawn_state_machine.gd" id="2_o7wxq"]
-[ext_resource type="Script" path="res://src/state_machine/state.gd" id="3_xktu7"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_idle.gd" id="4_r885v"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_moving.gd" id="5_6ju17"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_jumping.gd" id="6_bvijv"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/platformer_pawn_state_falling.gd" id="7_0lpaf"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_constant_action.gd" id="3_4rg5q"]
+[ext_resource type="Script" path="res://src/state_machine/state.gd" id="3_s8jiy"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/constant_actions/pp_constant_action_fall.gd" id="4_4iwfk"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_idle.gd" id="4_ysyec"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_action.gd" id="5_rwbm4"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump.gd" id="6_vggh5"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_moving.gd" id="9_pk4py"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump_back.gd" id="10_jn2pp"]
 
-[sub_resource type="Resource" id="Resource_revfx"]
-script = ExtResource("4_r885v")
+[sub_resource type="Resource" id="Resource_ysf4o"]
+script = ExtResource("4_4iwfk")
 
-[sub_resource type="Resource" id="Resource_mipu5"]
-script = ExtResource("5_6ju17")
+[sub_resource type="Resource" id="Resource_j17ev"]
+script = ExtResource("6_vggh5")
+jump_force = 10.0
 
-[sub_resource type="Resource" id="Resource_rm6sp"]
-script = ExtResource("6_bvijv")
+[sub_resource type="Resource" id="Resource_sts72"]
+script = ExtResource("4_ysyec")
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_j17ev")])
 
-[sub_resource type="Resource" id="Resource_5xfm4"]
-script = ExtResource("7_0lpaf")
+[sub_resource type="Resource" id="Resource_hs2t2"]
+script = ExtResource("10_jn2pp")
+jump_force = 20.0
+
+[sub_resource type="Resource" id="Resource_mn4bo"]
+script = ExtResource("9_pk4py")
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_hs2t2")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ww0a"]
 
@@ -27,10 +37,12 @@ script = ExtResource("7_0lpaf")
 [node name="Player" type="Node3D" node_paths=PackedStringArray("body")]
 script = ExtResource("1_b5f1o")
 body = NodePath("CharacterBody3D")
+max_speed = 10.0
 
-[node name="PlatformerPawnStateMachine" type="Node" parent="."]
-script = ExtResource("2_o7wxq")
-states = Array[ExtResource("3_xktu7")]([SubResource("Resource_revfx"), SubResource("Resource_mipu5"), SubResource("Resource_rm6sp"), SubResource("Resource_5xfm4")])
+[node name="PPStateMachine" type="Node" parent="."]
+script = ExtResource("2_4dcbp")
+constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_ysf4o")])
+states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_sts72"), SubResource("Resource_mn4bo")])
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_mask = 30

@@ -1,5 +1,5 @@
-class_name PlatformerPawnStateIdle
-extends PlatformerPawnState
+class_name PPStateIdle
+extends PPState
 
 func enter_condition() -> bool:
 	return (
