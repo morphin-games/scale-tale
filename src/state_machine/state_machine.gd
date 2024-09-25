@@ -25,3 +25,4 @@ func _process(delta: float) -> void:
 	if(state == null): return
 	
 	state.process(delta)
+	print("from class StateMachine: ", state.resource_path)

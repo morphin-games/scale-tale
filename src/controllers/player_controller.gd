@@ -1,5 +1,5 @@
 @tool
-class_name PlatformerController
+class_name PlayerController
 extends Controller
 
 #region Signals
@@ -20,13 +20,28 @@ signal kxi_crouch_released
 signal kxi_released
 #endregion
 
-@onready var platformer_control_context : PlatformerControlContext = control_context as PlatformerControlContext 
+@export_category("Camera")
+@export var player_camera : PlayerCamera
+@export_group("Camera settings") 
+@export var camera_y_offset : float = 3.0
+@export var camera_distance : float = 6.0
+@export var camera_follow_speed : float = 0.4
+
+@onready var player_control_context : PlayerControlContext = control_context as PlatformerControlContext 
+@onready var camera_rotation_pivot_x : Node3D = Node3D.new()
+@onready var camera_rotation_pivot_y : Node3D = Node3D.new()
 
 # Virtual function, called on ready.
 # Override to add your behaviour.
 func ready() -> void:
-	print("platformer_control_context:", platformer_control_context)
-	pass
+	player_camera.controller = self
+	add_child(camera_rotation_pivot_x)
+	camera_rotation_pivot_x.add_child(camera_rotation_pivot_y)
+	player_camera.camera_rotation_pivot_x = camera_rotation_pivot_x
+	player_camera.camera_rotation_pivot_y = camera_rotation_pivot_y
+	pawn_posessed.connect(Callable(func(pawn : Node) -> void:
+		player_camera.pawn = pawn
+	))
 	
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
@@ -39,12 +54,15 @@ func input(event: InputEvent) -> void:
 		kxi_jump_released.emit()
 	elif(event.is_action_released("kxi_crouch")):
 		kxi_crouch_released.emit()
+		
+	if(event is InputEventMouseMotion):
+		player_control_context.camera_motion = event.velocity
 	
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func process(delta : float) -> void:
-	platformer_control_context.direction.x = Input.get_axis("kxi_left", "kxi_right")
-	platformer_control_context.direction.y = Input.get_axis("kxi_down", "kxi_up")
+	player_control_context.direction.x = Input.get_axis("kxi_left", "kxi_right")
+	player_control_context.direction.y = Input.get_axis("kxi_down", "kxi_up")
 	
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.

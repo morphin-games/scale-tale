@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=21 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_b5f1o"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -8,27 +8,36 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_idle.gd" id="4_ysyec"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_action.gd" id="5_rwbm4"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump.gd" id="6_vggh5"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_jumping.gd" id="9_5erol"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_moving.gd" id="9_pk4py"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump_back.gd" id="10_jn2pp"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_falling.gd" id="10_7fjsw"]
 
 [sub_resource type="Resource" id="Resource_ysf4o"]
 script = ExtResource("4_4iwfk")
 
 [sub_resource type="Resource" id="Resource_j17ev"]
 script = ExtResource("6_vggh5")
-jump_force = 10.0
+jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_sts72"]
 script = ExtResource("4_ysyec")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_j17ev")])
 
-[sub_resource type="Resource" id="Resource_hs2t2"]
-script = ExtResource("10_jn2pp")
-jump_force = 20.0
+[sub_resource type="Resource" id="Resource_dio2c"]
+script = ExtResource("9_5erol")
+state_actions = Array[ExtResource("5_rwbm4")]([])
+
+[sub_resource type="Resource" id="Resource_ybmh6"]
+script = ExtResource("10_7fjsw")
+state_actions = Array[ExtResource("5_rwbm4")]([])
+
+[sub_resource type="Resource" id="Resource_a51i5"]
+script = ExtResource("6_vggh5")
+jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_mn4bo"]
 script = ExtResource("9_pk4py")
-state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_hs2t2")])
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_a51i5")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ww0a"]
 
@@ -42,7 +51,7 @@ max_speed = 10.0
 [node name="PPStateMachine" type="Node" parent="."]
 script = ExtResource("2_4dcbp")
 constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_ysf4o")])
-states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_sts72"), SubResource("Resource_mn4bo")])
+states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_sts72"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_mn4bo")])
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_mask = 30

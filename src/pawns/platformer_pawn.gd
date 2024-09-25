@@ -5,11 +5,12 @@ extends Pawn3D
 
 @export_category("Stats")
 @export var max_speed : float = 30.0
-@export var jump_force : float = 40.0
+@export var max_acceleration : float = 0.5
 
 @onready var velocity_y : float = 0.0
 @onready var speed : float = max_speed
-@onready var platformer_controller : PlatformerController = _controller as PlatformerController
+@onready var acceleration : float = max_acceleration
+@onready var platformer_controller : PlayerController = _controller as PlayerController
 @onready var platformer_control_context : PlatformerControlContext = context as PlatformerControlContext
 
 var input_bufferer : InputBufferer = InputBufferer.new()
@@ -18,13 +19,6 @@ var input_bufferer : InputBufferer = InputBufferer.new()
 # Override to add your behaviour.
 func ready() -> void:
 	add_child(input_bufferer)
-	#platformer_controller.kxi_jump_pressed.connect(Callable(func() -> void:
-		#input_bufferer.buffer("kxi_jump", Callable(func() -> void:
-			#velocity_y = jump_force
-		#), Callable(func() -> bool:
-			#return true
-		#))
-	#))
 
 # Virtual function. Called on input.
 # Override to add your behaviour.
@@ -34,12 +28,10 @@ func input(event: InputEvent) -> void:
 # Virtual function. Called every frame.
 # Override to add your behaviour.
 func process(delta : float) -> void:
-	#if(body.is_on_floor()):
-		#velocity_y = 0
-	#else:
-		#velocity_y -= ProjectSettings.get("physics/3d/default_gravity") as float
-		#
-	body.velocity = Vector3(platformer_control_context.direction.x * speed, velocity_y, platformer_control_context.direction.y * speed)
+	body.velocity.x = move_toward(body.velocity.x, platformer_control_context.direction.x * speed, acceleration)
+	body.velocity.y = velocity_y
+	body.velocity.z = move_toward(body.velocity.z, platformer_control_context.direction.y * speed, acceleration)
+	print("velocity_y: ", velocity_y)
 	
 # Virtual function. Called every physics frame.
 # Override to add your behaviour.

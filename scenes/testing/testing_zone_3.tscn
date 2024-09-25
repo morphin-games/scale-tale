@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=9 format=3 uid="uid://2y4jdep8nq8o"]
 
-[ext_resource type="Script" path="res://src/controllers/platformer_controller.gd" id="1_ali74"]
-[ext_resource type="Script" path="res://src/control_contexts/platformer_control_context.gd" id="2_4w5ap"]
+[ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
+[ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
+[ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player.tscn" id="3_hiiyw"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
@@ -13,8 +14,9 @@ func _ready() -> void:
 	Keyxplorer.setup(\"res://resources/input_remaps/kxm_default.tres\", true)
 "
 
-[sub_resource type="Resource" id="Resource_kidx7"]
-script = ExtResource("2_4w5ap")
+[sub_resource type="Resource" id="Resource_cpch4"]
+script = ExtResource("3_63nx1")
+camera_motion = Vector2(0, 0)
 direction = Vector2(0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ryg2p"]
@@ -28,13 +30,16 @@ size = Vector3(100, 1, 100)
 [node name="SetupKeyxplorer" type="Node" parent="."]
 script = SubResource("GDScript_42wkf")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.944422, 0.328735, 0, -0.328735, 0.944422, -0.1184, 2.1283, 3.77128)
+script = ExtResource("1_w4m8a")
 
-[node name="PlatformerController" type="Node" parent="." node_paths=PackedStringArray("pawn")]
-script = ExtResource("1_ali74")
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("player_camera", "pawn")]
+script = ExtResource("1_a4h0a")
+player_camera = NodePath("../PlayerCamera")
+camera_follow_speed = 0.06
 pawn = NodePath("../Player")
-control_context = SubResource("Resource_kidx7")
+control_context = SubResource("Resource_cpch4")
 
 [node name="Player" parent="." instance=ExtResource("3_hiiyw")]
 
