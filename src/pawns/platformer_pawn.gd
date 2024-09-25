@@ -18,7 +18,6 @@ var input_bufferer : InputBufferer = InputBufferer.new()
 # Override to add your behaviour.
 func ready() -> void:
 	add_child(input_bufferer)
-	
 	platformer_controller.kxi_jump_pressed.connect(Callable(func() -> void:
 		input_bufferer.buffer("kxi_jump", Callable(func() -> void:
 			velocity_y = jump_force
