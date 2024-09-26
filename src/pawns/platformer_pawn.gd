@@ -31,7 +31,6 @@ func process(delta : float) -> void:
 	body.velocity.x = move_toward(body.velocity.x, platformer_control_context.direction.x * speed, acceleration)
 	body.velocity.y = velocity_y
 	body.velocity.z = move_toward(body.velocity.z, platformer_control_context.direction.y * speed, acceleration)
-	print("velocity_y: ", velocity_y)
 	
 # Virtual function. Called every physics frame.
 # Override to add your behaviour.

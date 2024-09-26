@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=23 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_b5f1o"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -43,7 +43,11 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_a51i5")])
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l6t5v"]
 
-[node name="Player" type="Node3D" node_paths=PackedStringArray("body")]
+[sub_resource type="SphereMesh" id="SphereMesh_e3k31"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6a70"]
+
+[node name="PlayerPawn" type="Node3D" node_paths=PackedStringArray("body")]
 script = ExtResource("1_b5f1o")
 body = NodePath("CharacterBody3D")
 max_speed = 10.0
@@ -61,3 +65,8 @@ shape = SubResource("CapsuleShape3D_5ww0a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
 mesh = SubResource("CapsuleMesh_l6t5v")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117771, 0.542152)
+mesh = SubResource("SphereMesh_e3k31")
+surface_material_override/0 = SubResource("StandardMaterial3D_r6a70")
