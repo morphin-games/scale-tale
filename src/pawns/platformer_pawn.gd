@@ -1,24 +1,24 @@
 class_name PlatformerPawn
 extends Pawn3D
 
-@export var max_speed : float = 300.0
-@export var jump_force : float = 75.0
+@export var body : CharacterBody3D
 
-var platformer_controller : PlatformerController = _controller as PlatformerController
+@export_category("Stats")
+@export var max_speed : float = 30.0
+@export var max_acceleration : float = 0.5
+
+@onready var velocity_y : float = 0.0
+@onready var speed : float = max_speed
+@onready var acceleration : float = max_acceleration
+@onready var platformer_controller : PlayerController = _controller as PlayerController
+@onready var platformer_control_context : PlatformerControlContext = context as PlatformerControlContext
+
 var input_bufferer : InputBufferer = InputBufferer.new()
 
 # Virtual function. Called on ready.
 # Override to add your behaviour.
 func ready() -> void:
 	add_child(input_bufferer)
-	
-	platformer_controller.kxi_jump_pressed.connect(Callable(func() -> void:
-		input_bufferer.buffer("kxi_jump", Callable(func() -> void:
-			print("a")
-		), Callable(func() -> bool:
-			return true
-		))
-	))
 
 # Virtual function. Called on input.
 # Override to add your behaviour.
@@ -28,9 +28,11 @@ func input(event: InputEvent) -> void:
 # Virtual function. Called every frame.
 # Override to add your behaviour.
 func process(delta : float) -> void:
-	pass
+	body.velocity.x = move_toward(body.velocity.x, platformer_control_context.direction.x * speed, acceleration)
+	body.velocity.y = velocity_y
+	body.velocity.z = move_toward(body.velocity.z, platformer_control_context.direction.y * speed, acceleration)
 	
 # Virtual function. Called every physics frame.
 # Override to add your behaviour.
 func physics_process(delta : float) -> void:
-	pass
+	body.move_and_slide()

@@ -1,18 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=9 format=3 uid="uid://2y4jdep8nq8o"]
 
-[ext_resource type="Script" path="res://src/controllers/platformer_controller.gd" id="1_ali74"]
-[ext_resource type="Script" path="res://addons/equinox/pawn_controller_system/control_context.gd" id="2_615em"]
-[ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="3_4hqbc"]
+[ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
+[ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
+[ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
+[ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player.tscn" id="3_hiiyw"]
 
-[sub_resource type="Resource" id="Resource_7c8h1"]
-script = ExtResource("2_615em")
+[sub_resource type="GDScript" id="GDScript_42wkf"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Keyxplorer.setup(\"res://resources/input_remaps/kxm_default.tres\", true)
+"
+
+[sub_resource type="Resource" id="Resource_cpch4"]
+script = ExtResource("3_63nx1")
+camera_motion = Vector2(0, 0)
+camera_look_direction = Vector2(0, 0)
+added_direction = Vector2(0, 0)
+direction_angle = 0.0
+direction = Vector2(0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ryg2p"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gll08"]
+size = Vector3(100, 1, 100)
 
 [node name="TestingZone3" type="Node3D"]
 
-[node name="PlatformerController" type="Node" parent="." node_paths=PackedStringArray("pawn")]
-script = ExtResource("1_ali74")
-pawn = NodePath("../PlatformerPawn")
-control_context = SubResource("Resource_7c8h1")
+[node name="SetupKeyxplorer" type="Node" parent="."]
+script = SubResource("GDScript_42wkf")
 
-[node name="PlatformerPawn" type="Node3D" parent="."]
-script = ExtResource("3_4hqbc")
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("player_camera", "pawn")]
+script = ExtResource("1_a4h0a")
+player_camera = NodePath("../PlayerCamera")
+get_direction_from_camera = null
+pawn = NodePath("../PlayerPawn")
+control_context = SubResource("Resource_cpch4")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.944422, 0.328735, 0, -0.328735, 0.944422, -0.1184, 2.1283, 3.77128)
+script = ExtResource("1_w4m8a")
+
+[node name="PlayerPawn" parent="." instance=ExtResource("3_hiiyw")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.06296, 0)
+collision_layer = 2
+collision_mask = 23
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ryg2p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_gll08")
+
+[node name="DirectionalLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
+omni_range = 16.85
+omni_attenuation = 0.551

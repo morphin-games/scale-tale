@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Scale Tale"
-run/main_scene="res://scenes/config_loader.tscn"
+run/main_scene="res://scenes/testing/testing_zone_3.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
 config/icon="res://art/2D/ico.png"
@@ -22,14 +22,8 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 [autoload]
 
-DialogManager="*res://resources/old_dialogues/dialog_manager.gd"
 BeehaveGlobalMetrics="res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="res://addons/beehave/debug/global_debugger.gd"
-Persistance="*res://src/persistance/persistance.gd"
-GrabableDistanceSystem="*res://src/singletons/grabable_distance_system.gd"
-GlobalSettings="*res://src/game_settings/global_settings.gd"
-SettingsFile="*res://src/game_settings/settings_file.gd"
-InteractuableDistanceSystem="*res://src/singletons/interactiable_distance_system.gd"
 LevelManager="*res://addons/equinox/level_manager_system/level_manager.gd"
 Keyxplorer="*res://addons/keyxplorer/keyxplorer.gd"
 KuriakutoCore="*res://addons/kuriakuto/kuriakuto_core.gd"
@@ -72,9 +66,8 @@ glossary/default_case_sensitive=true
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/size/resizable=false
+window/size/viewport_width=160
+window/size/viewport_height=90
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
@@ -284,7 +277,7 @@ dialogic_default_action={
 
 [physics]
 
-3d/default_gravity=30.0
+3d/default_gravity=0.49
 
 [rendering]
 
