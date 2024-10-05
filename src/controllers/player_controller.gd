@@ -8,6 +8,7 @@ signal kxi_down_pressed
 signal kxi_left_pressed
 signal kxi_right_pressed
 signal kxi_jump_pressed
+signal kxi_run_pressed
 signal kxi_crouch_pressed
 signal kxi_pressed
 
@@ -16,6 +17,7 @@ signal kxi_down_released
 signal kxi_left_released
 signal kxi_right_released
 signal kxi_jump_released
+signal kxi_run_released
 signal kxi_crouch_released
 signal kxi_released
 #endregion
@@ -52,12 +54,18 @@ func ready() -> void:
 func input(event: InputEvent) -> void:
 	if(event.is_action_pressed("kxi_jump")):
 		kxi_jump_pressed.emit()
-	elif(event.is_action_pressed("kxi_crouch")):
-		kxi_crouch_pressed.emit()
 	elif(event.is_action_released("kxi_jump")):
 		kxi_jump_released.emit()
+		
+	elif(event.is_action_pressed("kxi_crouch")):
+		kxi_crouch_pressed.emit()
 	elif(event.is_action_released("kxi_crouch")):
 		kxi_crouch_released.emit()
+		
+	elif(event.is_action_pressed("kxi_run")):
+		kxi_run_pressed.emit()
+	elif(event.is_action_released("kxi_run")):
+		kxi_run_released.emit()
 		
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative
