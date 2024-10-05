@@ -8,7 +8,7 @@ var camera_rotation_pivot_y : Node3D
 
 func _process(delta: float) -> void:
 	camera_rotation_pivot_x.global_transform.origin = pawn.body.global_transform.origin # TODO: Lerp this
-	camera_rotation_pivot_x.transform.origin.y = controller.camera_y_offset
+	camera_rotation_pivot_x.transform.origin.y = pawn.body.global_transform.origin.y + controller.camera_y_offset
 	camera_rotation_pivot_y.transform.origin.z = -controller.camera_distance
 	camera_rotation_pivot_x.rotation_degrees.y -= controller.player_control_context.camera_motion.x
 	camera_rotation_pivot_x.rotation_degrees.x += controller.player_control_context.camera_motion.y
