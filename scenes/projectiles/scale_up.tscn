@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5jep3b7dd45n"]
+
+[ext_resource type="Script" path="res://src/projectile/projectiles/projectile_scale.gd" id="1_sjkwa"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_472fm"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4ksw"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h2q61"]
+radius = 0.3
+
+[node name="ScaleUp" type="CharacterBody3D" node_paths=PackedStringArray("area")]
+script = ExtResource("1_sjkwa")
+area = NodePath("Area3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_472fm")
+surface_material_override/0 = SubResource("StandardMaterial3D_h4ksw")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 96
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_h2q61")
