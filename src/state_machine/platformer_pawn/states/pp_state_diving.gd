@@ -13,14 +13,15 @@ func enter_condition() -> bool:
 
 func enter() -> void:
 	forced_direction = platformer_pawn.platformer_control_context.direction
-	platformer_pawn.platformer_controller.enabled = false
 
 func exit() -> void:
 	#platformer_pawn.speed = platformer_pawn.return_speed
-	platformer_pawn.acceleration = platformer_pawn.return_acceleration
-	platformer_pawn.platformer_controller.enabled = true
+	#platformer_pawn.acceleration = platformer_pawn.return_acceleration
+	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.acceleration = context.return_acceleration
 
 func process(delta : float) -> void:
+	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
 	platformer_pawn.platformer_control_context.direction = forced_direction
-	platformer_pawn.speed = platformer_pawn.return_speed * pp_state_action_dive.push_force
-	platformer_pawn.acceleration = platformer_pawn.return_speed * pp_state_action_dive.push_acceleration
+	context.speed = context.return_speed * pp_state_action_dive.push_force
+	context.acceleration = context.return_speed * pp_state_action_dive.push_acceleration

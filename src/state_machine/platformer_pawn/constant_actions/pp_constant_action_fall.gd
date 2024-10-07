@@ -4,11 +4,14 @@ extends PPConstantAction
 var gravity = ProjectSettings.get("physics/3d/default_gravity")
 
 func process(delta : float) -> void:
+	var context : PPContextPlatformer = (state_machine.context as PPContextPlatformer)
+	
 	if(
 		state_machine.platformer_pawn.body.is_on_floor() and
 		state_machine.state is not PPStateJumping
 	):
-		state_machine.platformer_pawn.velocity_y = 0
+		context.velocity_y = 0
 	elif(!state_machine.platformer_pawn.body.is_on_floor()):
-		state_machine.platformer_pawn.velocity_y -= gravity
+		context.velocity_y -= gravity
 		
+	state_machine.platformer_pawn.body.velocity.y = context.velocity_y

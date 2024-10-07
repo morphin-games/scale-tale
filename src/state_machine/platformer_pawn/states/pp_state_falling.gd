@@ -3,5 +3,5 @@ extends PPState
 
 func enter_condition() -> bool:
 	return (
-		platformer_pawn.velocity_y < 0
+		((state_machine as PPStateMachine).context as PPContextPlatformer).velocity_y < 0
 	)
