@@ -24,13 +24,34 @@ enum ScaleState {
 @export var scale_large_enabled : bool = true
 @export var scale_large : Vector3 = Vector3(2.0, 2.0, 2.0)
 
-@onready var target : Node3D = get_parent() as Node3D
 @onready var scale_state : ScaleState = ScaleState.DEFAULT
 @onready var time_scaled : float = 0.0
+
+var default_scales : Dictionary
+var tween_speed : float = 0.33
+var tween_ease : Tween.EaseType = Tween.EaseType.EASE_OUT
+var tween_trans : Tween.TransitionType = Tween.TransitionType.TRANS_BOUNCE
 
 func _ready() -> void:
 	collision_layer = CollisionLayerNames.SCALABLE
 	collision_mask = CollisionLayerNames.SCALE_PROJECTILE
+	
+	if(get_children()[0] != null and get_children()[0] is CollisionShape3D):
+		targets.append(get_children()[0])
+		
+	# Save all default scales in a dictionary to return to use them in the future
+	for i in range(0, targets.size()):
+		if(targets[i] is not Node3D):
+			continue
+			
+		if(targets[i] is not CollisionShape3D):
+			default_scales[i] = targets[i].scale
+		else:
+			var collision_shape_3d : CollisionShape3D = targets[i] as CollisionShape3D
+			if(collision_shape_3d.shape is BoxShape3D):
+				default_scales[i] = (collision_shape_3d.shape as BoxShape3D).size
+			elif(collision_shape_3d.shape is SphereShape3D):
+				default_scales[i] =  (collision_shape_3d.shape as SphereShape3D).radius
 	
 	area_entered.connect(Callable(func(area : Area3D) -> void:
 		var projectile : ProjectileScale = area.get_parent() as ProjectileScale
@@ -64,20 +85,30 @@ func _downscale() -> void:
 		_apply_scale(scale_default)
 		
 func _apply_scale(scale_size : Vector3) -> void:
-	for target in targets:
-		if(target is not Node3D):
+
+	
+	for i in range(0, targets.size()):
+		if(targets[i] is not Node3D):
 			continue
 			
-		if(target is not CollisionShape3D):
-			target.scale = scale_size
+		if(targets[i] is not CollisionShape3D):
+			var tween : Tween = get_tree().create_tween()
+			tween.set_ease(tween_ease)
+			tween.set_trans(tween_trans)
+			tween.tween_property(targets[i], "scale", scale_size, tween_speed)
 		else:
-			var collision_shape_3d : CollisionShape3D = target as CollisionShape3D
+			var collision_shape_3d : CollisionShape3D = targets[i] as CollisionShape3D
 			if(collision_shape_3d.shape is BoxShape3D):
-				(collision_shape_3d.shape as BoxShape3D).size = scale_size
+				var tween : Tween = get_tree().create_tween()
+				tween.set_ease(tween_ease)
+				tween.set_trans(tween_trans)
+				tween.tween_property((collision_shape_3d.shape as BoxShape3D), "size", scale_size, tween_speed)
 			elif(collision_shape_3d.shape is SphereShape3D):
-				(collision_shape_3d.shape as SphereShape3D).radius = scale_size.x / 2
+				var tween : Tween = get_tree().create_tween()
+				tween.set_ease(tween_ease)
+				tween.set_trans(tween_trans)
+				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", scale_size.x / 2, tween_speed)
 				
-
 func _process(delta: float) -> void:
 	if(time_scaled > 0.0 and scale_state != ScaleState.DEFAULT):
 		time_scaled -= delta

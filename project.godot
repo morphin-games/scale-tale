@@ -34,9 +34,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={}
-directories/dtl_directory={
-"test_timeline": "res://resources/dialogic/test_timeline.dtl"
-}
+directories/dtl_directory={}
 layout/style_list=[]
 layout/default_style="res://dialogic/dialogic_style.tres"
 text/letter_speed=0.01
@@ -274,6 +272,7 @@ dialogic_default_action={
 3d_physics/layer_5="scale_projectile"
 3d_physics/layer_6="scalable"
 3d_physics/layer_7="scalable_attraction_field"
+3d_physics/layer_8="rigid"
 
 [rendering]
 
