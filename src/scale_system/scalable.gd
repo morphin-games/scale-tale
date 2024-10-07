@@ -7,6 +7,8 @@ enum ScaleState {
 	LARGE
 }
 
+@export var targets : Array[Node3D]
+
 @export var infinite_scale_duration : bool = false
 @export var upscale_duration : float = 15.0
 @export var downscale_duration : float = 15.0
@@ -45,25 +47,40 @@ func _upscale() -> void:
 	if(scale_state == ScaleState.DEFAULT):
 		if(scale_large_enabled):
 			scale_state = ScaleState.LARGE
-			target.scale = scale_large
+			_apply_scale(scale_large)
 			time_scaled = upscale_duration
 	elif(scale_state == ScaleState.SMALL):
 		scale_state = ScaleState.DEFAULT
-		target.scale = scale_default
+		_apply_scale(scale_default)
 	
 func _downscale() -> void:
 	if(scale_state == ScaleState.DEFAULT):
 		if(scale_small_enabled):
 			scale_state = ScaleState.SMALL
-			target.scale = scale_small
+			_apply_scale(scale_small)
 			time_scaled = downscale_duration
 	elif(scale_state == ScaleState.LARGE):
 		scale_state = ScaleState.DEFAULT
-		target.scale = scale_default
+		_apply_scale(scale_default)
+		
+func _apply_scale(scale_size : Vector3) -> void:
+	for target in targets:
+		if(target is not Node3D):
+			continue
+			
+		if(target is not CollisionShape3D):
+			target.scale = scale_size
+		else:
+			var collision_shape_3d : CollisionShape3D = target as CollisionShape3D
+			if(collision_shape_3d.shape is BoxShape3D):
+				(collision_shape_3d.shape as BoxShape3D).size = scale_size
+			elif(collision_shape_3d.shape is SphereShape3D):
+				(collision_shape_3d.shape as SphereShape3D).radius = scale_size.x / 2
+				
 
 func _process(delta: float) -> void:
 	if(time_scaled > 0.0 and scale_state != ScaleState.DEFAULT):
 		time_scaled -= delta
 		if(time_scaled <= 0.0):
 			scale_state = ScaleState.DEFAULT
-			target.scale = scale_default
+			_apply_scale(scale_default)
