@@ -8,6 +8,7 @@ signal kxi_down_pressed
 signal kxi_left_pressed
 signal kxi_right_pressed
 signal kxi_jump_pressed
+signal kxi_run_pressed
 signal kxi_crouch_pressed
 signal kxi_pressed
 
@@ -16,6 +17,7 @@ signal kxi_down_released
 signal kxi_left_released
 signal kxi_right_released
 signal kxi_jump_released
+signal kxi_run_released
 signal kxi_crouch_released
 signal kxi_released
 #endregion
@@ -32,6 +34,7 @@ signal kxi_released
 @onready var player_control_context : PlayerControlContext = control_context as PlatformerControlContext 
 @onready var camera_rotation_pivot_x : Node3D = Node3D.new()
 @onready var camera_rotation_pivot_y : Node3D = Node3D.new()
+@onready var enabled : bool = true
 
 # Virtual function, called on ready.
 # Override to add your behaviour.
@@ -50,14 +53,22 @@ func ready() -> void:
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func input(event: InputEvent) -> void:
+	if(!enabled): return
+	
 	if(event.is_action_pressed("kxi_jump")):
 		kxi_jump_pressed.emit()
-	elif(event.is_action_pressed("kxi_crouch")):
-		kxi_crouch_pressed.emit()
 	elif(event.is_action_released("kxi_jump")):
 		kxi_jump_released.emit()
+		
+	elif(event.is_action_pressed("kxi_crouch")):
+		kxi_crouch_pressed.emit()
 	elif(event.is_action_released("kxi_crouch")):
 		kxi_crouch_released.emit()
+		
+	elif(event.is_action_pressed("kxi_run")):
+		kxi_run_pressed.emit()
+	elif(event.is_action_released("kxi_run")):
+		kxi_run_released.emit()
 		
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative
@@ -66,17 +77,23 @@ func input(event: InputEvent) -> void:
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func process(delta : float) -> void:
+	if(!enabled): return
+	
 	player_control_context.direction.x = Input.get_axis("kxi_right", "kxi_left")
 	player_control_context.direction.y = Input.get_axis("kxi_down", "kxi_up")
+	if(player_control_context.direction != Vector2(0.0, 0.0)):
+		player_control_context.last_direction = player_control_context.direction.normalized()
 	player_control_context.direction = player_control_context.direction.normalized()
 	
 	if(get_direction_from_camera and player_control_context.direction != Vector2(0.0, 0.0)):
 		var direction_angle : float = player_control_context.camera_look_direction.angle_to(player_control_context.direction)
 		var combined_direction : Vector2 = Vector2.RIGHT.rotated(direction_angle + deg_to_rad(90)).normalized()
+		if(player_control_context.direction != Vector2(0.0, 0.0)):
+			player_control_context.last_direction = combined_direction
 		player_control_context.direction = combined_direction
 		player_control_context.direction_angle = direction_angle
-	
+		
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func physics_process(delta : float) -> void:
-	pass
+	if(!enabled): return

@@ -5,6 +5,7 @@ extends Node
 
 @onready var state : State = states[0] if states.size() > 0 else null : 
 	set(new_state):
+		state.exit()
 		state.active = false
 		state = new_state
 		state.enter()

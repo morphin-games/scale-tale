@@ -7,4 +7,4 @@ func enter_condition() -> bool:
 	)
 
 func enter() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration
+	((state_machine as PPStateMachine).context as PPContextPlatformer).acceleration = ((state_machine as PPStateMachine).context as PPContextPlatformer).return_acceleration

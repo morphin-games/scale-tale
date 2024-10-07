@@ -12,8 +12,8 @@ signal recovered
 @export var floor_checker : RayCast3D
 @export var scalable : Scalable3D
 @export_category("Speed")
-@onready var max_speed : float = 5.0
-@onready var speed : float = max_speed
+@onready var return_speed : float = 5.0
+@onready var speed : float = return_speed
 
 enum EnemyStatus {
 	IDLE = 0

@@ -3,11 +3,13 @@ extends PPState
 
 func enter_condition() -> bool:
 	return (
-		platformer_pawn.velocity_y > 0
+		((state_machine as PPStateMachine).context as PPContextPlatformer).velocity_y > 0
 	)
 
 func enter() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration / 4
+	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.acceleration = context.return_acceleration / 4
 	
 func exit() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration
+	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.acceleration = context.return_acceleration
