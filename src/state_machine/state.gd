@@ -15,4 +15,3 @@ func exit() -> void:
 	
 func process(delta : float) -> void:
 	pass
-	

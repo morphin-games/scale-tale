@@ -11,7 +11,7 @@ func enter_condition() -> bool:
 	)
 
 func enter() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration
+	platformer_pawn.acceleration = platformer_pawn.return_acceleration
 
 func exit() -> void:
-	platformer_pawn.speed = platformer_pawn.max_speed
+	platformer_pawn.speed = platformer_pawn.return_speed

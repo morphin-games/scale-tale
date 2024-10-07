@@ -135,6 +135,7 @@ references = {
 "res://src/state_machine/platformer_pawn/states/platformer_pawn_state_idle.gd": {},
 "res://src/state_machine/platformer_pawn/states/platformer_pawn_state_jumping.gd": {},
 "res://src/state_machine/platformer_pawn/states/platformer_pawn_state_moving.gd": {},
+"res://src/state_machine/platformer_pawn/states/pp_state_diving.gd": {},
 "res://src/state_machine/platformer_pawn/states/pp_state_falling.gd": {},
 "res://src/state_machine/platformer_pawn/states/pp_state_idle.gd": {},
 "res://src/state_machine/platformer_pawn/states/pp_state_jumping.gd": {},

@@ -7,7 +7,7 @@ func enter_condition() -> bool:
 	)
 
 func enter() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration / 4
+	platformer_pawn.acceleration = platformer_pawn.return_acceleration / 4
 	
 func exit() -> void:
-	platformer_pawn.acceleration = platformer_pawn.max_acceleration
+	platformer_pawn.acceleration = platformer_pawn.return_acceleration
