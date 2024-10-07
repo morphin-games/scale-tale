@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=14 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
@@ -28,6 +28,21 @@ size = Vector3(100, 1, 100)
 [sub_resource type="BoxMesh" id="BoxMesh_gll08"]
 size = Vector3(100, 1, 100)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8k0yh"]
+albedo_color = Color(0, 0.639216, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i8h5c"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpkaj"]
+albedo_color = Color(0.47451, 0.278431, 0.141176, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dsa6p"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeil8"]
+albedo_color = Color(0, 0.639216, 0, 1)
+
 [node name="TestingZone3" type="Node3D"]
 
 [node name="SetupKeyxplorer" type="Node" parent="."]
@@ -36,7 +51,6 @@ script = SubResource("GDScript_42wkf")
 [node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("player_camera", "pawn")]
 script = ExtResource("1_a4h0a")
 player_camera = NodePath("../PlayerCamera")
-get_direction_from_camera = null
 pawn = NodePath("../PlayerPawn")
 control_context = SubResource("Resource_cpch4")
 
@@ -56,8 +70,68 @@ shape = SubResource("BoxShape3D_ryg2p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_gll08")
+surface_material_override/0 = SubResource("StandardMaterial3D_8k0yh")
 
-[node name="DirectionalLight3D" type="OmniLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
-omni_range = 16.85
-omni_attenuation = 0.551
+shadow_enabled = true
+
+[node name="Tree" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758688, 10.9283)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree"]
+mesh = SubResource("BoxMesh_i8h5c")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
+mesh = SubResource("BoxMesh_dsa6p")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
+
+[node name="Tree2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.4988, 0.758688, 17.8339)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree2"]
+mesh = SubResource("BoxMesh_i8h5c")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
+mesh = SubResource("BoxMesh_dsa6p")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
+
+[node name="Tree3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.9019, 0.758688, -20.8542)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree3"]
+mesh = SubResource("BoxMesh_i8h5c")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
+mesh = SubResource("BoxMesh_dsa6p")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
+
+[node name="Tree4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0806, 0.758688, -30.7305)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree4"]
+mesh = SubResource("BoxMesh_i8h5c")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tree4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
+mesh = SubResource("BoxMesh_dsa6p")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
+
+[node name="Tree5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.7812, 0.758688, 24.0694)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree5"]
+mesh = SubResource("BoxMesh_i8h5c")
+surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Tree5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
+mesh = SubResource("BoxMesh_dsa6p")
+surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
