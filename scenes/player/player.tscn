@@ -33,6 +33,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_oufvw"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_vlgg6"]
 script = ExtResource("11_e4v8i")
@@ -50,6 +51,7 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x23xt")])
 
 [sub_resource type="Resource" id="Resource_hwdxi"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_gfyrc"]
 script = ExtResource("10_rw4wy")
@@ -66,6 +68,7 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_hwdxi"), Su
 
 [sub_resource type="Resource" id="Resource_d7gpo"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_honnd"]
 script = ExtResource("11_e4v8i")
@@ -85,6 +88,7 @@ accel_multiplier = null
 
 [sub_resource type="Resource" id="Resource_ochmv"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_x8kyl"]
 script = ExtResource("11_e4v8i")
@@ -99,6 +103,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_eello"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_mo8b3"]
 script = ExtResource("11_e4v8i")
@@ -120,9 +125,10 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6a70"]
 albedo_color = Color(0, 0.784314, 1, 1)
 
-[node name="PlayerPawn" type="Node3D" node_paths=PackedStringArray("body")]
+[node name="PlayerPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh")]
 script = ExtResource("1_b5f1o")
 body = NodePath("CharacterBody3D")
+mesh = NodePath("CharacterBody3D/Mesh")
 
 [node name="PPStateMachine" type="Node" parent="."]
 script = ExtResource("2_4dcbp")
@@ -136,11 +142,15 @@ collision_mask = 30
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_5ww0a")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="Mesh" type="Node3D" parent="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Mesh"]
 mesh = SubResource("CapsuleMesh_l6t5v")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_swmr2")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D/Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117771, 0.542152)
 mesh = SubResource("SphereMesh_e3k31")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_r6a70")

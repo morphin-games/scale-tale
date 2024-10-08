@@ -34,7 +34,9 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={}
-directories/dtl_directory={}
+directories/dtl_directory={
+"test_timeline": "res://resources/dialogic/test_timeline.dtl"
+}
 layout/style_list=[]
 layout/default_style="res://dialogic/dialogic_style.tres"
 text/letter_speed=0.01

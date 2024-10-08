@@ -6,7 +6,7 @@
 radius = 0.25
 height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpo35"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dc0km"]
 albedo_color = Color(0, 0.682353, 1, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qineq"]
@@ -18,7 +18,7 @@ area = NodePath("Area3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_472fm")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpo35")
+surface_material_override/0 = SubResource("StandardMaterial3D_dc0km")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16

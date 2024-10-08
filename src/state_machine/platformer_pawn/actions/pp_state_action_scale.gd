@@ -23,7 +23,7 @@ func ready() -> void:
 	(platformer_pawn_state.platformer_pawn._controller as PlayerController).kxi_downscale_pressed.connect(Callable(func() -> void:
 		if(!platformer_pawn_state.active): return
 		
-		var projectile_instance : Projectile = projectile_up.instantiate()
+		var projectile_instance : Projectile = projectile_down.instantiate()
 		var projectile_data : ProjectileDataScale = ProjectileDataScale.new()
 		projectile_data.direction.x = platformer_pawn_state.platformer_pawn.platformer_control_context.last_direction.x
 		projectile_data.direction.z = platformer_pawn_state.platformer_pawn.platformer_control_context.last_direction.y
