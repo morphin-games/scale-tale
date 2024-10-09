@@ -22,9 +22,14 @@ func setup() -> void:
 		(iterated as PPState).setup_actions()
 		
 	for constant_action in constant_actions:
-		(constant_action as PPConstantAction).state_machine = self 
+		(constant_action as PPConstantAction).ready()
+		(constant_action as PPConstantAction).state_machine = self
 		
 func _process(delta: float) -> void:
+	print((context as PPContextPlatformer).speed)
+	print((context as PPContextPlatformer).acceleration)
+	print("----------------------------------")
+	#print(state.resource_path)
 	super(delta)
 	for iterated in states:
 		if(iterated == null): continue

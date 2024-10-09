@@ -3,9 +3,9 @@ extends PPStateAction
 
 @export var jump_force : float = 5.0
 ## The speed of the player when jumping. It's multiplied by [member PlatformerPawn.return_speed].
-@export var push_force : float = 1.75
+@export var push_force : float = 4.0
 ## The acceleration of the push. It's multiplied by [member PlatformerPawn.return_acceleration].
-@export var push_acceleration : float = 5.0
+@export var push_acceleration : float = 15.0
 
 func ready() -> void:
 	var context : PPContextPlatformer = (platformer_pawn_state.state_machine as PPStateMachine).context as PPContextPlatformer

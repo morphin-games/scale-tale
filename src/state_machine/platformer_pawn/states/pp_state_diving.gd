@@ -15,9 +15,9 @@ func enter() -> void:
 	forced_direction = platformer_pawn.platformer_control_context.direction
 
 func exit() -> void:
-	#platformer_pawn.speed = platformer_pawn.return_speed
-	#platformer_pawn.acceleration = platformer_pawn.return_acceleration
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.speed = context.return_speed
+	context.acceleration = context.return_acceleration
 	context.acceleration = context.return_acceleration
 
 func process(delta : float) -> void:
@@ -25,3 +25,4 @@ func process(delta : float) -> void:
 	platformer_pawn.platformer_control_context.direction = forced_direction
 	context.speed = context.return_speed * pp_state_action_dive.push_force
 	context.acceleration = context.return_speed * pp_state_action_dive.push_acceleration
+	

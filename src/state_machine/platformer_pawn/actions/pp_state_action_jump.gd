@@ -13,7 +13,10 @@ func ready() -> void:
 		Callable(func() -> void:
 			context.velocity_y = jump_force
 		), Callable(func() -> bool:
-			return platformer_pawn_state.platformer_pawn.body.is_on_floor()
+			return (
+				platformer_pawn_state.platformer_pawn.body.is_on_floor() or
+				platformer_pawn_state.state_machine.state is PPStateCoyoteTiming
+			)
 		))
 	))
 	

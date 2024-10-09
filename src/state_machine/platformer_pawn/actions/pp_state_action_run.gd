@@ -1,7 +1,7 @@
 class_name PPStateActionRun
 extends PPStateAction
 
-@export var speed_multiplier : float = 1.5
+@export var speed_multiplier : float = 1.75
 @export var accel_multiplier : float = 2.0
 
 func ready() -> void:
