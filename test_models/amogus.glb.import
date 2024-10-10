@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://rmxacaf5bnvy"
-path="res://.godot/imported/pine_2.fbx-01c5e1cf53ae944c6ce41a8e84434d66.scn"
+uid="uid://bo7qnkseqa7s3"
+path="res://.godot/imported/amogus.glb-3e8e0a9091456fbfa27c99188b9fbfb0.scn"
 
 [deps]
 
-source_file="res://art/3D/trees/pine_2.fbx"
-dest_files=["res://.godot/imported/pine_2.fbx-01c5e1cf53ae944c6ce41a8e84434d66.scn"]
+source_file="res://test_models/amogus.glb"
+dest_files=["res://.godot/imported/amogus.glb-3e8e0a9091456fbfa27c99188b9fbfb0.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -31,7 +31,12 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
-fbx/importer=1
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
+_subresources={
+"nodes": {
+"PATH:Armature/Skeleton3D": {
+"rest_pose/external_animation_library": null
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

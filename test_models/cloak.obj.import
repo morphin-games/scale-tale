@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cv2ntru4cmgwj"
+path="res://.godot/imported/cloak.obj-f07eb2b71a6b452e11f4592b74365f11.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cloak.obj-f07eb2b71a6b452e11f4592b74365f11.mesh"]
+
+source_file="res://test_models/cloak.obj"
+dest_files=["res://.godot/imported/cloak.obj-f07eb2b71a6b452e11f4592b74365f11.mesh", "res://.godot/imported/cloak.obj-f07eb2b71a6b452e11f4592b74365f11.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

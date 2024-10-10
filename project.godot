@@ -66,8 +66,6 @@ glossary/default_case_sensitive=true
 
 [display]
 
-window/size/viewport_width=500
-window/size/viewport_height=90
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

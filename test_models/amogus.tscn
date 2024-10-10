@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://by2if0yqrvor2"]
+
+[ext_resource type="PackedScene" uid="uid://bo7qnkseqa7s3" path="res://test_models/amogus.glb" id="1_2uada"]
+[ext_resource type="ArrayMesh" uid="uid://cv2ntru4cmgwj" path="res://test_models/cloak.obj" id="2_c2iyh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5jqtb"]
+radius = 0.6
+
+[node name="amogus" instance=ExtResource("1_2uada")]
+
+[node name="Sphere" parent="Armature/Skeleton3D" index="0"]
+visible = false
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, 0, 1, 0)
+bone_name = "Bone.001"
+bone_idx = 1
+
+[node name="SoftBody3D" type="SoftBody3D" parent="Armature/Skeleton3D/BoneAttachment3D" index="0"]
+transform = Transform3D(1, 0, -7.10543e-14, 0, 1, 0, 7.10543e-14, 0, 1, -0.000550982, -0.748922, -0.0137606)
+mesh = ExtResource("2_c2iyh")
+collision_layer = 32768
+collision_mask = 32768
+total_mass = 10.01
+linear_stiffness = 1.0
+damping_coefficient = 0.07
+pinned_points = [30, 31, 32, 33, 34, 5, 7, 47, 75]
+attachments/0/point_index = 30
+attachments/0/spatial_attachment_path = NodePath("..")
+attachments/0/offset = Vector3(0.748224, 2.52304, 0.622776)
+attachments/1/point_index = 31
+attachments/1/spatial_attachment_path = NodePath("..")
+attachments/1/offset = Vector3(0.890847, 2.51244, 0.384428)
+attachments/2/point_index = 32
+attachments/2/spatial_attachment_path = NodePath("..")
+attachments/2/offset = Vector3(0.985104, 2.50543, 0.126331)
+attachments/3/point_index = 33
+attachments/3/spatial_attachment_path = NodePath("..")
+attachments/3/offset = Vector3(0.985104, 2.50543, -0.153853)
+attachments/4/point_index = 34
+attachments/4/spatial_attachment_path = NodePath("..")
+attachments/4/offset = Vector3(0.99863, 0.262931, 1.33973)
+attachments/5/point_index = 5
+attachments/5/spatial_attachment_path = NodePath("..")
+attachments/5/offset = Vector3(0.890847, 2.51244, -0.41195)
+attachments/6/point_index = 7
+attachments/6/spatial_attachment_path = NodePath("..")
+attachments/6/offset = Vector3(0.748224, 2.52304, -0.650298)
+attachments/7/point_index = 47
+attachments/7/spatial_attachment_path = NodePath("..")
+attachments/7/offset = Vector3(0.881903, 2.51164, -0.407549)
+attachments/8/point_index = 75
+attachments/8/spatial_attachment_path = NodePath("..")
+attachments/8/offset = Vector3(0.975362, 2.50433, -0.15188)
+
+[node name="BA_NoClip" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="2"]
+bone_name = "Bone.001"
+bone_idx = 1
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Armature/Skeleton3D/BA_NoClip" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93823, 0)
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/BA_NoClip/StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_5jqtb")

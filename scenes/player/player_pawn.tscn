@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=60 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/player_pawn.gd" id="1_dljvx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_climbing_edge.gd" id="14_633hj"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_coyote_timing.gd" id="14_xt6t3"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_diving.gd" id="15_ycwd0"]
+[ext_resource type="PackedScene" uid="uid://by2if0yqrvor2" path="res://test_models/amogus.tscn" id="23_32ocw"]
 
 [sub_resource type="Resource" id="Resource_spy4h"]
 script = ExtResource("4_4iwfk")
@@ -202,6 +203,7 @@ shape = SubResource("CapsuleShape3D_5ww0a")
 [node name="Mesh" type="Node3D" parent="CharacterBody3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19209e-07, 0)
 mesh = SubResource("CapsuleMesh_l6t5v")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_swmr2")
@@ -211,3 +213,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.117771, 0.542152)
 mesh = SubResource("SphereMesh_e3k31")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_r6a70")
+
+[node name="amogus" parent="CharacterBody3D/Mesh" instance=ExtResource("23_32ocw")]
+transform = Transform3D(0.0303152, 0, 0.49908, 0.0585222, 0.496551, -0.00355476, -0.495637, 0.05863, 0.0301061, 0, -1.03541, -0.203791)
+
+[node name="SoftBody3D" parent="CharacterBody3D/Mesh/amogus/Armature/Skeleton3D/BoneAttachment3D" index="0"]
+parent_collision_ignore = NodePath("../../../../../..")
+attachments/0/offset = Vector3(0.748224, 2.52304, 0.622777)
+attachments/1/offset = Vector3(0.890847, 2.51244, 0.384429)
+attachments/2/offset = Vector3(0.985104, 2.50543, 0.126331)
+attachments/3/offset = Vector3(0.985104, 2.50543, -0.153853)
+attachments/4/offset = Vector3(0.99863, 0.262931, 1.33973)
+attachments/5/offset = Vector3(0.890847, 2.51244, -0.41195)
+attachments/6/offset = Vector3(0.748224, 2.52304, -0.650298)
+attachments/7/offset = Vector3(0.881903, 2.51164, -0.407549)
+attachments/8/offset = Vector3(0.975362, 2.50433, -0.15188)
+
+[editable path="CharacterBody3D/Mesh/amogus"]
