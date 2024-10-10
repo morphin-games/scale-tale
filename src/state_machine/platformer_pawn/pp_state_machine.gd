@@ -27,9 +27,6 @@ func setup() -> void:
 		
 func _process(delta: float) -> void:
 	print((context as PPContextPlatformer).speed)
-	print((context as PPContextPlatformer).acceleration)
-	print("----------------------------------")
-	#print(state.resource_path)
 	super(delta)
 	for iterated in states:
 		if(iterated == null): continue

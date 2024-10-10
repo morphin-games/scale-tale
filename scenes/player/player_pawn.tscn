@@ -43,6 +43,7 @@ angle_acceleration = 0.279
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_sts72"]
+resource_name = "pp_state_idle"
 script = ExtResource("4_ysyec")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_j17ev"), SubResource("Resource_oufvw"), SubResource("Resource_vlgg6")])
 
@@ -50,10 +51,12 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_j17ev"), Su
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_kpvmh"]
+resource_name = "pp_state_diving"
 script = ExtResource("15_ycwd0")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x23xt")])
 
 [sub_resource type="Resource" id="Resource_4dbrs"]
+resource_name = "pp_state_hanging"
 script = ExtResource("13_o4er7")
 state_actions = Array[ExtResource("5_rwbm4")]([])
 
@@ -64,13 +67,13 @@ angle_acceleration = 0.279
 [sub_resource type="Resource" id="Resource_gfyrc"]
 script = ExtResource("10_rw4wy")
 jump_force = 4.0
-push_force = 4.0
-push_acceleration = 15.0
+push_force = 2.5
 
 [sub_resource type="Resource" id="Resource_temqq"]
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_dio2c"]
+resource_name = "pp_state_jumping"
 script = ExtResource("9_5erol")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_hwdxi"), SubResource("Resource_gfyrc"), SubResource("Resource_temqq")])
 
@@ -82,6 +85,7 @@ angle_acceleration = 0.279
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_ybmh6"]
+resource_name = "pp_state_falling"
 script = ExtResource("10_7fjsw")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_d7gpo"), SubResource("Resource_honnd")])
 
@@ -99,6 +103,7 @@ speed_multiplier = 1.75
 accel_multiplier = 2.0
 
 [sub_resource type="Resource" id="Resource_50m4t"]
+resource_name = "pp_state_cotote_timing"
 script = ExtResource("14_xt6t3")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_ehpr4"), SubResource("Resource_rdkas"), SubResource("Resource_taue3")])
 
@@ -119,6 +124,7 @@ angle_acceleration = 0.279
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_mn4bo"]
+resource_name = "pp_state_moving"
 script = ExtResource("9_pk4py")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_a51i5"), SubResource("Resource_7v72m"), SubResource("Resource_ochmv"), SubResource("Resource_x8kyl")])
 
@@ -134,6 +140,7 @@ angle_acceleration = 0.279
 script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_x1qjc"]
+resource_name = "pp_state_running"
 script = ExtResource("12_lvbmx")
 speed_treshold = 0.0
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_7haks"), SubResource("Resource_eello"), SubResource("Resource_mo8b3")])

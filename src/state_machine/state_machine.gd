@@ -5,6 +5,8 @@ extends Node
 
 @onready var state : State = states[0] if states.size() > 0 else null : 
 	set(new_state):
+		if((new_state.get_script() as GDScript).get_global_name() == (state.get_script() as GDScript).get_global_name()):
+			return
 		state.exit()
 		state.active = false
 		state = new_state
