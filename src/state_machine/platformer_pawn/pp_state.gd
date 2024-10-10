@@ -6,6 +6,7 @@ extends State
 
 ## The array of [PPStateAction] that a State can call.
 @export var state_actions : Array[PPStateAction]
+#@export var enabled : bool = true
 
 ## The parent [PlatformerPawn]
 var platformer_pawn : PlatformerPawn

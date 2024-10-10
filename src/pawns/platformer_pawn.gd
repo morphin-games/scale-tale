@@ -27,5 +27,4 @@ func process(delta : float) -> void:
 # Virtual function. Called every physics frame.
 # Override to add your behaviour.
 func physics_process(delta : float) -> void:
-	#body.move_and_slide()
 	body.move_and_slide()

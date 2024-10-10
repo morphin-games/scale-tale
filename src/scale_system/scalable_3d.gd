@@ -1,3 +1,4 @@
+@tool
 class_name Scalable3D
 extends Area3D
 
@@ -7,6 +8,7 @@ enum ScaleState {
 	LARGE
 }
 
+@export var attraction_field : ScalableProjectileAttractionField3D
 @export var targets : Array[Node3D]
 
 @export var infinite_scale_duration : bool = false
@@ -25,7 +27,7 @@ enum ScaleState {
 @export var scale_large : Vector3 = Vector3(2.0, 2.0, 2.0)
 
 @onready var scale_state : ScaleState = ScaleState.DEFAULT
-@onready var time_scaled : float = 0.0
+@onready var time_to_unscale : float = 0.0
 
 var default_scales : Dictionary
 var tween_speed : float = 0.33
@@ -35,8 +37,12 @@ var tween_trans : Tween.TransitionType = Tween.TransitionType.TRANS_BOUNCE
 func _ready() -> void:
 	collision_layer = CollisionLayerNames.SCALABLE
 	collision_mask = CollisionLayerNames.SCALE_PROJECTILE
+	if(Engine.is_editor_hint()): return
 	
 	if(get_children()[0] != null and get_children()[0] is CollisionShape3D):
+		targets.append(get_children()[0])
+		
+	if(attraction_field != null and attraction_field.get_children()[0] != null and get_children()[0] is CollisionShape3D):
 		targets.append(get_children()[0])
 		
 	# Save all default scales in a dictionary to return to use them in the future
@@ -62,6 +68,8 @@ func _ready() -> void:
 					
 		if(projectile_data.scale_state == projectile_data.ScaleState.DOWN):
 			_downscale()
+			
+		projectile.queue_free()
 	))
 
 func _upscale() -> void:
@@ -69,24 +77,26 @@ func _upscale() -> void:
 		if(scale_large_enabled):
 			scale_state = ScaleState.LARGE
 			_apply_scale(scale_large)
-			time_scaled = upscale_duration
+			time_to_unscale = upscale_duration
 	elif(scale_state == ScaleState.SMALL):
 		scale_state = ScaleState.DEFAULT
 		_apply_scale(scale_default)
+	else:
+		time_to_unscale = upscale_duration
 	
 func _downscale() -> void:
 	if(scale_state == ScaleState.DEFAULT):
 		if(scale_small_enabled):
 			scale_state = ScaleState.SMALL
 			_apply_scale(scale_small)
-			time_scaled = downscale_duration
+			time_to_unscale = downscale_duration
 	elif(scale_state == ScaleState.LARGE):
 		scale_state = ScaleState.DEFAULT
 		_apply_scale(scale_default)
+	else:
+		time_to_unscale = downscale_duration
 		
 func _apply_scale(scale_size : Vector3) -> void:
-
-	
 	for i in range(0, targets.size()):
 		if(targets[i] is not Node3D):
 			continue
@@ -110,8 +120,10 @@ func _apply_scale(scale_size : Vector3) -> void:
 				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", scale_size.x / 2, tween_speed)
 				
 func _process(delta: float) -> void:
-	if(time_scaled > 0.0 and scale_state != ScaleState.DEFAULT):
-		time_scaled -= delta
-		if(time_scaled <= 0.0):
+	if(Engine.is_editor_hint()): return
+	
+	if(time_to_unscale > 0.0 and scale_state != ScaleState.DEFAULT):
+		time_to_unscale -= delta
+		if(time_to_unscale <= 0.0):
 			scale_state = ScaleState.DEFAULT
 			_apply_scale(scale_default)

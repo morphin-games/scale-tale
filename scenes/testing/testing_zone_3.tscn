@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=17 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
 [ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
-[ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player.tscn" id="3_hiiyw"]
+[ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player_pawn.tscn" id="3_hiiyw"]
 [ext_resource type="PackedScene" uid="uid://dxscl12yqewfx" path="res://scenes/testing/scalable_box_test.tscn" id="5_ap0ve"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
@@ -44,6 +44,12 @@ size = Vector3(3, 3, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xeil8"]
 albedo_color = Color(0, 0.639216, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ju0gl"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8igj5"]
+size = Vector3(5, 5, 5)
 
 [node name="TestingZone3" type="Node3D"]
 
@@ -139,4 +145,28 @@ mesh = SubResource("BoxMesh_dsa6p")
 surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
 
 [node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7.399)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 7.5)
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="HangWall" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
+collision_layer = 2
+collision_mask = 255
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/HangWall"]
+mesh = SubResource("BoxMesh_ju0gl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/HangWall"]
+shape = SubResource("BoxShape3D_8igj5")
+
+[node name="HangWall2" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, -2.5, 5)
+collision_layer = 2
+collision_mask = 255
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/HangWall2"]
+mesh = SubResource("BoxMesh_ju0gl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/HangWall2"]
+shape = SubResource("BoxShape3D_8igj5")
