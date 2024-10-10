@@ -13,7 +13,7 @@ func process(delta : float) -> void:
 	)
 	
 	var final_angle : float = platformer_pawn_state.platformer_pawn.platformer_control_context.direction_angle 
-	platformer_pawn_state.platformer_pawn.mesh.rotation.y = lerp_angle(platformer_pawn_state.platformer_pawn.mesh.rotation.y, -final_angle, angle_acceleration)
+	platformer_pawn_state.platformer_pawn.body.rotation.y = lerp_angle(platformer_pawn_state.platformer_pawn.body.rotation.y, -final_angle, angle_acceleration)
 	platformer_pawn_state.platformer_pawn.body.velocity.x = context.fixed_xz_velocity.x
 	platformer_pawn_state.platformer_pawn.body.velocity.z = context.fixed_xz_velocity.y
 	

@@ -26,7 +26,7 @@ func setup() -> void:
 		(constant_action as PPConstantAction).state_machine = self
 		
 func _process(delta: float) -> void:
-	print((context as PPContextPlatformer).speed)
+	#print("STATE: ", state.resource_name)
 	super(delta)
 	for iterated in states:
 		if(iterated == null): continue

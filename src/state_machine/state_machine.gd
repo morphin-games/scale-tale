@@ -13,11 +13,11 @@ extends Node
 		state.enter()
 		state.active = true
 
-func _ready() -> void:
-	setup()
-
 func setup() -> void:
 	pass
+	
+func _ready() -> void:
+	setup()
 
 func _process(delta: float) -> void:
 	for iterated in states:
@@ -28,3 +28,14 @@ func _process(delta: float) -> void:
 	if(state == null): return
 	
 	state.process(delta)
+	
+## Method to force a certain state. [br][br]
+## Returns [member @GlobalScope.Error.OK] if state was forced successfully.[br]
+## Returns [member @GlobalScope.Error.FAILED] if state couldn't be forced.
+func force_state(state_class : StringName) -> int:
+	for iterated_state in states:
+		if((iterated_state.get_script() as GDScript).get_global_name() == state_class):
+			state = iterated_state
+			return OK
+				
+	return FAILED

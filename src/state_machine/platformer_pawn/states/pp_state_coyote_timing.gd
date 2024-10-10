@@ -8,5 +8,4 @@ func enter_condition() -> bool:
 	)
 
 func enter() -> void:
-	#print("COYOTE")
 	pass

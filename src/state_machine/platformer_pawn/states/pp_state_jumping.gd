@@ -7,7 +7,6 @@ func enter_condition() -> bool:
 	)
 
 func enter() -> void:
-	#print("JUMPING")
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
 	context.acceleration = context.return_acceleration / 4
 	

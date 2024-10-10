@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=59 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/player_pawn.gd" id="1_dljvx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/contexts/pp_context_platformer.gd" id="5_ilbev"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_action.gd" id="5_rwbm4"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump.gd" id="6_vggh5"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_climb_edge.gd" id="9_1oiel"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_jumping.gd" id="9_5erol"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_move.gd" id="9_e71wv"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_moving.gd" id="9_pk4py"]
@@ -18,6 +19,7 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_running.gd" id="12_lvbmx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_run.gd" id="12_vufkf"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_hanging.gd" id="13_o4er7"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_climbing_edge.gd" id="14_633hj"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_coyote_timing.gd" id="14_xt6t3"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_diving.gd" id="15_ycwd0"]
 
@@ -29,7 +31,15 @@ script = ExtResource("5_ilbev")
 return_speed = 8.0
 return_acceleration = 1.5
 return_gravity = 0.49
-return_coyote_time = 0.1
+return_coyote_time = 0.135
+
+[sub_resource type="Resource" id="Resource_xgpdj"]
+script = ExtResource("9_1oiel")
+
+[sub_resource type="Resource" id="Resource_4dbrs"]
+resource_name = "pp_state_hanging"
+script = ExtResource("13_o4er7")
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_xgpdj")])
 
 [sub_resource type="Resource" id="Resource_j17ev"]
 script = ExtResource("6_vggh5")
@@ -47,6 +57,10 @@ resource_name = "pp_state_idle"
 script = ExtResource("4_ysyec")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_j17ev"), SubResource("Resource_oufvw"), SubResource("Resource_vlgg6")])
 
+[sub_resource type="Resource" id="Resource_4kkla"]
+script = ExtResource("14_633hj")
+state_actions = Array[ExtResource("5_rwbm4")]([])
+
 [sub_resource type="Resource" id="Resource_x23xt"]
 script = ExtResource("11_e4v8i")
 
@@ -54,11 +68,6 @@ script = ExtResource("11_e4v8i")
 resource_name = "pp_state_diving"
 script = ExtResource("15_ycwd0")
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x23xt")])
-
-[sub_resource type="Resource" id="Resource_4dbrs"]
-resource_name = "pp_state_hanging"
-script = ExtResource("13_o4er7")
-state_actions = Array[ExtResource("5_rwbm4")]([])
 
 [sub_resource type="Resource" id="Resource_hwdxi"]
 script = ExtResource("9_e71wv")
@@ -166,29 +175,26 @@ mesh = NodePath("CharacterBody3D/Mesh")
 script = ExtResource("2_4dcbp")
 constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_spy4h")])
 context = SubResource("Resource_w872m")
-states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_sts72"), SubResource("Resource_kpvmh"), SubResource("Resource_4dbrs"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_50m4t"), SubResource("Resource_mn4bo"), SubResource("Resource_x1qjc")])
+states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_4dbrs"), SubResource("Resource_sts72"), SubResource("Resource_4kkla"), SubResource("Resource_kpvmh"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_50m4t"), SubResource("Resource_mn4bo"), SubResource("Resource_x1qjc")])
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_mask = 30
 
 [node name="EdgeHangTop" type="RayCast3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.676915, 0)
-target_position = Vector3(0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.677, 0)
+target_position = Vector3(0, 0, 1)
 collision_mask = 130
-hit_from_inside = true
 
 [node name="EdgeHangLow" type="RayCast3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, 3)
+target_position = Vector3(0, 0, 1)
 collision_mask = 130
-hit_from_inside = true
 
 [node name="ShadowOffset" type="RayCast3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
-target_position = Vector3(0, 0, 3)
+target_position = Vector3(0, 0, 0)
 collision_mask = 130
-hit_from_inside = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_5ww0a")

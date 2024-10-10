@@ -7,5 +7,4 @@ func enter_condition() -> bool:
 	)
 	
 func enter() -> void:
-	#print("FALLING")
 	pass

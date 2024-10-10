@@ -150,7 +150,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 7.5)
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="HangWall" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 10)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, 0, 10)
 collision_layer = 2
 collision_mask = 255
 
@@ -161,7 +161,7 @@ mesh = SubResource("BoxMesh_ju0gl")
 shape = SubResource("BoxShape3D_8igj5")
 
 [node name="HangWall2" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -2.5, 5)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, -2.5, 5)
 collision_layer = 2
 collision_mask = 255
 

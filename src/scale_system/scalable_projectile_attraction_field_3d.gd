@@ -11,7 +11,5 @@ func _ready() -> void:
 		var projectile : ProjectileScale = area.get_parent() as ProjectileScale
 		var projectile_data : ProjectileDataScale = projectile.projectile_data as ProjectileDataScale
 		
-		print("dir ", projectile_data.direction)
 		projectile_data.direction = (global_transform.origin - projectile.global_transform.origin).normalized()
-		print("dir ", projectile_data.direction)
 	))
