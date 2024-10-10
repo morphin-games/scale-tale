@@ -1,4 +1,4 @@
-class_name Scalable3D
+class_name Scalable3DOld0
 extends Node
 
 signal scale_changed(current_scale : Vector3)

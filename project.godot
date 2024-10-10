@@ -272,10 +272,9 @@ dialogic_default_action={
 3d_physics/layer_3="enemy"
 3d_physics/layer_4="water"
 3d_physics/layer_5="scale_projectile"
-
-[physics]
-
-3d/default_gravity=0.49
+3d_physics/layer_6="scalable"
+3d_physics/layer_7="scalable_attraction_field"
+3d_physics/layer_8="rigid"
 
 [rendering]
 

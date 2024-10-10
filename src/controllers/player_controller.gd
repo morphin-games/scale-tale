@@ -11,6 +11,9 @@ signal kxi_jump_pressed
 signal kxi_run_pressed
 signal kxi_crouch_pressed
 signal kxi_pressed
+signal kxi_upscale_pressed
+signal kxi_downscale_pressed
+
 
 signal kxi_up_released
 signal kxi_down_released
@@ -20,6 +23,9 @@ signal kxi_jump_released
 signal kxi_run_released
 signal kxi_crouch_released
 signal kxi_released
+signal kxi_upscale_released
+signal kxi_downscale_released
+
 #endregion
 
 @export_category("Camera")
@@ -69,6 +75,16 @@ func input(event: InputEvent) -> void:
 		kxi_run_pressed.emit()
 	elif(event.is_action_released("kxi_run")):
 		kxi_run_released.emit()
+		
+	elif(event.is_action_pressed("kxi_upscale")):
+		kxi_upscale_pressed.emit()
+	elif(event.is_action_released("kxi_upscale")):
+		kxi_upscale_released.emit()
+		
+	elif(event.is_action_pressed("kxi_downscale")):
+		kxi_downscale_pressed.emit()
+	elif(event.is_action_released("kxi_downscale")):
+		kxi_downscale_released.emit()
 		
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=15 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
 [ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player.tscn" id="3_hiiyw"]
+[ext_resource type="PackedScene" uid="uid://dxscl12yqewfx" path="res://scenes/testing/scalable_box_test.tscn" id="5_ap0ve"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -19,9 +20,9 @@ script = ExtResource("3_63nx1")
 camera_motion = Vector2(0, 0)
 camera_look_direction = Vector2(0, 0)
 added_direction = Vector2(0, 0)
-direction_angle = 0.0
 direction = Vector2(0, 0)
-last_direction = Vector2(0, 0)
+last_direction = Vector2(0, 1)
+direction_angle = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ryg2p"]
 size = Vector3(100, 1, 100)
@@ -136,3 +137,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xpkaj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
 mesh = SubResource("BoxMesh_dsa6p")
 surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
+
+[node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7.399)

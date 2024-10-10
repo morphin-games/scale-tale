@@ -1,7 +1,8 @@
 class_name PPConstantActionFall
 extends PPConstantAction
 
-var gravity = ProjectSettings.get("physics/3d/default_gravity")
+#var gravity : float = ProjectSettings.get("physics/3d/default_gravity") as float
+var gravity : float = 0.49
 
 func process(delta : float) -> void:
 	var context : PPContextPlatformer = (state_machine.context as PPContextPlatformer)
