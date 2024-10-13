@@ -11,6 +11,4 @@ func enter_condition() -> bool:
 	
 func enter() -> void:
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
-	context.acceleration = context.return_acceleration
-	context.speed = context.return_speed
 	context.gravity = context.return_gravity
