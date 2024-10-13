@@ -151,7 +151,13 @@ mesh = SubResource("BoxMesh_dsa6p")
 surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
 
 [node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99307, 2.78992, 17.5399)
+
+[node name="ScalableBox2" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.61724, 2.78992, 25.3898)
+
+[node name="ScalableBox3" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4347, 2.78992, 33.934)
 
 [node name="Walls" type="Node3D" parent="."]
 
