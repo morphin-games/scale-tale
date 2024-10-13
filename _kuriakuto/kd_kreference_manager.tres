@@ -139,6 +139,8 @@ references = {
 "res://src/scale_system/scalable_projectile_attraction_field_3d.gdScalableProjectileAttractionField3D1": {},
 "res://src/scale_system/scalable_projectile_attraction_field_3d.gdScalableProjectileAttractionField3D6": {},
 "res://src/scale_system/scalable_projectile_traction_field_3d.gd": {},
+"res://src/stat_system/stat.gd": {},
+"res://src/stat_system/stat_modifier.gd": {},
 "res://src/state_machine/platformer_pawn/actions/pp_state_action_climb_edge.gd": {},
 "res://src/state_machine/platformer_pawn/actions/pp_state_action_dive.gd": {},
 "res://src/state_machine/platformer_pawn/actions/pp_state_action_fall.gd": {},

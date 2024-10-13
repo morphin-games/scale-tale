@@ -26,10 +26,10 @@ BeehaveGlobalMetrics="res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="res://addons/beehave/debug/global_debugger.gd"
 LevelManager="*res://addons/equinox/level_manager_system/level_manager.gd"
 Keyxplorer="*res://addons/keyxplorer/keyxplorer.gd"
-KuriakutoCore="*res://addons/kuriakuto/kuriakuto_core.gd"
-KD="*res://_kuriakuto/kuriakuto_dict.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+KuriakutoCore="*res://addons/kuriakuto/kuriakuto_core.gd"
+KD="*res://_kuriakuto/kuriakuto_dict.gd"
 
 [dialogic]
 

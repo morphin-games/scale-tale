@@ -24,5 +24,6 @@ func process(delta : float) -> void:
 			state_machine.state is PPStateJumping
 		):
 			context.velocity_y -= context.gravity
-		
+			
 	state_machine.platformer_pawn.body.velocity.y = context.velocity_y
+	print("context.velocity_y: ", context.velocity_y)

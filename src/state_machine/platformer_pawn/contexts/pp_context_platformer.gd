@@ -9,7 +9,7 @@ extends PPContext
 ## The "default" gravity. Any modification that has to return to the base value will return to this value.
 @export var return_gravity : float = 0.49
 ## Number of seconds before being affected by gravity after leaving a platform.
-@export var return_coyote_time : float = 0.135
+@export var return_coyote_time : float = 0.09
 
 var fixed_xz_velocity : Vector2 = Vector2(0.0, 0.0)
 var velocity_y : float = 0.0
