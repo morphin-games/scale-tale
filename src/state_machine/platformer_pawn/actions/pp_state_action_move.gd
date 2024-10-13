@@ -1,7 +1,7 @@
 class_name PPStateActionMove
 extends PPStateAction
 
-#@export var angle_acceleration : float = 0.279
+@export var angle_acceleration : float = 0.279
 
 func process(delta : float) -> void:
 	if(!platformer_pawn_state.active): return
@@ -12,8 +12,8 @@ func process(delta : float) -> void:
 		context.acceleration
 	)
 	
-	#var final_angle : float = platformer_pawn_state.platformer_pawn.platformer_control_context.direction_angle 
-	#platformer_pawn_state.platformer_pawn.body.rotation.y = lerp_angle(platformer_pawn_state.platformer_pawn.body.rotation.y, -final_angle, angle_acceleration)
+	var final_angle : float = platformer_pawn_state.platformer_pawn.platformer_control_context.direction_angle 
+	platformer_pawn_state.platformer_pawn.body.rotation.y = lerp_angle(platformer_pawn_state.platformer_pawn.body.rotation.y, -final_angle, angle_acceleration)
 	platformer_pawn_state.platformer_pawn.body.velocity.x = context.fixed_xz_velocity.x
 	platformer_pawn_state.platformer_pawn.body.velocity.z = context.fixed_xz_velocity.y
 	

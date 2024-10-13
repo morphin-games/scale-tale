@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=68 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/player_pawn.gd" id="1_dljvx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_idle.gd" id="4_ysyec"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/contexts/pp_context_platformer.gd" id="5_ilbev"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_action.gd" id="5_rwbm4"]
-[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/constant_actions/pp_constant_action_pawn_angle.gd" id="5_wuqob"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_jump.gd" id="6_vggh5"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_climb_edge.gd" id="9_1oiel"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_jumping.gd" id="9_5erol"]
@@ -25,13 +24,13 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_climbing_edge.gd" id="14_633hj"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_coyote_timing.gd" id="14_xt6t3"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_diving.gd" id="15_ycwd0"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_cancel_dive.gd" id="19_dgbj4"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_apxvs"]
+states/Start/position = Vector2(388, 214)
 
 [sub_resource type="Resource" id="Resource_spy4h"]
 script = ExtResource("4_4iwfk")
-
-[sub_resource type="Resource" id="Resource_p4iep"]
-script = ExtResource("5_wuqob")
-angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_w872m"]
 script = ExtResource("5_ilbev")
@@ -50,6 +49,7 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_xgpdj")])
 
 [sub_resource type="Resource" id="Resource_7en3i"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_u7iva"]
 script = ExtResource("12_qydjj")
@@ -68,6 +68,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_oufvw"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_vlgg6"]
 script = ExtResource("11_e4v8i")
@@ -85,13 +86,18 @@ state_actions = Array[ExtResource("5_rwbm4")]([])
 [sub_resource type="Resource" id="Resource_x23xt"]
 script = ExtResource("11_e4v8i")
 
+[sub_resource type="Resource" id="Resource_nx8k4"]
+script = ExtResource("19_dgbj4")
+jump_force = 4.0
+
 [sub_resource type="Resource" id="Resource_kpvmh"]
 resource_name = "pp_state_diving"
 script = ExtResource("15_ycwd0")
-state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x23xt")])
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x23xt"), SubResource("Resource_nx8k4")])
 
 [sub_resource type="Resource" id="Resource_hwdxi"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_gfyrc"]
 script = ExtResource("10_rw4wy")
@@ -113,6 +119,7 @@ state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_hwdxi"), Su
 
 [sub_resource type="Resource" id="Resource_d7gpo"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_honnd"]
 script = ExtResource("11_e4v8i")
@@ -128,6 +135,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_rdkas"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_taue3"]
 script = ExtResource("12_vufkf")
@@ -150,6 +158,7 @@ accel_multiplier = 2.0
 
 [sub_resource type="Resource" id="Resource_ochmv"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_x8kyl"]
 script = ExtResource("11_e4v8i")
@@ -165,6 +174,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_eello"]
 script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_mo8b3"]
 script = ExtResource("11_e4v8i")
@@ -192,9 +202,12 @@ script = ExtResource("1_dljvx")
 body = NodePath("CharacterBody3D")
 mesh = NodePath("CharacterBody3D/Mesh")
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_apxvs")
+
 [node name="PPStateMachine" type="Node" parent="."]
 script = ExtResource("2_4dcbp")
-constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_spy4h"), SubResource("Resource_p4iep")])
+constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_spy4h")])
 context = SubResource("Resource_w872m")
 states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_4dbrs"), SubResource("Resource_u0rrp"), SubResource("Resource_sts72"), SubResource("Resource_4kkla"), SubResource("Resource_kpvmh"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_50m4t"), SubResource("Resource_mn4bo"), SubResource("Resource_x1qjc")])
 
