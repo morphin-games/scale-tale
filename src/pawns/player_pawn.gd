@@ -6,6 +6,8 @@ extends PlatformerPawn
 @onready var shadow_offset : RayCast3D = %ShadowOffset as RayCast3D
 
 func process(delta : float) -> void:
+	var ctx : PPContextPlatformer = $PPStateMachine.context
+	
 	super(delta)
 	if(edge_hang_low.is_colliding()):
 		var face : Basis = (edge_hang_low.get_collider() as Node3D).global_basis.orthonormalized()
