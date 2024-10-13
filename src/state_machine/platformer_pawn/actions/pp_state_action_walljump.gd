@@ -1,4 +1,5 @@
 class_name PPStateActionWalljump
+## Requires two raycast nodes inside the pawn: edge_hang_top and edge_hang_low, present in [PlayerPawn]
 extends PPStateAction
 
 @export var jump_force : float = 18.0
@@ -6,6 +7,7 @@ extends PPStateAction
 
 func ready() -> void:
 	var context : PPContextPlatformer = (platformer_pawn_state.state_machine as PPStateMachine).context as PPContextPlatformer
+	var player_pawn : PlayerPawn = platformer_pawn_state.platformer_pawn as PlayerPawn
 	
 	(platformer_pawn_state.platformer_pawn._controller as PlayerController).kxi_jump_pressed.connect(Callable(func() -> void:
 		if(!platformer_pawn_state.active): return
@@ -23,7 +25,9 @@ func ready() -> void:
 			platformer_control_context.last_direction *= -1
 		), Callable(func() -> bool:
 			return (
-				platformer_pawn_state.platformer_pawn.body.is_on_wall_only()
+				platformer_pawn_state.platformer_pawn.body.is_on_wall_only() and
+				player_pawn.edge_hang_low.is_colliding() and
+				player_pawn.edge_hang_top.is_colliding()
 			)
 		))
 	))
