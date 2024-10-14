@@ -13,7 +13,7 @@ signal kxi_crouch_pressed
 signal kxi_pressed
 signal kxi_upscale_pressed
 signal kxi_downscale_pressed
-
+signal kxi_action_1_pressed
 
 signal kxi_up_released
 signal kxi_down_released
@@ -25,7 +25,7 @@ signal kxi_crouch_released
 signal kxi_released
 signal kxi_upscale_released
 signal kxi_downscale_released
-
+signal kxi_action_1_released
 #endregion
 
 @export_category("Camera")
@@ -52,7 +52,7 @@ func ready() -> void:
 	player_camera.camera_rotation_pivot_y = camera_rotation_pivot_y
 	pawn_posessed.connect(Callable(func(pawn : Node) -> void:
 		player_camera.pawn = pawn
-		if(pawn is PlatformerPawn):
+		if(pawn is PlayerPawn):
 			get_direction_from_camera = true
 	))
 	
@@ -85,6 +85,11 @@ func input(event: InputEvent) -> void:
 		kxi_downscale_pressed.emit()
 	elif(event.is_action_released("kxi_downscale")):
 		kxi_downscale_released.emit()
+		
+	elif(event.is_action_pressed("kxi_action_1")):
+		kxi_action_1_pressed.emit()
+	elif(event.is_action_released("kxi_action_1")):
+		kxi_action_1_released.emit()
 		
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative

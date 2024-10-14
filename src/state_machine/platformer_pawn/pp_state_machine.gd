@@ -26,7 +26,7 @@ func setup() -> void:
 		(constant_action as PPConstantAction).state_machine = self
 		
 func _process(delta: float) -> void:
-	print("STATE: ", state.resource_name)
+	#print("STATE: ", state.resource_name)
 	super(delta)
 	for iterated in states:
 		if(iterated == null): continue

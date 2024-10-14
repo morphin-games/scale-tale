@@ -71,8 +71,6 @@ func _ready() -> void:
 			
 		projectile.queue_free()
 	))
-	
-	print(default_scales)
 
 func _upscale() -> void:
 	if(scale_state == ScaleState.DEFAULT):

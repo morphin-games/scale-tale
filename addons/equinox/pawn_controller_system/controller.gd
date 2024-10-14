@@ -48,7 +48,7 @@ func unposess() -> void:
 	if(pawn == null):
 		return
 	pawn.free_control()
-	pawn_posessed.emit(pawn)
+	pawn_unposessed.emit(pawn)
 	pawn = null
 	
 ## Custom is_action_pressed function that evaluates [InputEvent] and [member controller_device]

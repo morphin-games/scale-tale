@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="KXMap" load_steps=21 format=3 uid="uid://butw7uh427oqh"]
+[gd_resource type="Resource" script_class="KXMap" load_steps=23 format=3 uid="uid://butw7uh427oqh"]
 
 [ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_input.gd" id="1_36x65"]
 [ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_map.gd" id="2_4jb0g"]
@@ -96,6 +96,17 @@ show_name = "kxi_downscale"
 input_name = "kxi_downscale"
 slot_1 = SubResource("InputEventMouseButton_jorrk")
 
+[sub_resource type="InputEventKey" id="InputEventKey_fxlrb"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="Resource" id="Resource_nmxix"]
+script = ExtResource("1_36x65")
+show_name = "Default KX"
+input_name = "kxi_action_1"
+slot_1 = SubResource("InputEventKey_fxlrb")
+
 [resource]
 script = ExtResource("2_4jb0g")
-keyxplorer_inputs = Array[ExtResource("1_36x65")]([SubResource("Resource_k8yfo"), SubResource("Resource_b3k5f"), SubResource("Resource_6irlf"), SubResource("Resource_gwrkc"), SubResource("Resource_x354r"), SubResource("Resource_qforo"), SubResource("Resource_ox70w"), SubResource("Resource_6b8le"), SubResource("Resource_mltbd")])
+keyxplorer_inputs = Array[ExtResource("1_36x65")]([SubResource("Resource_k8yfo"), SubResource("Resource_b3k5f"), SubResource("Resource_6irlf"), SubResource("Resource_gwrkc"), SubResource("Resource_x354r"), SubResource("Resource_qforo"), SubResource("Resource_ox70w"), SubResource("Resource_6b8le"), SubResource("Resource_mltbd"), SubResource("Resource_nmxix")])

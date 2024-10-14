@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=70 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/player_pawn.gd" id="1_dljvx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_coyote_timing.gd" id="14_xt6t3"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_diving.gd" id="15_ycwd0"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_cancel_dive.gd" id="19_dgbj4"]
+[ext_resource type="Script" path="res://src/grab_system/grabber_3d.gd" id="26_wrifc"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_apxvs"]
 states/End/position = Vector2(403, 100)
@@ -186,6 +187,9 @@ script = ExtResource("12_lvbmx")
 speed_treshold = 0.0
 state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_7haks"), SubResource("Resource_eello"), SubResource("Resource_mo8b3")])
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_15x1v"]
+radius = 2.0
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nytq4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l6t5v"]
@@ -233,6 +237,18 @@ collision_mask = 130
 unique_name_in_owner = true
 target_position = Vector3(0, 0, 0)
 collision_mask = 130
+
+[node name="Grabber3D" type="Area3D" parent="CharacterBody3D" node_paths=PackedStringArray("pawn", "grab_point")]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("26_wrifc")
+pawn = NodePath("../..")
+grab_point = NodePath("../GrabbedPosition")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Grabber3D"]
+shape = SubResource("SphereShape3D_15x1v")
+
+[node name="GrabbedPosition" type="Marker3D" parent="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CylinderShape3D_nytq4")
