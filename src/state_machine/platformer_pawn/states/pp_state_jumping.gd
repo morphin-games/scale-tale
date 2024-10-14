@@ -8,8 +8,8 @@ func enter_condition() -> bool:
 
 func enter() -> void:
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
-	context.acceleration = context.return_acceleration / 4
+	context.acceleration = context.return_acceleration / 3.0
 	
-func exit() -> void:
-	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
-	context.acceleration = context.return_acceleration
+#func exit() -> void:
+	#var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	#context.acceleration = context.return_acceleration

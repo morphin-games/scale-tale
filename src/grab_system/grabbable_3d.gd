@@ -15,5 +15,3 @@ func _ready() -> void:
 	area_exited.connect(Callable(func(area : Grabber3D) -> void:
 		area.near_grabbables.erase(self)
 	))
-	
-	print("PARENT: ", parent)

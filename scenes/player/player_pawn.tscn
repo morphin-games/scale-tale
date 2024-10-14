@@ -90,7 +90,7 @@ script = ExtResource("11_e4v8i")
 
 [sub_resource type="Resource" id="Resource_nx8k4"]
 script = ExtResource("19_dgbj4")
-jump_force = 4.0
+jump_force = 7.0
 
 [sub_resource type="Resource" id="Resource_kpvmh"]
 resource_name = "pp_state_diving"
@@ -103,7 +103,7 @@ angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_gfyrc"]
 script = ExtResource("10_rw4wy")
-jump_force = 4.0
+jump_force = 4.5
 push_force = 2.5
 
 [sub_resource type="Resource" id="Resource_temqq"]
@@ -202,10 +202,11 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6a70"]
 albedo_color = Color(0, 0.784314, 1, 1)
 
-[node name="PlayerPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh")]
+[node name="PlayerPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh", "floor_raycast")]
 script = ExtResource("1_dljvx")
 body = NodePath("CharacterBody3D")
 mesh = NodePath("CharacterBody3D/Mesh")
+floor_raycast = NodePath("CharacterBody3D/Floor")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_apxvs")
@@ -221,6 +222,11 @@ states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_4dbrs"), SubResour
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_mask = 30
+
+[node name="Floor" type="RayCast3D" parent="CharacterBody3D"]
+target_position = Vector3(0, -1.025, 0)
+collision_mask = 134
+debug_shape_thickness = 5
 
 [node name="EdgeHangTop" type="RayCast3D" parent="CharacterBody3D"]
 unique_name_in_owner = true
@@ -249,6 +255,7 @@ grab_point = NodePath("../GrabbedPosition")
 shape = SubResource("SphereShape3D_15x1v")
 
 [node name="GrabbedPosition" type="Marker3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.70418)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CylinderShape3D_nytq4")

@@ -1,7 +1,7 @@
 class_name PPStateActionCancelDive
 extends PPStateAction
 
-@export var jump_force : float = 4.0
+@export var jump_force : float = 7.0
 
 func ready() -> void:
 	var context : PPContextPlatformer = (platformer_pawn_state.state_machine as PPStateMachine).context as PPContextPlatformer

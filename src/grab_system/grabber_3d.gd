@@ -15,11 +15,18 @@ func _ready() -> void:
 	(pawn._controller as PlayerController).kxi_action_1_pressed.connect(Callable(func() -> void:
 		if(grabbed_object == null):
 			var nearest_grabbable : Grabbable3D = get_nearest_grabbable()
+			if(nearest_grabbable == null): return
+			
+			grabbed_object = nearest_grabbable.parent
 			if(nearest_grabbable.parent is RigidBody3D):
 				(nearest_grabbable.parent as RigidBody3D).freeze = true
+				(nearest_grabbable.parent as RigidBody3D).linear_velocity = Vector3(0.0, 0.0, 0.0)
+				(nearest_grabbable.parent as RigidBody3D).angular_velocity = Vector3(0.0, 0.0, 0.0)
 		else:
-			if(grabbed_object.parent is RigidBody3D):
-				(grabbed_object.parent as RigidBody3D).freeze = false
+			if(grabbed_object is RigidBody3D):
+				(grabbed_object as RigidBody3D).freeze = false
+				(grabbed_object as RigidBody3D).linear_velocity = Vector3(0.0, 0.0, 0.0)
+				(grabbed_object as RigidBody3D).angular_velocity = Vector3(0.0, 0.0, 0.0)
 			grabbed_object = null
 	))
 	
