@@ -27,7 +27,8 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_cancel_dive.gd" id="19_dgbj4"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_apxvs"]
-states/Start/position = Vector2(388, 214)
+states/End/position = Vector2(403, 100)
+states/Start/position = Vector2(205, 100)
 
 [sub_resource type="Resource" id="Resource_spy4h"]
 script = ExtResource("4_4iwfk")
@@ -204,6 +205,9 @@ mesh = NodePath("CharacterBody3D/Mesh")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_apxvs")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="PPStateMachine" type="Node" parent="."]
 script = ExtResource("2_4dcbp")

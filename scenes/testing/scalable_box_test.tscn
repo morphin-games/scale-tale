@@ -7,7 +7,7 @@
 size = Vector3(1.1, 0.6, 1.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6p6ij"]
-size = Vector3(5, 2.5, 5)
+size = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qioc7"]
 size = Vector3(1, 0.5, 1)
@@ -24,7 +24,7 @@ collision_layer = 32
 collision_mask = 16
 script = ExtResource("1_l3ewp")
 attraction_field = NodePath("../ScalableProjectileAttractionField3D")
-targets = [NodePath("../MeshInstance3D"), NodePath("../CollisionShape3D")]
+targets = [NodePath("../MeshInstance3D"), NodePath("../CollisionShape3D"), NodePath("../ScalableProjectileAttractionField3D/CollisionShape3D")]
 upscale_duration = 2.0
 downscale_duration = 5.0
 scale_small = Vector3(0.75, 1, 0.75)
@@ -39,6 +39,7 @@ collision_mask = 16
 script = ExtResource("2_r33ar")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScalableProjectileAttractionField3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_6p6ij")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

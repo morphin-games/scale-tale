@@ -275,6 +275,8 @@ dialogic_default_action={
 3d_physics/layer_6="scalable"
 3d_physics/layer_7="scalable_attraction_field"
 3d_physics/layer_8="rigid"
+3d_physics/layer_9="grabbable"
+3d_physics/layer_10="grabber"
 
 [rendering]
 
