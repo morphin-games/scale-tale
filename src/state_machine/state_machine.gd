@@ -1,6 +1,8 @@
 class_name StateMachine
 extends Node
 
+signal state_changed(state : State)
+
 @export var states : Array[State]
 
 @onready var state : State = states[0] if states.size() > 0 else null : 
@@ -12,6 +14,7 @@ extends Node
 		state = new_state
 		state.enter()
 		state.active = true
+		state_changed.emit(state)
 
 func setup() -> void:
 	pass
