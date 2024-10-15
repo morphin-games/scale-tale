@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://yi8vwiweb4gc"]
+
+[sub_resource type="GDScript" id="GDScript_x4suu"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	print(\"test\") # Replace with function body.
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_bhvcb"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_poay7"]
+
+[node name="platform_break" type="Node3D"]
+script = SubResource("GDScript_x4suu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_bhvcb")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 0.190952, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_poay7")
+
+[node name="Area3D" type="Area3D" parent="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Area3D"]
+transform = Transform3D(2, 0, 0, 0, 0.190952, 0, 0, 0, 2, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_poay7")
+
+[connection signal="tree_entered" from="StaticBody3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_entered"]
+[connection signal="body_entered" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="tree_entered" from="StaticBody3D/Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_entered"]

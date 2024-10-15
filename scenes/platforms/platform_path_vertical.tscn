@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://denhafskdh3o7"]
+
+[sub_resource type="GDScript" id="GDScript_vq0ib"]
+script/source = "extends Node3D
+#Verical platform
+@export var speed : float = 5.0
+@export var in_movement : bool = true
+@export var distance_movement: float = 1.5
+@onready var curve = $Path3D.curve
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	curve.set_point_position(1,Vector3(0, distance_movement, 0))
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if(in_movement):
+		$Path3D/PathFollow3D.progress += speed * delta
+"
+
+[sub_resource type="Curve3D" id="Curve3D_nup27"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p8mrq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2k1ts"]
+size = Vector3(2, 0.2, 2)
+
+[node name="platform_path_vertical" type="Node3D"]
+script = SubResource("GDScript_vq0ib")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_nup27")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.37092e-08, 0, 0.999992, 0, 0.999979, 0, -0.999949, 0, -4.3711e-08, 0, 0, 0)
+rotation_mode = 1
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1.00001, 0, 0, 0, 1.00001, 0, 0, 0, 1.00001, 0, 0, 0)
+collision_layer = 2
+collision_mask = 65535
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 0.190952, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_p8mrq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/StaticBody3D"]
+mesh = SubResource("BoxMesh_2k1ts")
+skeleton = NodePath("../../../..")

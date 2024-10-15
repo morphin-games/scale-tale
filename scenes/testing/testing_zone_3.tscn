@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=23 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player_pawn.tscn" id="3_hiiyw"]
 [ext_resource type="PackedScene" uid="uid://dxscl12yqewfx" path="res://scenes/testing/scalable_box_test.tscn" id="5_ap0ve"]
 [ext_resource type="PackedScene" uid="uid://kppmflbksdwp" path="res://scenes/testing/grabbable_box_test.tscn" id="6_4c6xd"]
+[ext_resource type="PackedScene" uid="uid://ln53xdpbwa1y" path="res://scenes/platforms/platform_path_horizontal.tscn" id="8_2hrba"]
+[ext_resource type="PackedScene" uid="uid://denhafskdh3o7" path="res://scenes/platforms/platform_path_vertical.tscn" id="8_kwhls"]
+[ext_resource type="PackedScene" uid="uid://yi8vwiweb4gc" path="res://scenes/platforms/platform_break.tscn" id="9_1evb8"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -230,3 +233,15 @@ shape = SubResource("BoxShape3D_8igj5")
 
 [node name="RigidBody3D" parent="." instance=ExtResource("6_4c6xd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -4)
+
+[node name="platform_path_horizontal" parent="." instance=ExtResource("8_2hrba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.87427, -1.15095, -9.72522)
+distance_movement = 6.0
+
+[node name="platform_path_vertical" parent="." instance=ExtResource("8_kwhls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.141, -1.09695, -11.0384)
+speed = 2.0
+distance_movement = 10.0
+
+[node name="PlatformBreak" parent="." instance=ExtResource("9_1evb8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99743, 0.552656, -6.57072)
