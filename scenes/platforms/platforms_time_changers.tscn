@@ -14,10 +14,15 @@ script/source = "extends Node3D
 var swap_platforms = false
 
 func _ready() -> void:
-	
+	collision_one.disabled = true
+	mesh_one.visible = false
+	collision_two.disabled = false
+	mesh_two.visible = true
+	await get_tree().create_timer(time_to_change).timeout
+	collision_two.disabled = true
+	mesh_two.visible = false
 	collision_one.disabled = false
 	mesh_one.visible = true
-	await get_tree().create_timer(time_to_change).timeout
 
 func _on_timer_to_swap_timeout() -> void:
 	collision_one.disabled = true

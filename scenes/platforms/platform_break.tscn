@@ -84,5 +84,5 @@ one_shot = true
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="tree_entered" from="StaticBody3D/Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_entered"]
 [connection signal="timeout" from="timer_to_destroy" to="." method="_on_timer_to_destroy_timeout"]
-[connection signal="timeout" from="timer_to_respawn" to="." method="_on_timer_to_respawn_timeout"]
 [connection signal="timeout" from="timer_to_respawn" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timer_to_respawn" to="." method="_on_timer_to_respawn_timeout"]
