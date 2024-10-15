@@ -219,14 +219,14 @@ transform = Transform3D(0.0303152, 0, 0.49908, 0.0585222, 0.496551, -0.00355476,
 
 [node name="SoftBody3D" parent="CharacterBody3D/Mesh/amogus/Armature/Skeleton3D/BoneAttachment3D" index="0"]
 parent_collision_ignore = NodePath("../../../../../..")
-attachments/0/offset = Vector3(0.748224, 2.52304, 0.622777)
-attachments/1/offset = Vector3(0.890847, 2.51244, 0.384429)
-attachments/2/offset = Vector3(0.985104, 2.50543, 0.126331)
-attachments/3/offset = Vector3(0.985104, 2.50543, -0.153853)
-attachments/4/offset = Vector3(0.99863, 0.262931, 1.33973)
-attachments/5/offset = Vector3(0.890847, 2.51244, -0.41195)
-attachments/6/offset = Vector3(0.748224, 2.52304, -0.650298)
-attachments/7/offset = Vector3(0.881903, 2.51164, -0.407549)
-attachments/8/offset = Vector3(0.975362, 2.50433, -0.15188)
+attachments/0/offset = Vector3(0.748775, 3.27196, 0.636537)
+attachments/1/offset = Vector3(0.891398, 3.26136, 0.398189)
+attachments/2/offset = Vector3(0.985655, 3.25435, 0.140092)
+attachments/3/offset = Vector3(0.985655, 3.25435, -0.140092)
+attachments/4/offset = Vector3(0.999181, 1.01185, 1.35349)
+attachments/5/offset = Vector3(0.891398, 3.26136, -0.398189)
+attachments/6/offset = Vector3(0.748775, 3.27196, -0.636537)
+attachments/7/offset = Vector3(0.882454, 3.26057, -0.393788)
+attachments/8/offset = Vector3(0.975913, 3.25325, -0.138119)
 
 [editable path="CharacterBody3D/Mesh/amogus"]
