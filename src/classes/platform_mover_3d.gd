@@ -1,4 +1,4 @@
-class_name PlatformMover3D
+class_name PlatformMover3DOld
 extends Node3D
 
 @export var platform : PlatformBody3D

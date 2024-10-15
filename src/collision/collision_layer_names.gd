@@ -12,6 +12,6 @@ static var SCALABLE_ATTRACTION_FIELD : int = 64
 static var RIGID : int = 128
 static var GRABABBLE : int = 256
 static var GRABBER : int = 512
-#static var EMPTY : int = 1024
+static var MOVABLE : int = 1024
 #static var EMPTY : int = 2048
 #static var EMPTY : int = 4096

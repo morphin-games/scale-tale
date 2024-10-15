@@ -29,7 +29,6 @@ Keyxplorer="*res://addons/keyxplorer/keyxplorer.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 KuriakutoCore="*res://addons/kuriakuto/kuriakuto_core.gd"
 KD="*res://_kuriakuto/kuriakuto_dict.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
@@ -70,7 +69,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/equinox/plugin.cfg", "res://addons/keyxplorer/plugin.cfg", "res://addons/kuriakuto/plugin.cfg", "res://addons/terminal/plugin.cfg")
+enabled=PackedStringArray("res://addons/equinox/plugin.cfg", "res://addons/keyxplorer/plugin.cfg", "res://addons/kuriakuto/plugin.cfg", "res://addons/terminal/plugin.cfg")
 
 [importer_defaults]
 
@@ -277,6 +276,7 @@ dialogic_default_action={
 3d_physics/layer_8="rigid"
 3d_physics/layer_9="grabbable"
 3d_physics/layer_10="grabber"
+3d_physics/layer_11="movable"
 
 [rendering]
 
