@@ -374,7 +374,7 @@ animation_name = "ClimbEdge"
 [sub_resource type="SphereShape3D" id="SphereShape3D_15x1v"]
 radius = 2.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_nytq4"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sbw7m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l6t5v"]
 
@@ -456,7 +456,7 @@ shape = SubResource("SphereShape3D_15x1v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.70418)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CylinderShape3D_nytq4")
+shape = SubResource("CapsuleShape3D_sbw7m")
 
 [node name="Mesh" type="Node3D" parent="CharacterBody3D"]
 visible = false
