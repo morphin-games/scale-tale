@@ -3,6 +3,8 @@ extends Node
 
 signal state_changed(state : State)
 
+## The class name of the default state. Leave empty to take the first member of [member states] as the default.
+@export var default_state : String
 @export var states : Array[State]
 
 @onready var state : State = states[0] if states.size() > 0 else null : 
@@ -21,6 +23,8 @@ func setup() -> void:
 	
 func _ready() -> void:
 	setup()
+	if(default_state != ""):
+		force_state(default_state)
 
 func _process(delta: float) -> void:
 	for iterated in states:

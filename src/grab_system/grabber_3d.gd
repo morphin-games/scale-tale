@@ -4,6 +4,7 @@ extends Area3D
 
 @export var pawn : Pawn3D = get_parent() as Pawn3D
 @export var grab_point : Marker3D
+@export var state_machine : PPStateMachine
 
 var grabbed_object : Node3D
 var near_grabbables : Array[Grabbable3D]
@@ -17,6 +18,7 @@ func _ready() -> void:
 			var nearest_grabbable : Grabbable3D = get_nearest_grabbable()
 			if(nearest_grabbable == null): return
 			
+			state_machine.force_state("PPStateBeginningGrab")
 			grabbed_object = nearest_grabbable.parent
 			if(nearest_grabbable.parent is RigidBody3D):
 				(nearest_grabbable.parent as RigidBody3D).freeze = true
