@@ -50,10 +50,17 @@ func ready() -> void:
 	camera_rotation_pivot_x.add_child(camera_rotation_pivot_y)
 	player_camera.camera_rotation_pivot_x = camera_rotation_pivot_x
 	player_camera.camera_rotation_pivot_y = camera_rotation_pivot_y
+	
 	pawn_posessed.connect(Callable(func(pawn : Node) -> void:
 		player_camera.pawn = pawn
 		if(pawn is PlayerPawn):
 			get_direction_from_camera = true
+			
+		(LevelManager.level as LevelBase).player_pawn = pawn
+	))
+	
+	pawn_unposessed.connect(Callable(func(pawn : Node) -> void:
+		(LevelManager.level as LevelBase).player_pawn = null
 	))
 	
 # Virtual function, called on the associated [member pawn].
