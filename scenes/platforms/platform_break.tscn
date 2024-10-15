@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://yi8vwiweb4gc"]
+[gd_scene load_steps=5 format=3 uid="uid://yi8vwiweb4gc"]
 
 [sub_resource type="GDScript" id="GDScript_x4suu"]
 script/source = "extends Node3D
-
+var to_break : bool = false
+@onready var collision : CollisionShape3D = $StaticBody3D/CollisionShape3D
+@onready var mesh: MeshInstance3D = $StaticBody3D/MeshInstance3D
+@onready var timer_to_destroy: Timer  = $timer_to_destroy
+@onready var timer_to_respawn: Timer = $timer_to_respawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,13 +15,34 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
-
+	if(to_break):
+		print(\"test_to_break\")
+		timer_to_respawn.start()		
+		to_break = false
+		
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	print(\"test\") # Replace with function body.
+	print(\"player detected\") # Replace with function body.
+	timer_to_destroy.start()
+	
+func _on_timer_to_destroy_timeout() -> void:
+	print(\"to destroy timeout\")
+	collision.disabled = true
+	mesh.visible = false
+	$StaticBody3D/Area3D/CollisionShape3D.disabled = true
+	to_break = true 
+
+
+func _on_timer_to_respawn_timeout() -> void:
+	to_break = false 
+	print(\"to respawn timeout\")
+	collision.disabled = false
+	mesh.visible = true
+	$StaticBody3D/Area3D/CollisionShape3D.disabled = false
 "
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ofqb"]
+albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_bhvcb"]
 size = Vector3(2, 0.2, 2)
@@ -28,8 +53,11 @@ size = Vector3(2, 0.2, 2)
 script = SubResource("GDScript_x4suu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 255
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_8ofqb")
 mesh = SubResource("BoxMesh_bhvcb")
 skeleton = NodePath("../../../..")
 
@@ -41,8 +69,20 @@ shape = SubResource("BoxShape3D_poay7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Area3D"]
 transform = Transform3D(2, 0, 0, 0, 0.190952, 0, 0, 0, 2, 0, 0.2, 0)
+visible = false
 shape = SubResource("BoxShape3D_poay7")
+
+[node name="timer_to_destroy" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="timer_to_respawn" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="tree_entered" from="StaticBody3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_entered"]
 [connection signal="body_entered" from="StaticBody3D/Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="tree_entered" from="StaticBody3D/Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_entered"]
+[connection signal="timeout" from="timer_to_destroy" to="." method="_on_timer_to_destroy_timeout"]
+[connection signal="timeout" from="timer_to_respawn" to="." method="_on_timer_to_respawn_timeout"]
+[connection signal="timeout" from="timer_to_respawn" to="." method="_on_timer_timeout"]
