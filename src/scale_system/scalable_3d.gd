@@ -105,19 +105,19 @@ func _apply_scale(scale_size : Vector3) -> void:
 			var tween : Tween = get_tree().create_tween()
 			tween.set_ease(tween_ease)
 			tween.set_trans(tween_trans)
-			tween.tween_property(targets[i], "scale", scale_size, tween_speed)
+			tween.tween_property(targets[i], "scale", default_scales[i] * scale_size, tween_speed)
 		else:
 			var collision_shape_3d : CollisionShape3D = targets[i] as CollisionShape3D
 			if(collision_shape_3d.shape is BoxShape3D):
 				var tween : Tween = get_tree().create_tween()
 				tween.set_ease(tween_ease)
 				tween.set_trans(tween_trans)
-				tween.tween_property((collision_shape_3d.shape as BoxShape3D), "size", scale_size, tween_speed)
+				tween.tween_property((collision_shape_3d.shape as BoxShape3D), "size", default_scales[i] * scale_size, tween_speed)
 			elif(collision_shape_3d.shape is SphereShape3D):
 				var tween : Tween = get_tree().create_tween()
 				tween.set_ease(tween_ease)
 				tween.set_trans(tween_trans)
-				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", scale_size.x / 2, tween_speed)
+				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", default_scales[i] * scale_size.x / 2, tween_speed)
 				
 func _process(delta: float) -> void:
 	if(Engine.is_editor_hint()): return

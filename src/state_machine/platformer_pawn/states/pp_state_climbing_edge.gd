@@ -6,7 +6,7 @@ var forced_direction : Vector2 = Vector2(0.0, 0.0)
 func enter_condition() -> bool:
 	return (
 		state_machine.state is PPStateClimbingEdge and 
-		!platformer_pawn.body.is_on_floor()
+		!platformer_pawn.floor_raycast.is_colliding()
 	)
 
 #func exit() -> void:

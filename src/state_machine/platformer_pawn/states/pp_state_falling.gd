@@ -6,5 +6,9 @@ func enter_condition() -> bool:
 		((state_machine as PPStateMachine).context as PPContextPlatformer).velocity_y < 0
 	)
 	
-func enter() -> void:
-	pass
+#func enter() -> void:
+	#pass
+
+func exit() -> void:
+	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.acceleration = context.return_acceleration

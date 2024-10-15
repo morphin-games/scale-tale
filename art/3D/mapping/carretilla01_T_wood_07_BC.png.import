@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crhk7fuxuahn6"
+uid="uid://uhnm4l2m5ift"
 path.s3tc="res://.godot/imported/carretilla01_T_wood_07_BC.png-c9d3624426baed03c8b4026eca54dbc8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
@@ -25,8 +24,8 @@ compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://art/3D/mapping/carretilla01_T_wood_07_BC.png"
+roughness/mode=8
+roughness/src_normal="res://art/2D/textures/freestylized_dot_com/cliff/cliff_rocks_01_normal_dx_1k.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

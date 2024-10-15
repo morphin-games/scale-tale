@@ -3,6 +3,7 @@ extends Pawn3D
 
 @export var body : CharacterBody3D
 @export var mesh : Node3D
+@export var floor_raycast : RayCast3D
 
 @onready var player_controller : PlayerController = _controller as PlayerController
 @onready var platformer_control_context : PlatformerControlContext = context as PlatformerControlContext
@@ -28,3 +29,4 @@ func process(delta : float) -> void:
 # Override to add your behaviour.
 func physics_process(delta : float) -> void:
 	body.move_and_slide()
+	

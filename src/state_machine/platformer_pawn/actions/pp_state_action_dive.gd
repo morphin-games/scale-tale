@@ -1,7 +1,7 @@
 class_name PPStateActionDive
 extends PPStateAction
 
-@export var jump_force : float = 4.0
+@export var jump_force : float = 4.5
 ## The speed of the player when jumping. It's multiplied by [member PlatformerPawn.return_speed].
 @export var push_force : float = 2.5
 # ## The acceleration of the push. It's multiplied by [member PlatformerPawn.return_acceleration].
