@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://2y4jdep8nq8o"]
 
-[ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_54lii"]
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
+[ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_m6vsq"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
 [ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player_pawn.tscn" id="3_hiiyw"]
@@ -60,7 +60,7 @@ size = Vector3(5, 15, 5)
 size = Vector3(5, 15, 5)
 
 [node name="TestingZone3" type="Node"]
-script = ExtResource("1_54lii")
+script = ExtResource("1_m6vsq")
 
 [node name="SetupKeyxplorer" type="Node" parent="."]
 script = SubResource("GDScript_42wkf")
