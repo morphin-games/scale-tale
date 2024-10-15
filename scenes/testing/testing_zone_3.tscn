@@ -234,7 +234,7 @@ mesh = SubResource("BoxMesh_ju0gl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/HangWall2"]
 shape = SubResource("BoxShape3D_8igj5")
 
-[node name="RigidBody3D" parent="." instance=ExtResource("6_4c6xd")]
+[node name="GrabbableBoxTest" parent="." instance=ExtResource("6_4c6xd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -4)
 
 [node name="platform_path_horizontal" parent="." instance=ExtResource("8_4hkqx")]
