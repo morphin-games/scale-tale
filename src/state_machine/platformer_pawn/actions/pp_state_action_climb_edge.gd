@@ -16,7 +16,7 @@ func ready() -> void:
 				platformer_pawn.body,
 				"global_transform:origin",
 				platformer_pawn.body.global_transform.origin + Vector3(0.0, 1.75, 0.0),
-				0.33
+				0.8
 			)
 			await tween_get_up.finished
 			
@@ -25,7 +25,7 @@ func ready() -> void:
 				platformer_pawn.body,
 				"global_transform:origin",
 				platformer_pawn.body.global_transform.origin + Vector3(platformer_control_context.last_direction.x, 0.0, platformer_control_context.last_direction.y) * 1.0,
-				0.11
+				0.333
 			)
 			await tween_go_forward.finished
 			
