@@ -3,6 +3,7 @@ extends Pawn3D
 
 @export var body : CharacterBody3D
 @export var mesh : Node3D
+@export var health : Health
 @export var floor_raycast : RayCast3D
 
 @onready var player_controller : PlayerController = _controller as PlayerController

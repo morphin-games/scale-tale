@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=30 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_m6vsq"]
@@ -7,10 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player_pawn.tscn" id="3_hiiyw"]
 [ext_resource type="PackedScene" uid="uid://dxscl12yqewfx" path="res://scenes/testing/scalable_box_test.tscn" id="5_ap0ve"]
 [ext_resource type="PackedScene" uid="uid://kppmflbksdwp" path="res://scenes/testing/grabbable_box_test.tscn" id="6_4c6xd"]
+[ext_resource type="Script" path="res://src/health_system/hurtbox_3d.gd" id="6_qcs8f"]
 [ext_resource type="PackedScene" uid="uid://yi8vwiweb4gc" path="res://scenes/platforms/platform_break.tscn" id="9_ae1nk"]
 [ext_resource type="PackedScene" uid="uid://cy6ivuifibf5l" path="res://scenes/platforms/platforms_time_changers.tscn" id="10_mx6pq"]
 [ext_resource type="Script" path="res://src/platforms/node_pather_3d.gd" id="11_hc7h3"]
-[ext_resource type="Script" path="res://src/platforms/movable_platform_3d.gd" id="11_hd0dd"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -38,6 +38,10 @@ size = Vector3(100, 1, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8k0yh"]
 albedo_color = Color(0, 0.639216, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_eqcwa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ag2et"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_i8h5c"]
 size = Vector3(1, 5, 1)
@@ -71,10 +75,10 @@ size = Vector3(2, 1, 2)
 
 [sub_resource type="Curve3D" id="Curve3D_gudtt"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -4.253, 1.01872, -2.33837, 0, 0, 0, 0, 0, 0, -5.83066, -2.3526, -7.89862, 0, 0, 0, 0, 0, 0, 0.707832, -4.27166, -4.74537, 0, 0, 0, 0, 0, 0, 0.226595, -0.485408, -0.415049, 0, 0, 0, 0, 0, 0, -4.253, 1.01872, -2.33837, 0, 0, 0, 0, 0, 0, -0.0949425, 1.09652, 1.29184, 0, 0, 0, 0, 0, 0, -0.08688, 2.80811, 3.44106, 0, 0, 0, 0, 0, 0, 0.115203, 3.39852, 3.98365, 0, 0, 0, 0, 0, 0, 6.22815, -1.76667, 1.85113),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.83066, -2.3526, -7.89862, 0, 0, 0, 0, 0, 0, 0.707832, -4.27166, -4.74537, 0, 0, 0, 0, 0, 0, 0.24113, -0.535654, -0.456306, 0, 0, 0, 0, 0, 0, -4.253, 1.01872, -2.33837, 0, 0, 0, 0, 0, 0, -5.83066, -2.3526, -7.89862),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
-point_count = 9
+point_count = 5
 
 [node name="TestingZone3" type="Node"]
 script = ExtResource("1_m6vsq")
@@ -111,6 +115,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_8k0yh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
 shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23595, 0, -12.3338)
+mesh = SubResource("PrismMesh_eqcwa")
+skeleton = NodePath("Hurtbox3D")
+
+[node name="Hurtbox3D" type="Area3D" parent="MeshInstance3D"]
+script = ExtResource("6_qcs8f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Hurtbox3D"]
+shape = SubResource("BoxShape3D_ag2et")
 
 [node name="Tree" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758688, 10.9283)
@@ -258,18 +273,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69614, -0.899555, -6.19671
 [node name="PlatformsTimeChangers" parent="." instance=ExtResource("10_mx6pq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17077, -0.25326, 3.88922)
 
-[node name="MovablePlatform3D" type="CharacterBody3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("11_hd0dd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MovablePlatform3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("BoxShape3D_ohdc4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MovablePlatform3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
 mesh = SubResource("BoxMesh_r83h6")
 
-[node name="NodePather3D" type="Path3D" parent="MovablePlatform3D"]
+[node name="NodePather3D" type="Path3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82, -1)
 curve = SubResource("Curve3D_gudtt")
 script = ExtResource("11_hc7h3")
