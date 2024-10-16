@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 			grab_state = GrabState.GRABBED
 			
 	if(grabbed_object != null):
-		grabbed_object.global_transform = grab_point.global_transform
+		grabbed_object.global_transform.origin = grab_point.global_transform.origin
 			
 	#if(grab_state == GrabState.GRABBING):
 		#grabbed_object.global_transform.origin = tweened_grabbed_position + offset
