@@ -8,7 +8,6 @@ enum ScaleState {
 	LARGE
 }
 
-@export var attraction_field : ScalableProjectileAttractionField3D
 @export var targets : Array[Node3D]
 
 @export var infinite_scale_duration : bool = false
@@ -42,9 +41,6 @@ func _ready() -> void:
 	if(get_children()[0] != null and get_children()[0] is CollisionShape3D):
 		targets.append(get_children()[0])
 		
-	if(attraction_field != null and attraction_field.get_children()[0] != null and get_children()[0] is CollisionShape3D):
-		targets.append(get_children()[0])
-		
 	# Save all default scales in a dictionary to return to use them in the future
 	for i in range(0, targets.size()):
 		if(targets[i] is not Node3D):
@@ -54,6 +50,7 @@ func _ready() -> void:
 			default_scales[i] = targets[i].scale
 		else:
 			var collision_shape_3d : CollisionShape3D = targets[i] as CollisionShape3D
+			collision_shape_3d.shape.resource_local_to_scene = true
 			if(collision_shape_3d.shape is BoxShape3D):
 				default_scales[i] = (collision_shape_3d.shape as BoxShape3D).size
 			elif(collision_shape_3d.shape is SphereShape3D):

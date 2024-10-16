@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://be7u2b45mqsal"]
+[gd_scene load_steps=130 format=3 uid="uid://be7u2b45mqsal"]
 
 [ext_resource type="Script" path="res://src/pawns/player_pawn.gd" id="1_dljvx"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/pp_state_machine.gd" id="2_4dcbp"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_climbing_edge.gd" id="14_633hj"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_coyote_timing.gd" id="14_xt6t3"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_diving.gd" id="15_ycwd0"]
+[ext_resource type="Script" path="res://src/state_machine/platformer_pawn/states/pp_state_undiving.gd" id="18_f7w6i"]
 [ext_resource type="Script" path="res://src/state_machine/platformer_pawn/actions/pp_state_action_cancel_dive.gd" id="19_dgbj4"]
 [ext_resource type="Script" path="res://src/grab_system/grabber_3d.gd" id="26_wrifc"]
 [ext_resource type="PackedScene" uid="uid://c7ue122ve1r27" path="res://art/testing/Y Bot.fbx" id="27_bt6oj"]
@@ -168,6 +169,15 @@ script = ExtResource("12_imkp8")
 [sub_resource type="Resource" id="Resource_a4ugn"]
 script = ExtResource("13_hwmek")
 
+[sub_resource type="Resource" id="Resource_x3nhb"]
+script = ExtResource("9_e71wv")
+angle_acceleration = 0.279
+
+[sub_resource type="Resource" id="Resource_7gvp4"]
+resource_name = "pp_state_undiving"
+script = ExtResource("18_f7w6i")
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_x3nhb")])
+
 [sub_resource type="Resource" id="Resource_qq17x"]
 resource_name = "pp_state_beginning_grab"
 script = ExtResource("12_qvcco")
@@ -236,8 +246,8 @@ angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_gfyrc"]
 script = ExtResource("10_rw4wy")
-jump_force = 4.5
-push_force = 2.5
+jump_force = 3.0
+push_force = 2.0
 
 [sub_resource type="Resource" id="Resource_temqq"]
 script = ExtResource("11_e4v8i")
@@ -259,10 +269,15 @@ angle_acceleration = 0.279
 [sub_resource type="Resource" id="Resource_honnd"]
 script = ExtResource("11_e4v8i")
 
+[sub_resource type="Resource" id="Resource_anc5o"]
+script = ExtResource("10_rw4wy")
+jump_force = 3.0
+push_force = 2.0
+
 [sub_resource type="Resource" id="Resource_ybmh6"]
 resource_name = "pp_state_falling"
 script = ExtResource("10_7fjsw")
-state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_d7gpo"), SubResource("Resource_honnd")])
+state_actions = Array[ExtResource("5_rwbm4")]([SubResource("Resource_d7gpo"), SubResource("Resource_honnd"), SubResource("Resource_anc5o")])
 
 [sub_resource type="Resource" id="Resource_ehpr4"]
 script = ExtResource("6_vggh5")
@@ -274,7 +289,7 @@ angle_acceleration = 0.279
 
 [sub_resource type="Resource" id="Resource_taue3"]
 script = ExtResource("12_vufkf")
-speed_multiplier = 1.75
+speed_multiplier = 1.85
 accel_multiplier = 2.0
 
 [sub_resource type="Resource" id="Resource_50m4t"]
@@ -288,7 +303,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_e2dyx"]
 script = ExtResource("12_vufkf")
-speed_multiplier = 1.75
+speed_multiplier = 1.85
 accel_multiplier = 2.0
 
 [sub_resource type="Resource" id="Resource_eello"]
@@ -310,7 +325,7 @@ jump_force = 12.0
 
 [sub_resource type="Resource" id="Resource_7v72m"]
 script = ExtResource("12_vufkf")
-speed_multiplier = 1.75
+speed_multiplier = 1.85
 accel_multiplier = 2.0
 
 [sub_resource type="Resource" id="Resource_ochmv"]
@@ -420,7 +435,7 @@ constant_actions = Array[ExtResource("3_4rg5q")]([SubResource("Resource_spy4h")]
 context = SubResource("Resource_w872m")
 substates = Array[ExtResource("11_ttty4")]([SubResource("Resource_uffup"), SubResource("Resource_a4ugn")])
 default_state = "PPStateIdle"
-states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_qq17x"), SubResource("Resource_4kkla"), SubResource("Resource_4dbrs"), SubResource("Resource_u0rrp"), SubResource("Resource_sts72"), SubResource("Resource_kpvmh"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_50m4t"), SubResource("Resource_x1qjc"), SubResource("Resource_mn4bo")])
+states = Array[ExtResource("3_s8jiy")]([SubResource("Resource_7gvp4"), SubResource("Resource_qq17x"), SubResource("Resource_4kkla"), SubResource("Resource_4dbrs"), SubResource("Resource_u0rrp"), SubResource("Resource_sts72"), SubResource("Resource_kpvmh"), SubResource("Resource_dio2c"), SubResource("Resource_ybmh6"), SubResource("Resource_50m4t"), SubResource("Resource_x1qjc"), SubResource("Resource_mn4bo")])
 
 [node name="PPStateAnimator" type="Node" parent="." node_paths=PackedStringArray("state_machine", "animation_tree")]
 script = ExtResource("33_eimfr")
@@ -495,17 +510,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_r6a70")
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, -0.997339, 0)
 
 [node name="Skeleton3D" parent="CharacterBody3D/Y Bot" index="0"]
-bones/0/position = Vector3(-0.0041058, 0.989347, 0.00729325)
-bones/0/rotation = Quaternion(-0.0369134, -0.0450887, -0.0257753, 0.997968)
-bones/1/rotation = Quaternion(-0.0252208, 0.0167546, 0.0267471, 0.999184)
-bones/2/rotation = Quaternion(0.0119658, 0.00304925, 0.0151494, 0.999809)
-bones/3/rotation = Quaternion(0.0692328, 0.00411939, 0.0149755, 0.99748)
-bones/4/rotation = Quaternion(0.0572412, -0.00191597, 0.00253921, 0.998355)
-bones/5/rotation = Quaternion(-0.0761917, 0.00820388, -0.000961238, 0.997059)
-bones/7/rotation = Quaternion(-0.601454, -0.431051, 0.507257, -0.441744)
-bones/8/rotation = Quaternion(0.542339, 0.177213, 0.209286, 0.794143)
-bones/9/rotation = Quaternion(-1.18195e-08, -5.43877e-08, 0.0158516, 0.999874)
-bones/10/rotation = Quaternion(0.0415202, -0.288994, 0.0331386, 0.955856)
+bones/0/position = Vector3(-0.00543491, 0.989475, 0.00700192)
+bones/0/rotation = Quaternion(-0.038106, -0.0410253, -0.0247759, 0.998124)
+bones/1/rotation = Quaternion(-0.0296881, 0.0151197, 0.0251755, 0.999128)
+bones/2/rotation = Quaternion(0.0104197, 0.00227622, 0.0147576, 0.999834)
+bones/3/rotation = Quaternion(0.0676952, 0.0033354, 0.0146496, 0.997593)
+bones/4/rotation = Quaternion(0.0546726, -0.00239718, 0.00382102, 0.998494)
+bones/5/rotation = Quaternion(-0.0715787, 0.00647999, -0.00142434, 0.997413)
+bones/7/rotation = Quaternion(-0.597399, -0.435504, 0.508509, -0.44144)
+bones/8/rotation = Quaternion(0.546763, 0.179577, 0.205524, 0.791557)
+bones/9/rotation = Quaternion(-6.69821e-08, 6.68979e-09, 0.0133998, 0.99991)
+bones/10/rotation = Quaternion(0.046808, -0.283986, 0.0267476, 0.957312)
 bones/11/rotation = Quaternion(0.20986, -0.0595619, 0.207505, 0.9536)
 bones/12/rotation = Quaternion(-0.142713, 0.0865957, -0.240535, 0.956178)
 bones/13/rotation = Quaternion(-0.121023, -0.0755413, 0.0240544, 0.989479)
@@ -521,10 +536,10 @@ bones/25/rotation = Quaternion(0.155213, -1.37314e-07, -0.0159057, 0.987753)
 bones/27/rotation = Quaternion(0.233867, -0.00350568, -0.0490087, 0.971026)
 bones/28/rotation = Quaternion(0.151258, -1.2163e-07, -0.0155005, 0.988373)
 bones/29/rotation = Quaternion(0.143498, -1.16523e-07, -0.0147051, 0.989541)
-bones/31/rotation = Quaternion(0.604966, -0.429287, 0.522117, 0.42086)
-bones/32/rotation = Quaternion(0.463796, -0.261014, -0.226998, 0.81562)
-bones/33/rotation = Quaternion(5.4739e-09, 2.26953e-08, -0.0582783, 0.9983)
-bones/34/rotation = Quaternion(0.0519048, 0.178833, -0.0047841, 0.982498)
+bones/31/rotation = Quaternion(0.603168, -0.431306, 0.522981, 0.420302)
+bones/32/rotation = Quaternion(0.464656, -0.263965, -0.227624, 0.814005)
+bones/33/rotation = Quaternion(5.75468e-08, -6.1854e-08, -0.0571857, 0.998364)
+bones/34/rotation = Quaternion(0.0554871, 0.176582, -0.00419091, 0.982712)
 bones/35/rotation = Quaternion(0.213786, 0.0653719, -0.225648, 0.948212)
 bones/36/rotation = Quaternion(-0.1441, -0.0761699, 0.277208, 0.946884)
 bones/37/rotation = Quaternion(-0.1552, 0.0746788, -0.0260453, 0.984712)
@@ -540,14 +555,14 @@ bones/49/rotation = Quaternion(0.155511, 5.44064e-08, 0.0126683, 0.987753)
 bones/51/rotation = Quaternion(0.228493, 0.00340297, 0.0429808, 0.97259)
 bones/52/rotation = Quaternion(0.151548, 7.18184e-08, 0.0123455, 0.988373)
 bones/53/rotation = Quaternion(0.143773, 1.3391e-07, 0.011712, 0.989541)
-bones/55/rotation = Quaternion(0.140884, 0.0685927, 0.984465, -0.0792121)
-bones/56/rotation = Quaternion(-0.133567, -0.00665134, 0.0320976, 0.990498)
-bones/57/rotation = Quaternion(0.5369, -0.0232026, -0.0291603, 0.842822)
+bones/55/rotation = Quaternion(0.138681, 0.0659246, 0.985023, -0.0784338)
+bones/56/rotation = Quaternion(-0.129663, -0.00566028, 0.032399, 0.991012)
+bones/57/rotation = Quaternion(0.534724, -0.0231011, -0.0293286, 0.844202)
 bones/58/rotation = Quaternion(0.269343, -0.0323755, -0.0145917, 0.962389)
-bones/60/rotation = Quaternion(-0.0924517, -0.0225897, 0.995137, -0.0254102)
-bones/61/rotation = Quaternion(-0.0854879, 0.0840506, -0.0262783, 0.99244)
-bones/62/rotation = Quaternion(0.575792, 0.0107739, -0.00790302, 0.817487)
-bones/63/rotation = Quaternion(0.287538, 0.0318982, 0.0141099, 0.957134)
+bones/60/rotation = Quaternion(-0.0930637, -0.0249324, 0.995025, -0.0253606)
+bones/61/rotation = Quaternion(-0.0840309, 0.084157, -0.0260818, 0.99256)
+bones/62/rotation = Quaternion(0.575577, 0.014319, -0.0105357, 0.817555)
+bones/63/rotation = Quaternion(0.287224, 0.0318997, 0.0141161, 0.957228)
 
 [node name="AnimationPlayer" parent="CharacterBody3D/Y Bot" index="1"]
 libraries = {}

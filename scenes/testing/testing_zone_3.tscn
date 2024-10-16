@@ -92,6 +92,10 @@ player_camera = NodePath("../PlayerCamera")
 pawn = NodePath("../PlayerPawn")
 control_context = SubResource("Resource_cpch4")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
+shadow_enabled = true
+
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.944422, 0.328735, 0, -0.328735, 0.944422, -0.1184, 2.1283, 3.77128)
 current = true
@@ -111,10 +115,6 @@ shape = SubResource("BoxShape3D_ryg2p")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_gll08")
 surface_material_override/0 = SubResource("StandardMaterial3D_8k0yh")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
-shadow_enabled = true
 
 [node name="DangerousSpike" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23595, 0, -12.3338)
@@ -188,15 +188,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2558, 0)
 mesh = SubResource("BoxMesh_dsa6p")
 surface_material_override/0 = SubResource("StandardMaterial3D_xeil8")
 
-[node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99307, 2.78992, 17.5399)
-
-[node name="ScalableBox2" parent="." instance=ExtResource("5_ap0ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.61724, 2.78992, 25.3898)
-
-[node name="ScalableBox3" parent="." instance=ExtResource("5_ap0ve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4347, 2.78992, 33.934)
-
 [node name="Walls" type="Node3D" parent="."]
 
 [node name="HangWall" type="StaticBody3D" parent="Walls"]
@@ -254,6 +245,17 @@ mesh = SubResource("BoxMesh_n3iqm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/HangWall6"]
 shape = SubResource("BoxShape3D_jnq6x")
 
+[node name="HangWall7" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.24081, -2.62488, 41.999)
+collision_layer = 2
+collision_mask = 255
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/HangWall7"]
+mesh = SubResource("BoxMesh_n3iqm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/HangWall7"]
+shape = SubResource("BoxShape3D_jnq6x")
+
 [node name="HangWall2" type="StaticBody3D" parent="Walls"]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 10, -2.5, 5)
 collision_layer = 2
@@ -288,3 +290,9 @@ mesh = SubResource("BoxMesh_r83h6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82, -1)
 curve = SubResource("Curve3D_gudtt")
 script = ExtResource("11_hc7h3")
+
+[node name="ScalableBox2" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.41853, 3.38982, 28.1807)
+
+[node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99506, 3.38982, 18.3121)

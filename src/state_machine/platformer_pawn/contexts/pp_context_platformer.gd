@@ -17,3 +17,4 @@ var speed : float = return_speed
 var acceleration : float = return_acceleration
 var gravity : float = return_gravity
 var coyote_time : float = return_coyote_time
+var dived : bool = false

@@ -1,16 +1,16 @@
-class_name PPStateDiving
+class_name PPStateUndiving
 extends PPState
-
-var forced_direction : Vector2 = Vector2(0.0, 0.0)
 
 func enter_condition() -> bool:
 	return (
-		state_machine.state is PPStateDiving and 
+		(state_machine as PPStateMachine).state is PPStateUndiving and
 		!platformer_pawn.floor_raycast.is_colliding()
 	)
+	
+#func enter() -> void:
+	#pass
 
 func exit() -> void:
+	print("ESIT")
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
 	context.dived = false
-	context.speed = context.return_speed
-	context.acceleration = context.return_acceleration
