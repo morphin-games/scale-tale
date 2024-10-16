@@ -22,8 +22,8 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 [autoload]
 
-BeehaveGlobalMetrics="res://addons/beehave/metrics/beehave_global_metrics.gd"
-BeehaveGlobalDebugger="res://addons/beehave/debug/global_debugger.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 LevelManager="*res://addons/equinox/level_manager_system/level_manager.gd"
 Keyxplorer="*res://addons/keyxplorer/keyxplorer.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
@@ -69,7 +69,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/equinox/plugin.cfg", "res://addons/keyxplorer/plugin.cfg", "res://addons/kuriakuto/plugin.cfg", "res://addons/terminal/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/equinox/plugin.cfg", "res://addons/keyxplorer/plugin.cfg", "res://addons/kuriakuto/plugin.cfg", "res://addons/terminal/plugin.cfg")
 
 [importer_defaults]
 
