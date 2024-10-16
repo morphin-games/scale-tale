@@ -116,15 +116,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_8k0yh")
 transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
 shadow_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="DangerousSpike" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23595, 0, -12.3338)
 mesh = SubResource("PrismMesh_eqcwa")
 skeleton = NodePath("Hurtbox3D")
 
-[node name="Hurtbox3D" type="Area3D" parent="MeshInstance3D"]
+[node name="Hurtbox3D" type="Area3D" parent="DangerousSpike"]
+collision_layer = 4
 script = ExtResource("6_qcs8f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Hurtbox3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DangerousSpike/Hurtbox3D"]
 shape = SubResource("BoxShape3D_ag2et")
 
 [node name="Tree" type="Node3D" parent="."]
