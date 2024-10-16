@@ -7,8 +7,8 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yky3j"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_86768"]
-radius = 2.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_7r3re"]
+size = Vector3(1.2, 1.2, 1.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eupqt"]
 
@@ -28,7 +28,7 @@ collision_mask = 512
 script = ExtResource("1_nlgin")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grabbable3D"]
-shape = SubResource("SphereShape3D_86768")
+shape = SubResource("BoxShape3D_7r3re")
 
 [node name="Scalable3D" type="Area3D" parent="." node_paths=PackedStringArray("targets")]
 collision_layer = 32

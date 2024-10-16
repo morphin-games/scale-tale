@@ -6,8 +6,18 @@ extends Area3D
 @export var grab_point : Marker3D
 @export var state_machine : PPStateMachine
 
+enum GrabState {
+	NONE,
+	GRABBING,
+	DROPPING,
+	THROWING,
+	GRABBED,
+}
+
 var grabbed_object : Node3D
 var near_grabbables : Array[Grabbable3D]
+var grab_state : GrabState = GrabState.NONE
+var tweened_grabbed_position : Vector3 = Vector3(0.0, 0.0, 0.0)
 
 func _ready() -> void:
 	collision_layer = CollisionLayerNames.GRABBER
@@ -20,6 +30,9 @@ func _ready() -> void:
 			
 			state_machine.force_state("PPStateBeginningGrab")
 			grabbed_object = nearest_grabbable.parent
+			tweened_grabbed_position = grabbed_object.global_transform.origin
+			var tween : Tween = get_tree().create_tween()
+			tween.tween_property(self, "tweened_grabbed_position", grab_point.global_transform.origin, 0.4)
 			if(nearest_grabbable.parent is RigidBody3D):
 				(nearest_grabbable.parent as RigidBody3D).freeze = true
 				(nearest_grabbable.parent as RigidBody3D).linear_velocity = Vector3(0.0, 0.0, 0.0)
@@ -30,6 +43,7 @@ func _ready() -> void:
 				(grabbed_object as RigidBody3D).linear_velocity = Vector3(0.0, 0.0, 0.0)
 				(grabbed_object as RigidBody3D).angular_velocity = Vector3(0.0, 0.0, 0.0)
 			grabbed_object = null
+			grab_state = GrabState.NONE
 	))
 	
 func get_nearest_grabbable() -> Grabbable3D:
@@ -43,5 +57,17 @@ func get_nearest_grabbable() -> Grabbable3D:
 	return nearest_grabbable
 	
 func _process(delta: float) -> void:
-	if(grabbed_object != null):
+	if(Engine.is_editor_hint()): return
+	
+	if(state_machine.state is PPStateBeginningGrab):
+		grab_state = GrabState.GRABBING
+	else:
+		if(grabbed_object == null):
+			grab_state = GrabState.NONE
+		else:
+			grab_state = GrabState.GRABBED
+			
+	if(grab_state == GrabState.GRABBING):
+		grabbed_object.global_transform.origin = tweened_grabbed_position
+	elif(grab_state == GrabState.GRABBED):
 		grabbed_object.global_transform.origin = grab_point.global_transform.origin

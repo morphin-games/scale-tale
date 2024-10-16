@@ -7,7 +7,6 @@ extends PlatformerPawn
 
 func ready() -> void:
 	super()
-	pass
 
 func process(delta : float) -> void:
 	var ctx : PPContextPlatformer = $PPStateMachine.context as PPContextPlatformer
