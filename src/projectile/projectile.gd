@@ -26,7 +26,7 @@ func area_hit(area : Area3D) -> void:
 	pass
 	
 func _process(delta: float) -> void:
-	velocity = velocity.move_toward(projectile_data.direction * projectile_data.speed, 10.0)
+	velocity = velocity.move_toward(projectile_data.direction * projectile_data.speed, 18.0)
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
