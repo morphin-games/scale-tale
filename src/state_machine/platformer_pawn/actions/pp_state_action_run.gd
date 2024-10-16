@@ -10,8 +10,8 @@ func ready() -> void:
 	(platformer_pawn_state.platformer_pawn._controller as PlayerController).kxi_run_pressed.connect(Callable(func() -> void:
 		if(!platformer_pawn_state.active): return
 		
-		context.speed *= speed_multiplier
-		context.acceleration *= accel_multiplier
+		context.speed = context.return_speed * speed_multiplier
+		context.acceleration = context.return_acceleration * accel_multiplier
 	))
 	
 	(platformer_pawn_state.platformer_pawn._controller as PlayerController).kxi_run_released.connect(Callable(func() -> void:
