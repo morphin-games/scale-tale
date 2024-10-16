@@ -3,8 +3,9 @@ class_name Grabber3D
 extends Area3D
 
 @export var pawn : Pawn3D = get_parent() as Pawn3D
-@export var grab_point : Marker3D
+@export var grab_point : Node3D
 @export var state_machine : PPStateMachine
+@export var offset : Vector3
 
 enum GrabState {
 	NONE,
@@ -67,7 +68,10 @@ func _process(delta: float) -> void:
 		else:
 			grab_state = GrabState.GRABBED
 			
-	if(grab_state == GrabState.GRABBING):
-		grabbed_object.global_transform.origin = tweened_grabbed_position
-	elif(grab_state == GrabState.GRABBED):
-		grabbed_object.global_transform.origin = grab_point.global_transform.origin
+	if(grabbed_object != null):
+		grabbed_object.global_transform = grab_point.global_transform
+			
+	#if(grab_state == GrabState.GRABBING):
+		#grabbed_object.global_transform.origin = tweened_grabbed_position + offset
+	#elif(grab_state == GrabState.GRABBED):
+		#grabbed_object.global_transform.origin = grab_point.global_transform.origin + offset
