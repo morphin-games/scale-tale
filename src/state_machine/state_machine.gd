@@ -13,10 +13,13 @@ signal state_changed(state : State)
 			return
 		state.exit()
 		state.active = false
+		last_state = state
 		state = new_state
 		state.enter()
 		state.active = true
 		state_changed.emit(state)
+		
+var last_state : State = null
 
 func setup() -> void:
 	pass

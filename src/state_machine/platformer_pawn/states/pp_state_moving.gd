@@ -8,3 +8,4 @@ func enter_condition() -> bool:
 
 func enter() -> void:
 	((state_machine as PPStateMachine).context as PPContextPlatformer).acceleration = ((state_machine as PPStateMachine).context as PPContextPlatformer).return_acceleration
+	((state_machine as PPStateMachine).context as PPContextPlatformer).dived = false

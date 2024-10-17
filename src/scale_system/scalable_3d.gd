@@ -8,12 +8,16 @@ enum ScaleState {
 	LARGE
 }
 
-@export var attraction_field : ScalableProjectileAttractionField3D
 @export var targets : Array[Node3D]
 
 @export var infinite_scale_duration : bool = false
 @export var upscale_duration : float = 15.0
 @export var downscale_duration : float = 15.0
+## In kilograms.
+## This mass is affected by scale values.
+## The real mass is not the mass given here, it is calculated on ready with [method _get_mass_scale].
+## Always use [member mass] to get the real mass.
+@export var base_mass : float = 50.0 
 
 @export_group("Scale vector3 percentages (default)")
 @export var scale_default : Vector3 = Vector3(1.0, 1.0, 1.0)
@@ -28,6 +32,7 @@ enum ScaleState {
 
 @onready var scale_state : ScaleState = ScaleState.DEFAULT
 @onready var time_to_unscale : float = 0.0
+@onready var mass : float = base_mass * _get_mass_scale(scale_default)
 
 var default_scales : Dictionary
 var tween_speed : float = 0.33
@@ -42,9 +47,6 @@ func _ready() -> void:
 	if(get_children()[0] != null and get_children()[0] is CollisionShape3D):
 		targets.append(get_children()[0])
 		
-	if(attraction_field != null and attraction_field.get_children()[0] != null and get_children()[0] is CollisionShape3D):
-		targets.append(get_children()[0])
-		
 	# Save all default scales in a dictionary to return to use them in the future
 	for i in range(0, targets.size()):
 		if(targets[i] is not Node3D):
@@ -54,6 +56,7 @@ func _ready() -> void:
 			default_scales[i] = targets[i].scale
 		else:
 			var collision_shape_3d : CollisionShape3D = targets[i] as CollisionShape3D
+			collision_shape_3d.shape.resource_local_to_scene = true
 			if(collision_shape_3d.shape is BoxShape3D):
 				default_scales[i] = (collision_shape_3d.shape as BoxShape3D).size
 			elif(collision_shape_3d.shape is SphereShape3D):
@@ -118,6 +121,9 @@ func _apply_scale(scale_size : Vector3) -> void:
 				tween.set_ease(tween_ease)
 				tween.set_trans(tween_trans)
 				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", default_scales[i] * scale_size.x / 2, tween_speed)
+				
+func _get_mass_scale(calc_scale : Vector3) -> float:
+	return (calc_scale.x + calc_scale.y + calc_scale.z) / 3
 				
 func _process(delta: float) -> void:
 	if(Engine.is_editor_hint()): return

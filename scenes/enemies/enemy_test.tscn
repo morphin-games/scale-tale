@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d36wt3pw4wrem"]
+
+[ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_h66ob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_khtxk"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_h1iyw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_fl6r0"]
+
+[node name="EnemyTest" type="Node3D" node_paths=PackedStringArray("body")]
+script = ExtResource("1_h66ob")
+body = NodePath("CharacterBody3D")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_khtxk")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("PrismMesh_h1iyw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.485735)
+mesh = SubResource("SphereMesh_fl6r0")

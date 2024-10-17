@@ -6,7 +6,10 @@ func enter_condition() -> bool:
 	return (
 		!player_pawn.edge_hang_top.is_colliding() and
 		player_pawn.edge_hang_low.is_colliding() and 
-		player_pawn.body.is_on_wall_only()
+		player_pawn.body.is_on_wall_only() and 
+		!player_pawn.floor_raycast.is_colliding() and 
+		state_machine.last_state is not PPStateMoving and
+		state_machine.last_state is not PPStateIdle
 	)
 	
 func enter() -> void:

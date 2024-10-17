@@ -11,6 +11,6 @@ func enter_condition() -> bool:
 
 func exit() -> void:
 	var context : PPContextPlatformer = (state_machine as PPStateMachine).context as PPContextPlatformer
+	context.dived = false
 	context.speed = context.return_speed
-	context.acceleration = context.return_acceleration
 	context.acceleration = context.return_acceleration
