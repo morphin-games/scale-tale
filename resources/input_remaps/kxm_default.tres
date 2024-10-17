@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="KXMap" load_steps=23 format=3 uid="uid://butw7uh427oqh"]
+[gd_resource type="Resource" script_class="KXMap" load_steps=33 format=3 uid="uid://butw7uh427oqh"]
 
 [ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_input.gd" id="1_36x65"]
 [ext_resource type="Script" path="res://addons/keyxplorer/resources/kx_map.gd" id="2_4jb0g"]
@@ -8,104 +8,151 @@ device = -1
 keycode = 65
 unicode = 97
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_irnjj"]
+axis_value = -1.0
+
 [sub_resource type="Resource" id="Resource_k8yfo"]
 script = ExtResource("1_36x65")
 show_name = "kxi_left"
 input_name = "kxi_left"
 slot_1 = SubResource("InputEventKey_kywwv")
+slot_2 = SubResource("InputEventJoypadMotion_irnjj")
 
 [sub_resource type="InputEventKey" id="InputEventKey_73blo"]
 device = -1
 keycode = 68
 unicode = 100
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_y5v2u"]
+axis_value = 1.0
+
 [sub_resource type="Resource" id="Resource_b3k5f"]
 script = ExtResource("1_36x65")
 show_name = "kxi_right"
 input_name = "kxi_right"
 slot_1 = SubResource("InputEventKey_73blo")
+slot_2 = SubResource("InputEventJoypadMotion_y5v2u")
 
 [sub_resource type="InputEventKey" id="InputEventKey_51sjs"]
 device = -1
 keycode = 87
 unicode = 119
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_2rwlb"]
+axis = 1
+axis_value = -1.0
+
 [sub_resource type="Resource" id="Resource_6irlf"]
 script = ExtResource("1_36x65")
 show_name = "kxi_up"
 input_name = "kxi_up"
 slot_1 = SubResource("InputEventKey_51sjs")
+slot_2 = SubResource("InputEventJoypadMotion_2rwlb")
 
 [sub_resource type="InputEventKey" id="InputEventKey_davoc"]
 device = -1
 keycode = 83
 unicode = 115
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_x54ii"]
+axis = 1
+axis_value = 1.0
+
 [sub_resource type="Resource" id="Resource_gwrkc"]
 script = ExtResource("1_36x65")
 show_name = "kxi_down"
 input_name = "kxi_down"
 slot_1 = SubResource("InputEventKey_davoc")
+slot_2 = SubResource("InputEventJoypadMotion_x54ii")
 
 [sub_resource type="InputEventKey" id="InputEventKey_t8gic"]
 device = -1
 keycode = 32
 unicode = 32
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_w3j37"]
+pressed = true
+
 [sub_resource type="Resource" id="Resource_x354r"]
 script = ExtResource("1_36x65")
 show_name = "kxi_jump"
 input_name = "kxi_jump"
 slot_1 = SubResource("InputEventKey_t8gic")
+slot_2 = SubResource("InputEventJoypadButton_w3j37")
 
 [sub_resource type="InputEventKey" id="InputEventKey_644pw"]
 device = -1
 keycode = 4194326
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_piw71"]
+button_index = 4
+pressed = true
 
 [sub_resource type="Resource" id="Resource_qforo"]
 script = ExtResource("1_36x65")
 show_name = "kxi_crouch"
 input_name = "kxi_crouch"
 slot_1 = SubResource("InputEventKey_644pw")
+slot_2 = SubResource("InputEventJoypadButton_piw71")
 
 [sub_resource type="InputEventKey" id="InputEventKey_dc2mn"]
 device = -1
 keycode = 4194325
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_tmexf"]
+button_index = 2
+pressed = true
 
 [sub_resource type="Resource" id="Resource_ox70w"]
 script = ExtResource("1_36x65")
 show_name = "kxi_run"
 input_name = "kxi_run"
 slot_1 = SubResource("InputEventKey_dc2mn")
+slot_2 = SubResource("InputEventJoypadButton_tmexf")
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_ellwk"]
 button_index = 1
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_16ut0"]
+button_index = 7
+pressed = true
 
 [sub_resource type="Resource" id="Resource_6b8le"]
 script = ExtResource("1_36x65")
 show_name = "kxi_upscale"
 input_name = "kxi_upscale"
 slot_1 = SubResource("InputEventMouseButton_ellwk")
+slot_2 = SubResource("InputEventJoypadButton_16ut0")
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_jorrk"]
 button_index = 2
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_oknjn"]
+button_index = 6
+pressed = true
 
 [sub_resource type="Resource" id="Resource_mltbd"]
 script = ExtResource("1_36x65")
 show_name = "kxi_downscale"
 input_name = "kxi_downscale"
 slot_1 = SubResource("InputEventMouseButton_jorrk")
+slot_2 = SubResource("InputEventJoypadButton_oknjn")
 
 [sub_resource type="InputEventKey" id="InputEventKey_fxlrb"]
 device = -1
 keycode = 69
 unicode = 101
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_41ny8"]
+axis = 3
+axis_value = 1.0
+
 [sub_resource type="Resource" id="Resource_nmxix"]
 script = ExtResource("1_36x65")
 show_name = "Default KX"
 input_name = "kxi_action_1"
 slot_1 = SubResource("InputEventKey_fxlrb")
+slot_2 = SubResource("InputEventJoypadMotion_41ny8")
 
 [resource]
 script = ExtResource("2_4jb0g")
