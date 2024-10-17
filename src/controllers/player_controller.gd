@@ -118,8 +118,11 @@ func process(delta : float) -> void:
 		var combined_direction : Vector2 = Vector2.RIGHT.rotated(direction_angle + deg_to_rad(90)).normalized()
 		if(player_control_context.direction != Vector2(0.0, 0.0)):
 			player_control_context.last_direction = combined_direction
+		player_control_context.last_direction_angle = player_control_context.direction_angle
 		player_control_context.direction = combined_direction
 		player_control_context.direction_angle = direction_angle
+		if(player_control_context.direction_angle != player_control_context.last_direction_angle):
+			player_control_context.last_registered_direction_angle = player_control_context.last_direction_angle
 		
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.

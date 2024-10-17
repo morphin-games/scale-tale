@@ -13,6 +13,11 @@ enum ScaleState {
 @export var infinite_scale_duration : bool = false
 @export var upscale_duration : float = 15.0
 @export var downscale_duration : float = 15.0
+## In kilograms.
+## This mass is affected by scale values.
+## The real mass is not the mass given here, it is calculated on ready with [method _get_mass_scale].
+## Always use [member mass] to get the real mass.
+@export var base_mass : float = 50.0 
 
 @export_group("Scale vector3 percentages (default)")
 @export var scale_default : Vector3 = Vector3(1.0, 1.0, 1.0)
@@ -27,6 +32,7 @@ enum ScaleState {
 
 @onready var scale_state : ScaleState = ScaleState.DEFAULT
 @onready var time_to_unscale : float = 0.0
+@onready var mass : float = base_mass * _get_mass_scale(scale_default)
 
 var default_scales : Dictionary
 var tween_speed : float = 0.33
@@ -115,6 +121,9 @@ func _apply_scale(scale_size : Vector3) -> void:
 				tween.set_ease(tween_ease)
 				tween.set_trans(tween_trans)
 				tween.tween_property((collision_shape_3d.shape as SphereShape3D), "radius", default_scales[i] * scale_size.x / 2, tween_speed)
+				
+func _get_mass_scale(calc_scale : Vector3) -> float:
+	return (calc_scale.x + calc_scale.y + calc_scale.z) / 3
 				
 func _process(delta: float) -> void:
 	if(Engine.is_editor_hint()): return

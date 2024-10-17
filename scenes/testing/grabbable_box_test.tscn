@@ -22,10 +22,12 @@ mesh = SubResource("BoxMesh_moiyl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_yky3j")
 
-[node name="Grabbable3D" type="Area3D" parent="."]
+[node name="Grabbable3D" type="Area3D" parent="." node_paths=PackedStringArray("scalable")]
 collision_layer = 256
 collision_mask = 512
 script = ExtResource("1_nlgin")
+scalable = NodePath("../Scalable3D")
+mass = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grabbable3D"]
 shape = SubResource("BoxShape3D_7r3re")

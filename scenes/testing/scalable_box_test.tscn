@@ -29,6 +29,7 @@ script = ExtResource("1_l3ewp")
 targets = [NodePath("../MeshInstance3D"), NodePath("CollisionShape3D"), NodePath("../ScalableProjectileAttractionField3D/CollisionShape3D"), NodePath("../CollisionShape3D")]
 upscale_duration = 4.0
 downscale_duration = 2.0
+base_mass = null
 scale_small_enabled = false
 scale_small = Vector3(0.75, 1, 0.75)
 scale_large = Vector3(4, 1, 4)
