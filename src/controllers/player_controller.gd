@@ -101,11 +101,17 @@ func input(event: InputEvent) -> void:
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative
 	
-	
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func process(delta : float) -> void:
 	if(!enabled): return
+	
+	#region Camera controls with joypad
+	var camera_x_input = Input.get_joy_axis(controller_device, JOY_AXIS_RIGHT_X) * 2.5
+	var camera_y_input = Input.get_joy_axis(controller_device, JOY_AXIS_RIGHT_Y) * 1.0
+	
+	player_control_context.camera_motion = Vector2(camera_x_input, camera_y_input)
+	#endregion
 	
 	player_control_context.direction.x = Input.get_axis("kxi_right", "kxi_left")
 	player_control_context.direction.y = Input.get_axis("kxi_down", "kxi_up")
