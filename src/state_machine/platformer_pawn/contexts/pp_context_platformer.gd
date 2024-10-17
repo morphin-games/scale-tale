@@ -5,7 +5,7 @@ extends PPContext
 ## The "default" speed. Any modification that has to return to the base value will return to this value.
 @export var return_speed : float = 8.0
 ## The "default" acceleration. Any modification that has to return to the base value will return to this value.
-@export var return_acceleration : float = 1.0
+@export var return_acceleration : float = 1.3
 ## The "default" gravity. Any modification that has to return to the base value will return to this value.
 @export var return_gravity : float = 0.49
 ## Number of seconds before being affected by gravity after leaving a platform.

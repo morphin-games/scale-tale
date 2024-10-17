@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=31 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_m6vsq"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://yi8vwiweb4gc" path="res://scenes/platforms/platform_break.tscn" id="9_ae1nk"]
 [ext_resource type="PackedScene" uid="uid://cy6ivuifibf5l" path="res://scenes/platforms/platforms_time_changers.tscn" id="10_mx6pq"]
 [ext_resource type="Script" path="res://src/platforms/node_pather_3d.gd" id="11_hc7h3"]
+[ext_resource type="PackedScene" uid="uid://du66u3tm7s0xm" path="res://scenes/testing/testing_block_wall.tscn" id="12_qjiue"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -75,12 +76,12 @@ size = Vector3(4, 0.5, 4)
 [sub_resource type="BoxMesh" id="BoxMesh_r83h6"]
 size = Vector3(4, 0.5, 4)
 
-[sub_resource type="Curve3D" id="Curve3D_gudtt"]
+[sub_resource type="Curve3D" id="Curve3D_8xejr"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.83066, -2.3526, -7.89862, 0, 0, 0, 0, 0, 0, 0.707832, -4.27166, -4.74537, 0, 0, 0, 0, 0, 0, 0.24113, -0.535654, -0.456306, 0, 0, 0, 0, 0, 0, -4.253, 1.01872, -2.33837, 0, 0, 0, 0, 0, 0, -5.83066, -2.3526, -7.89862),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.64219, -1.68174, -0.265469, 0, 0, 0, 0, 0, 0, 1.90718, 13.7179, 0.394897),
+"tilts": PackedFloat32Array(0, 0)
 }
-point_count = 5
+point_count = 2
 
 [node name="TestingZone3" type="Node"]
 script = ExtResource("1_m6vsq")
@@ -104,7 +105,7 @@ current = true
 script = ExtResource("1_w4m8a")
 
 [node name="PlayerPawn" parent="." instance=ExtResource("3_hiiyw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5735, 0, -5.92051)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.06296, 0)
@@ -272,6 +273,9 @@ shape = SubResource("BoxShape3D_8igj5")
 [node name="GrabbableBoxTest" parent="." instance=ExtResource("6_4c6xd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -4)
 
+[node name="GrabbableBoxTest2" parent="." instance=ExtResource("6_4c6xd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0862, 15.1449, 53.2718)
+
 [node name="platform_break" parent="." instance=ExtResource("9_ae1nk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69614, -0.899555, -6.19671)
 
@@ -279,6 +283,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.69614, -0.899555, -6.19671
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17077, -0.25326, 3.88922)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.2624, 13.2249, 44.1377)
 collision_layer = 2
 collision_mask = 0
 
@@ -289,12 +294,105 @@ shape = SubResource("BoxShape3D_ohdc4")
 mesh = SubResource("BoxMesh_r83h6")
 
 [node name="NodePather3D" type="Path3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82, -1)
-curve = SubResource("Curve3D_gudtt")
+curve = SubResource("Curve3D_8xejr")
 script = ExtResource("11_hc7h3")
+progression_rate = 5.0
 
 [node name="ScalableBox2" parent="." instance=ExtResource("5_ap0ve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.41853, 3.38982, 28.1807)
 
 [node name="ScalableBox" parent="." instance=ExtResource("5_ap0ve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99506, 3.38982, 18.3121)
+
+[node name="ScalableBox3" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.3514, 2.93629, 41.2875)
+
+[node name="ScalableBox4" parent="." instance=ExtResource("5_ap0ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9279, 2.93629, 31.4189)
+
+[node name="TestingBlockWall" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -2, 1)
+
+[node name="TestingBlockWall2" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -2, 6)
+
+[node name="TestingBlockWall3" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -2, 11)
+
+[node name="TestingBlockWall4" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -2, 11)
+
+[node name="TestingBlockWall5" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, -1, 16)
+
+[node name="TestingBlockWall6" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 21)
+
+[node name="TestingBlockWall7" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 49)
+
+[node name="TestingBlockWall8" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 49)
+
+[node name="TestingBlockWall9" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 49)
+
+[node name="TestingBlockWall11" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 5, 54)
+
+[node name="TestingBlockWall12" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 5, 54)
+
+[node name="TestingBlockWall17" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 10, 54)
+
+[node name="TestingBlockWall18" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 10, 54)
+
+[node name="TestingBlockWall28" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 10, 49)
+
+[node name="TestingBlockWall29" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 10, 49)
+
+[node name="TestingBlockWall13" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 5, 44)
+
+[node name="TestingBlockWall14" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 5, 44)
+
+[node name="TestingBlockWall15" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 10, 44)
+
+[node name="TestingBlockWall16" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 10, 44)
+
+[node name="TestingBlockWall10" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 49)
+
+[node name="TestingBlockWall19" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 44)
+
+[node name="TestingBlockWall20" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 44)
+
+[node name="TestingBlockWall21" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 5, 44)
+
+[node name="TestingBlockWall22" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 10, 44)
+
+[node name="TestingBlockWall23" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 15, 44)
+
+[node name="TestingBlockWall24" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 20, 44)
+
+[node name="TestingBlockWall25" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 25, 44)
+
+[node name="TestingBlockWall26" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 25, 44)
+
+[node name="TestingBlockWall27" parent="." instance=ExtResource("12_qjiue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 25, 44)

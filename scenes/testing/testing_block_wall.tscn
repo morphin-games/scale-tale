@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://du66u3tm7s0xm"]
+
+[ext_resource type="Material" uid="uid://h3yv1gxy0gc6" path="res://resources/materials/m_ruins.tres" id="1_hq7q1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u55h5"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5wq7"]
+size = Vector3(5, 5, 5)
+
+[node name="TestingBlockWall" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 2047
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_u55h5")
+surface_material_override/0 = ExtResource("1_hq7q1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_f5wq7")

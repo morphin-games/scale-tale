@@ -3,7 +3,7 @@ class_name PPStateActionWalljump
 extends PPStateAction
 
 @export var jump_force : float = 18.0
-@export var speed : float = 1.75
+@export var speed : float = 1.8
 
 func ready() -> void:
 	var context : PPContextPlatformer = (platformer_pawn_state.state_machine as PPStateMachine).context as PPContextPlatformer
