@@ -5,6 +5,7 @@ var pawn : PlatformerPawn
 var controller : PlayerController
 var camera_rotation_pivot_x : Node3D
 var camera_rotation_pivot_y : Node3D
+var time_since_camera_adjustment : float = 0.0
 
 func _process(delta: float) -> void:
 	camera_rotation_pivot_x.global_transform.origin = pawn.body.global_transform.origin # TODO: Lerp this
@@ -16,3 +17,17 @@ func _process(delta: float) -> void:
 	global_transform.origin = camera_rotation_pivot_y.global_transform.origin
 	look_at(pawn.body.global_transform.origin, Vector3(0, 1, 0))
 	controller.player_control_context.camera_motion = Vector2(0.0, 0.0)
+	
+	if(time_since_camera_adjustment > 0.0):
+		time_since_camera_adjustment -= delta
+	else:
+		pass
+		# TODO: Fix camera follow
+		#var forward_vector : Vector3 = -pawn.body.global_basis.z
+		#var angle_redirection : float = Vector2(forward_vector.x, forward_vector.z).angle()
+		#print("angle_redirection: ", angle_redirection)
+		#camera_rotation_pivot_x.rotation.y = move_toward(
+			#camera_rotation_pivot_x.rotation.y,
+			#angle_redirection,
+			#0.008
+		#)

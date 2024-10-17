@@ -11,6 +11,13 @@ func process(delta : float) -> void:
 		
 	if(state_machine.platformer_pawn.floor_raycast.is_colliding()):
 		context.coyote_time = context.return_coyote_time
+		
+	if(context.jumping):
+		context.jump_force = move_toward(context.jump_force, 0.0, 0.1)
+		context.velocity_y += context.jump_force
+		
+	if(state_machine.state is not PPStateJumping):
+		context.jumping = false
 	
 	if(
 		state_machine.platformer_pawn.floor_raycast.is_colliding() and

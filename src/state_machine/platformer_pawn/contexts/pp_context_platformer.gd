@@ -12,6 +12,8 @@ extends PPContext
 @export var return_coyote_time : float = 0.09
 ## Time before applying angle to player's model when touching the ground.
 @export var return_time_to_angle : float = 0.14
+## The default jump force. It is added to velocity_y every frame while jumping
+@export var return_jump_force = 1.65
 
 var fixed_xz_velocity : Vector2 = Vector2(0.0, 0.0)
 var velocity_y : float = 0.0
@@ -21,4 +23,7 @@ var gravity : float = return_gravity
 var coyote_time : float = return_coyote_time
 var time_to_angle : float = return_time_to_angle
 
+var running : bool = true
+var jumping : bool = false
+var jump_force : float = 0.0
 var dived : bool = false

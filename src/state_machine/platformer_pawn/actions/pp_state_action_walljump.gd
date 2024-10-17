@@ -19,6 +19,8 @@ func ready() -> void:
 			var platformer_control_context : PlatformerControlContext = platformer_pawn_state.platformer_pawn.context as PlatformerControlContext
 			var last_direction : Vector2 = platformer_control_context.last_direction
 			context.fixed_xz_velocity = -last_direction * force
+			context.time_to_angle = 0.0 # Reset time_to_angle so Pawn faces opposite direction
+			context.dived = true # Prevent diving after a walljump
 			platformer_pawn_state.platformer_pawn.body.velocity.x = context.fixed_xz_velocity.x
 			platformer_pawn_state.platformer_pawn.body.velocity.z = context.fixed_xz_velocity.y
 			platformer_control_context.direction_angle = last_direction.angle() + deg_to_rad(90)

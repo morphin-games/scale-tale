@@ -34,6 +34,7 @@ signal kxi_action_1_released
 @export var camera_y_offset : float = 3.0
 @export var camera_distance : float = 6.0
 @export var camera_follow_speed : float = 0.04
+@export var camera_adjustment_time : float = 2.0
 ## When set to true, the player direction will be also determined by the camera's look direction.
 @export var get_direction_from_camera : bool = false
 
@@ -100,7 +101,8 @@ func input(event: InputEvent) -> void:
 		
 	if(event is InputEventMouseMotion):
 		player_control_context.camera_motion = event.relative
-	
+		player_camera.time_since_camera_adjustment = camera_adjustment_time
+		
 # Virtual function, called on the associated [member pawn].
 # Override to add your behaviour.
 func process(delta : float) -> void:
@@ -110,7 +112,10 @@ func process(delta : float) -> void:
 	var camera_x_input = Input.get_joy_axis(controller_device, JOY_AXIS_RIGHT_X) * 2.5
 	var camera_y_input = Input.get_joy_axis(controller_device, JOY_AXIS_RIGHT_Y) * 1.0
 	
-	player_control_context.camera_motion = Vector2(camera_x_input, camera_y_input)
+	if(abs(camera_x_input) > 0.1 or abs(camera_y_input) > 0.1):
+		player_control_context.camera_motion = Vector2(camera_x_input, camera_y_input)
+		player_camera.time_since_camera_adjustment = camera_adjustment_time
+	
 	#endregion
 	
 	player_control_context.direction.x = Input.get_axis("kxi_right", "kxi_left")

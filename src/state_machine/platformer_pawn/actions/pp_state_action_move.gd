@@ -28,7 +28,8 @@ func process(delta : float) -> void:
 	):
 		context.time_to_angle = context.return_time_to_angle
 	if(context.time_to_angle >= 0.0):
-		return
+		#return
+		pass
 		
 		
 	var final_angle : float = platformer_control_context.direction_angle 

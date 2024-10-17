@@ -70,10 +70,10 @@ size = Vector3(5, 15, 5)
 size = Vector3(5, 15, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ohdc4"]
-size = Vector3(2, 1, 2)
+size = Vector3(4, 0.5, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_r83h6"]
-size = Vector3(2, 1, 2)
+size = Vector3(4, 0.5, 4)
 
 [sub_resource type="Curve3D" id="Curve3D_gudtt"]
 _data = {
