@@ -16,25 +16,21 @@ func _ready() -> void:
 	for child in get_children():
 		if child is PhysicsBody3D:
 			platforms_array.append(child)
-		
-	collision_one.disabled = true
-	mesh_one.visible = false
-	collision_two.disabled = false
-	mesh_two.visible = true
-	await get_tree().create_timer(time_to_change).timeout
-	collision_two.disabled = true
-	mesh_two.visible = false
-	collision_one.disabled = false
-	mesh_one.visible = true
+
+	print(platforms_array)
 	
+
 func _on_timer_to_swap_timeout() -> void:
-	collision_one.disabled = true
-	mesh_one.visible = false
-	collision_two.disabled = false
-	mesh_two.visible = true
+	
+	print("azul")
+	platforms_array[0].set_collision_layer_value(2,false)
+	platforms_array[0].visible = false
+	platforms_array[1].set_collision_layer_value(2,true)
+	platforms_array[1].visible = true
+	
 	await get_tree().create_timer(time_to_change).timeout
-	print("a")
-	collision_two.disabled = true
-	mesh_two.visible = false
-	collision_one.disabled = false
-	mesh_one.visible = true
+	print("naranja")
+	platforms_array[1].set_collision_layer_value(2,false)
+	platforms_array[1].visible = false
+	platforms_array[0].set_collision_layer_value(2,true)
+	platforms_array[0].visible = true
