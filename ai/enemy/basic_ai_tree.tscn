@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://bmduh8560sctn"]
-
-[node name="BasiAITree" type="Node"]
-
-[node name="SequenceComposite" type="Node" parent="."]
-
-[node name="BlackboardSetAction" type="Node" parent="SequenceComposite"]
-
-[node name="BlackboardSetAction2" type="Node" parent="SequenceComposite"]

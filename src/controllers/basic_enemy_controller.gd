@@ -2,6 +2,8 @@
 class_name BasicEnemyController
 extends Controller
 
+@export var behavior : BeehaveTree
+
 # Virtual function, called on ready.
 # Override to add your behaviour.
 func ready() -> void:

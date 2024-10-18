@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyautlhi76edj"]
+
+[ext_resource type="Script" path="res://src/controllers/basic_enemy_controller.gd" id="1_3xsxg"]
+[ext_resource type="Script" path="res://src/control_contexts/platformer_control_context.gd" id="2_2rqsh"]
+[ext_resource type="PackedScene" uid="uid://rbdlgxcer57e" path="res://scenes/ai/basic_enemy_ai.tscn" id="2_n1250"]
+[ext_resource type="PackedScene" uid="uid://d36wt3pw4wrem" path="res://scenes/enemies/enemy_test.tscn" id="3_hkyn0"]
+
+[sub_resource type="Resource" id="Resource_gyjmx"]
+script = ExtResource("2_2rqsh")
+direction = Vector2(0, 0)
+last_direction = Vector2(0, 1)
+direction_angle = 0.0
+last_direction_angle = 0.0
+last_registered_direction_angle = 0.0
+
+[node name="CPEnemyTest" type="Node3D"]
+
+[node name="BasicEnemyController" type="Node" parent="." node_paths=PackedStringArray("behavior", "pawn")]
+script = ExtResource("1_3xsxg")
+behavior = NodePath("BasicEnemyAI")
+pawn = NodePath("../EnemyTestPawn")
+control_context = SubResource("Resource_gyjmx")
+
+[node name="BasicEnemyAI" parent="BasicEnemyController" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_n1250")]
+blackboard = NodePath("@Node@39189")
+actor = NodePath("..")
+
+[node name="EnemyTestPawn" parent="." instance=ExtResource("3_hkyn0")]
