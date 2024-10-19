@@ -1,11 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=31 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_m6vsq"]
 [ext_resource type="Script" path="res://src/pawns/player_camera.gd" id="1_w4m8a"]
 [ext_resource type="Script" path="res://src/control_contexts/player_control_context.gd" id="3_63nx1"]
 [ext_resource type="PackedScene" uid="uid://be7u2b45mqsal" path="res://scenes/player/player_pawn.tscn" id="3_hiiyw"]
-[ext_resource type="PackedScene" uid="uid://cyautlhi76edj" path="res://scenes/enemies/controller_pawn_packs/cp_enemy_test.tscn" id="4_1n2ff"]
 [ext_resource type="PackedScene" uid="uid://dxscl12yqewfx" path="res://scenes/testing/scalable_box_test.tscn" id="5_ap0ve"]
 [ext_resource type="PackedScene" uid="uid://kppmflbksdwp" path="res://scenes/testing/grabbable_box_test.tscn" id="6_4c6xd"]
 [ext_resource type="Script" path="res://src/health_system/hurtbox_3d.gd" id="6_qcs8f"]
@@ -95,9 +94,6 @@ script = ExtResource("1_a4h0a")
 player_camera = NodePath("../PlayerCamera")
 pawn = NodePath("../PlayerPawn")
 control_context = SubResource("Resource_cpch4")
-
-[node name="CPEnemyTest" parent="." instance=ExtResource("4_1n2ff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6921, 0.221734, -5.17973)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.248352, 0.96867, 0, -0.96867, 0.248352, 0, 10.1555, 3.00352)
