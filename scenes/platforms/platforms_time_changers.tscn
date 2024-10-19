@@ -45,6 +45,5 @@ shape = SubResource("BoxShape3D_7rlfv")
 
 [node name="timer_to_swap" type="Timer" parent="."]
 wait_time = 6.0
-autostart = true
 
 [connection signal="timeout" from="timer_to_swap" to="." method="_on_timer_to_swap_timeout"]

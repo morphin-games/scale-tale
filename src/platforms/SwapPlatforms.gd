@@ -17,20 +17,22 @@ func _ready() -> void:
 		if child is PhysicsBody3D:
 			platforms_array.append(child)
 
-	print(platforms_array)
-	
-
-func _on_timer_to_swap_timeout() -> void:
-	
-	print("azul")
+	timer_to_swap.wait_time = time_to_change * 2
+	timer_to_swap.autostart = true
+	timer_to_swap.start()
+	await get_tree().create_timer(time_to_change).timeout
 	platforms_array[0].set_collision_layer_value(2,false)
 	platforms_array[0].visible = false
 	platforms_array[1].set_collision_layer_value(2,true)
 	platforms_array[1].visible = true
-	
-	await get_tree().create_timer(time_to_change).timeout
-	print("naranja")
+
+func _on_timer_to_swap_timeout() -> void:
 	platforms_array[1].set_collision_layer_value(2,false)
 	platforms_array[1].visible = false
 	platforms_array[0].set_collision_layer_value(2,true)
 	platforms_array[0].visible = true
+	await get_tree().create_timer(time_to_change).timeout
+	platforms_array[0].set_collision_layer_value(2,false)
+	platforms_array[0].visible = false
+	platforms_array[1].set_collision_layer_value(2,true)
+	platforms_array[1].visible = true

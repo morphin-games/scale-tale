@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://deuviaq1np06m"]
+
+[ext_resource type="Script" path="res://src/health_system/hurtbox_3d.gd" id="2_42svo"]
+[ext_resource type="PackedScene" uid="uid://bq2gr0wmkf72y" path="res://art/3D/models/damagers/spikes.glb" id="2_ed0y5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqadi"]
+
+[node name="SpikesDamager" type="Node3D"]
+
+[node name="Hurtbox3D" type="Area3D" parent="."]
+collision_layer = 4
+script = ExtResource("2_42svo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3D"]
+transform = Transform3D(2, 0, 0, 0, 0.35, 0, 0, 0, 2, 0, 0.195249, 0)
+shape = SubResource("BoxShape3D_eqadi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="spikes" parent="." instance=ExtResource("2_ed0y5")]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2r0eybabpamv"]
+
+[ext_resource type="Script" path="res://src/health_system/hurtbox_3d.gd" id="1_lmkyw"]
+[ext_resource type="Script" path="res://src/damagers/PistonSpikes.gd" id="1_qyy4j"]
+[ext_resource type="PackedScene" uid="uid://bq2gr0wmkf72y" path="res://art/3D/models/damagers/spikes.glb" id="2_3kep3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eqadi"]
+
+[node name="PistonSpikes" type="Node3D"]
+script = ExtResource("1_qyy4j")
+
+[node name="Hurtbox3D" type="Area3D" parent="."]
+collision_layer = 4
+script = ExtResource("1_lmkyw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox3D"]
+transform = Transform3D(2, 0, 0, 0, 0.35, 0, 0, 0, 2, 0, 0.195249, 0)
+shape = SubResource("BoxShape3D_eqadi")
+
+[node name="spikes" parent="Hurtbox3D" instance=ExtResource("2_3kep3")]
+
+[node name="timer_to_swap" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="timer_to_swap" to="." method="_on_timer_to_swap_timeout"]
+
+[editable path="Hurtbox3D/spikes"]
