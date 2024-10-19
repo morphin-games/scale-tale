@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b2r0eybabpamv"]
 
 [ext_resource type="Script" path="res://src/health_system/hurtbox_3d.gd" id="1_lmkyw"]
-[ext_resource type="Script" path="res://src/damagers/PistonSpikes.gd" id="1_qyy4j"]
+[ext_resource type="Script" path="res://src/damagers/piston_spikes.gd" id="1_qyy4j"]
 [ext_resource type="PackedScene" uid="uid://bq2gr0wmkf72y" path="res://art/3D/models/damagers/spikes.glb" id="2_3kep3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eqadi"]
