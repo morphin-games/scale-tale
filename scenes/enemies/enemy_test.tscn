@@ -10,11 +10,12 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_fl6r0"]
 
-[node name="EnemyTestPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh", "health")]
+[node name="EnemyTestPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh", "health", "floor_raycast")]
 script = ExtResource("1_h66ob")
 body = NodePath("CharacterBody3D")
-mesh = NodePath("Mesh")
+mesh = NodePath("CharacterBody3D/Mesh")
 health = NodePath("Health")
+floor_raycast = NodePath("CharacterBody3D/FloorRaycast")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_nvpd6")
@@ -23,16 +24,24 @@ health = 1
 max_health_states = 0
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+collision_layer = 4
+collision_mask = 2047
+
+[node name="FloorRaycast" type="RayCast3D" parent="CharacterBody3D"]
+target_position = Vector3(0, -0.55, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("BoxShape3D_khtxk")
 
-[node name="Mesh" type="Node3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
+debug_enabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+[node name="Mesh" type="Node3D" parent="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Mesh"]
 mesh = SubResource("PrismMesh_h1iyw")
 surface_material_override/0 = ExtResource("2_fuqiy")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D/Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.485735)
 mesh = SubResource("SphereMesh_fl6r0")
