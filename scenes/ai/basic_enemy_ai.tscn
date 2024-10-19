@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://rbdlgxcer57e"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_vus02"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_h7pjg"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="2_ljdcy"]
+[ext_resource type="Script" path="res://src/ai/condition_leafs/cl_player_near.gd" id="3_n373n"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="4_6885f"]
+[ext_resource type="Script" path="res://src/ai/action_leafs/al_follow_player.gd" id="6_6jxni"]
+[ext_resource type="Script" path="res://src/ai/action_leafs/al_wait.gd" id="6_sny7p"]
+[ext_resource type="Script" path="res://src/ai/action_leafs/al_patrol.gd" id="7_cktu4"]
+
+[node name="BasicEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_vus02")
+blackboard = NodePath("@Node@27504")
+actor = NodePath("..")
+
+[node name="FollowPlayer" type="Node" parent="."]
+script = ExtResource("2_h7pjg")
+
+[node name="Patrol" type="Node" parent="FollowPlayer"]
+script = ExtResource("2_ljdcy")
+
+[node name="InverterDecorator" type="Node" parent="FollowPlayer/Patrol"]
+script = ExtResource("4_6885f")
+
+[node name="CLPlayerNear" type="Node" parent="FollowPlayer/Patrol/InverterDecorator"]
+script = ExtResource("3_n373n")
+
+[node name="ALWait" type="Node" parent="FollowPlayer/Patrol"]
+script = ExtResource("6_sny7p")
+
+[node name="ALPatrol" type="Node" parent="FollowPlayer/Patrol"]
+script = ExtResource("7_cktu4")
+
+[node name="Attack" type="Node" parent="FollowPlayer"]
+script = ExtResource("2_ljdcy")
+
+[node name="CLPlayerNear" type="Node" parent="FollowPlayer/Attack"]
+script = ExtResource("3_n373n")
+
+[node name="ALFollowPlayer" type="Node" parent="FollowPlayer/Attack"]
+script = ExtResource("6_6jxni")

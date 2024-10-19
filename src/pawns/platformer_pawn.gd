@@ -23,8 +23,9 @@ func input(event: InputEvent) -> void:
 	
 # Virtual function. Called every frame.
 # Override to add your behaviour.
-func process(delta : float) -> void:
-	pass
+#func process(delta : float) -> void:
+	#body.velocity.x = (context as PlatformerControlContext).direction.x * 4.0
+	#body.velocity.z = (context as PlatformerControlContext).direction.y * 4.0
 	
 # Virtual function. Called every physics frame.
 # Override to add your behaviour.

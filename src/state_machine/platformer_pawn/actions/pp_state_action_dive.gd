@@ -27,6 +27,7 @@ func ready() -> void:
 			context.fixed_xz_velocity = platformer_pawn_state.platformer_pawn.platformer_control_context.direction * force
 			platformer_pawn_state.platformer_pawn.body.velocity.x = context.fixed_xz_velocity.x
 			platformer_pawn_state.platformer_pawn.body.velocity.z = context.fixed_xz_velocity.y
+			print("DIVE: ", platformer_pawn_state.platformer_pawn.body.velocity)
 			return
 		
 		push_warning("PPStateActionDive tried to force PPStateDiving in a PPStateMachine that doesn't have that state!")

@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d36wt3pw4wrem"]
+[gd_scene load_steps=7 format=3 uid="uid://d36wt3pw4wrem"]
 
 [ext_resource type="Script" path="res://src/pawns/platformer_pawn.gd" id="1_h66ob"]
+[ext_resource type="Material" uid="uid://ctyd1mns7s5hh" path="res://resources/materials/m_wood_1.tres" id="2_fuqiy"]
+[ext_resource type="Script" path="res://essentials/health_system/health.gd" id="2_nvpd6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_khtxk"]
 
@@ -8,9 +10,17 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_fl6r0"]
 
-[node name="EnemyTest" type="Node3D" node_paths=PackedStringArray("body")]
+[node name="EnemyTestPawn" type="Node3D" node_paths=PackedStringArray("body", "mesh", "health")]
 script = ExtResource("1_h66ob")
 body = NodePath("CharacterBody3D")
+mesh = NodePath("Mesh")
+health = NodePath("Health")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_nvpd6")
+max_health = 1
+health = 1
+max_health_states = 0
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 
@@ -21,6 +31,7 @@ shape = SubResource("BoxShape3D_khtxk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
 mesh = SubResource("PrismMesh_h1iyw")
+surface_material_override/0 = ExtResource("2_fuqiy")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.485735)
