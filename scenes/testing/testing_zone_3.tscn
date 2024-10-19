@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://2y4jdep8nq8o"]
+[gd_scene load_steps=33 format=3 uid="uid://2y4jdep8nq8o"]
 
 [ext_resource type="Script" path="res://src/controllers/player_controller.gd" id="1_a4h0a"]
 [ext_resource type="Script" path="res://src/levels/level_testing_zone_3.gd" id="1_m6vsq"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://yi8vwiweb4gc" path="res://scenes/platforms/platform_break.tscn" id="9_ae1nk"]
 [ext_resource type="PackedScene" uid="uid://cy6ivuifibf5l" path="res://scenes/platforms/platforms_time_changers.tscn" id="10_mx6pq"]
 [ext_resource type="Script" path="res://src/platforms/node_pather_3d.gd" id="11_hc7h3"]
-[ext_resource type="PackedScene" path="res://scenes/testing/testing_block_wall.tscn" id="12_qjiue"]
+[ext_resource type="PackedScene" uid="uid://djtdunufw16jx" path="res://scenes/testing/testing_block_wall.tscn" id="12_qjiue"]
+[ext_resource type="PackedScene" uid="uid://deuviaq1np06m" path="res://scenes/damagers/spikes_damager.tscn" id="13_oj6io"]
+[ext_resource type="PackedScene" uid="uid://b2r0eybabpamv" path="res://scenes/damagers/piston_spikes.tscn" id="14_ij48j"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -398,3 +400,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 25, 44)
 
 [node name="TestingBlockWall27" parent="TestingObby" instance=ExtResource("12_qjiue")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 25, 44)
+
+[node name="PistonSpikes" parent="." instance=ExtResource("14_ij48j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2696, -1.56296, -15.117)
+
+[node name="PistonSpikes2" parent="." instance=ExtResource("14_ij48j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2696, -1.56296, -18.002)
+time_to_change = 6.0
+
+[node name="SpikesDamager" parent="." instance=ExtResource("13_oj6io")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3341, -1.56296, -9.80233)
