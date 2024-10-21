@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://yi8vwiweb4gc" path="res://scenes/platforms/platform_break.tscn" id="9_ae1nk"]
 [ext_resource type="PackedScene" uid="uid://cy6ivuifibf5l" path="res://scenes/platforms/platforms_time_changers.tscn" id="10_mx6pq"]
 [ext_resource type="Script" path="res://src/platforms/node_pather_3d.gd" id="11_hc7h3"]
-[ext_resource type="PackedScene" uid="uid://du66u3tm7s0xm" path="res://scenes/testing/testing_block_wall.tscn" id="12_qjiue"]
+[ext_resource type="PackedScene" uid="uid://djtdunufw16jx" path="res://scenes/testing/testing_block_wall.tscn" id="12_qjiue"]
 
 [sub_resource type="GDScript" id="GDScript_42wkf"]
 script/source = "extends Node
@@ -88,8 +88,9 @@ _data = {
 }
 point_count = 2
 
-[node name="TestingZone3" type="Node"]
+[node name="TestingZone3" type="Node" node_paths=PackedStringArray("navigation_region")]
 script = ExtResource("1_m6vsq")
+navigation_region = NodePath("NavigationRegion3D")
 
 [node name="SetupKeyxplorer" type="Node" parent="."]
 script = SubResource("GDScript_42wkf")

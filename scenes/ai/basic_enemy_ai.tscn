@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://rbdlgxcer57e"]
+[gd_scene load_steps=13 format=3 uid="uid://rbdlgxcer57e"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_vus02"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="2_g2gwk"]
@@ -11,11 +11,12 @@
 [ext_resource type="Script" path="res://src/ai/action_leafs/al_wait.gd" id="6_sny7p"]
 [ext_resource type="Script" path="res://src/ai/action_leafs/al_set_wait_time_start.gd" id="6_w5fut"]
 [ext_resource type="Script" path="res://src/ai/action_leafs/al_patrol.gd" id="7_cktu4"]
+[ext_resource type="Script" path="res://src/ai/action_leafs/al_get_valid_point.gd" id="8_pj3q7"]
 
 [node name="BasicEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_vus02")
-blackboard = NodePath("@Node@48758")
-actor = NodePath("")
+blackboard = NodePath("@Node@17434")
+actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="."]
 script = ExtResource("2_g2gwk")
@@ -34,6 +35,9 @@ script = ExtResource("4_6885f")
 
 [node name="CLPlayerNear" type="Node" parent="SimpleParallelComposite/FollowPlayer/Patrol/InverterDecorator"]
 script = ExtResource("3_n373n")
+
+[node name="ALGetValidPoint" type="Node" parent="SimpleParallelComposite/FollowPlayer/Patrol"]
+script = ExtResource("8_pj3q7")
 
 [node name="ALSetWaitTimeStart" type="Node" parent="SimpleParallelComposite/FollowPlayer/Patrol"]
 script = ExtResource("6_w5fut")

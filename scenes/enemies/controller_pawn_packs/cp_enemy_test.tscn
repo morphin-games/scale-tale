@@ -21,7 +21,8 @@ behavior = NodePath("BasicEnemyAI")
 pawn = NodePath("../EnemyTestPawn")
 control_context = SubResource("Resource_gyjmx")
 
-[node name="BasicEnemyAI" parent="BasicEnemyController" node_paths=PackedStringArray("blackboard") instance=ExtResource("2_n1250")]
-blackboard = NodePath("@Node@48632")
+[node name="BasicEnemyAI" parent="BasicEnemyController" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("2_n1250")]
+blackboard = NodePath("@Node@17437")
+actor = NodePath("..")
 
 [node name="EnemyTestPawn" parent="." instance=ExtResource("3_hkyn0")]

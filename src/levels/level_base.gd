@@ -2,6 +2,8 @@
 class_name LevelBase
 extends Level
 
+@export var navigation_region : NavigationRegion3D
+
 var player_pawn : PlayerPawn
 
 # Virtual function.
