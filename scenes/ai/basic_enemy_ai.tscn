@@ -15,8 +15,8 @@
 
 [node name="BasicEnemyAI" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_vus02")
-blackboard = NodePath("@Node@17434")
-actor = NodePath("..")
+blackboard = NodePath("@Node@18056")
+actor = NodePath("")
 
 [node name="SimpleParallelComposite" type="Node" parent="."]
 script = ExtResource("2_g2gwk")
